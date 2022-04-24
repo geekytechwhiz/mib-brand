@@ -1,43 +1,40 @@
 /* eslint-disable react/destructuring-assignment */
 /* eslint-disable no-debugger */
 /* eslint-disable no-unused-vars */
-import { useMemo, useEffect, useState } from 'react';
-import FileDownloadOutlinedIcon from '@mui/icons-material/FileDownloadOutlined';
-import Icon from '@mui/material/Icon';
-import Tooltip from '@mui/material/Tooltip';
 // Images
-import LogoAsana from 'assets/images/small-logos/logo-asana.svg';
-import MDAvatar from 'components/MDAvatar';
-import MDBox from 'components/MDBox';
-import MDProgress from 'components/MDProgress';
-import MDSelect from 'components/MDSelect';
-import MDTypography from 'components/MDTypography';
-import { LightTooltip } from 'components/MDTooltip';
-import CustomSelect, { StyledOption } from 'components/MDDropdown/index';
+import LogoAsana from "assets/images/small-logos/logo-asana.svg";
+import MDAvatar from "components/MDAvatar";
+import MDBox from "components/MDBox";
+import CustomSelect from "components/MDDropdown/index";
+// import CustomSelect, { StyledOption } from "components/MDDropdown/index";
+import MDProgress from "components/MDProgress";
+import { LightTooltip } from "components/MDTooltip";
+import MDTypography from "components/MDTypography";
+import { useEffect, useState } from "react";
 // import Orders from '../../assets/mockData/data';
 
 function index() {
   const columns = {
-    orderId: '',
-    productName: '',
-    orderedDate: '',
-    productType: ' ',
+    orderId: "",
+    productName: "",
+    orderedDate: "",
+    productType: " ",
     pinCode: 0,
-    status: ' ',
-    progress: '',
-    revenue: '',
+    status: " ",
+    progress: "",
+    revenue: "",
   };
   const Orders = [
     {
       orderId: 545454,
       productName:
-        'AAA BB CCCcccccccccccccccccccccccccccccccccccc ssssssssssssssssssssssss xxxxxxxxxxxx',
-      orderedDate: '04/05/2022 : 10:59:45',
-      productType: 'Exclusive',
-      shippingAddress: 'Kakkanad, Kochi',
+        "AAA BB CCCcccccccccccccccccccccccccccccccccccc ssssssssssssssssssssssss xxxxxxxxxxxx",
+      orderedDate: "04/05/2022 : 10:59:45",
+      productType: "Exclusive",
+      shippingAddress: "Kakkanad, Kochi",
       pinCode: 6565664,
-      status: 'Order Placed',
-      invoice: '',
+      status: "Order Placed",
+      invoice: "",
     },
   ];
   const [dataRows, setDataRow] = useState([columns]);
@@ -57,7 +54,7 @@ function index() {
     return (
       <MDBox
         display="flex"
-        sx={{ overflow: 'hidden', textOverflow: 'ellipsis', width: '6rem' }}
+        sx={{ overflow: "hidden", textOverflow: "ellipsis", width: "6rem" }}
         alignItems="center"
         lineHeight={1}
       >
@@ -82,16 +79,16 @@ function index() {
     const { value } = ele;
     const options = [
       {
-        label: 'Packed',
-        value: 'packed',
+        label: "Packed",
+        value: "packed",
       },
       {
-        label: 'Shipped',
-        value: 'shipped',
+        label: "Shipped",
+        value: "shipped",
       },
       {
-        label: 'In Transits',
-        value: 'inTransits',
+        label: "In Transits",
+        value: "inTransits",
       },
     ];
     return (
@@ -102,14 +99,14 @@ function index() {
             defaultValue="packed"
             value={value}
             label={value}
-            sx={{ width: '5rem' }}
+            sx={{ width: "5rem" }}
             options={options}
           >
-            {options.map((x) => (
-              <StyledOption sx={{ width: '5rem' }} value={x.value}>
+            {/* {options.map((x) => (
+              <StyledOption sx={{ width: "5rem" }} value={x.value}>
                 {x.label}
               </StyledOption>
-            ))}
+            ))} */}
           </CustomSelect>
         </MDBox>
       </MDBox>
@@ -137,43 +134,43 @@ function index() {
         const keys = Object.keys(columns);
         const ele = {};
         keys.forEach((x) => {
-          if (x === 'productName') {
+          if (x === "productName") {
             ele[x] = ProductName(element, x);
-          } else if (x === 'status') {
+          } else if (x === "status") {
             ele[x] = Status(element, x);
-          } else if (x === 'progress') {
+          } else if (x === "progress") {
             ele[x] = Progress(element, x);
           } else {
             ele[x] = createColumn(element, x);
           }
         });
         rows.push(ele);
-        console.log('Element', ele);
+        console.log("Element", ele);
       });
-      console.log('orders', rows);
+      console.log("orders", rows);
       setDataRow(rows);
     }
   };
   useEffect(() => {
     debugger;
-    console.log('Orders', Orders);
+    console.log("Orders", Orders);
     makeRows();
   }, []);
 
   return {
     columns: [
-      { Header: 'Order Id', accessor: 'orderId', align: 'left' },
-      { Header: 'Order Date', accessor: 'orderedDate', align: 'center' },
-      { Header: 'Product Name', accessor: 'productName', align: 'left' },
-      { Header: 'Type', accessor: 'productType', align: 'center' },
+      { Header: "Order Id", accessor: "orderId", align: "left" },
+      { Header: "Order Date", accessor: "orderedDate", align: "center" },
+      { Header: "Product Name", accessor: "productName", align: "left" },
+      { Header: "Type", accessor: "productType", align: "center" },
       {
-        Header: 'Pin Code',
-        accessor: 'pinCode',
-        align: 'center',
+        Header: "Pin Code",
+        accessor: "pinCode",
+        align: "center",
       },
-      { Header: 'STATUS', accessor: 'status', align: 'center' },
-      { Header: 'PROGRESS', accessor: 'progress', align: 'center' },
-      { Header: 'Revenue', accessor: 'revenue', align: 'center' },
+      { Header: "STATUS", accessor: "status", align: "center" },
+      { Header: "PROGRESS", accessor: "progress", align: "center" },
+      { Header: "Revenue", accessor: "revenue", align: "center" },
     ],
 
     rows: dataRows,

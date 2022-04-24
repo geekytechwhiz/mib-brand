@@ -1,7 +1,7 @@
-import colors from 'assets/theme-dark/base/colors';
+import colors from "assets/theme-dark/base/colors";
 
 // Material Dashboard 2 React Helper Functions
-import boxShadow from 'assets/theme-dark/functions/boxShadow';
+import boxShadow from "assets/theme-dark/functions/boxShadow";
 
 const { black, dark, tabs, coloredShadows } = colors;
 
@@ -27,7 +27,7 @@ const boxShadows = {
     0.04
   )}`,
   xxl: boxShadow([0, 20], [27, 0], black.main, 0.05),
-  inset: boxShadow([0, 1], [2, 0], black.main, 0.075, 'inset'),
+  inset: boxShadow([0, 1], [2, 0], black.main, 0.075, "inset"),
   colored: {
     primary: `${boxShadow([0, 4], [20, 0], black.main, 0.14)}, ${boxShadow(
       [0, 7],
@@ -84,7 +84,7 @@ const boxShadows = {
     [1, 1],
     dark.main,
     0.9,
-    'inset'
+    "inset"
   )}, ${boxShadow([0, 20], [27, 0], black.main, 0.05)}`,
   sliderBoxShadow: {
     thumb: boxShadow([0, 1], [13, 0], black.main, 0.2),

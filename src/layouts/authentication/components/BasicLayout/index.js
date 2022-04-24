@@ -1,11 +1,10 @@
 // @mui material components
-import Grid from '@mui/material/Grid';
+import Grid from "@mui/material/Grid";
 // Material Dashboard 2 React components
-import MDBox from 'components/MDBox';
-import PageLayout from 'examples/LayoutContainers/PageLayout';
-// Authentication pages components
-import Footer from 'layouts/authentication/components/Footer';
-import PropTypes from 'prop-types';
+import MDBox from "components/MDBox";
+import Footer from "layouts/authentication/components/Footer";
+import PropTypes from "prop-types";
+import PageLayout from "layouts/layoutContainers/PageLayout";
 
 function BasicLayout({ children }) {
   return (
@@ -15,9 +14,9 @@ function BasicLayout({ children }) {
         width="100%"
         minHeight="100vh"
         sx={{
-          backgroundSize: 'cover',
-          backgroundPosition: 'center',
-          backgroundRepeat: 'no-repeat',
+          backgroundSize: "cover",
+          backgroundPosition: "center",
+          backgroundRepeat: "no-repeat",
         }}
       />
       <MDBox px={1} width="100%" height="100vh" mx="auto">

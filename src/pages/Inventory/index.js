@@ -1,13 +1,13 @@
 /* eslint-disable react/prop-types */
-import TabContext from '@mui/lab/TabContext';
-import TabList from '@mui/lab/TabList';
-import TabPanel from '@mui/lab/TabPanel';
-import Grid from '@mui/material/Grid';
-import { styled } from '@mui/material/styles';
-import Tab from '@mui/material/Tab';
-import MDBox from 'components/MDBox';
-import * as React from 'react';
-import CustomCard from './CustomCard';
+import TabContext from "@mui/lab/TabContext";
+import TabList from "@mui/lab/TabList";
+import TabPanel from "@mui/lab/TabPanel";
+import Grid from "@mui/material/Grid";
+import { styled } from "@mui/material/styles";
+import Tab from "@mui/material/Tab";
+import MDBox from "components/MDBox";
+import * as React from "react";
+import CustomCard from "./CustomCard";
 
 const CustomTabPanel = styled(TabPanel)({
   paddingLeft: 0,
@@ -15,16 +15,16 @@ const CustomTabPanel = styled(TabPanel)({
 });
 
 export default function Products(props) {
-  const [value, setValue] = React.useState('0');
+  const [value, setValue] = React.useState("0");
   const { tabs, data } = props;
   const handleChange = (event, newValue) => {
     setValue(newValue);
   };
 
   return (
-    <MDBox sx={{ width: '100%', typography: 'body1' }}>
+    <MDBox sx={{ width: "100%", typography: "body1" }}>
       <TabContext value={value}>
-        <MDBox sx={{ maxWidth: '30%' }}>
+        <MDBox sx={{ maxWidth: "30%" }}>
           <TabList
             onChange={handleChange}
             aria-label="lab API tabs example"

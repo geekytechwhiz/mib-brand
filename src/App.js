@@ -1,50 +1,49 @@
+/* eslint-disable no-debugger */
 /* eslint-disable no-unused-vars */
-import { useState, useEffect, useMemo } from 'react';
-
-// react-router components
-import { Routes, Route, Navigate, useLocation } from 'react-router-dom';
-
+import createCache from "@emotion/cache";
+import CssBaseline from "@mui/material/CssBaseline";
+import Icon from "@mui/material/Icon";
 // @mui material components
-import { ThemeProvider } from '@mui/material/styles';
-import CssBaseline from '@mui/material/CssBaseline';
-import Icon from '@mui/material/Icon';
-
-// Material Dashboard 2 React components
-import MDBox from 'components/MDBox';
-
-// Material Dashboard 2 React example components
-import Sidenav from 'examples/Sidenav';
-import Configurator from 'examples/Configurator';
-
+import { ThemeProvider } from "@mui/material/styles";
+import brandDark from "assets/images/logo-ct-dark.png";
+// Images
+import brandWhite from "assets/images/logo-ct.png";
 // Material Dashboard 2 React themes
-import theme from 'assets/theme';
-import themeRTL from 'assets/theme/theme-rtl';
-
+import theme from "assets/theme";
 // Material Dashboard 2 React Dark Mode themes
-import themeDark from 'assets/theme-dark';
-import themeDarkRTL from 'assets/theme-dark/theme-rtl';
-
-// RTL plugins
-import rtlPlugin from 'stylis-plugin-rtl';
-import { CacheProvider } from '@emotion/react';
-import createCache from '@emotion/cache';
-
+import themeDark from "assets/theme-dark";
+// Material Dashboard 2 React components
+import MDBox from "components/MDBox";
 // Material Dashboard 2 React routes
-
 // Material Dashboard 2 React contexts
 import {
-  useMaterialUIController,
+  setLayout,
   setMiniSidenav,
   setOpenConfigurator,
-} from 'context';
-
-// Images
-import brandWhite from 'assets/images/logo-ct.png';
-import brandDark from 'assets/images/logo-ct-dark.png';
-import routes, { basicRoutes } from 'routes';
+  useMaterialUIController,
+} from "context";
+// Material Dashboard 2 React example components
+import Configurator from "lib/Configurator";
+import { useEffect, useMemo, useState } from "react";
+import { useDispatch } from "react-redux";
+// react-router components
+import {
+  Navigate,
+  Route,
+  Routes,
+  useLocation,
+  useNavigate,
+} from "react-router-dom";
+import routes, { basicRoutes } from "routes";
+// RTL plugins
+import rtlPlugin from "stylis-plugin-rtl";
+import Sidenav from "./components/MDSidenav/index";
+import { getBrandThunk } from "./redux/slices/onboarding";
 
 export default function App() {
   const [controller, dispatch] = useMaterialUIController();
+  const dispatcher = useDispatch();
+  const navigate = useNavigate();
   const {
     miniSidenav,
     direction,
@@ -58,11 +57,12 @@ export default function App() {
   const [onMouseEnter, setOnMouseEnter] = useState(false);
   const [rtlCache, setRtlCache] = useState(null);
   const { pathname } = useLocation();
+  const [muiController, contextDispatch] = useMaterialUIController();
 
   // Cache for the rtl
   useMemo(() => {
     const cacheRtl = createCache({
-      key: 'rtl',
+      key: "rtl",
       stylisPlugins: [rtlPlugin],
     });
 
@@ -91,7 +91,8 @@ export default function App() {
 
   // Setting the dir attribute for the body element
   useEffect(() => {
-    document.body.setAttribute('dir', direction);
+    document.body.setAttribute("dir", direction);
+    localStorage.setItem("BrandId", "BR1650183738930");
   }, [direction]);
 
   // Setting page scroll to 0 when changing the route
@@ -135,7 +136,7 @@ export default function App() {
       bottom="2rem"
       zIndex={99}
       color="dark"
-      sx={{ cursor: 'pointer' }}
+      sx={{ cursor: "pointer" }}
       onClick={handleConfiguratorOpen}
     >
       <Icon fontSize="small" color="inherit">
@@ -147,7 +148,7 @@ export default function App() {
   return (
     <ThemeProvider theme={darkMode ? themeDark : theme}>
       <CssBaseline />
-      {layout === 'dashboard' ? (
+      {layout === "dashboard" ? (
         <>
           <Sidenav
             color={sidenavColor}

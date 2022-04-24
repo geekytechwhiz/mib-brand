@@ -1,14 +1,12 @@
-import Card from '@mui/material/Card';
-import Grid from '@mui/material/Grid';
+import Card from "@mui/material/Card";
+import Grid from "@mui/material/Grid";
 // Material Dashboard 2 React components
-import MDBox from 'components/MDBox';
-import Footer from 'examples/Footer';
-// Material Dashboard 2 React example components
-import DashboardLayout from 'examples/LayoutContainers/DashboardLayout';
-import DashboardNavbar from 'examples/Navbars/DashboardNavbar';
-import DataTable from 'examples/Tables/DataTable';
-// import orderTable from 'layouts/orders/orderTable';
-import orderTable from '../../pages/Orders/index';
+import MDBox from "components/MDBox";
+import Footer from "layouts/footer";
+import DashboardLayout from "layouts/layoutContainers/DashboardLayout";
+import DashboardNavbar from "components/MDNavbar/DashboardNavbar";
+import DataTable from "components/RTable";
+import orderTable from "../../pages/Orders/index";
 
 function Orders() {
   const { columns: pColumns, rows: pRows } = orderTable();

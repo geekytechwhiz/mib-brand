@@ -1,15 +1,18 @@
-import MDBox from 'components/MDBox';
-import React from 'react';
-import ContactInfo from './ContactInfo';
-import BusinessDetails from './BusinessDetails';
-import BankDetails from './BankDetails';
+/* eslint-disable no-debugger */
+import MDBox from "components/MDBox";
+import React from "react";
+// import BankInfo from "./BankInfo";
+// import BusinessInfo from "./BusinessInfo";
+import ContactDetails from "./ContactInfo";
+import ProfileHeader from "./ProfileHeader";
 
 function Profile() {
   return (
     <MDBox>
-      <ContactInfo />
-      <BusinessDetails />
-      <BankDetails />
+      <ProfileHeader />
+      <ContactDetails />
+      {/* <BusinessInfo />
+      <BankInfo /> */}
     </MDBox>
   );
 }

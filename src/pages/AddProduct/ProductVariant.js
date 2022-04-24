@@ -1,20 +1,30 @@
+/* eslint-disable no-debugger */
+/* eslint-disable no-unused-vars */
 /* eslint-disable react/prop-types */
-import React from 'react';
-import Grid from '@mui/material/Grid';
-import Button from '@mui/material/Button';
-import ArrowForwardIosIcon from '@mui/icons-material/ArrowForwardIos';
-import ArrowBackIosNewIcon from '@mui/icons-material/ArrowBackIosNew';
-
-import MDBox from 'components/MDBox';
+import MDBox from "components/MDBox";
+import DynamicForm from "lib/dynamicForm";
+import React, { useEffect, useMemo, useState } from "react";
+import { shallowEqual, useSelector } from "react-redux";
+import { getVariantDetails } from "../../lib/helper";
 
 function ProductVariant(props) {
+  debugger;
   const { activeTab } = props;
-  const handleNext = (e) => {
-    activeTab(e, '3');
-  };
-  const handleBack = (e) => {
-    activeTab(e, '1');
-  };
+
+  const categories = useSelector(
+    (state) => state.inventory.categories,
+    shallowEqual
+  );
+  const category = categories?.ProductCategory || "";
+  const [data, setData] = useState({});
+
+  const details = getVariantDetails(category);
+  const dataset = useMemo(() => getVariantDetails(category), [data]);
+  useEffect(() => {
+    debugger;
+    setData(details);
+  }, [data]);
+
   return (
     <MDBox
       variant="gradient"
@@ -27,28 +37,14 @@ function ProductVariant(props) {
       mb={1}
       textAlign="center"
     >
-      <Grid container xs={12} justifyContent="space-between">
-        <Grid item>
-          <Button
-            color="primary"
-            onClick={handleBack}
-            variant="text"
-            endIcon={<ArrowBackIosNewIcon />}
-          >
-            Back
-          </Button>
-        </Grid>
-        <Grid item>
-          <Button
-            color="primary"
-            onClick={handleNext}
-            variant="text"
-            endIcon={<ArrowForwardIosIcon />}
-          >
-            Next
-          </Button>
-        </Grid>
-      </Grid>
+      <DynamicForm data={dataset} activeTab={activeTab} />
+      <MDBox
+        style={{
+          display: "flex",
+          flexDirection: "row",
+          justifyContent: "flex-end",
+        }}
+      />
     </MDBox>
   );
 }

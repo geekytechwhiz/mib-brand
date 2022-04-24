@@ -1,38 +1,90 @@
+/* eslint-disable react/prop-types */
+/* eslint-disable no-debugger */
+/* eslint-disable no-unused-vars */
 /* eslint-disable react/jsx-no-useless-fragment */
-import ModeEditOutlinedIcon from '@mui/icons-material/ModeEditOutlined';
-import Autocomplete from '@mui/material/Autocomplete';
-import Grid from '@mui/material/Grid';
-import IconButton from '@mui/material/IconButton';
-import MDBox from 'components/MDBox';
-import MDInput from 'components/MDInput';
-import MDTypography from 'components/MDTypography';
-import MDAlert from 'components/MDAlert';
-import MDButton from 'components/MDButton';
-import React, { useState } from 'react';
-import Fade from '@mui/material/Fade';
-import CircularProgress from '@mui/material/CircularProgress';
+import ModeEditOutlinedIcon from "@mui/icons-material/ModeEditOutlined";
+import Autocomplete from "@mui/material/Autocomplete";
+import Grid from "@mui/material/Grid";
+import IconButton from "@mui/material/IconButton";
+import MDAlert from "components/MDAlert";
+import MDBox from "components/MDBox";
+import MDButton from "components/MDButton";
+import MDInput from "components/MDInput";
+import MDModal from "components/MDModal";
+import MDTypography from "components/MDTypography";
+import React, { useState } from "react";
+import _ from "lodash";
+import { useSelector } from "react-redux";
+import { updateContactInfo } from "../../services/onboarding/index";
 
 function ContactInfo() {
-  const [hasSaved, sethasSaved] = React.useState(false);
+  debugger;
+  let contacts = useSelector((state) => state.accountInfo) || {};
+  const { BrandId } = useSelector((state) => state.accountInfo) || "";
+  const { EmailId } = useSelector((state) => state.accountInfo) || "";
+  contacts = contacts || {};
   const [disabled, setDisabled] = useState(true);
   const [isSaved, setIsSaved] = useState(false);
+  const [contactDetails, setContactDetails] = useState(contacts);
+  const [showProgress, setShowProgress] = useState(false);
   const onHandleEdit = () => {
-    setDisabled(false);
+    const val = !disabled;
+    setDisabled(val);
   };
   const options = [
     {
-      label: 'pvt.Ltd',
-      value: 'English',
+      label: "English",
+      value: "english",
     },
     {
-      label: 'pub.Ltd',
-      value: 'Hindi',
+      label: "Hindi",
+      value: "hindi",
     },
     {
-      label: 'Malayalam',
-      value: 'llp',
+      label: "Malayalam",
+      value: "malayalam",
     },
   ];
+  const handleChange = (event) => {
+    const { name } = event.target;
+    const { value } = event.target;
+    setContactDetails(() => ({
+      ...contactDetails,
+      [name]: value,
+    }));
+  };
+  const handleAutoCompleteChange = (event, values) => {
+    const languages = values.map((x) => x.value);
+    setContactDetails(() => ({
+      ...contactDetails,
+      Languages: languages,
+    }));
+  };
+  const handleSave = async () => {
+    debugger;
+    setShowProgress(true);
+    console.log("BrandId:", BrandId);
+    contactDetails.BrandId = BrandId;
+    const req = { ...contacts, ...contactDetails };
+    const res = await updateContactInfo(req, EmailId);
+    if (res) {
+      setShowProgress(false);
+      setIsSaved(true);
+    }
+  };
+
+  const handleCancel = async () => {
+    debugger;
+    const keys = Object.keys(contactDetails);
+    const obj = {};
+    keys.forEach((x) => {
+      obj[x] = "";
+    });
+    setContactDetails(() => ({
+      ...obj,
+    }));
+    setShowProgress(false);
+  };
   const alertContent = (name) => (
     <MDTypography variant="body2" color="white">
       <MDTypography
@@ -54,21 +106,14 @@ function ContactInfo() {
       coloredShadow="info"
       mx={3}
       p={1}
+      pb={5}
       mb={4}
       textAlign="center"
     >
-      <Fade
-        in={hasSaved}
-        style={{
-          transitionDelay: hasSaved ? '800ms' : '0ms',
-        }}
-        unmountOnExit
-      >
-        <CircularProgress />
-      </Fade>
+      <MDModal open={showProgress} />
       {isSaved ? (
         <MDAlert color="success" dismissible>
-          {alertContent('Contact information')}
+          {alertContent("Contact information")}
         </MDAlert>
       ) : (
         <></>
@@ -120,7 +165,10 @@ function ContactInfo() {
               required
               type="text"
               label="Contact Name"
+              name="Name"
+              value={contactDetails.Name}
               fullWidth
+              onChange={handleChange}
             />
           </Grid>
         </Grid>
@@ -129,9 +177,12 @@ function ContactInfo() {
             <MDInput
               disabled={disabled}
               required
-              type="text"
+              type="number  "
               label="Contact Number"
+              value={contactDetails.Mobile}
+              name="Mobile"
               fullWidth
+              onChange={handleChange}
             />
           </Grid>
         </Grid>
@@ -142,7 +193,10 @@ function ContactInfo() {
               required
               type="text"
               label="Email Address"
+              value={contactDetails.EmailId}
+              name="EmailId"
               fullWidth
+              onChange={handleChange}
             />
           </Grid>
         </Grid>
@@ -150,13 +204,16 @@ function ContactInfo() {
           <Grid item xs={8} mb={2}>
             <Autocomplete
               disabled={disabled}
+              multiple="true"
               disablePortal
               required
+              onChange={handleAutoCompleteChange}
               placeholder="Preferred  Language"
               id="combo-PreferredLanguage"
+              name="Languages"
               options={options}
               sx={{
-                '& .css-tnnq9f-MuiAutocomplete-root .MuiOutlinedInput-root .MuiAutocomplete-input':
+                "& .css-tnnq9f-MuiAutocomplete-root .MuiOutlinedInput-root .MuiAutocomplete-input":
                   {
                     paddingTop: 0,
                     paddingLeft: 4,
@@ -168,6 +225,8 @@ function ContactInfo() {
                 <MDInput
                   disabled={disabled}
                   {...params}
+                  onChange={handleChange}
+                  value={contactDetails.Languages}
                   label="Preferred  Language"
                 />
               )}
@@ -180,9 +239,9 @@ function ContactInfo() {
       ) : (
         <div
           style={{
-            display: 'flex',
-            flexDirection: 'row',
-            justifyContent: 'flex-end',
+            display: "flex",
+            flexDirection: "row",
+            justifyContent: "flex-end",
           }}
         >
           <div>
@@ -191,16 +250,31 @@ function ContactInfo() {
               variant="gradient"
               mx={2}
               style={{
-                color: '#007EFF',
-                borderColor: '#007EFF',
+                color: "#007EFF",
+                borderColor: "#007EFF",
                 borderWidth: 1,
-                borderStyle: 'solid',
+                borderStyle: "solid",
+                marginRight: 20,
               }}
-              onClick={() => {
-                console.log('Save');
-                setIsSaved(true);
-                sethasSaved(true);
+              onClick={handleCancel}
+              size="small"
+            >
+              Cancel
+            </MDButton>
+          </div>
+          <div>
+            <MDButton
+              color="#007EFF"
+              variant="gradient"
+              mx={2}
+              style={{
+                color: "#007EFF",
+                borderColor: "#007EFF",
+                borderWidth: 1,
+                borderStyle: "solid",
+                marginRight: 20,
               }}
+              onClick={handleSave}
               size="small"
             >
               Save

@@ -1,18 +1,13 @@
 /* eslint-disable no-unused-vars */
 
 // Images
-import bgImage from 'assets/images/bg-sign-in-basic.jpeg';
 // Authentication layout components
-import CoverLayout from 'layouts/authentication/components/CoverLayout';
-import SignIn from 'pages/Authentication/Sign-in';
-import { useState } from 'react';
+import CoverLayout from "layouts/authentication/components/CoverLayout";
+import SignIn from "pages/Authentication/Sign-in";
+import { useCallback } from "react";
 
 function Basic() {
-  const [rememberMe, setRememberMe] = useState(false);
-
-  const handleSetRememberMe = () => setRememberMe(!rememberMe);
-
-  return (
+  return useCallback(
     <CoverLayout>
       <SignIn />
     </CoverLayout>

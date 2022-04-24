@@ -1,13 +1,13 @@
 /* eslint-disable react/jsx-props-no-spreading */
 /* eslint-disable react/jsx-no-bind */
 /* eslint-disable react/prop-types */
-import React, { useEffect } from 'react';
-import PropTypes from 'prop-types';
+import React, { useEffect } from "react";
+import PropTypes from "prop-types";
 // import { makeStyles } from '@material-ui/styles';
-import { makeStyles } from '@mui/styles';
-import { Chip } from '@mui/material';
-import TextField from '@mui/material/TextField';
-import Downshift from 'downshift';
+import { makeStyles } from "@mui/styles";
+import { Chip } from "@mui/material";
+import TextField from "@mui/material/TextField";
+import Downshift from "downshift";
 
 const useStyles = makeStyles((theme) => ({
   chip: {
@@ -15,10 +15,10 @@ const useStyles = makeStyles((theme) => ({
   },
 }));
 
-export default function TagsInput({ ...props }) {
+export default function MDTagsInput({ ...props }) {
   const classes = useStyles();
   const { selectedTags, placeholder, tags, ...other } = props;
-  const [inputValue, setInputValue] = React.useState('');
+  const [inputValue, setInputValue] = React.useState("");
   const [selectedItem, setSelectedItem] = React.useState([]);
   useEffect(() => {
     setSelectedItem(tags);
@@ -28,26 +28,26 @@ export default function TagsInput({ ...props }) {
   }, [selectedItem, selectedTags]);
 
   function handleKeyDown(event) {
-    if (event.key === 'Enter') {
+    if (event.key === "Enter") {
       const newSelectedItem = [...selectedItem];
       const duplicatedValues = newSelectedItem.indexOf(
         event.target.value.trim()
       );
 
       if (duplicatedValues !== -1) {
-        setInputValue('');
+        setInputValue("");
         return;
       }
-      if (!event.target.value.replace(/\s/g, '').length) return;
+      if (!event.target.value.replace(/\s/g, "").length) return;
 
       newSelectedItem.push(event.target.value.trim());
       setSelectedItem(newSelectedItem);
-      setInputValue('');
+      setInputValue("");
     }
     if (
       selectedItem.length &&
       !inputValue.length &&
-      event.key === 'Backspace'
+      event.key === "Backspace"
     ) {
       setSelectedItem(selectedItem.slice(0, selectedItem.length - 1));
     }
@@ -57,7 +57,7 @@ export default function TagsInput({ ...props }) {
     if (newSelectedItem.indexOf(item) === -1) {
       newSelectedItem = [...newSelectedItem, item];
     }
-    setInputValue('');
+    setInputValue("");
     setSelectedItem(newSelectedItem);
   }
 
@@ -111,10 +111,10 @@ export default function TagsInput({ ...props }) {
     </Downshift>
   );
 }
-TagsInput.defaultProps = {
+MDTagsInput.defaultProps = {
   tags: [],
 };
-TagsInput.propTypes = {
+MDTagsInput.propTypes = {
   selectedTags: PropTypes.func.isRequired,
   tags: PropTypes.arrayOf(PropTypes.string),
 };

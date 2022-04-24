@@ -1,27 +1,32 @@
 // @mui material components
-import Grid from '@mui/material/Grid';
+import Grid from "@mui/material/Grid";
 
 // Material Dashboard 2 React components
-import MDBox from 'components/MDBox';
+import MDBox from "components/MDBox";
 
 // Material Dashboard 2 React example components
-import DashboardLayout from 'examples/LayoutContainers/DashboardLayout';
-import DashboardNavbar from 'examples/Navbars/DashboardNavbar';
-import Footer from 'examples/Footer';
-import ReportsBarChart from 'examples/Charts/BarCharts/ReportsBarChart';
-import ReportsLineChart from 'examples/Charts/LineCharts/ReportsLineChart';
-import ComplexStatisticsCard from 'examples/Cards/StatisticsCards/ComplexStatisticsCard';
+import DashboardLayout from "layouts/layoutContainers/DashboardLayout";
+import DashboardNavbar from "components/MDNavbar/DashboardNavbar";
+import Footer from "layouts/footer";
+import ReportsBarChart from "lib/Charts/BarCharts/ReportsBarChart";
+import ReportsLineChart from "lib/Charts/LineCharts/ReportsLineChart";
+import ComplexStatisticsCard from "components/MDCards/StatisticsCard";
 
 // Data
-import reportsBarChartData from 'layouts/dashboard/data/reportsBarChartData';
-import reportsLineChartData from 'layouts/dashboard/data/reportsLineChartData';
+import reportsBarChartData from "layouts/dashboard/data/reportsBarChartData";
+import reportsLineChartData from "layouts/dashboard/data/reportsLineChartData";
 
 // Dashboard components
-import Projects from 'layouts/dashboard/components/Projects';
-import OrdersOverview from 'layouts/dashboard/components/OrdersOverview';
+import OrdersOverview from "layouts/dashboard/components/OrdersOverview";
+import { useDispatch } from "react-redux";
+import { getBrandThunk } from "../../redux/slices/onboarding";
 
 function Dashboard() {
   const { sales, tasks } = reportsLineChartData;
+  const emailId = localStorage.getItem("emailId");
+
+  const dispatch = useDispatch();
+  dispatch(getBrandThunk(emailId));
 
   return (
     <DashboardLayout>
@@ -36,9 +41,9 @@ function Dashboard() {
                 title="Bookings"
                 count={281}
                 percentage={{
-                  color: 'success',
-                  amount: '+55%',
-                  label: 'than lask week',
+                  color: "success",
+                  amount: "+55%",
+                  label: "than last week",
                 }}
               />
             </MDBox>
@@ -50,9 +55,9 @@ function Dashboard() {
                 title="Today's Users"
                 count="2,300"
                 percentage={{
-                  color: 'success',
-                  amount: '+3%',
-                  label: 'than last month',
+                  color: "success",
+                  amount: "+3%",
+                  label: "than last month",
                 }}
               />
             </MDBox>
@@ -65,9 +70,9 @@ function Dashboard() {
                 title="Revenue"
                 count="34k"
                 percentage={{
-                  color: 'success',
-                  amount: '+1%',
-                  label: 'than yesterday',
+                  color: "success",
+                  amount: "+1%",
+                  label: "than yesterday",
                 }}
               />
             </MDBox>
@@ -80,9 +85,9 @@ function Dashboard() {
                 title="Followers"
                 count="+91"
                 percentage={{
-                  color: 'success',
-                  amount: '',
-                  label: 'Just updated',
+                  color: "success",
+                  amount: "",
+                  label: "Just updated",
                 }}
               />
             </MDBox>
@@ -132,7 +137,8 @@ function Dashboard() {
         <MDBox>
           <Grid container spacing={3}>
             <Grid item xs={12} md={6} lg={8}>
-              <Projects />
+              {/* <Projects /> */}
+              Project
             </Grid>
             <Grid item xs={12} md={6} lg={4}>
               <OrdersOverview />

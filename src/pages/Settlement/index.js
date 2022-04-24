@@ -1,35 +1,34 @@
 /* eslint-disable no-debugger */
-/* eslint-disable no-unused-vars */
-import FileDownloadOutlinedIcon from '@mui/icons-material/FileDownloadOutlined';
+// import FileDownloadOutlinedIcon from "@mui/icons-material/FileDownloadOutlined";
 // Images
-import LogoAsana from 'assets/images/small-logos/logo-asana.svg';
-import MDAvatar from 'components/MDAvatar';
-import MDBox from 'components/MDBox';
-import MDProgress from 'components/MDProgress';
-import MDTypography from 'components/MDTypography';
-import { useEffect, useState } from 'react';
+import LogoAsana from "assets/images/small-logos/logo-asana.svg";
+import MDAvatar from "components/MDAvatar";
+import MDBox from "components/MDBox";
+import MDProgress from "components/MDProgress";
+import MDTypography from "components/MDTypography";
+import { useEffect, useState } from "react";
 
 function index() {
   const Orders = [
     {
       orderId: 545454,
-      productName: 'AAA BB CCC',
-      orderedDate: '04/05/2022 : 10:59:45',
-      productType: 'Exclusive',
-      shippingAddress: 'Kakkanad, Kochi',
+      productName: "AAA BB CCC",
+      orderedDate: "04/05/2022 : 10:59:45",
+      productType: "Exclusive",
+      shippingAddress: "Kakkanad, Kochi",
       pinCode: 6565664,
-      status: 'Order Placed',
-      invoice: '',
+      status: "Order Placed",
+      invoice: "",
     },
   ];
   const columns = {
-    settlementDate: '',
-    settlementId: '',
-    transactionId: '',
-    productName: '',
-    amount: '',
-    paymentMode: '',
-    status: '',
+    settlementDate: "",
+    settlementId: "",
+    transactionId: "",
+    productName: "",
+    amount: "",
+    paymentMode: "",
+    status: "",
   };
   const [dataRows, setDataRow] = useState([columns]);
   const createColumn = (column) => {
@@ -60,25 +59,26 @@ function index() {
       </MDBox>
     );
   }
-  function Invoice(element) {
-    return (
-      <MDBox display="flex" alignItems="center" lineHeight={1}>
-        <MDTypography
-          display="block"
-          variant="button"
-          fontWeight="medium"
-          ml={1}
-          lineHeight={1}
-        >
-          <FileDownloadOutlinedIcon
-            onClick={() => {
-              alert('clicked');
-            }}
-          />
-        </MDTypography>
-      </MDBox>
-    );
-  }
+
+  // function Invoice(element) {
+  //   return (
+  //     <MDBox display="flex" alignItems="center" lineHeight={1}>
+  //       <MDTypography
+  //         display="block"
+  //         variant="button"
+  //         fontWeight="medium"
+  //         ml={1}
+  //         lineHeight={1}
+  //       >
+  //         <FileDownloadOutlinedIcon
+  //           onClick={() => {
+  //             alert("clicked");
+  //           }}
+  //         />
+  //       </MDTypography>
+  //     </MDBox>
+  //   );
+  // }
 
   function Status(element) {
     const { status } = element;
@@ -101,20 +101,20 @@ function index() {
       const orders = dataset.forEach((element) => {
         const keys = Object.keys(columns);
         const ele = {};
-        keys.forEach((x) => {
-          if (x === 'productName') {
+        keys?.forEach((x) => {
+          if (x === "productName") {
             ele[x] = ProductName(element);
-          } else if (x === 'status') {
+          } else if (x === "status") {
             ele[x] = Status(element);
           } else {
             ele[x] = createColumn(element);
           }
         });
         rows.push(ele);
-        console.log('Element', ele);
+        console.log("Element", ele);
       });
-      console.log('orders', orders);
-      setDataRow(orders);
+      console.log("orders", orders);
+      setDataRow(rows);
     }
   };
   useEffect(() => {
@@ -124,13 +124,13 @@ function index() {
 
   return {
     columns: [
-      { Header: 'Settlement Id', accessor: 'settlementId', align: 'left' },
-      { Header: 'Transaction Id', accessor: 'transactionId', align: 'left' },
-      { Header: 'Date', accessor: 'settlementDate', align: 'center' },
-      { Header: 'Product Name', accessor: 'productName', align: 'left' },
-      { Header: 'Amount', accessor: 'amount', align: 'center' },
-      { Header: 'STATUS', accessor: 'status', align: 'center' },
-      { Header: 'Payment Mode', accessor: 'paymentMode', align: 'center' },
+      { Header: "Settlement Id", accessor: "settlementId", align: "left" },
+      { Header: "Transaction Id", accessor: "transactionId", align: "left" },
+      { Header: "Date", accessor: "settlementDate", align: "center" },
+      { Header: "Product Name", accessor: "productName", align: "left" },
+      { Header: "Amount", accessor: "amount", align: "center" },
+      { Header: "STATUS", accessor: "status", align: "center" },
+      { Header: "Payment Mode", accessor: "paymentMode", align: "center" },
     ],
 
     rows: dataRows,

@@ -1,22 +1,22 @@
 /* eslint-disable react/require-default-props */
-import * as React from 'react';
-import PropTypes from 'prop-types';
-import { useSelect } from '@mui/base';
-import { styled } from '@mui/system';
+import * as React from "react";
+import PropTypes from "prop-types";
+import { useSelect } from "@mui/base";
+import { styled } from "@mui/system";
 
 const grey = {
-  100: '#E7EBF0',
-  200: '#E0E3E7',
-  300: '#CDD2D7',
-  400: '#B2BAC2',
-  500: '#A0AAB4',
-  600: '#6F7E8C',
-  700: '#3E5060',
-  800: '#2D3843',
-  900: '#1A2027',
+  100: "#E7EBF0",
+  200: "#E0E3E7",
+  300: "#CDD2D7",
+  400: "#B2BAC2",
+  500: "#A0AAB4",
+  600: "#6F7E8C",
+  700: "#3E5060",
+  800: "#2D3843",
+  900: "#1A2027",
 };
 
-const Root = styled('div')`
+const Root = styled("div")`
   font-family: IBM Plex Sans, sans-serif;
   font-size: 0.875rem;
   position: relative;
@@ -27,7 +27,7 @@ const Root = styled('div')`
   width: 100%;
 `;
 // min-width: 320px;
-const Toggle = styled('div')(
+const Toggle = styled("div")(
   ({ theme }) => `
   font-family: IBM Plex Sans, sans-serif;
   font-size: 0.875rem;
@@ -35,11 +35,11 @@ const Toggle = styled('div')(
   min-height: calc(1.5em + 22px);
   width: 100%;
   background: var(--color, ${
-    theme.palette.mode === 'dark' ? grey[900] : '#fff'
+    theme.palette.mode === "dark" ? grey[900] : "#fff"
   });
-  border: 1px solid ${theme.palette.mode === 'dark' ? grey[800] : grey[300]};
+  border: 1px solid ${theme.palette.mode === "dark" ? grey[800] : grey[300]};
   box-shadow: ${
-    theme.palette.mode === 'dark'
+    theme.palette.mode === "dark"
       ? `0 5px 13px -3px rgba(0,0,0,0.4)`
       : `0 5px 13px -3px ${grey[200]}`
   };
@@ -48,7 +48,7 @@ const Toggle = styled('div')(
   padding: 10px;
   text-align: left;
   line-height: 1.5;
-  color: ${theme.palette.mode === 'dark' ? grey[300] : grey[900]};
+  color: ${theme.palette.mode === "dark" ? grey[300] : grey[900]};
   display: inline-flex;
   align-items: center;
   justify-content: center;
@@ -61,7 +61,7 @@ const Toggle = styled('div')(
   `
 );
 
-const Listbox = styled('ul')(
+const Listbox = styled("ul")(
   ({ theme }) => `
   font-family: IBM Plex Sans, sans-serif;
   font-size: 0.875rem;
@@ -74,14 +74,14 @@ const Listbox = styled('ul')(
   transition: opacity 0.1s ease;
   width: 100%;
   box-shadow: ${
-    theme.palette.mode === 'dark'
+    theme.palette.mode === "dark"
       ? `0 5px 13px -3px rgba(0,0,0,0.4)`
       : `0 5px 13px -3px ${grey[200]}`
   };
-  background: ${theme.palette.mode === 'dark' ? grey[900] : '#fff'};
-  border: 1px solid ${theme.palette.mode === 'dark' ? grey[800] : grey[300]};
+  background: ${theme.palette.mode === "dark" ? grey[900] : "#fff"};
+  border: 1px solid ${theme.palette.mode === "dark" ? grey[800] : grey[300]};
   border-radius: 0.5em;
-  color: ${theme.palette.mode === 'dark' ? grey[300] : grey[900]};
+  color: ${theme.palette.mode === "dark" ? grey[300] : grey[900]};
   overflow: auto;
   z-index: 1;
   outline: 0px;
@@ -97,11 +97,11 @@ const Listbox = styled('ul')(
     border-radius: 0.45em;
 
     &:hover {
-      background: ${theme.palette.mode === 'dark' ? grey[800] : grey[100]};
+      background: ${theme.palette.mode === "dark" ? grey[800] : grey[100]};
     }
 
     &[aria-selected='true'] {
-      background: ${theme.palette.mode === 'dark' ? grey[700] : grey[200]};
+      background: ${theme.palette.mode === "dark" ? grey[700] : grey[200]};
     }
   }
   `
@@ -127,13 +127,14 @@ function MDSelect({ options, placeholder }) {
       onMouseOut={() => setListboxVisible(false)}
       onFocus={() => setListboxVisible(true)}
       onBlur={() => setListboxVisible(false)}
+      onClick={() => setListboxVisible(true)}
     >
       <Toggle {...getButtonProps()}>
-        {value ?? <span className="placeholder">{placeholder ?? ' '}</span>}
+        {value ?? <span className="placeholder">{placeholder ?? " "}</span>}
       </Toggle>
       <Listbox
         {...getListboxProps()}
-        className={listboxVisible ? '' : 'hidden'}
+        className={listboxVisible ? "" : "hidden"}
       >
         {options.map((option) => (
           <li key={option.value} {...getOptionProps(option)}>

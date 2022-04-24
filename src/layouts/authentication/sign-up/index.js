@@ -1,7 +1,7 @@
 // react-router-dom components
 // Authentication layout components
-import CoverLayout from 'layouts/authentication/components/CoverLayout';
-import Signup from 'pages/Authentication/Sign-up';
+import CoverLayout from "layouts/authentication/components/CoverLayout";
+import Signup from "pages/Authentication/Sign-up";
 
 function Cover() {
   return (
