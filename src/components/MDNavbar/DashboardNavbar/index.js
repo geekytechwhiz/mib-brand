@@ -49,6 +49,7 @@ function DashboardNavbar({ absolute, light, isMini }) {
     darkMode,
   } = controller;
   const [openMenu, setOpenMenu] = useState(false);
+  const [openSettings, setOpenSettings] = useState(false);
   const route = useLocation().pathname.split("/").slice(1);
 
   useEffect(() => {
@@ -84,7 +85,14 @@ function DashboardNavbar({ absolute, light, isMini }) {
   const handleConfiguratorOpen = () =>
     setOpenConfigurator(dispatch, !openConfigurator);
   const handleOpenMenu = (event) => setOpenMenu(event.currentTarget);
+  const handleOpenSettings = (event) => setOpenSettings(event.currentTarget);
   const handleCloseMenu = () => setOpenMenu(false);
+  const handleSettingsClose = () => setOpenSettings(false);
+  const handleLogout=()=>{
+    localStorage.clear();
+    navigate("/")
+  }
+
 
   // Render the notifications menu
   const renderMenu = () => (
@@ -111,6 +119,25 @@ function DashboardNavbar({ absolute, light, isMini }) {
     </Menu>
   );
 
+  const renderSettingsMenu = () => (
+    <Menu
+      anchorEl={openSettings}
+      anchorReference={null}
+      anchorOrigin={{
+        vertical: 'bottom',
+        horizontal: 'left',
+      }}
+      open={Boolean(openSettings)}
+      onClose={handleSettingsClose}
+      sx={{ mt: 2 }}
+    >
+      <NotificationItem icon={<Icon>settings</Icon>} title='Settings' /> 
+      <NotificationItem onClick={handleLogout}
+        icon={<Icon>Log out</Icon>}
+        title='Log out'
+      />
+    </Menu>
+  );
   // Styles for the navbar icons
   const iconsStyle = ({
     palette: { dark, white, text },
@@ -154,11 +181,7 @@ function DashboardNavbar({ absolute, light, isMini }) {
               <MDInput label="Search here" />
             </MDBox>
             <MDBox color={light ? "white" : "inherit"}>
-              <Link to="/authentication/sign-in/basic">
-                <IconButton sx={navbarIconButton} size="small" disableRipple>
-                  <Icon sx={iconsStyle}>account_circle</Icon>
-                </IconButton>
-              </Link>
+               
               <IconButton
                 size="small"
                 disableRipple
@@ -192,6 +215,19 @@ function DashboardNavbar({ absolute, light, isMini }) {
                 <Icon sx={iconsStyle}>notifications</Icon>
               </IconButton>
               {renderMenu()}
+              <IconButton
+                size="small"
+                disableRipple
+                color="inherit"
+                sx={navbarIconButton}
+                aria-controls="account_circle-menu"
+                aria-haspopup="true"
+                variant="contained"
+                onClick={handleOpenSettings}
+              >
+            <Icon sx={iconsStyle}>account_circle</Icon>
+              </IconButton>
+              {renderSettingsMenu()}
             </MDBox>
           </MDBox>
         )}

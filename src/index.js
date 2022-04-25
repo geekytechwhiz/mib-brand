@@ -5,6 +5,8 @@ import { BrowserRouter } from "react-router-dom";
 import App from "App";
 import { MaterialUIControllerProvider } from "context";
 import configureStore from "./redux/store";
+import { ErrorBoundary } from "lib/error";
+import { Fallback } from "lib/error/fallback";
 
 // Material Dashboard 2 React Context Provider
 
@@ -13,7 +15,9 @@ ReactDOM.render(
   <BrowserRouter>
     <Provider store={store}>
       <MaterialUIControllerProvider>
+      <ErrorBoundary FallbackComponent={Fallback}>
         <App />
+      </ErrorBoundary>
       </MaterialUIControllerProvider>
     </Provider>
   </BrowserRouter>,

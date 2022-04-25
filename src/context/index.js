@@ -31,7 +31,12 @@ function reducer(state, action) {
       return { ...state, fixedNavbar: action.value };
     }
     case "OPEN_CONFIGURATOR": {
+      debugger
       return { ...state, openConfigurator: action.value };
+    }
+    case "PROFILE_SETTINGS": {
+      debugger
+      return { ...state, profileSettings: action.value };
     }
     case "DIRECTION": {
       return { ...state, direction: action.value };
@@ -58,9 +63,10 @@ function MaterialUIControllerProvider({ children }) {
     transparentNavbar: true,
     fixedNavbar: true,
     openConfigurator: false,
+    profileSettings:false,
     direction: "ltr",
-    layout: "basic",
-    // layout: "dashboard",
+    // layout: "basic",
+    layout: "dashboard",
     darkMode: false,
   };
 
@@ -107,6 +113,8 @@ const setFixedNavbar = (dispatch, value) =>
   dispatch({ type: "FIXED_NAVBAR", value });
 const setOpenConfigurator = (dispatch, value) =>
   dispatch({ type: "OPEN_CONFIGURATOR", value });
+  const setProfileSettings = (dispatch, value) =>
+  dispatch({ type: "PROFILE_SETTINGS", value });
 const setDirection = (dispatch, value) =>
   dispatch({ type: "DIRECTION", value });
 const setLayout = (dispatch, value) => dispatch({ type: "LAYOUT", value });
@@ -122,6 +130,7 @@ export {
   setTransparentNavbar,
   setFixedNavbar,
   setOpenConfigurator,
+  setProfileSettings,
   setDirection,
   setLayout,
   setDarkMode,

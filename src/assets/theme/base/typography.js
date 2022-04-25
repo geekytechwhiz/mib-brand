@@ -1,5 +1,4 @@
-import colors from "assets/theme/base/colors";
-
+import colors from "assets/theme/base/colors"; 
 import pxToRem from "assets/theme/functions/pxToRem";
 
 const { dark } = colors;
@@ -171,6 +170,6 @@ const typography = {
     md: 1.5,
     lg: 2,
   },
-};
+}
 
 export default typography;

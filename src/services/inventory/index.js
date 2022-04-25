@@ -2,7 +2,7 @@
 /* eslint-disable import/prefer-default-export */
 import { apiInstance } from "api";
 
-export const getProducts = async (payload, brandId) => {
+export const getProducts = async ( brandId) => {
   try {
     debugger;
 

@@ -3,7 +3,11 @@
     "browser": true,
     "es2021": true
   },
-  "extends": ["plugin:react/recommended", "airbnb", "prettier"],
+  "extends": [
+    "plugin:react/recommended",
+    "airbnb",
+    "prettier"
+  ],
   "parserOptions": {
     "ecmaFeatures": {
       "jsx": true
@@ -11,10 +15,19 @@
     "ecmaVersion": 12,
     "sourceType": "module"
   },
-  "plugins": ["react", "prettier"],
+  "plugins": [
+    "react",
+    "prettier"
+  ],
   "rules": {
-    "prettier/prettier": [
+    "import/no-extraneous-dependencies": [
       "error",
+      {
+        "devDependencies": true
+      }
+    ],
+    "prettier/prettier": [
+      "warning",
       {
         "endOfLine": "auto"
       }
@@ -24,22 +37,36 @@
     "react/jsx-filename-extension": [
       0,
       {
-        "extensions": [".js", ".jsx"]
+        "extensions": [
+          ".js",
+          ".jsx"
+        ]
       }
     ],
     "react/jsx-props-no-spreading": [
-      1,
+      0,
       {
         "custom": "ignore"
       }
     ],
-    "react/jsx-curly-spacing": [1, "never"]
+    "react/jsx-curly-spacing": [
+      1,
+      "never"
+    ]
   },
+  "import/no-named-as-default": 0,
   "settings": {
     "import/resolver": {
       "node": {
-        "paths": ["src"]
+        "paths": [
+          "src"
+        ]
       }
-    }
+    },
+    "import/parsers": {
+      "@babel/eslint-parser": [
+        ".js"
+      ],
+    },
   }
 }

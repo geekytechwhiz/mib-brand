@@ -1,11 +1,11 @@
 import colors from "assets/theme/base/colors";
-import typography from "assets/theme/base/typography";
+import Typography from "assets/theme/base/typography";
 
 // Material Dashboard 2 React Helper Functions
 import pxToRem from "assets/theme/functions/pxToRem";
 
 const { transparent, light, info, secondary } = colors;
-const { size } = typography;
+const { size } = Typography;
 
 const outlined = {
   base: {

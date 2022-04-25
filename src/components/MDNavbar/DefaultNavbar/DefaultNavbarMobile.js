@@ -5,10 +5,10 @@ import PropTypes from "prop-types";
 import Menu from "@mui/material/Menu";
 
 // Material Dashboard 2 React components
-import MDBox from "components/MDBox";
+// import MDBox from "components/MDBox";
 
 // Material Dashboard 2 React example components
-import DefaultNavbarLink from "examples/Navbars/DefaultNavbar/DefaultNavbarLink";
+// import DefaultNavbarLink from "examples/Navbars/DefaultNavbar/DefaultNavbarLink";
 
 function DefaultNavbarMobile({ open, close }) {
   const { width } = open && open.getBoundingClientRect();
@@ -29,7 +29,7 @@ function DefaultNavbarMobile({ open, close }) {
       onClose={close}
       MenuListProps={{ style: { width: `calc(${width}px - 4rem)` } }}
     >
-      <MDBox px={0.5}>
+      {/* <MDBox px={0.5}>
         <DefaultNavbarLink
           icon="donut_large"
           name="dashboard"
@@ -46,7 +46,7 @@ function DefaultNavbarMobile({ open, close }) {
           name="sign in"
           route="/authentication/sign-in"
         />
-      </MDBox>
+      </MDBox> */}
     </Menu>
   );
 }

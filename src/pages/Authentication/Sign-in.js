@@ -7,26 +7,35 @@
 import { Button } from "@mui/material";
 import Card from "@mui/material/Card";
 import Switch from "@mui/material/Switch";
-// Material Dashboard 2 React components
 import MDBox from "components/MDBox";
 import MDButton from "components/MDButton";
 import MDInput from "components/MDInput";
 import MDTypography from "components/MDTypography";
 import { setLayout, useMaterialUIController } from "context";
-import React, { useEffect, useState, useRef } from "react";
+import React, { useRef, useState } from "react";
 import { useDispatch } from "react-redux";
 import { useNavigate } from "react-router-dom";
-import { login } from "../../services/onboarding";
 import { getBrandThunk } from "../../redux/slices/onboarding";
+import { login } from "../../services/onboarding";
 
 function SignIn() {
+  debugger;
   const navigate = useNavigate();
   const dispatch = useDispatch();
+
   const initialRoutesSetRef = useRef(false);
   const token = localStorage.getItem("token");
   const [rememberMe, setRememberMe] = useState(false);
   const [user, setUser] = useState({});
-
+  if (!initialRoutesSetRef.current) {
+    if (token) {
+      // initialRoutesSetRef.current = true;
+      navigate("/dashboard");
+    } else {
+      initialRoutesSetRef.current = true;
+      navigate("/authentication/sign-in");
+    }
+  }
   const [controller, contextDispatch] = useMaterialUIController();
 
   const handleSetRememberMe = () => setRememberMe(!rememberMe);
@@ -51,19 +60,27 @@ function SignIn() {
     setLayout(contextDispatch, "dashboard");
     navigate("/dashboard");
   };
-
-  useEffect(() => {
-    debugger;
-    if (!initialRoutesSetRef.current) {
-      if (token) {
-        initialRoutesSetRef.current = true;
-        // navigate("/dashboard");
-      } else {
-        initialRoutesSetRef.current = true;
-        // navigate("/authentication/sign-in");
-      }
+  if (!initialRoutesSetRef.current) {
+    if (token) {
+      initialRoutesSetRef.current = true;
+      navigate("/dashboard");
+    } else {
+      initialRoutesSetRef.current = true;
+      navigate("/authentication/sign-in");
     }
-  }, [user, navigate]);
+  }
+  // useEffect(() => {
+  //   debugger;
+  //   if (!initialRoutesSetRef.current) {
+  //     if (token) {
+  //       initialRoutesSetRef.current = true;
+  //       // navigate("/dashboard");
+  //     } else {
+  //       initialRoutesSetRef.current = true;
+  //       // navigate("/authentication/sign-in");
+  //     }
+  //   }
+  // }, [user, navigate]);
 
   return (
     <Card>

@@ -116,7 +116,7 @@ function Offer(props) {
                   required
                   name="SellingPrice"
                   value={product.SellingPrice}
-                  error={product.SellingPrice}
+                  error={!product.SellingPrice}
                   type="text"
                   label="Selling Price"
                   fullWidth
@@ -128,7 +128,8 @@ function Offer(props) {
                   required
                   type="text"
                   name="Quantity"
-                  value={!product.Quantity}
+                  error={!product.Quantity}
+                  value={product.Quantity}
                   label="Quantity"
                   fullWidth
                   onChange={handleChange}

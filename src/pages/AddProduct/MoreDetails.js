@@ -10,30 +10,27 @@ import MDButton from "components/MDButton";
 import MDInput from "components/MDInput";
 import MDTypography from "components/MDTypography";
 import React, { useState } from "react";
-import { useDispatch, useSelector } from "react-redux";
+import { useSelector } from "react-redux";
 import { postProducts } from "../../services/inventory";
 
 function MoreDetails(props) {
-  const { activeTab } = props;
-
-  const dispatch = useDispatch();
+  const { activeTab } = props; 
   const productState = useSelector((state) => state.pricing) || {};
   const { vitalInfo, offers, medias, description, categories, variant } =
-    useSelector((state) => state.inventory);
-  const BrandId = "BR1650183738930";
-  // useSelector((state) => state.accountInfo) || "BR1650183738930";
+    useSelector((state) => state.inventory); 
   const [product, setProduct] = useState(productState);
+  const [acceptTerms, setAcceptTerms] = useState(false);
 
   const handleChange = (event) => {
     const { name } = event.target;
     const { value } = event.target;
-    setProduct((p) => ({
+    setProduct(() => ({
       ...product,
       [name]: value,
     }));
   };
 
-  const handlePublish = (e) => {
+  const handlePublish = () => {
     debugger;
     const request = {
       ...vitalInfo,
@@ -46,7 +43,7 @@ function MoreDetails(props) {
     request.Status = "Published";
     postProducts(request, BrandId);
   };
-  const handleDraft = (e) => {
+  const handleDraft = () => {
     debugger;
     const request = {
       ...vitalInfo,
@@ -58,12 +55,8 @@ function MoreDetails(props) {
     };
     request.Status = "Draft";
     postProducts(request, BrandId);
-  };
-
-  const handleBack = (e) => {
-    // dispatch(pricing(product));
-    activeTab(e, "2");
-  };
+  }; 
+ 
   return (
     <MDBox
       variant="gradient"
@@ -184,7 +177,16 @@ function MoreDetails(props) {
       <Grid container xs={12} justifyContent="space-between">
         <Grid item>
           <FormControlLabel
-            control={<Checkbox defaultChecked />}
+            control={
+              <Checkbox
+                size="small"
+                onClick={() => {
+                  const value = !acceptTerms;
+                  setAcceptTerms(value);
+                }}
+                checked={acceptTerms}
+              />
+            }
             label="Accept terms and condition"
           />
         </Grid>
@@ -210,6 +212,7 @@ function MoreDetails(props) {
             color="#007EFF"
             variant="gradient"
             mx={2}
+            disabled={!acceptTerms}
             style={{
               color: "#007EFF",
               borderColor: "#007EFF",

@@ -17,10 +17,10 @@ import MDBox from "components/MDBox";
 // Material Dashboard 2 React routes
 // Material Dashboard 2 React contexts
 import {
-  setLayout,
   setMiniSidenav,
   setOpenConfigurator,
-  useMaterialUIController,
+  setProfileSettings,
+  useMaterialUIController
 } from "context";
 // Material Dashboard 2 React example components
 import Configurator from "lib/Configurator";
@@ -32,18 +32,19 @@ import {
   Route,
   Routes,
   useLocation,
-  useNavigate,
+  useNavigate
 } from "react-router-dom";
 import routes, { basicRoutes } from "routes";
 // RTL plugins
 import rtlPlugin from "stylis-plugin-rtl";
 import Sidenav from "./components/MDSidenav/index";
-import { getBrandThunk } from "./redux/slices/onboarding";
 
 export default function App() {
+  debugger;
   const [controller, dispatch] = useMaterialUIController();
   const dispatcher = useDispatch();
   const navigate = useNavigate();
+  const token = localStorage.getItem("token");
   const {
     miniSidenav,
     direction,
@@ -52,6 +53,7 @@ export default function App() {
     sidenavColor,
     transparentSidenav,
     whiteSidenav,
+    profileSettings,
     darkMode,
   } = controller;
   const [onMouseEnter, setOnMouseEnter] = useState(false);
@@ -88,6 +90,9 @@ export default function App() {
   // Change the openConfigurator state
   const handleConfiguratorOpen = () =>
     setOpenConfigurator(dispatch, !openConfigurator);
+
+    const handleSetProfileSettings = () =>
+    setProfileSettings(dispatch, !profileSettings);
 
   // Setting the dir attribute for the body element
   useEffect(() => {
@@ -148,7 +153,7 @@ export default function App() {
   return (
     <ThemeProvider theme={darkMode ? themeDark : theme}>
       <CssBaseline />
-      {layout === "dashboard" ? (
+      {layout === "dashboard" && token ? (
         <>
           <Sidenav
             color={sidenavColor}
@@ -165,7 +170,7 @@ export default function App() {
           <Configurator />
           <Routes>
             {getRoutes(routes)}
-            <Route path="dashboard" element={<Navigate to="/dashboard" />} />
+            <Route path="*" element={<Navigate to="/dashboard" />} />
           </Routes>
         </>
       ) : (

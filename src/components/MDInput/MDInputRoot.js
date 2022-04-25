@@ -31,6 +31,10 @@ export default styled(TextField)(({ theme, ownerState }) => {
     "& .MuiInputLabel-root.Mui-focused": {
       color: colorError.main,
     },
+    "& .css-o1ds8i-MuiFormHelperText-root": {
+      color: colorError.main,
+      fontWeight: "bold"
+    }
   });
 
   // styles for the input with success={true}

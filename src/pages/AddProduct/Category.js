@@ -2,18 +2,19 @@
 /* eslint-disable no-debugger */
 /* eslint-disable react/prop-types */
 /* eslint-disable react/destructuring-assignment */
-import Autocomplete from "@mui/material/Autocomplete";
-import Button from "@mui/material/Button";
-import Dialog from "@mui/material/Dialog";
-import DialogActions from "@mui/material/DialogActions";
-import DialogContent from "@mui/material/DialogContent";
-import DialogTitle from "@mui/material/DialogTitle";
-import MDBox from "components/MDBox";
-import MDInput from "components/MDInput";
-import React, { useState } from "react";
-import { shallowEqual, useDispatch, useSelector } from "react-redux";
-import { getCategories, getSubCategories } from "../../lib/helper";
-import { categories } from "../../redux/slices/inventory";
+import Autocomplete from '@mui/material/Autocomplete';
+import Button from '@mui/material/Button';
+import Dialog from '@mui/material/Dialog';
+import DialogActions from '@mui/material/DialogActions';
+import DialogContent from '@mui/material/DialogContent';
+import DialogTitle from '@mui/material/DialogTitle';
+import Grid from "@mui/material/Grid";
+import MDBox from 'components/MDBox';
+import MDInput from 'components/MDInput';
+import React, { useState } from 'react';
+import { shallowEqual, useDispatch, useSelector } from 'react-redux';
+import { getCategories, getSubCategories } from '../../lib/helper';
+import { categories } from '../../redux/slices/inventory';
 
 export default function SelectCategory(props) {
   const { activeTab } = props;
@@ -31,7 +32,7 @@ export default function SelectCategory(props) {
   const handleDialogClose = (e) => {
     debugger;
     setOpen(false);
-    activeTab(e, "1");
+    activeTab(e, '1');
     dispatch(categories(product));
   };
 
@@ -39,7 +40,7 @@ export default function SelectCategory(props) {
     debugger;
     const { name } = event.target;
     const { value } = event.target;
-    if (name === "Category") {
+    if (name === 'Category') {
       const subcategory = getSubCategories(value);
       setProductCategory(subcategory);
     }
@@ -54,7 +55,7 @@ export default function SelectCategory(props) {
     const { name } = event.target;
     const { value } = event.target;
     if (!value) return null;
-    if (name === "Category") {
+    if (name === 'Category') {
       const subcategory = getSubCategories(value);
       setProductCategory(subcategory);
     }
@@ -66,32 +67,46 @@ export default function SelectCategory(props) {
 
   return (
     <MDBox
-      variant="gradient"
-      bgColor="transparent"
-      borderRadius="lg"
-      coloredShadow="info"
+      variant='gradient'
+      bgColor='transparent'
+      borderRadius='lg'
+      coloredShadow='info'
       mx={-3}
       mt={-2}
       p={2}
       mb={1}
-      textAlign="center"
+      textAlign='center'
+      height='100vh'
     >
-      <Dialog fullWidth maxWidth="sm" open={open}>
+       
+    {open?<></>:
+       <Grid container xs={12} justifyContent="center"> 
+       <Grid item>
+         <Button
+           color="primary"
+           onClick={()=>{setOpen(!open)}}
+           variant="text" 
+         >
+           Select your category
+         </Button>
+       </Grid>
+     </Grid>
+    }  
+      <Dialog fullWidth maxWidth='sm' open={open}>
         <DialogTitle>Select Your primary category</DialogTitle>
         <DialogContent>
           <MDBox mb={2}>
             <Autocomplete
               disablePortal
               required
-              placeholder="Category"
-              id="combo-category"
-              name="Category"
-              error={!product.Category}
+              placeholder='Category'
+              id='combo-category'
+              name='Category'
               value={product.Category}
               options={getCategories()}
               onSelect={handleSelect}
               sx={{
-                "& .css-tnnq9f-MuiAutocomplete-root .MuiOutlinedInput-root .MuiAutocomplete-input .MuiOutlinedInput-root":
+                '& .css-tnnq9f-MuiAutocomplete-root .MuiOutlinedInput-root .MuiAutocomplete-input .MuiOutlinedInput-root':
                   {
                     padding: 5,
                   },
@@ -99,8 +114,10 @@ export default function SelectCategory(props) {
               renderInput={(params) => (
                 <MDInput
                   {...params}
-                  label="Category"
-                  name="Category"
+                  label='Category'
+                  required
+                  error={!product.Category}
+                  name='Category'
                   value={product.Category}
                   onChange={handleChange}
                 />
@@ -111,15 +128,14 @@ export default function SelectCategory(props) {
             <Autocomplete
               disablePortal
               required
-              error={!product.ProductCategory}
-              placeholder="Product Category"
-              id="combo-product-category"
-              name="ProductCategory"
+              placeholder='Product Category'
+              id='combo-product-category'
+              name='ProductCategory'
               value={product.ProductCategory}
               options={productCategories}
               onSelect={handleSelect}
               sx={{
-                "& .css-tnnq9f-MuiAutocomplete-root .MuiOutlinedInput-root .MuiAutocomplete-input .MuiOutlinedInput-root":
+                '& .css-tnnq9f-MuiAutocomplete-root .MuiOutlinedInput-root .MuiAutocomplete-input .MuiOutlinedInput-root':
                   {
                     padding: 5,
                   },
@@ -127,8 +143,9 @@ export default function SelectCategory(props) {
               renderInput={(params) => (
                 <MDInput
                   {...params}
-                  label="Product Category"
-                  name="ProductCategory"
+                  required
+                  label='Product Category'
+                  name='ProductCategory'
                   onChange={handleChange}
                   value={product.ProductCategory}
                 />

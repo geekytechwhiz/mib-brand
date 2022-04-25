@@ -4,6 +4,7 @@
 import ArrowBackIosNewIcon from "@mui/icons-material/ArrowBackIosNew";
 import ArrowForwardIosIcon from "@mui/icons-material/ArrowForwardIos";
 import { Button, Grid } from "@mui/material";
+import axios from "axios";
 import MDBox from "components/MDBox";
 import React from "react";
 import Dropzone from "react-dropzone-uploader";
@@ -30,10 +31,11 @@ export default function Medias(props) {
     const res = await postSignedUrl(req);
     if (!res) return null;
     productState.ImageLinks.push(res.fileName);
-
+    const axiosRes = await axios.put(res.preSignedUrl, file);
+    console.log(axiosRes);
     return {
       body: file,
-      meta: { fileUrl: res.fileName },
+      meta: { fileUrl: `https://mibuploaddev.s3.ap-south-1.amazonaws.com` },
       url: res.preSignedUrl,
     };
   };
@@ -88,6 +90,7 @@ export default function Medias(props) {
           }}
         />
       </Grid>
+
       <Grid container xs={12} justifyContent="space-between">
         <Grid item>
           <Button

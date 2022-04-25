@@ -1,7 +1,7 @@
 /* eslint-disable no-param-reassign */
 const { createSlice } = require("@reduxjs/toolkit");
 
-const initialState = { showSuccess: false };
+const initialState = { showSuccess: false, isLoggedIn: false };
 
 const globalSlice = createSlice({
   name: "global",

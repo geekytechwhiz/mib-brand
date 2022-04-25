@@ -102,7 +102,7 @@ const colors = {
     },
 
     error: {
-      main: "#EF5350",
+      main: "#e00f0b",
       state: "#E53935",
     },
 

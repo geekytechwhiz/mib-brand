@@ -6,7 +6,7 @@
 /* eslint-disable jsx-a11y/label-has-associated-control */
 import ArrowForwardIosIcon from "@mui/icons-material/ArrowForwardIos";
 import { Box } from "@mui/material";
-import Button from "@mui/material/Button";
+import Button from "@mui/material/Button";  
 import Grid from "@mui/material/Grid";
 import MDBox from "components/MDBox";
 import MDInput from "components/MDInput";
@@ -15,25 +15,31 @@ import MDTypography from "components/MDTypography";
 import React, { useState } from "react";
 import { shallowEqual, useDispatch, useSelector } from "react-redux";
 import { vitalInfo } from "../../redux/slices/inventory";
+import {validateVitalInfos,validation} from '../../lib/Validations'
 
 function VitalInfo(props) {
   debugger;
   const { activeTab } = props;
   const dispatch = useDispatch();
+  const [isValid, setIsValid]=useState(true)
   const productId = `P${new Date().getTime().toString()}`;
   const productState = useSelector(
     (state) => state.inventory.vitalInfo,
     shallowEqual
   );
 
-  const accountInfo = useSelector((state) => state.accountInfo);
+  const accountInfo = useSelector((state) => state.auth.accountInfo);
+  if(!accountInfo)
+   {
+     return null
+   }
 
   const [product, setProduct] = useState(productState);
 
   const handleChange = (event) => {
     debugger;
     const { name } = event.target;
-    const { value } = event.target;
+    const { value } = event.target; 
     setProduct(() => ({
       ...product,
       [name]: value,
@@ -42,6 +48,11 @@ function VitalInfo(props) {
 
   const handleNext = (e) => {
     debugger;
+    const validate=validateVitalInfos(product)
+    if(validate>0){
+     setIsValid(false)
+     return false
+    }
     activeTab(e, "2");
     setProduct(() => ({
       ...product,
@@ -95,8 +106,9 @@ function VitalInfo(props) {
                   error={!product.Title}
                   fullWidth
                   onChange={handleChange}
-                  name="Title"
+                  name="Tittle"
                   value={product.Title}
+                  helperText="Required field"               
                 />
               </Grid>
               <Grid item xs={6} mb={2}>
@@ -109,6 +121,7 @@ function VitalInfo(props) {
                   onChange={handleChange}
                   name="ProductBrand"
                   value={product.ProductBrand}
+                  helperText="Required field"
                 />
               </Grid>
               <Grid item xs={6} mb={2}>
@@ -117,9 +130,11 @@ function VitalInfo(props) {
                   type="text"
                   label="Manufacturer"
                   name="Manufacturer"
+                  error={!product.ProductBrand}
                   value={product.Manufacturer}
                   fullWidth
                   onChange={handleChange}
+                  helperText="Required field"
                 />
               </Grid>
               <Grid item xs={6} mb={2}>
@@ -132,6 +147,7 @@ function VitalInfo(props) {
                   onChange={handleChange}
                   name="NumberOfItems"
                   value={product.NumberOfItems}
+                  helperText="Required field"
                 />
               </Grid>
               <Grid item xs={6} mb={2}>

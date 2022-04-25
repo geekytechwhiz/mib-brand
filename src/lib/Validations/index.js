@@ -1,5 +1,6 @@
+
 /* eslint-disable no-unused-vars */
-const validation = {
+export const validationOption = {
   ProductName: {
     error: false,
     message: "Product Name is  Required",
@@ -18,30 +19,31 @@ const validation = {
   },
   Orgin: {
     error: false,
-    message: "Country of orgin is Required",
+    message: "Country of origin is Required",
   },
 };
 
-const validateInputs = (product) => {
+export const validation={
+  Tittle:"Tittle is Required"
+}
+export const validateVitalInfos = (product) => {
   let count = 0;
-  const productDetailsObj = {
-    ProductName: "",
-    BrandName: "",
-    Tittle: "",
-    Description: "",
-    Origin: "",
+  const productDetailsObj = { 
+    ProductBrand: "",
+    Tittle: "", 
   };
   const productModelKeys = Object.keys(productDetailsObj);
   productModelKeys.forEach((x) => {
     if (product && x && !product[x]) {
-      if (validation[x]) {
-        validation[x].error = true;
+      if (validationOption[x]) {
+        validationOption[x].error = true;
         count += 1;
       }
-    } else if (validation[x]) {
-      validation[x].error = false;
+    } else if (validationOption[x]) {
+      validationOption[x].error = false;
     }
   });
 
   return count;
 };
+ 

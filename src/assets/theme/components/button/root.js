@@ -1,8 +1,8 @@
-import typography from "assets/theme/base/typography";
+import Typography from "assets/theme/base/typography";
 import borders from "assets/theme/base/borders";
 import pxToRem from "assets/theme/functions/pxToRem";
 
-const { fontWeightBold, size } = typography;
+const { fontWeightBold, size } = Typography;
 const { borderRadius } = borders;
 
 const root = {
