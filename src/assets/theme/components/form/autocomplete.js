@@ -1,10 +1,10 @@
-import boxShadows from 'assets/theme/base/boxShadows';
-import typography from 'assets/theme/base/typography';
-import colors from 'assets/theme/base/colors';
-import borders from 'assets/theme/base/borders';
+import boxShadows from "assets/theme/base/boxShadows";
+import typography from "assets/theme/base/typography";
+import colors from "assets/theme/base/colors";
+import borders from "assets/theme/base/borders";
 
 // Material Dashboard 2 React helper functions
-import pxToRem from 'assets/theme/functions/pxToRem';
+import pxToRem from "assets/theme/functions/pxToRem";
 
 const { lg } = boxShadows;
 const { size } = typography;
@@ -18,13 +18,13 @@ const autocomplete = {
       padding: pxToRem(8),
       fontSize: size.sm,
       color: text.main,
-      textAlign: 'left',
+      textAlign: "left",
       backgroundColor: `${white.main} !important`,
       borderRadius: borderRadius.md,
     },
 
     paper: {
-      boxShadow: 'none',
+      boxShadow: "none",
       backgroundColor: transparent.main,
     },
 
@@ -33,8 +33,8 @@ const autocomplete = {
       borderRadius: borderRadius.md,
       fontSize: size.sm,
       color: text.main,
-      transition: 'background-color 300ms ease, color 300ms ease',
-      '&:hover, &:focus, &.Mui-selected, &.Mui-selected:hover, &.Mui-selected:focus':
+      transition: "background-color 300ms ease, color 300ms ease",
+      "&:hover, &:focus, &.Mui-selected, &.Mui-selected:hover, &.Mui-selected:focus":
         {
           backgroundColor: light.main,
           color: dark.main,
@@ -61,20 +61,20 @@ const autocomplete = {
     },
 
     tag: {
-      display: 'flex',
-      alignItems: 'center',
-      height: 'auto',
+      display: "flex",
+      alignItems: "center",
+      height: "auto",
       padding: pxToRem(4),
       backgroundColor: gradients.dark.state,
       color: white.main,
 
-      '& .MuiChip-label': {
+      "& .MuiChip-label": {
         lineHeight: 1.2,
         padding: `0 ${pxToRem(10)} 0 ${pxToRem(4)}`,
       },
-      '& .css-1863vbz-MuiAutocomplete-root, & .MuiOutlinedInput-root, & .MuiAutocomplete-input':
+      "& .css-1863vbz-MuiAutocomplete-root, & .MuiOutlinedInput-root, & .MuiAutocomplete-input":
         { paddingBottom: 0 },
-      '& .MuiSvgIcon-root, & .MuiSvgIcon-root:hover, & .MuiSvgIcon-root:focus':
+      "& .MuiSvgIcon-root, & .MuiSvgIcon-root:hover, & .MuiSvgIcon-root:focus":
         {
           color: white.main,
           marginRight: 0,

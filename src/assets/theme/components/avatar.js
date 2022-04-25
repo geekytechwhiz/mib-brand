@@ -1,11 +1,11 @@
-import borders from 'assets/theme/base/borders';
+import borders from "assets/theme/base/borders";
 
 const { borderRadius } = borders;
 
 const avatar = {
   styleOverrides: {
     root: {
-      transition: 'all 200ms ease-in-out',
+      transition: "all 200ms ease-in-out",
     },
 
     rounded: {
@@ -13,7 +13,7 @@ const avatar = {
     },
 
     img: {
-      height: 'auto',
+      height: "auto",
     },
   },
 };

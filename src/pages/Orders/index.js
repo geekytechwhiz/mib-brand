@@ -11,7 +11,7 @@ import MDProgress from "components/MDProgress";
 import { LightTooltip } from "components/MDTooltip";
 import MDTypography from "components/MDTypography";
 import { useEffect, useState } from "react";
-// import Orders from '../../assets/mockData/data';
+// import Orders from "../../assets/mockData/data";
 
 function index() {
   const columns = {

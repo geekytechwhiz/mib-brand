@@ -5,7 +5,7 @@ import Grid from "@mui/material/Grid";
 import MDBox from "components/MDBox";
 import PageLayout from "layouts/layoutContainers/PageLayout";
 // Authentication layout components
-// import Footer from 'layouts/authentication/components/Footer';
+// import Footer from "layouts/authentication/components/Footer";
 import PropTypes from "prop-types";
 
 function CoverLayout({ children, coverHeight }) {

@@ -100,7 +100,7 @@ const Listbox = styled("ul")(
       background: ${theme.palette.mode === "dark" ? grey[800] : grey[100]};
     }
 
-    &[aria-selected='true'] {
+    &[aria-selected="true"] {
       background: ${theme.palette.mode === "dark" ? grey[700] : grey[200]};
     }
   }

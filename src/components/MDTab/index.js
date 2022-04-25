@@ -1,10 +1,10 @@
 /* eslint-disable react/require-default-props */
-import * as React from 'react';
-import PropTypes from 'prop-types';
-import Tabs from '@mui/material/Tabs';
-import Tab from '@mui/material/Tab';
-import Typography from '@mui/material/Typography';
-import Box from '@mui/material/Box';
+import * as React from "react";
+import PropTypes from "prop-types";
+import Tabs from "@mui/material/Tabs";
+import Tab from "@mui/material/Tab";
+import Typography from "@mui/material/Typography";
+import Box from "@mui/material/Box";
 
 function TabPanel(props) {
   const { children, value, index, ...other } = props;
@@ -35,7 +35,7 @@ TabPanel.propTypes = {
 function a11yProps(index) {
   return {
     id: `vertical-tab-${index}`,
-    'aria-controls': `vertical-tabpanel-${index}`,
+    "aria-controls": `vertical-tabpanel-${index}`,
   };
 }
 
@@ -50,8 +50,8 @@ export default function VerticalTabs() {
     <Box
       sx={{
         flexGrow: 1,
-        bgcolor: 'background.paper',
-        display: 'flex',
+        bgcolor: "background.paper",
+        display: "flex",
         height: 224,
       }}
     >
@@ -61,7 +61,7 @@ export default function VerticalTabs() {
         value={value}
         onChange={handleChange}
         aria-label="Vertical tabs example"
-        sx={{ borderRight: 1, borderColor: 'divider' }}
+        sx={{ borderRight: 1, borderColor: "divider" }}
       >
         <Tab label="Item One" {...a11yProps(0)} />
         <Tab label="Item Two" {...a11yProps(1)} />

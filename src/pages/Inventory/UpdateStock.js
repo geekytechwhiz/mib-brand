@@ -1,25 +1,25 @@
 /* eslint-disable react/prop-types */
-import styled from '@emotion/styled';
-import AddIcon from '@mui/icons-material/Add';
-import CancelRoundedIcon from '@mui/icons-material/CancelRounded';
-import { Box, Typography } from '@mui/material';
-import Button from '@mui/material/Button';
-import Dialog from '@mui/material/Dialog';
-import DialogContent from '@mui/material/DialogContent';
-import DialogTitle from '@mui/material/DialogTitle';
-import TextField from '@mui/material/TextField';
-import * as React from 'react';
+import styled from "@emotion/styled";
+import AddIcon from "@mui/icons-material/Add";
+import CancelRoundedIcon from "@mui/icons-material/CancelRounded";
+import { Box, Typography } from "@mui/material";
+import Button from "@mui/material/Button";
+import Dialog from "@mui/material/Dialog";
+import DialogContent from "@mui/material/DialogContent";
+import DialogTitle from "@mui/material/DialogTitle";
+import TextField from "@mui/material/TextField";
+import * as React from "react";
 
 const UpdateStockLink = styled(Typography)({
-  fontSize: '0.9rem',
-  paddingBottom: '20px',
+  fontSize: "0.9rem",
+  paddingBottom: "20px",
   marginRight: 2,
 });
 
 const BottomContain = styled(Box)({
-  display: 'flex',
-  justifyContent: 'space-between',
-  paddingTop: '5px',
+  display: "flex",
+  justifyContent: "space-between",
+  paddingTop: "5px",
 });
 
 export default function UpdateStock(props) {
@@ -47,9 +47,9 @@ export default function UpdateStock(props) {
       <Dialog open={open} onClose={handleClose}>
         <div
           style={{
-            display: 'flex',
-            flexDirection: 'row',
-            justifyContent: 'space-between',
+            display: "flex",
+            flexDirection: "row",
+            justifyContent: "space-between",
           }}
         >
           <div>
@@ -62,12 +62,12 @@ export default function UpdateStock(props) {
         <DialogContent>
           <div
             style={{
-              display: 'flex',
-              flexDirection: 'column',
+              display: "flex",
+              flexDirection: "column",
               marginLeft: 30,
               marginRight: 30,
               marginTop: 30,
-              justifyContent: 'center',
+              justifyContent: "center",
               lineHeight: 5,
             }}
           >
@@ -99,9 +99,9 @@ export default function UpdateStock(props) {
         </DialogContent>
         <div
           style={{
-            display: 'flex',
-            flexDirection: 'row',
-            justifyContent: 'space-around',
+            display: "flex",
+            flexDirection: "row",
+            justifyContent: "space-around",
             marginBottom: 30,
           }}
         >

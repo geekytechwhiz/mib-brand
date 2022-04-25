@@ -5,7 +5,6 @@ import SignUp from "layouts/authentication/sign-up";
 import Dashboard from "layouts/dashboard";
 import Profile from "layouts/profile";
 import Settlements from "layouts/settlements";
-import Images from "pages/AddProduct/Images";
 import AddProduct from "./layouts/addProduct/index";
 import Inventory from "./layouts/inventory/index";
 import Orders from "./layouts/orders/index";
@@ -59,14 +58,6 @@ const routes = [
     icon: <Icon fontSize="small">person</Icon>,
     route: "/profile",
     component: <Profile />,
-  },
-  {
-    type: "collapse",
-    name: "images",
-    key: "images",
-    icon: <Icon fontSize="small">Images</Icon>,
-    route: "/test",
-    component: <Images />,
   },
 ];
 export const basicRoutes = [

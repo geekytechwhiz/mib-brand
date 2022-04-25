@@ -1,7 +1,7 @@
-import { styled } from '@mui/material/styles';
+import { styled } from "@mui/material/styles";
 
 // Material Dashboard 2 React components
-import MDButton from 'components/MDButton';
+import MDButton from "components/MDButton";
 
 export default styled(MDButton)(({ theme, ownerState }) => {
   const { borders, functions, typography, palette } = theme;
@@ -15,16 +15,16 @@ export default styled(MDButton)(({ theme, ownerState }) => {
   // width, height, minWidth and minHeight values
   let sizeValue = pxToRem(36);
 
-  if (paginationSize === 'small') {
+  if (paginationSize === "small") {
     sizeValue = pxToRem(30);
-  } else if (paginationSize === 'large') {
+  } else if (paginationSize === "large") {
     sizeValue = pxToRem(46);
   }
 
   return {
     borderColor,
     margin: `0 ${pxToRem(2)}`,
-    pointerEvents: active ? 'none' : 'auto',
+    pointerEvents: active ? "none" : "auto",
     fontWeight: fontWeightRegular,
     fontSize: fontSize.sm,
     width: sizeValue,
@@ -32,15 +32,15 @@ export default styled(MDButton)(({ theme, ownerState }) => {
     height: sizeValue,
     minHeight: sizeValue,
 
-    '&:hover, &:focus, &:active': {
-      transform: 'none',
+    "&:hover, &:focus, &:active": {
+      transform: "none",
       boxShadow:
-        (variant !== 'gradient' || variant !== 'contained') &&
-        'none !important',
-      opacity: '1 !important',
+        (variant !== "gradient" || variant !== "contained") &&
+        "none !important",
+      opacity: "1 !important",
     },
 
-    '&:hover': {
+    "&:hover": {
       backgroundColor: light.main,
       borderColor,
     },

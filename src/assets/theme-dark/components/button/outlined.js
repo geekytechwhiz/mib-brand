@@ -1,8 +1,8 @@
-import colors from 'assets/theme-dark/base/colors';
-import typography from 'assets/theme-dark/base/typography';
+import colors from "assets/theme-dark/base/colors";
+import typography from "assets/theme-dark/base/typography";
 
 // Material Dashboard 2 React Helper Functions
-import pxToRem from 'assets/theme-dark/functions/pxToRem';
+import pxToRem from "assets/theme-dark/functions/pxToRem";
 
 const { transparent, light, info, secondary } = colors;
 const { size } = typography;
@@ -14,12 +14,12 @@ const outlined = {
     borderColor: light.main,
     padding: `${pxToRem(9)} ${pxToRem(24)}`,
 
-    '&:hover': {
+    "&:hover": {
       opacity: 0.75,
       backgroundColor: transparent.main,
     },
 
-    '& .material-icon, .material-icons-round, svg': {
+    "& .material-icon, .material-icons-round, svg": {
       fontSize: `${pxToRem(16)} !important`,
     },
   },
@@ -29,7 +29,7 @@ const outlined = {
     padding: `${pxToRem(6)} ${pxToRem(18)}`,
     fontSize: size.xs,
 
-    '& .material-icon, .material-icons-round, svg': {
+    "& .material-icon, .material-icons-round, svg": {
       fontSize: `${pxToRem(12)} !important`,
     },
   },
@@ -39,7 +39,7 @@ const outlined = {
     padding: `${pxToRem(12)} ${pxToRem(64)}`,
     fontSize: size.sm,
 
-    '& .material-icon, .material-icons-round, svg': {
+    "& .material-icon, .material-icons-round, svg": {
       fontSize: `${pxToRem(22)} !important`,
     },
   },
@@ -48,7 +48,7 @@ const outlined = {
     backgroundColor: transparent.main,
     borderColor: info.main,
 
-    '&:hover': {
+    "&:hover": {
       backgroundColor: transparent.main,
     },
   },
@@ -57,7 +57,7 @@ const outlined = {
     backgroundColor: transparent.main,
     borderColor: secondary.main,
 
-    '&:hover': {
+    "&:hover": {
       backgroundColor: transparent.main,
     },
   },

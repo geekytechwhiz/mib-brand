@@ -49,7 +49,7 @@ function DefaultNavbar({ transparent, light, action }) {
     }
 
     /** 
-     The event listener that's calling the displayMobileNavbar function when 
+     The event listener that"s calling the displayMobileNavbar function when 
      resizing the window.
     */
     window.addEventListener("resize", displayMobileNavbar);

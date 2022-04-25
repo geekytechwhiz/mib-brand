@@ -27,7 +27,7 @@ function ProfileHeader() {
     }
 
     /**
-     The event listener that's calling the handleTabsOrientation function when resizing the window.
+     The event listener that"s calling the handleTabsOrientation function when resizing the window.
     */
     window.addEventListener("resize", handleTabsOrientation);
 

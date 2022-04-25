@@ -60,7 +60,7 @@ function Configurator() {
       return window.innerWidth > 1200 ? setDisabled(false) : setDisabled(true);
     }
 
-    // The event listener that's calling the handleDisabled function when resizing the window.
+    // The event listener that"s calling the handleDisabled function when resizing the window.
     window.addEventListener("resize", handleDisabled);
 
     // Call the handleDisabled function to set the state with the initial value.

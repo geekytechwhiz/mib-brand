@@ -2,7 +2,7 @@ import axios from "axios";
 
 const isProduction = process.env.NODE_ENV === "production";
 const { hostname } = window.location;
-// const hdr= 'X-MIBAPI-CustomerType,X-MIBAPI-Trace-Id,X-MIBAPI-CustomerID,X-MIBAPI-Token,X-MIBAPI-Source,Content-Type,X-Amz-Date,Authorization,X-Api-Key,X-Amz-Security-Token'
+// const hdr= "X-MIBAPI-CustomerType,X-MIBAPI-Trace-Id,X-MIBAPI-CustomerID,X-MIBAPI-Token,X-MIBAPI-Source,Content-Type,X-Amz-Date,Authorization,X-Api-Key,X-Amz-Security-Token"
 const getHeaders = () => ({
   "access-control-allow-origin": "*",
   "access-control-allow-headers": "*",
