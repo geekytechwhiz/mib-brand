@@ -27,7 +27,7 @@
       }
     ],
     "prettier/prettier": [
-      "warning",
+      1,
       {
         "endOfLine": "auto"
       }
@@ -54,7 +54,6 @@
       "never"
     ]
   },
-  "import/no-named-as-default": 0,
   "settings": {
     "import/resolver": {
       "node": {
@@ -66,7 +65,7 @@
     "import/parsers": {
       "@babel/eslint-parser": [
         ".js"
-      ],
-    },
+      ]
+    }
   }
 }

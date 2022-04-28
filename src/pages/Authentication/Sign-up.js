@@ -1,3 +1,5 @@
+/* eslint-disable import/no-named-as-default */
+/* eslint-disable consistent-return */
 /* eslint-disable no-debugger */
 /* eslint-disable no-unused-vars */
 import { Checkbox } from "@mui/material";
@@ -5,21 +7,20 @@ import Card from "@mui/material/Card";
 // // Material Dashboard 2 React components
 import MDBox from "components/MDBox";
 import MDButton from "components/MDButton";
-import MDInput from "components/MDInput";
 import MDTypography from "components/MDTypography";
-import React, { useEffect, useState } from "react";
-import { useNavigate, Link } from "react-router-dom";
-import { useDispatch, useSelector } from "react-redux";
-import { useMaterialUIController, setLayout } from "context";
+import React, { useEffect, useRef, useState } from "react";
+import { TextValidator, ValidatorForm } from "react-material-ui-form-validator";
+import { Link, useNavigate } from "react-router-dom";
+import { Validate } from "../../lib/Validations/index";
 import registerAccount from "../../services/onboarding/index";
 
 function Signup() {
+  const formRef = useRef("form");
   const [disabled, setDisabled] = useState(true);
-  const [controller, dispatch] = useMaterialUIController();
+
   const [user, setUser] = useState({});
   const navigate = useNavigate();
-  const dispatcher = useDispatch();
-
+  const requiredField = ["Name", "Moblie", "EmailId", "Password"];
   // const details = useSelector((state) => state.data);
 
   useEffect(async () => {
@@ -36,8 +37,12 @@ function Signup() {
     }));
   };
 
-  const handleSignUp = async () => {
+  const handleSubmit = async () => {
     debugger;
+    const validate = Validate(requiredField, user);
+    if (!validate.isValid) {
+      return false;
+    }
     const res = await registerAccount(user);
     debugger;
     if (res) {
@@ -47,84 +52,134 @@ function Signup() {
   };
 
   const handleTerms = (e) => {
-    const isChecked = !e.target.checked;
+    debugger;
+    const isChecked = e.target.checked;
     setDisabled(isChecked);
   };
 
   return (
-    <Card>
-      <MDBox pt={4} pb={3} px={3}>
-        <MDBox component="form" role="form">
-          <MDBox mb={2}>
-            <MDInput
-              type="email"
-              label="Email"
-              name="EmailId"
-              variant="standard"
-              fullWidth
-              onChange={handleChange}
-            />
-          </MDBox>
-          <MDBox mb={2}>
-            <MDInput
-              type="password"
-              label="Password"
-              name="Password"
-              variant="standard"
-              fullWidth
-              onChange={handleChange}
-            />
-          </MDBox>
-          <MDBox display="flex" alignItems="center" ml={-1}>
-            <Checkbox onChange={handleTerms} />
-            <MDTypography
-              variant="button"
-              fontWeight="regular"
-              color="text"
-              sx={{ cursor: "pointer", userSelect: "none", ml: -1 }}
-            >
-              &nbsp;&nbsp;I agree the&nbsp;
-            </MDTypography>
-            <MDTypography
-              component="a"
-              href="#"
-              variant="button"
-              fontWeight="bold"
-              color="info"
-              textGradient
-            >
-              Terms and Conditions
-            </MDTypography>
-          </MDBox>
-          <MDBox mt={4} mb={1}>
-            <MDButton
-              variant="gradient"
-              color="info"
-              disabled={disabled}
-              fullWidth
-              onClick={handleSignUp}
-            >
-              sign in
-            </MDButton>
-          </MDBox>
-          <MDBox mt={3} mb={1} textAlign="center">
-            <MDTypography variant="button" color="text">
-              Already have an account?{" "}
+    <ValidatorForm formRef="form" onSubmit={handleSubmit}>
+      <Card>
+        <MDBox pt={4} pb={3} px={3}>
+          <MDBox>
+            <MDBox mb={2}>
+              <TextValidator
+                label="Your Name"
+                name="Name"
+                required
+                fullWidth
+                value={user.Name}
+                validators={["required", "text"]}
+                errorMessages={["this field is required"]}
+                onChange={handleChange}
+              />
+            </MDBox>
+            <MDBox mb={2}>
+              <TextValidator
+                label="Mobile Number"
+                name="Mobile"
+                required
+                value={user.Mobile}
+                fullWidth
+                errorMessages={[
+                  "this field is required",
+                  "Mobile is not valid",
+                ]}
+                validators={["required", "minNumber:10"]}
+                onChange={handleChange}
+              />
+            </MDBox>
+            <MDBox mb={2}>
+              <TextValidator
+                required
+                label="Email"
+                value={user.EmailId}
+                name="EmailId"
+                fullWidth
+                validators={["required", "isEmail"]}
+                errorMessages={["this field is required", "email is not valid"]}
+                onChange={handleChange}
+              />
+            </MDBox>
+            <MDBox mb={2}>
+              <TextValidator
+                required
+                label="Password"
+                name="Password"
+                fullWidth
+                validators={["required", "minNumber:10", "maxNumber:15"]}
+                errorMessages={[
+                  "this field is required",
+                  "Password must be at least 6 characters",
+                ]}
+                onChange={handleChange}
+              />
               <MDTypography
-                component={Link}
-                to="/authentication/sign-in"
                 variant="button"
+                fontWeight="regular"
+                color="text"
+                sx={{ cursor: "pointer", userSelect: "none", ml: -1 }}
+              >
+                &nbsp;&nbsp;Password must be at least 6 characters &nbsp;
+              </MDTypography>
+            </MDBox>
+            <MDBox display="flex" alignItems="center" ml={-1}>
+              <Checkbox
+                size="small"
+                color="success"
+                onChange={handleTerms}
+                defaultChecked={false}
+                checked={disabled}
+              />
+              <MDTypography
+                variant="button"
+                color="text"
+                sx={{ cursor: "pointer", userSelect: "none", ml: -1 }}
+              >
+                &nbsp;&nbsp;I agree the&nbsp;
+              </MDTypography>
+              <MDTypography
+                component="a"
+                href="#"
+                variant="button"
+                fontWeight="bold"
                 color="info"
-                fontWeight="medium"
                 textGradient
               >
-                Sign In
+                Terms and Conditions
               </MDTypography>
-            </MDTypography>
+            </MDBox>
+            <MDBox mt={4} mb={1}>
+              <MDButton
+                type="submit"
+                variant="gradient"
+                color="info"
+                disabled={!disabled}
+                fullWidth
+                onClick={handleSubmit}
+              >
+                sign in
+              </MDButton>
+            </MDBox>
+            <MDBox mt={3} mb={1} textAlign="center">
+              <MDTypography variant="button" color="text">
+                Already have an account?{" "}
+                <MDTypography
+                  component={Link}
+                  to="/authentication/sign-in"
+                  variant="button"
+                  color="info"
+                  fontWeight="medium"
+                  textGradient
+                >
+                  Sign In
+                </MDTypography>
+              </MDTypography>
+            </MDBox>
           </MDBox>
         </MDBox>
-      </MDBox>
-    </Card>
+      </Card>
+    </ValidatorForm>
   );
 }
 
