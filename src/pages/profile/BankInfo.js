@@ -14,7 +14,7 @@ import { useSelector } from "react-redux";
 import { updateBankDetails } from "../../services/onboarding/index";
 
 export default function BankInfo() {
-  debugger;
+    
   let bankDetails = useSelector((state) => state.accountInfo);
   const { BrandId } = useSelector((state) => state.accountInfo) || "";
   const { EmailId } = useSelector((state) => state.accountInfo) || "";
@@ -32,7 +32,7 @@ export default function BankInfo() {
     setShowProgress(false);
   };
   const handleCancel = async () => {
-    debugger;
+      
     const keys = Object.keys(bankInfo);
     const obj = {};
     keys.forEach((x) => {
@@ -44,7 +44,7 @@ export default function BankInfo() {
     setShowProgress(false);
   };
   const handleSave = async () => {
-    debugger;
+      
     const bankObj = { ...bankDetails };
     bankObj.BrandId = BrandId;
     const req = { ...bankObj, ...bankInfo };

@@ -40,7 +40,6 @@ import rtlPlugin from "stylis-plugin-rtl";
 import Sidenav from "./components/MDSidenav/index";
 
 export default function App() {
-  debugger;
   const [controller, dispatch] = useMaterialUIController();
   const dispatcher = useDispatch();
   const navigate = useNavigate();
@@ -91,7 +90,7 @@ export default function App() {
   const handleConfiguratorOpen = () =>
     setOpenConfigurator(dispatch, !openConfigurator);
 
-    const handleSetProfileSettings = () =>
+  const handleSetProfileSettings = () =>
     setProfileSettings(dispatch, !profileSettings);
 
   // Setting the dir attribute for the body element
@@ -104,8 +103,7 @@ export default function App() {
   useEffect(() => {
     document.documentElement.scrollTop = 0;
     document.scrollingElement.scrollTop = 0;
-  }, [pathname]);
-
+  }, [pathname]); 
   const getRoutes = (allRoutes) =>
     allRoutes.map((route) => {
       if (route.collapse) {

@@ -5,10 +5,11 @@ import monitorReducersEnhancer from "./enhancers/monitorReducer";
 import loggerMiddleware from "./middleware/logger";
 import authSlice from "./slices/onboarding";
 import inventorySlice from "./slices/inventory";
+import rootSlice from "./slices/root/rootSlice";
 
 export default function configureAppStore(preloadedState) {
   const store = configureStore({
-    reducer: { auth: authSlice, inventory: inventorySlice },
+    reducer: { auth: authSlice, inventory: inventorySlice, root: rootSlice },
     middleware: [loggerMiddleware, ...getDefaultMiddleware()],
     preloadedState,
     enhancers: [monitorReducersEnhancer],

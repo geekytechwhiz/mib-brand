@@ -38,13 +38,23 @@ function Signup() {
   };
 
   const handleSubmit = async () => {
-    debugger;
     const validate = Validate(requiredField, user);
     if (!validate.isValid) {
       return false;
     }
-    const res = await registerAccount(user);
-    debugger;
+    const req = {
+      EmailId: user.EmailId,
+      Password: user.Password,
+      ContactDetails: {
+        Name: user.Name,
+        Mobile: user.Mobile,
+        EmailId: user.EmailId,
+        CountryCode: "+91",
+        Languages: ["English"],
+      },
+    };
+    const res = await registerAccount(req);
+
     if (res) {
       // setLayout(dispatch, "dashboard");
       navigate("/authentication/sign-in");
@@ -52,7 +62,6 @@ function Signup() {
   };
 
   const handleTerms = (e) => {
-    debugger;
     const isChecked = e.target.checked;
     setDisabled(isChecked);
   };

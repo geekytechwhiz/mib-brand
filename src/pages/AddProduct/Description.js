@@ -1,3 +1,4 @@
+/* eslint-disable consistent-return */
 /* eslint-disable no-debugger */
 /* eslint-disable react/jsx-no-bind */
 /* eslint-disable react/prop-types */
@@ -10,12 +11,17 @@ import Grid from "@mui/material/Grid";
 import MDBox from "components/MDBox";
 import MDInput from "components/MDInput";
 import MDTypography from "components/MDTypography";
+import MDSnackbar from "components/MDSnackbar";
 import React, { useState } from "react";
 import { shallowEqual, useDispatch, useSelector } from "react-redux";
 import { description } from "../../redux/slices/inventory";
+import { Validate } from "../../lib/Validations";
 
 function Description(props) {
   const { activeTab } = props;
+  const requiredFields = ["Description"];
+  let validationResponse = {};
+  const [openError, setOpenError] = useState({ error: false, message: "" });
   const dispatch = useDispatch();
   const productState =
     useSelector((state) => state.inventory.description, shallowEqual) || {};
@@ -32,14 +38,31 @@ function Description(props) {
     }));
   };
   const handleOnKeyPress = (event) => {
-    debugger;
     const { value } = event.target;
     setKeyPoints((p) => ({
       ...keyPoints,
       ...value,
     }));
   };
+  const handleClose = () => {
+    debugger;
+    const error = {
+      error: false,
+      message: "",
+    };
+    setOpenError(error);
+  };
   const handleNext = (e) => {
+    validationResponse = Validate(requiredFields, product);
+    if (!validationResponse.isValid) {
+      debugger;
+      const error = {
+        error: !validationResponse.isValid,
+        message: validationResponse.message,
+      };
+      setOpenError(error);
+      return false;
+    }
     dispatch(description(product));
     activeTab(e, "6");
   };
@@ -85,6 +108,7 @@ function Description(props) {
               <Grid item xs={12} mb={2}>
                 <MDInput
                   required
+                  error
                   type="text"
                   label="Product Description"
                   name="ProductDescription"
@@ -93,6 +117,7 @@ function Description(props) {
                   onChange={handleChange}
                   rows={6}
                   maxRows={8}
+                  helperText="Required field"
                   multiline
                 />
               </Grid>
@@ -135,6 +160,18 @@ function Description(props) {
             Next
           </Button>
         </Grid>
+      </Grid>
+      <Grid>
+        <MDSnackbar
+          color="error"
+          icon="warning"
+          title="Missing required fields"
+          content={`${openError.message}`}
+          open={openError.error}
+          onClose={handleClose}
+          close={handleClose}
+          bgWhite
+        />
       </Grid>
     </MDBox>
   );

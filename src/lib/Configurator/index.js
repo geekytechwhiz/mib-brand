@@ -34,7 +34,7 @@ import {
 } from "context";
 
 function Configurator() {
-  debugger;
+    
   const [controller, dispatch] = useMaterialUIController();
   const {
     openConfigurator,

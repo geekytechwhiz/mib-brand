@@ -34,7 +34,7 @@ export default function DynamicForm(props) {
   const [values, setValues] = useState({});
 
   useEffect(() => {
-    debugger;
+      
     const fileList = _.cloneDeep(data);
     // setValues((currentValues) => {
     //   const newValues = fileList.reduce((obj, field) => {
@@ -54,7 +54,7 @@ export default function DynamicForm(props) {
   }, [data]);
 
   const fieldChanged = (event) => {
-    debugger;
+      
     const { name } = event.target;
     const { value } = event.target;
     if (!value) return null;

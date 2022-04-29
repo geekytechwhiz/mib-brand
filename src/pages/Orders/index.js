@@ -152,7 +152,7 @@ function index() {
     }
   };
   useEffect(() => {
-    debugger;
+      
     console.log("Orders", Orders);
     makeRows();
   }, []);

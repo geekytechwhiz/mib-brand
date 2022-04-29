@@ -1,3 +1,4 @@
+/* eslint-disable consistent-return */
 /* eslint-disable no-debugger */
 /* eslint-disable no-unused-vars */
 /* eslint-disable react/prop-types */
@@ -10,17 +11,32 @@ import MDButton from "components/MDButton";
 import MDInput from "components/MDInput";
 import MDTypography from "components/MDTypography";
 import React, { useState } from "react";
-import { useSelector } from "react-redux";
+import { useDispatch, useSelector } from "react-redux";
+import { alert } from "redux/slices/root/rootSlice";
+import MDSnackbar from "components/MDSnackbar";
 import { postProducts } from "../../services/inventory";
+import { Validate } from "../../lib/Validations";
 
 function MoreDetails(props) {
-  const { activeTab } = props; 
+  const { activeTab } = props;
+  const requiredFields = ["BuddyMargin", "LoyaltyPoint"];
+  let validationResponse = {};
+  const [openError, setOpenError] = useState({ error: false, message: "" });
+  const dispatch = useDispatch();
   const productState = useSelector((state) => state.pricing) || {};
   const { vitalInfo, offers, medias, description, categories, variant } =
-    useSelector((state) => state.inventory); 
+    useSelector((state) => state.inventory);
+
   const [product, setProduct] = useState(productState);
   const [acceptTerms, setAcceptTerms] = useState(false);
-
+  const handleClose = () => {
+    debugger;
+    const error = {
+      error: false,
+      message: "",
+    };
+    setOpenError(error);
+  };
   const handleChange = (event) => {
     const { name } = event.target;
     const { value } = event.target;
@@ -32,6 +48,17 @@ function MoreDetails(props) {
 
   const handlePublish = () => {
     debugger;
+    validationResponse = Validate(requiredFields, product);
+    if (!validationResponse.isValid) {
+      debugger;
+      const error = {
+        error: !validationResponse.isValid,
+        message: validationResponse.message,
+      };
+      setOpenError(error);
+      return false;
+    }
+
     const request = {
       ...vitalInfo,
       ...offers,
@@ -41,10 +68,17 @@ function MoreDetails(props) {
       ...variant,
     };
     request.Status = "Published";
-    postProducts(request, BrandId);
+    const data = postProducts(request, vitalInfo.BrandId);
+    if (!data) {
+      const error = {
+        status: "error",
+        message:
+          "Product upload failed. Please check for any any error or try again",
+      };
+      dispatch(alert(error));
+    }
   };
   const handleDraft = () => {
-    debugger;
     const request = {
       ...vitalInfo,
       ...offers,
@@ -54,9 +88,9 @@ function MoreDetails(props) {
       ...variant,
     };
     request.Status = "Draft";
-    postProducts(request, BrandId);
-  }; 
- 
+    postProducts(request, vitalInfo.BrandId);
+  };
+
   return (
     <MDBox
       variant="gradient"
@@ -225,6 +259,18 @@ function MoreDetails(props) {
             {" "}
             Publish
           </MDButton>
+        </Grid>
+        <Grid>
+          <MDSnackbar
+            color="error"
+            icon="warning"
+            title="Missing required fields"
+            content={`${openError.message}`}
+            open={openError.error}
+            onClose={handleClose}
+            close={handleClose}
+            bgWhite
+          />
         </Grid>
       </Grid>
     </MDBox>

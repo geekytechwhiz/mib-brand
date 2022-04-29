@@ -12,12 +12,25 @@ import Grid from "@mui/material/Grid";
 import MDBox from "components/MDBox";
 import MDInput from "components/MDInput";
 import MDTypography from "components/MDTypography";
+import MDSnackbar from "components/MDSnackbar";
 import React, { useState } from "react";
 import { useDispatch, useSelector, shallowEqual } from "react-redux";
 import { offers } from "../../redux/slices/inventory";
+import { Validate } from "../../lib/Validations";
 
 function Offer(props) {
   const { activeTab } = props;
+
+  const requiredFields = [
+    "YourPrice",
+    "Quantity",
+    "MRP",
+    "SellingPrice",
+    "CountryOfOrigin",
+  ];
+  let validationResponse = {};
+  const [openError, setOpenError] = useState({ error: false, message: "" });
+
   const dispatch = useDispatch();
   const productState =
     useSelector((state) => state.inventory.offers, shallowEqual) || {};
@@ -32,7 +45,6 @@ function Offer(props) {
     }));
   };
   const handleSelect = (event) => {
-    debugger;
     const { name } = event.target;
     const { value } = event.target;
     if (!value) return null;
@@ -42,8 +54,25 @@ function Offer(props) {
       [name]: value,
     }));
   };
-
+  const handleClose = () => {
+    debugger;
+    const error = {
+      error: false,
+      message: "",
+    };
+    setOpenError(error);
+  };
   const handleNext = (e) => {
+    validationResponse = Validate(requiredFields, product);
+    if (!validationResponse.isValid) {
+      debugger;
+      const error = {
+        error: !validationResponse.isValid,
+        message: validationResponse.message,
+      };
+      setOpenError(error);
+      return false;
+    }
     dispatch(offers(product));
     activeTab(e, "4");
   };
@@ -97,6 +126,7 @@ function Offer(props) {
                   label="Your Price"
                   fullWidth
                   onChange={handleChange}
+                  helperText="Required field"
                 />
               </Grid>
               <Grid item xs={4} mb={2}>
@@ -109,6 +139,7 @@ function Offer(props) {
                   label="MRP"
                   fullWidth
                   onChange={handleChange}
+                  helperText="Required field"
                 />
               </Grid>
               <Grid item xs={4} mb={2}>
@@ -119,6 +150,7 @@ function Offer(props) {
                   error={!product.SellingPrice}
                   type="text"
                   label="Selling Price"
+                  helperText="Required field"
                   fullWidth
                   onChange={handleChange}
                 />
@@ -131,6 +163,7 @@ function Offer(props) {
                   error={!product.Quantity}
                   value={product.Quantity}
                   label="Quantity"
+                  helperText="Required field"
                   fullWidth
                   onChange={handleChange}
                 />
@@ -171,6 +204,7 @@ function Offer(props) {
                 <MDInput
                   required
                   type="text"
+                  helperText="Required field"
                   error={!product.CountryOfOrigin}
                   name="CountryOfOrigin"
                   value={product.CountryOfOrigin}
@@ -179,19 +213,6 @@ function Offer(props) {
                   onChange={handleChange}
                 />
               </Grid>
-              {/* <Grid item xs={12} mb={2}>
-                <TagsInput
-                  selectedTags={handleSelectedTags}
-                  fullWidth
-                  onChange={handleChange}
-                  variant="outlined"
-                  id="tags"
-                  name="Tags"
-                  value={product.Tags}
-                  placeholder="add Tags"
-                  label="tags"
-                />
-              </Grid> */}
 
               <Grid item xs={4} mb={2}>
                 <Autocomplete
@@ -199,6 +220,7 @@ function Offer(props) {
                   required
                   error={!product.DeliveryChannel}
                   placeholder="Delivery Channel"
+                  helperText="Required field"
                   id="combo-Condition"
                   name="DeliveryChannel"
                   options={[
@@ -284,6 +306,18 @@ function Offer(props) {
             Next
           </Button>
         </Grid>
+      </Grid>
+      <Grid>
+        <MDSnackbar
+          color="error"
+          icon="warning"
+          title="Missing required fields"
+          content={`${openError.message}`}
+          open={openError.error}
+          onClose={handleClose}
+          close={handleClose}
+          bgWhite
+        />
       </Grid>
     </MDBox>
   );

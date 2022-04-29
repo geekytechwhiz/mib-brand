@@ -18,7 +18,7 @@ import { useSelector } from "react-redux";
 import { updateContactInfo } from "../../services/onboarding/index";
 
 function ContactInfo() {
-  debugger;
+    
   let contacts = useSelector((state) => state.accountInfo) || {};
   const { BrandId } = useSelector((state) => state.accountInfo) || "";
   const { EmailId } = useSelector((state) => state.accountInfo) || "";
@@ -61,7 +61,7 @@ function ContactInfo() {
     }));
   };
   const handleSave = async () => {
-    debugger;
+      
     setShowProgress(true);
     console.log("BrandId:", BrandId);
     contactDetails.BrandId = BrandId;
@@ -74,7 +74,7 @@ function ContactInfo() {
   };
 
   const handleCancel = async () => {
-    debugger;
+      
     const keys = Object.keys(contactDetails);
     const obj = {};
     keys.forEach((x) => {

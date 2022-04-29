@@ -58,7 +58,7 @@ export default function BusinessInfo() {
     </MDTypography>
   );
   const handleCancel = async () => {
-    debugger;
+      
     const keys = Object.keys(businessInfo);
     const obj = {};
     keys.forEach((x) => {
@@ -70,7 +70,7 @@ export default function BusinessInfo() {
     setShowProgress(false);
   };
   const handleBusinessTypeChange = (event, values) => {
-    debugger;
+      
     const { value } = values;
     setBusinessDetails(() => ({
       ...businessInfo,
@@ -78,7 +78,7 @@ export default function BusinessInfo() {
     }));
   };
   const handleSubCategoryChange = (event, values) => {
-    debugger;
+      
     const { value } = values;
     setBusinessDetails(() => ({
       ...businessInfo,
@@ -87,7 +87,7 @@ export default function BusinessInfo() {
   };
 
   const handleCategoryChange = (event, values) => {
-    debugger;
+      
     const { value } = values;
     setBusinessDetails(() => ({
       ...businessInfo,
@@ -96,7 +96,7 @@ export default function BusinessInfo() {
   };
 
   const handleChange = (event) => {
-    debugger;
+      
     const { name } = event.target;
     const { value } = event.target;
     setBusinessDetails(() => ({
@@ -106,7 +106,7 @@ export default function BusinessInfo() {
   };
 
   const handleGstnSelection = (e) => {
-    debugger;
+      
     const { value } = e.target;
     if (value === "1") {
       setDisableGstn(false);
@@ -121,7 +121,7 @@ export default function BusinessInfo() {
   };
 
   const handleSave = async () => {
-    debugger;
+      
     setShowProgress(true);
     businessInfo.BrandId = BrandId;
     const req = { ...BusinessDetails, ...businessInfo };

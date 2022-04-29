@@ -21,7 +21,7 @@ export default function Medias(props) {
   const productState = { ImageLinks: [] };
   const uuid = uuidv4();
   const getUploadParams = async ({ file, meta: { name } }) => {
-    debugger;
+      
     console.log(name);
     const req = {
       contentType: file.type,
@@ -45,17 +45,17 @@ export default function Medias(props) {
   };
 
   const handleNext = (e) => {
-    debugger;
+      
     activeTab(e, "5");
     dispatch(medias(productState));
   };
   const handleBack = (e) => {
-    debugger;
+      
     activeTab(e, "5");
     dispatch(medias(productState));
   };
   const handleSubmit = (files, allFiles) => {
-    debugger;
+      
 
     console.log(files.map((f) => f.meta));
     allFiles.forEach((f) => f.remove());

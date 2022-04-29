@@ -8,7 +8,7 @@ import { shallowEqual, useSelector } from "react-redux";
 import { getVariantDetails } from "../../lib/helper";
 
 function ProductVariant(props) {
-  debugger;
+    
   const { activeTab } = props;
 
   const categories = useSelector(
@@ -21,7 +21,7 @@ function ProductVariant(props) {
   const details = getVariantDetails(category);
   const dataset = useMemo(() => getVariantDetails(category), [data]);
   useEffect(() => {
-    debugger;
+      
     setData(details);
   }, [data]);
 

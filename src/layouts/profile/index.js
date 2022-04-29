@@ -12,7 +12,7 @@ function Overview() {
   const dispatch = useDispatch();
   const params = "prashanthmsktm@gmail.com";
   dispatch(getBrandThunk(params));
-  debugger;
+    
   setTimeout(() => {}, 3000);
   return (
     <DashboardLayout>

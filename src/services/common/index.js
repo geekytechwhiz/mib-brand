@@ -6,7 +6,6 @@ import { RESOURCE, ORIGIN } from "../../lib/Constants";
 
 export const postSignedUrl = async (payload) => {
   try {
-    debugger;
     const requestBody = {
       ContentType: payload.contentType,
       Resource: RESOURCE,
@@ -27,7 +26,6 @@ export const postSignedUrl = async (payload) => {
 };
 
 export const putImage = async (url, payload, config) => {
-  debugger;
   try {
     const { data } = await axios.put(url, payload, config);
     return data;

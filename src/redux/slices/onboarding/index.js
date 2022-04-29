@@ -18,7 +18,7 @@ const initialState = {
 export const loginThunk = createAsyncThunk(
   "/authorizer/login",
   async (accountInfo) => {
-    debugger;
+      
     const response = await login(accountInfo);
     return response;
   }
@@ -27,7 +27,7 @@ export const loginThunk = createAsyncThunk(
 export const getBrandThunk = createAsyncThunk(
   "/brand/details/{emailId}",
   async (emailId) => {
-    debugger;
+      
     const response = await getBrandAccount(emailId);
     return response;
   }

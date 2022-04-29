@@ -59,6 +59,9 @@
       "node": {
         "paths": [
           "src"
+        ],
+        "extensions": [
+          ".js",
         ]
       }
     },

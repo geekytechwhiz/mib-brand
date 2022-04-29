@@ -50,9 +50,8 @@ export const validateVitalInfos = (product) => {
   return count;
 };
 
-export function Validate(fields, inputs) {
-  debugger;
-  const errors = [];
+export function Validate(fields, inputs) { 
+  let errors = new Array()
   let response = {
     isValid: true,
     message: "",
@@ -65,7 +64,8 @@ export function Validate(fields, inputs) {
   }
   fields.forEach((x) => {
     if (!inputs[x] || inputs[x] === "") {
-      errors.push[x];
+     
+      errors.push(x);
     }
   });
   if (errors.length > 0) {

@@ -2,25 +2,26 @@
 const { createSlice } = require("@reduxjs/toolkit");
 
 const initialState = {
-  miniSidenav: false,
-  transparentSidenav: false,
-  whiteSidenav: false,
-  sidenavColor: "info",
-  transparentNavbar: true,
-  fixedNavbar: true,
-  openConfigurator: false,
-  direction: "ltr",
-  layout: "basic",
-  darkMode: false,
+  notification:{
+    status:"",
+    message:""
+  },
+  alerts:{
+    status:"",
+    message:""
+  }
 };
 
 const rootSlice = createSlice({
   name: "global",
   initialState,
   reducers: {
-    successNotification: (state, action) => {
-      state.showSuccess = action.payload;
+    alert: (state, action) => {
+      state.alerts = {...action.payload};
     },
+    notification: (state, action) => {
+      state.notification = {...action.payload};
+    }, 
     setMiniSidenav: (state, action) => {
       state.miniSidenav = action.payload;
     },
@@ -53,9 +54,9 @@ const rootSlice = createSlice({
     },
   },
 });
-export const {
-  successNotification,
-  setMiniSidenav,
+export const { 
+  notification,
+  alert,
   setTransparentSidenav,
   setWhiteSidenav,
   setSidenavColor,

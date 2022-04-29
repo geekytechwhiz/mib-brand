@@ -29,7 +29,7 @@ export const getSubCategories = (category) => {
 };
 
 export const getVariantDetails = (productCategory) => {
-  debugger;
+    
   if (!productCategory) return [];
   const template = Template;
   if (!template && Object.keys(template).length === 0) return [];

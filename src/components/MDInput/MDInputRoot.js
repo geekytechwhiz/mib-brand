@@ -33,8 +33,8 @@ export default styled(TextField)(({ theme, ownerState }) => {
     },
     "& .css-o1ds8i-MuiFormHelperText-root": {
       color: colorError.main,
-      fontWeight: "bold"
-    }, 
+      fontWeight: "400",
+    },
   });
 
   // styles for the input with success={true}

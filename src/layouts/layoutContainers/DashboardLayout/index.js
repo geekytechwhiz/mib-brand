@@ -1,4 +1,4 @@
-import { useEffect } from "react";
+import React, { useEffect } from "react";
 import { useLocation } from "react-router-dom";
 import PropTypes from "prop-types";
 import MDBox from "components/MDBox";
@@ -38,4 +38,4 @@ DashboardLayout.propTypes = {
   children: PropTypes.node.isRequired,
 };
 
-export default DashboardLayout;
+export default React.memo(DashboardLayout);

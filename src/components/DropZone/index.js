@@ -16,7 +16,7 @@ export default function MediaUploader(props) {
   const uuid = uuidv4();
   let images = [];
   const getUploadParams = async ({ file, meta: { name } }) => {
-    debugger;
+      
     console.log(name);
     const req = {
       contentType: file.type,
@@ -38,12 +38,12 @@ export default function MediaUploader(props) {
     console.log(status, meta);
   };
   const handleNext = (e) => {
-    debugger;
+      
     activeTab(e, "5");
     // dispatch(productDetails(product));
   };
   const handleSubmit = (files, allFiles) => {
-    debugger;
+      
 
     console.log(files.map((f) => f.meta));
     allFiles.forEach((f) => f.remove());

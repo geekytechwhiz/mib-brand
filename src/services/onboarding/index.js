@@ -1,16 +1,9 @@
 /* eslint-disable no-debugger */
 import { apiInstance } from "../../api";
 
-const registerAccount = async (payload) => {
+const registerAccount = async (reqParam) => {
   try {
-    const { EmailId, Password } = payload;
-    const reqParam = {
-      EmailId,
-      Password,
-    };
-
     const { data } = await apiInstance.post("/brand/register", reqParam);
-
     return data;
   } catch (err) {
     return null;
@@ -19,13 +12,12 @@ const registerAccount = async (payload) => {
 
 export const login = async (payload) => {
   try {
-    debugger;
     const { EmailId, Password } = payload;
     const reqParam = {
       EmailId,
       Password,
     };
-    debugger;
+
     const { data } = await apiInstance.post("/authorizer/login", reqParam);
     return data;
   } catch (err) {
@@ -35,7 +27,6 @@ export const login = async (payload) => {
 
 export const updateContactInfo = async (payload, emailId) => {
   try {
-    debugger;
     const reqParam = {
       Name: payload.Name,
       Mobile: payload.Mobile,
@@ -44,7 +35,7 @@ export const updateContactInfo = async (payload, emailId) => {
       Languages: payload.Languages,
       BrandId: payload.BrandId,
     };
-    debugger;
+
     const { data } = await apiInstance.patch(
       `/brand/contact-info/${emailId}`,
       reqParam
@@ -56,7 +47,6 @@ export const updateContactInfo = async (payload, emailId) => {
 };
 export const updateBankDetails = async (payload, emailId) => {
   try {
-    debugger;
     const reqParam = {
       BeneficiaryName: payload.BeneficiaryName,
       IFSCode: payload.IFSCode,
@@ -64,7 +54,7 @@ export const updateBankDetails = async (payload, emailId) => {
       BankName: payload.BankName,
       BrandId: payload.BrandId,
     };
-    debugger;
+
     const { data } = await apiInstance.patch(
       `/brand/bank-details/${emailId}`,
       reqParam
@@ -76,7 +66,6 @@ export const updateBankDetails = async (payload, emailId) => {
 };
 export const updateBusinessDetails = async (payload, emailId) => {
   try {
-    debugger;
     const reqParam = {
       BusinessName: payload.BusinessName,
       BusinessType: payload.BusinessType,
@@ -90,7 +79,7 @@ export const updateBusinessDetails = async (payload, emailId) => {
       WebSiteLink: payload.WebSiteLink,
       BrandId: payload.BrandId,
     };
-    debugger;
+
     const { data } = await apiInstance.patch(
       `/brand/business-details/${emailId}`,
       reqParam
@@ -102,7 +91,7 @@ export const updateBusinessDetails = async (payload, emailId) => {
 };
 export const getBrandAccount = async (emailId) => {
   const { data } = await apiInstance.get(`/brand/details/${emailId}`);
-  debugger;
+
   if (data.BrandId) localStorage.setItem("BrandId", data.BrandId);
   return data;
 };
@@ -111,8 +100,6 @@ export const getHealthCheck = async () => {
   return data;
 };
 export const postHealth = async () => {
-  debugger;
-
   const { data } = await apiInstance.post("/authorizer/health");
 
   return data;

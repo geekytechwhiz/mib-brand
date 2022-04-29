@@ -56,7 +56,7 @@ const initialState = {
 export const getProductsThunk = createAsyncThunk(
   "/brand/details/{emailId}",
   async (emailId) => {
-    debugger;
+      
     const response = await getProducts(emailId);
     return response;
   }

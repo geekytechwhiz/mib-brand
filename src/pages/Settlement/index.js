@@ -118,7 +118,7 @@ function index() {
     }
   };
   useEffect(() => {
-    debugger;
+      
     makeRows();
   }, []);
 

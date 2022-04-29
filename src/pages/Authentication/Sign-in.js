@@ -18,18 +18,24 @@ import React, { useRef, useState } from "react";
 import { TextValidator, ValidatorForm } from "react-material-ui-form-validator";
 import { useDispatch } from "react-redux";
 import { useNavigate } from "react-router-dom";
-import { INVALID_CREDENTIALS } from "../../lib/Constants";
+import {
+  NOT_FOUND_STATUS_CODE,
+  NOT_FOUND_ERROR_MSG,
+  UNAUTHORIZED_STATUS_CODE,
+  UNAUTHORIZED_ERROR_MSG,
+  INTERNAL_SERVER_ERROR,
+  INTERNAL_SERVER_ERROR_MSG,
+} from "../../lib/Constants";
 import { getBrandThunk } from "../../redux/slices/onboarding";
 import { login } from "../../services/onboarding";
 
 function SignIn() {
-  debugger;
   const navigate = useNavigate();
   const dispatch = useDispatch();
   const formRef = useRef("form");
   const initialRoutesSetRef = useRef(false);
   const token = localStorage.getItem("token");
-  const [error, setError] = useState(false);
+  const [error, setError] = useState({ message: "", hasError: false });
 
   const [rememberMe, setRememberMe] = useState(false);
   const [user, setUser] = useState({ EmailId: "", Password: "" });
@@ -56,24 +62,42 @@ function SignIn() {
     }));
   };
 
+  const validateResponse = (res) => {
+    if (res.statusCode && res.statusCode === NOT_FOUND_STATUS_CODE) {
+      return NOT_FOUND_ERROR_MSG;
+    }
+    if (res.statusCode && res.statusCode === UNAUTHORIZED_STATUS_CODE) {
+      return UNAUTHORIZED_ERROR_MSG;
+    }
+    if (res.statusCode && res.statusCode === INTERNAL_SERVER_ERROR) {
+      return INTERNAL_SERVER_ERROR_MSG;
+    }
+
+    return "Uncaught Migo Error";
+  };
+
   const handleSubmit = async () => {
-    debugger;
     // const res = await login(user);
-    debugger;
+
     if (!user.EmailId || !user.Password) {
       return false;
     }
     const response = await login(user);
-    if (!response || !response.token) {
-      setError(true);
+    if (response && response.auth) {
+      localStorage.setItem("token", response.token);
+      localStorage.setItem("auth", true);
+      localStorage.setItem("emailId", user.EmailId);
+      dispatch(getBrandThunk(user.EmailId));
+      setLayout(contextDispatch, "dashboard");
+      navigate("/dashboard");
+    } else {
+      const validate = validateResponse(response.status);
+      const errorObj = { ...error };
+      errorObj.hasError = true;
+      errorObj.message = validate;
+      setError(errorObj);
       return false;
     }
-    localStorage.setItem("token", response.token);
-    localStorage.setItem("auth", true);
-    localStorage.setItem("emailId", user.EmailId);
-    dispatch(getBrandThunk(user.EmailId));
-    setLayout(contextDispatch, "dashboard");
-    navigate("/dashboard");
   };
   if (!initialRoutesSetRef.current) {
     if (token) {
@@ -114,9 +138,9 @@ function SignIn() {
               />
             </MDBox>
             <MDBox display="flex" alignItems="center" ml={-1}>
-              {error ? (
+              {error.hasError ? (
                 <MDTypography variant="button" color="error">
-                  {INVALID_CREDENTIALS}
+                  {error.message}
                 </MDTypography>
               ) : (
                 <></>

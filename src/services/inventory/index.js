@@ -2,10 +2,8 @@
 /* eslint-disable import/prefer-default-export */
 import { apiInstance } from "api";
 
-export const getProducts = async ( brandId) => {
+export const getProducts = async (brandId) => {
   try {
-    debugger;
-
     const { data } = await apiInstance.get(`/inventory/products/${brandId}`);
     return data;
   } catch (err) {
@@ -15,7 +13,6 @@ export const getProducts = async ( brandId) => {
 
 export const postProducts = async (payload, brandId) => {
   try {
-    debugger;
     const { data } = await apiInstance.post(
       `/inventory/products/${brandId}/product`,
       payload
@@ -27,7 +24,6 @@ export const postProducts = async (payload, brandId) => {
 };
 export const patchProducts = async (payload, brandId) => {
   try {
-    debugger;
     const { data } = await apiInstance.patch(
       `/inventory/products/${brandId}/product/${payload.ProductId}`,
       payload
