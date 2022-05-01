@@ -19,14 +19,15 @@ import React, { useState } from "react";
 import DashboardLayout from "../layoutContainers/DashboardLayout/index";
 
 function AddProduct() {
-  const [value, setValue] = useState("0");
+  const [value, setValue] = useState("0"); 
   const handleChange = (e, newValue) => {
-    debugger;
+      
     setValue(newValue);
   };
   const switchTabs = (e, val) => {
-    setValue(val);
+    setValue(val); 
   };
+   
 
   return (
     <div>
@@ -45,12 +46,12 @@ function AddProduct() {
                   aria-label="lab API tabs example"
                 >
                   <Tab label="Category" value="0" />
-                  <Tab label="Vital info" value="1" />
-                  <Tab label="Variations" value="2" />
-                  <Tab label="Offer" value="3" />
-                  <Tab label="Images" value="4" />
-                  <Tab label="Description" value="5" />
-                  <Tab label="More Details" value="6" />
+                  <Tab label="Vital info" value="1" disabled  />
+                  <Tab label="Variations" value="2" disabled  />
+                  <Tab label="Offer" value="3" disabled/>
+                  <Tab label="Images" value="4" disabled />
+                  <Tab label="Description" value="5" disabled  />
+                  <Tab label="More Details" value="6" disabled />
                 </TabList>
               </MDBox>
               <TabPanel value="0">

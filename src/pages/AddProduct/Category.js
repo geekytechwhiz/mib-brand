@@ -18,10 +18,10 @@ import { shallowEqual, useDispatch, useSelector } from "react-redux";
 import { getCategories, getSubCategories } from "../../lib/helper";
 import { categories } from "../../redux/slices/inventory";
 import { Validate } from "../../lib/Validations";
+import {REQUIRED_FIELDS_CATEGORY} from "../../lib/Constants"
 
 export default function SelectCategory(props) {
-  const { activeTab } = props;
-  const requiredFields = ["Category", "ProductCategory"];
+  const { activeTab } = props; 
   let validationResponse = {};
 
   const [openError, setOpenError] = useState({ error: false, message: "" });
@@ -36,7 +36,7 @@ export default function SelectCategory(props) {
   const [product, setProduct] = useState(productState);
   const [productCategories, setProductCategory] = useState([]);
   const handleClose = () => {
-    debugger;
+      
     const error = {
       error: false,
       message: "",
@@ -45,9 +45,9 @@ export default function SelectCategory(props) {
   };
 
   const handleDialogClose = (e) => {
-    validationResponse = Validate(requiredFields, product);
+    validationResponse = Validate(REQUIRED_FIELDS_CATEGORY, product);
     if (!validationResponse.isValid) {
-      debugger;
+        
       const error = {
         error: !validationResponse.isValid,
         message: validationResponse.message,

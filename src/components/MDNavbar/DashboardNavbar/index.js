@@ -44,7 +44,7 @@ import {
 // Material Dashboard 2 React context
 
 function DashboardNavbar({ absolute, light, isMini }) {
-  debugger;
+    
   const navigate = useNavigate();
   const [navbarType, setNavbarType] = useState();
   const [controller, dispatch] = useMaterialUIController();

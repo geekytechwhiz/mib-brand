@@ -17,17 +17,10 @@ import React, { useState } from "react";
 import { shallowEqual, useDispatch, useSelector } from "react-redux";
 import { Validate } from "../../lib/Validations";
 import { vitalInfo } from "../../redux/slices/inventory";
+import {REQUIRED_FIELDS_VITAL_INFO,PRODUCT_TYPES} from "../../lib/Constants"
 
 function VitalInfo(props) {
-  const { activeTab } = props;
-  const requiredFields = [
-    "ProductBrand",
-    "Tittle",
-    "Manufacturer",
-    "NumberOfItems",
-    "UnitCount",
-    "UnitType",
-  ];
+  const { activeTab } = props; 
   let validationResponse = {};
   const dispatch = useDispatch();
   const [openError, setOpenError] = useState({ error: false, message: "" });
@@ -39,7 +32,9 @@ function VitalInfo(props) {
 
   const accountInfo = useSelector((state) => state.auth.accountInfo);
   if (!accountInfo) {
-    return false;
+    
+    setOpenError({error:true,message:"Some technical error happened.Please connect our support team"});
+    
   }
 
   const [product, setProduct] = useState(productState);
@@ -54,10 +49,11 @@ function VitalInfo(props) {
   };
 
   const handleNext = (e) => {
-    validationResponse = Validate(requiredFields, product);
+    debugger
+    validationResponse = Validate(REQUIRED_FIELDS_VITAL_INFO, product);
 
     if (!validationResponse.isValid) {
-      debugger;
+        
       const error = {
         error: !validationResponse.isValid,
         message: validationResponse.message,
@@ -70,11 +66,12 @@ function VitalInfo(props) {
       ...product,
       ProductId: productId,
       BrandId: accountInfo.BrandId,
+      ProductType:PRODUCT_TYPES[0]
     }));
     dispatch(vitalInfo(product));
   };
   const handleClose = () => {
-    debugger;
+      
     const error = {
       error: false,
       message: "",

@@ -16,10 +16,13 @@ import { alert } from "redux/slices/root/rootSlice";
 import MDSnackbar from "components/MDSnackbar";
 import { postProducts } from "../../services/inventory";
 import { Validate } from "../../lib/Validations";
+import {
+  ALL_REQUIRED_FIELDS,
+  MORE_DETAILS_REQUIRED_FIELDS,
+} from "../../lib/Constants";
 
 function MoreDetails(props) {
   const { activeTab } = props;
-  const requiredFields = ["BuddyMargin", "LoyaltyPoint"];
   let validationResponse = {};
   const [openError, setOpenError] = useState({ error: false, message: "" });
   const dispatch = useDispatch();
@@ -30,7 +33,6 @@ function MoreDetails(props) {
   const [product, setProduct] = useState(productState);
   const [acceptTerms, setAcceptTerms] = useState(false);
   const handleClose = () => {
-    debugger;
     const error = {
       error: false,
       message: "",
@@ -46,11 +48,9 @@ function MoreDetails(props) {
     }));
   };
 
-  const handlePublish = () => {
-    debugger;
-    validationResponse = Validate(requiredFields, product);
+  const handlePublish = async () => {
+    validationResponse = Validate(MORE_DETAILS_REQUIRED_FIELDS, product);
     if (!validationResponse.isValid) {
-      debugger;
       const error = {
         error: !validationResponse.isValid,
         message: validationResponse.message,
@@ -58,7 +58,6 @@ function MoreDetails(props) {
       setOpenError(error);
       return false;
     }
-
     const request = {
       ...vitalInfo,
       ...offers,
@@ -67,8 +66,18 @@ function MoreDetails(props) {
       ...categories,
       ...variant,
     };
+    validationResponse = Validate(ALL_REQUIRED_FIELDS, request);
+    if (!validationResponse.isValid) {
+      const error = {
+        error: !validationResponse.isValid,
+        message: validationResponse.message,
+      };
+      setOpenError(error);
+      return false;
+    }
+
     request.Status = "Published";
-    const data = postProducts(request, vitalInfo.BrandId);
+    const data = await postProducts(request, request.BrandId);
     if (!data) {
       const error = {
         status: "error",

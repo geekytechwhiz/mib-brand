@@ -16,10 +16,10 @@ import React, { useState } from "react";
 import { shallowEqual, useDispatch, useSelector } from "react-redux";
 import { description } from "../../redux/slices/inventory";
 import { Validate } from "../../lib/Validations";
+import { REQUIRED_FIELDS_DESCRIPTION } from "../../lib/Constants";
 
 function Description(props) {
   const { activeTab } = props;
-  const requiredFields = ["Description"];
   let validationResponse = {};
   const [openError, setOpenError] = useState({ error: false, message: "" });
   const dispatch = useDispatch();
@@ -45,7 +45,6 @@ function Description(props) {
     }));
   };
   const handleClose = () => {
-    debugger;
     const error = {
       error: false,
       message: "",
@@ -53,9 +52,8 @@ function Description(props) {
     setOpenError(error);
   };
   const handleNext = (e) => {
-    validationResponse = Validate(requiredFields, product);
+    validationResponse = Validate(REQUIRED_FIELDS_DESCRIPTION, product);
     if (!validationResponse.isValid) {
-      debugger;
       const error = {
         error: !validationResponse.isValid,
         message: validationResponse.message,

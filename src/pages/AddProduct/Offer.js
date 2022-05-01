@@ -55,7 +55,7 @@ function Offer(props) {
     }));
   };
   const handleClose = () => {
-    debugger;
+      
     const error = {
       error: false,
       message: "",
@@ -65,7 +65,7 @@ function Offer(props) {
   const handleNext = (e) => {
     validationResponse = Validate(requiredFields, product);
     if (!validationResponse.isValid) {
-      debugger;
+        
       const error = {
         error: !validationResponse.isValid,
         message: validationResponse.message,
