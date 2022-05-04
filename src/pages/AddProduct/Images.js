@@ -6,18 +6,23 @@ import ArrowForwardIosIcon from "@mui/icons-material/ArrowForwardIos";
 import { Button, Grid } from "@mui/material";
 import axios from "axios";
 import MDBox from "components/MDBox";
-import React from "react";
-import Dropzone from "react-dropzone-uploader";
+import React,{useState} from "react";
+import Dropzone from "react-dropzone-uploader"; 
+import MDSnackbar from 'components/MDSnackbar';
 import "react-dropzone-uploader/dist/styles.css";
 import { useDispatch } from "react-redux";
 import { medias } from "redux/slices/inventory";
 import { postSignedUrl } from "services/common";
-import { v4 as uuidv4 } from "uuid";
+import { v4 as uuidv4 } from "uuid"; 
+import { Validate } from '../../lib/Validations'; 
+import { REQUIRED_FIELDS_MEDIAS } from '../../lib/Constants';
 
 export default function Medias(props) {
-  const { activeTab } = props;
+  const { activeTab } = props;  
+  let validationResponse = {};
   const productId = `P${new Date().getTime().toString()}`;
   const dispatch = useDispatch();
+  const [openError, setOpenError] = useState({ error: false, message: '' });
   const productState = { ImageLinks: [] };
   const uuid = uuidv4();
   const getUploadParams = async ({ file, meta: { name } }) => {
@@ -39,13 +44,28 @@ export default function Medias(props) {
       url: res.preSignedUrl,
     };
   };
-
+  const handleClose = () => {
+    const error = {
+      error: false,
+      message: '',
+    };
+    setOpenError(error);
+  };
   const handleChangeStatus = ({ meta }, status) => {
     console.log(status, meta);
   };
 
   const handleNext = (e) => {
       
+    validationResponse = Validate(REQUIRED_FIELDS_MEDIAS, productState);
+    if (!validationResponse.isValid) {
+      const error = {
+        error: !validationResponse.isValid,
+        message: validationResponse.message,
+      };
+      setOpenError(error);
+      return false;
+    }
     activeTab(e, "5");
     dispatch(medias(productState));
   };
@@ -112,6 +132,18 @@ export default function Medias(props) {
             Next
           </Button>
         </Grid>
+      </Grid>
+      <Grid>
+        <MDSnackbar
+          color='error'
+          icon='warning'
+          title='Missing required fields'
+          content={`${openError.message}`}
+          open={openError.error}
+          onClose={handleClose}
+          close={handleClose}
+          bgWhite
+        />
       </Grid>
     </MDBox>
   );

@@ -109,7 +109,7 @@ export default function BankInfo() {
             variant="h5"
             textAlign="start"
             fontWeight="medium"
-            color="gray"
+             
             p={1}
             mb={2}
           >

@@ -51,7 +51,7 @@ function AddProduct() {
                   <Tab label="Offer" value="3" disabled/>
                   <Tab label="Images" value="4" disabled />
                   <Tab label="Description" value="5" disabled  />
-                  <Tab label="More Details" value="6" disabled />
+                  <Tab label="More Details" value="6"   />
                 </TabList>
               </MDBox>
               <TabPanel value="0">

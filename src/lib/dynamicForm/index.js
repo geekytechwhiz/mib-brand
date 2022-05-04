@@ -81,8 +81,7 @@ export default function DynamicForm(props) {
         spacing={1}
         justifyContent="flex-start"
         flexDirection="row"
-        flexGrow={1}
-        xs={12}
+        flexGrow={1} 
       >
         {data?.length > 0 &&
           data?.map((field) => {

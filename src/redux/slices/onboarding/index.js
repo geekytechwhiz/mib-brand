@@ -1,7 +1,7 @@
 /* eslint-disable no-debugger */
 /* eslint-disable no-param-reassign */
-import { createAsyncThunk, createSlice } from "@reduxjs/toolkit";
-import { login, getBrandAccount } from "../../../services/onboarding/index";
+import { createAsyncThunk, createSlice } from '@reduxjs/toolkit';
+import { login, getBrandAccount } from '../../../services/onboarding/index';
 
 const accountInfoState = {
   BusinessDetails: {},
@@ -16,25 +16,25 @@ const initialState = {
 };
 
 export const loginThunk = createAsyncThunk(
-  "/authorizer/login",
+  '/authorizer/login',
   async (accountInfo) => {
-      
     const response = await login(accountInfo);
     return response;
   }
 );
 
 export const getBrandThunk = createAsyncThunk(
-  "/brand/details/{emailId}",
+  '/brand/details/{emailId}',
   async (emailId) => {
-      
     const response = await getBrandAccount(emailId);
+    debugger;
+    localStorage.setItem('brandId', response.BrandId);
     return response;
   }
 );
 
 const authSlice = createSlice({
-  name: "brands",
+  name: 'brands',
   initialState,
   reducers: {},
   extraReducers: (builder) => {

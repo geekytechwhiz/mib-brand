@@ -109,7 +109,7 @@ function Offer(props) {
                 variant="h5"
                 textAlign="start"
                 fontWeight="medium"
-                color="gray"
+                
                 mb={2}
               >
                 offers and Pricing
@@ -285,7 +285,7 @@ function Offer(props) {
           </MDBox>
         </Grid>
       </Grid>
-      <Grid container xs={12} justifyContent="space-between">
+      <Grid container justifyContent="space-between">
         <Grid item>
           <Button
             color="primary"

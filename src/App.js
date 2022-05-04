@@ -95,8 +95,7 @@ export default function App() {
 
   // Setting the dir attribute for the body element
   useEffect(() => {
-    document.body.setAttribute("dir", direction);
-    localStorage.setItem("BrandId", "BR1650183738930");
+    document.body.setAttribute("dir", direction); 
   }, [direction]);
 
   // Setting page scroll to 0 when changing the route

@@ -1,49 +1,49 @@
-import colors from "assets/theme/base/colors";
-import borders from "assets/theme/base/borders";
-import boxShadows from "assets/theme/base/boxShadows";
+// import colors from "assets/theme/base/colors";
+// import borders from "assets/theme/base/borders";
+// import boxShadows from "assets/theme/base/boxShadows";
 
-// Material Dashboard 2 React helper functions
-import pxToRem from "assets/theme/functions/pxToRem";
+// // Material Dashboard 2 React helper functions
+// import pxToRem from "assets/theme/functions/pxToRem";
 
-const { grey, white } = colors;
-const { borderRadius } = borders;
-const { tabsBoxShadow } = boxShadows;
+// const { grey, white } = colors;
+// const { borderRadius } = borders;
+// const { tabsBoxShadow } = boxShadows;
 
-const tabs = {
-  styleOverrides: {
-    root: {
-      position: "relative",
-      backgroundColor: grey[100],
-      borderRadius: borderRadius.xl,
-      minHeight: "unset",
-      padding: pxToRem(4),
-    },
+// const CustomTabs = {
+//   styleOverrides: {
+//     root: {
+//       position: "relative",
+//       backgroundColor: grey[100],
+//       borderRadius: borderRadius.xl,
+//       minHeight: "unset",
+//       padding: pxToRem(4),
+//     },
 
-    flexContainer: {
-      height: "100%",
-      position: "relative",
-      zIndex: 10,
-    },
+//     flexContainer: {
+//       height: "100%",
+//       position: "relative",
+//       zIndex: 10,
+//     },
 
-    fixed: {
-      overflow: "unset !important",
-      overflowX: "unset !important",
-    },
+//     fixed: {
+//       overflow: "unset !important",
+//       overflowX: "unset !important",
+//     },
 
-    vertical: {
-      "& .MuiTabs-indicator": {
-        width: "100%",
-      },
-    },
+//     vertical: {
+//       "& .MuiTabs-indicator": {
+//         width: "100%",
+//       },
+//     },
 
-    indicator: {
-      height: "100%",
-      borderRadius: borderRadius.lg,
-      backgroundColor: white.main,
-      boxShadow: tabsBoxShadow.indicator,
-      transition: "all 500ms ease",
-    },
-  },
-};
+//     indicator: {
+//       height: "100%",
+//       borderRadius: borderRadius.lg,
+//       backgroundColor: white.main,
+//       boxShadow: tabsBoxShadow.indicator,
+//       transition: "all 500ms ease",
+//     },
+//   },
+// };
 
-export default tabs;
+// export default CustomTabs;

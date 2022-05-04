@@ -165,7 +165,7 @@ export default function BusinessInfo() {
             variant="h5"
             textAlign="start"
             fontWeight="medium"
-            color="gray"
+             
             p={1}
             mb={2}
           >

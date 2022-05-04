@@ -11,8 +11,8 @@ function Profile() {
     <MDBox>
       <ProfileHeader />
       <ContactDetails />
-      {/* <BusinessInfo />
-      <BankInfo /> */}
+      {/* <BusinessInfo /> 
+      <BankInfo />  */}
     </MDBox>
   );
 }

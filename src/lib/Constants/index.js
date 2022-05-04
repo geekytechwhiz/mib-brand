@@ -22,6 +22,7 @@ export const REQUIRED_FIELDS_VITAL_INFO = [ 'ProductBrand',
 ];
 
 export const REQUIRED_FIELDS_DESCRIPTION = ['ProductDescription'];
+export const REQUIRED_FIELDS_MEDIAS = ['ImageLinks'];
 
 export const ALL_REQUIRED_FIELDS = [
   'Category',
@@ -34,5 +35,6 @@ export const ALL_REQUIRED_FIELDS = [
   'UnitCount',
   'UnitType',
 ];
+
 
 export const MORE_DETAILS_REQUIRED_FIELDS = ['BuddyMargin', 'LoyaltyPoint'];

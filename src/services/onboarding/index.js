@@ -90,9 +90,7 @@ export const updateBusinessDetails = async (payload, emailId) => {
   }
 };
 export const getBrandAccount = async (emailId) => {
-  const { data } = await apiInstance.get(`/brand/details/${emailId}`);
-
-  if (data.BrandId) localStorage.setItem("BrandId", data.BrandId);
+  const { data } = await apiInstance.get(`/brand/details/${emailId}`); 
   return data;
 };
 export const getHealthCheck = async () => {

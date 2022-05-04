@@ -96,7 +96,7 @@ function Description(props) {
                 variant="h5"
                 textAlign="start"
                 fontWeight="medium"
-                color="gray"
+                 
                 mb={2}
               >
                 Product Description
