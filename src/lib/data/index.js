@@ -1,6 +1,6 @@
 /* eslint-disable import/prefer-default-export */
 
-export const businessCategory = [
+export const BUSINESS_CATEGORY = [
   {
     category: "Electronics",
     subCategory: [
@@ -30,6 +30,21 @@ export const businessCategory = [
       "Bags & Luggages",
     ],
   },
+  {
+    category: "Laptops & Mobiles",
+    subCategory: ["Mobile phones", "Tablets", "Laptops", "Accessories"],
+  },
+  {
+    category: "Grocery & Households",
+    subCategory: [
+      "Daily Essentials",
+      " Masala & Spices ",
+      " Family Nutrition",
+      " Ghee & Diary",
+      "Snacks & Bakery",
+      "  Cooking Essentials",
+    ],
+  },
 ];
 export const SubCategory = [
   {
@@ -51,23 +66,27 @@ export const SubCategory = [
 ];
 export const Category = [
   {
-    label: "Direct Selling Brands",
-    value: "DirectSelling",
+    label: "Grocery & Households",
+    value: "Grocery&Households",
   },
   {
-    label: "Product Brands",
-    value: "ProductBrands",
+    label: "Health & Fitness",
+    value: "Health&Fitness",
   },
   {
-    label: "Merchandising Brands",
-    value: "Merchandising",
+    label: "Home & Kitchen",
+    value: "Home&Kitchen",
   },
   {
-    label: "Service Brands",
-    value: "Beauty&Cosmetics",
+    label: "Apparels",
+    value: "Apparels",
   },
   {
-    label: "Digital Brands",
-    value: "Digital",
+    label: "Babies & Kids",
+    value: "Babies&Kids",
+  },
+  {
+    label: "Electronics",
+    value: "Electronics",
   },
 ];

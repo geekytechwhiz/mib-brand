@@ -1,63 +1,64 @@
 /* eslint-disable no-param-reassign */
 /* eslint-disable no-debugger */
-import { getProducts } from 'services/inventory';
-// import { PRODUCT_TYPES } from '../../lib/Constants/index.js';
+import { getProducts } from "services/inventory";
+// import { PRODUCT_TYPES } from '../../lib/constants/index.js';
 
-const { createSlice, createAsyncThunk } = require('@reduxjs/toolkit');
+const { createSlice, createAsyncThunk } = require("@reduxjs/toolkit");
 
-const productId = `P${new Date().getTime().toString()}`; 
+const productId = `P${new Date().getTime().toString()}`;
 const initialState = {
   products: [],
   categories: {
-    Category: '',
-    ProductCategory: '',
+    Category: "",
+    ProductCategory: "",
   },
   vitalInfo: {
-    ProductId: productId, 
+    ProductId: productId,
     ProductType: "Exclusive",
-    BrandName: '',
-    Tittle: '',
-    NumberOfItems: '',
-    UnitCount: '',
-    UnitType: '',
-    ModelName: '',
-    WarrantyDescription: '',
-    Manufacturer: '',
-    TraceId: '',
+    BrandName: "",
+    Tittle: "",
+    NumberOfItems: "",
+    UnitCount: "",
+    UnitType: "",
+    ModelName: "",
+    WarrantyDescription: "",
+    Manufacturer: "",
+    TraceId: "",
+    Stock: "",
   },
   offers: {
-    YourPrice: '',
-    MRP: '',
-    SellingPrice: '',
-    Quantity: '',
-    Condition: '',
-    CountryOfOrigin: '',
-    DeliveryChannel: '',
-    TaxCode: '',
+    YourPrice: "",
+    MRP: "",
+    SellingPrice: "",
+    Quantity: "",
+    Condition: "",
+    CountryOfOrigin: "",
+    DeliveryChannel: "",
+    TaxCode: "",
   },
   medias: {
     ImageLinks: [],
   },
   description: {
-    ProductDescription: '',
+    ProductDescription: "",
     KeyPoints: [],
   },
   variantDetails: {},
   moreDetails: {
-    GST: '',
-    BuddyMargin: '',
-    LoyaltyPoint: '',
-    MRP: '',
-    LocalDeliveryCharge: '',
-    ZonalDeliveryCharge: '',
-    NationalDeliveryCharge: '',
-    SellingPrice: '',
+    GST: "",
+    BuddyMargin: "",
+    LoyaltyPoint: "",
+    MRP: "",
+    LocalDeliveryCharge: "",
+    ZonalDeliveryCharge: "",
+    NationalDeliveryCharge: "",
+    SellingPrice: "",
   },
 };
 
 export const getProductsThunk = createAsyncThunk(
-  '/inventory/products/product/{brandId}',
-  async (brandId) => { 
+  "/inventory/products/product/{brandId}",
+  async (brandId) => {
     const response = await getProducts(brandId);
     debugger;
     return response;
@@ -65,7 +66,7 @@ export const getProductsThunk = createAsyncThunk(
 );
 
 const inventorySlice = createSlice({
-  name: 'brands',
+  name: "brands",
   initialState,
   reducers: {
     categories: (state, action) => {

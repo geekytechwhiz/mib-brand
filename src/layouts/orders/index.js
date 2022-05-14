@@ -1,16 +1,22 @@
+/* eslint-disable no-debugger */
 import Card from "@mui/material/Card";
 import Grid from "@mui/material/Grid";
 // Material Dashboard 2 React components
 import MDBox from "components/MDBox";
-import Footer from "layouts/footer";
-import DashboardLayout from "layouts/layoutContainers/DashboardLayout";
 import DashboardNavbar from "components/MDNavbar/DashboardNavbar";
-import DataTable from "components/RTable";
-import orderTable from "../../pages/Orders/index";
+import Footer from "layouts/footer";
+import { useDispatch } from "react-redux";
+import DashboardLayout from "layouts/layoutContainers/DashboardLayout";
+// import { useEffect, useState } from "react";
+import { getOrderThunk } from "redux/slices/orders/orderSlice";
+import ProcessOrders from "../../pages/orders";
+// import { getAllOrders } from "../../services/orders";
 
 function Orders() {
-  const { columns: pColumns, rows: pRows } = orderTable();
-
+  console.log("OrdersLayour");
+  // const brandId = localStorage.getItem("brandId");
+  const dispatch = useDispatch();
+  dispatch(getOrderThunk("BR1651736511090"));
   return (
     <DashboardLayout>
       <DashboardNavbar />
@@ -19,14 +25,7 @@ function Orders() {
           <Grid item xs={12}>
             <Card>
               <MDBox pt={3}>
-                <DataTable
-                  table={{ columns: pColumns, rows: pRows }}
-                  setEntriesPerPage={10}
-                  canSearch
-                  showTotalEntries
-                  pagination
-                  isSorted
-                />
+                <ProcessOrders />
               </MDBox>
             </Card>
           </Grid>

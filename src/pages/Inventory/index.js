@@ -1,41 +1,28 @@
+/* eslint-disable no-unused-vars */
 /* eslint-disable react/prop-types */
 import AddIcon from "@mui/icons-material/Add";
-import TabPanel from '@mui/lab/TabPanel';
-import { styled } from '@mui/material/styles';
-import borders from 'assets/theme/base/borders';
-import boxShadows from 'assets/theme/base/boxShadows';
-import colors from 'assets/theme/base/colors';
-import typography from 'assets/theme/base/typography';
-import MDBackdrop from 'components/MDBackDrop';
-import MDBox from 'components/MDBox';
+import MDBackdrop from "components/MDBackDrop";
+import MDBox from "components/MDBox";
 import MDButton from "components/MDButton";
-import * as React from 'react';
-import { shallowEqual, useSelector } from 'react-redux';
-import ExclusiveTab from './ExclusiveTab';
-const { grey, white } = colors;
-const { borderRadius } = borders;
-const { tabsBoxShadow } = boxShadows;
-const { size, fontWeightRegular } = typography;
-const { dark } = colors;
-const CustomTabPanel = styled(TabPanel)({
-  paddingLeft: 0,
-  paddingTop: 0,
-});
+import * as React from "react";
+import { shallowEqual, useSelector } from "react-redux";
+import { useNavigate } from "react-router-dom";
+import _ from "lodash";
+import ExclusiveTab from "./exclusiveTab";
 
 export default function Products() {
-  const [value, setValue] = React.useState('1');
+  const navigate = useNavigate();
   const [hasShow, setHasShow] = React.useState(true);
-  let exTabs = [{ label: ' ', id: '' }];
+  let exTabs = [{ label: " ", id: "" }];
   let exData = [];
-  let comboTabs = [{ label: ' ', id: '' }];
+  let comboTabs = [{ label: " ", id: "" }];
   const inventoryData =
     useSelector((state) => state.inventory?.products, shallowEqual) || [];
   if (!inventoryData) return false;
-  if (inventoryData.length != 0) {
-    // setHasShow(false)
-    exData = inventoryData['Exclusive'];
-    const exKeys = Object.keys(inventoryData['Exclusive'] || {}) || [];
-    const comboKeys = Object.keys(inventoryData['Combo'] || {}) || [];
+  if (inventoryData.length !== 0) {
+    exData = inventoryData.Exclusive;
+    const exKeys = Object.keys(inventoryData.Exclusive || {}) || [];
+    const comboKeys = Object.keys(inventoryData.Combo || {}) || [];
     exTabs = _.map(exKeys, (val, key) => ({
       id: `${key + 1}`,
       label: `${val}`,
@@ -44,28 +31,31 @@ export default function Products() {
       id: `${key + 1}`,
       label: `${val}`,
     }));
-    // setData(data);
-    // setTabs(tabs);
   }
 
-  const handleChange = (event, newValue) => {
-    setValue(newValue);
+  const handleAddNew = () => {
+    navigate("/add-product", {
+      state: {
+        productId: "",
+      },
+    });
   };
 
   return (
     <MDBox
-      variant='gradient'
-      bgColor='transparent'
-      borderRadius='lg'
-      coloredShadow='info' 
+      variant="gradient"
+      bgColor="transparent"
+      borderRadius="lg"
+      coloredShadow="info"
       mt={2}
       p={2}
       mb={1}
-      textAlign='center'
-      height='100vh'
-      sx={{ width: '100%', typography: 'body1' }}
+      textAlign="center"
+      height="100vh"
+      overflow="scroll"
+      sx={{ width: "100%", typography: "body1", overflowX: "hidden" }}
     >
-        <div
+      <div
         style={{
           display: "flex",
           flexDirection: "row",
@@ -74,7 +64,7 @@ export default function Products() {
       >
         <div>
           <MDButton
-            // onClick={handleAddProduct}
+            onClick={handleAddNew}
             color="#007EFF"
             variant="gradient"
             mx={2}
@@ -91,10 +81,10 @@ export default function Products() {
           </MDButton>
         </div>
       </div>
-      {!inventoryData || inventoryData.length == 0 ? (
-        <MDBackdrop show={hasShow}></MDBackdrop>
+      {inventoryData && inventoryData.length === 0 ? (
+        <MDBackdrop show={hasShow} />
       ) : (
-        <ExclusiveTab value='1' data={exData} tabs={exTabs}></ExclusiveTab>
+        <ExclusiveTab value="1" data={exData} tabs={exTabs} />
       )}
     </MDBox>
   );

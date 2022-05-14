@@ -20,7 +20,7 @@ import {
   setMiniSidenav,
   setOpenConfigurator,
   setProfileSettings,
-  useMaterialUIController
+  useMaterialUIController,
 } from "context";
 // Material Dashboard 2 React example components
 import Configurator from "lib/Configurator";
@@ -32,7 +32,7 @@ import {
   Route,
   Routes,
   useLocation,
-  useNavigate
+  useNavigate,
 } from "react-router-dom";
 import routes, { basicRoutes } from "routes";
 // RTL plugins
@@ -58,7 +58,6 @@ export default function App() {
   const [onMouseEnter, setOnMouseEnter] = useState(false);
   const [rtlCache, setRtlCache] = useState(null);
   const { pathname } = useLocation();
-  const [muiController, contextDispatch] = useMaterialUIController();
 
   // Cache for the rtl
   useMemo(() => {
@@ -95,14 +94,14 @@ export default function App() {
 
   // Setting the dir attribute for the body element
   useEffect(() => {
-    document.body.setAttribute("dir", direction); 
+    document.body.setAttribute("dir", direction);
   }, [direction]);
 
   // Setting page scroll to 0 when changing the route
   useEffect(() => {
     document.documentElement.scrollTop = 0;
     document.scrollingElement.scrollTop = 0;
-  }, [pathname]); 
+  }, [pathname]);
   const getRoutes = (allRoutes) =>
     allRoutes.map((route) => {
       if (route.collapse) {

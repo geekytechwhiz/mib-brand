@@ -1,3 +1,4 @@
+/* eslint-disable no-debugger */
 /* eslint-disable react/forbid-prop-types */
 import { useMemo, useEffect, useState } from "react";
 
@@ -11,6 +12,7 @@ import {
   useGlobalFilter,
   useAsyncDebounce,
   useSortBy,
+  useRowSelect,
 } from "react-table";
 
 import Table from "@mui/material/Table";
@@ -51,7 +53,8 @@ function DataTable({
     { columns, data, initialState: { pageIndex: 0 } },
     useGlobalFilter,
     useSortBy,
-    usePagination
+    usePagination,
+    useRowSelect
   );
 
   const {

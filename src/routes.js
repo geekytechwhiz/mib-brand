@@ -1,4 +1,3 @@
-// Material Dashboard 2 React layouts
 import Icon from "@mui/material/Icon";
 import SignIn from "layouts/authentication/sign-in";
 import SignUp from "layouts/authentication/sign-up";
@@ -8,7 +7,6 @@ import Settlements from "layouts/settlements";
 import AddProduct from "./layouts/addProduct/index";
 import Inventory from "./layouts/inventory/index";
 import Orders from "./layouts/orders/index";
-// @mui icons
 
 const routes = [
   {

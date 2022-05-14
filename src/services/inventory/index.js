@@ -4,7 +4,9 @@ import { apiInstance } from "api";
 
 export const getProducts = async (brandId) => {
   try {
-    const { data } = await apiInstance.get(`/inventory/products/product/${brandId}`);
+    const { data } = await apiInstance.get(
+      `/inventory/products/product/${brandId}`
+    );
     return data;
   } catch (err) {
     return null;

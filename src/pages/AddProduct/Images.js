@@ -1,3 +1,6 @@
+/* eslint-disable prefer-const */
+/* eslint-disable consistent-return */
+/* eslint-disable no-multi-assign */
 /* eslint-disable react/prop-types */
 /* eslint-disable no-debugger */
 /* eslint-disable no-unused-vars */
@@ -6,27 +9,44 @@ import ArrowForwardIosIcon from "@mui/icons-material/ArrowForwardIos";
 import { Button, Grid } from "@mui/material";
 import axios from "axios";
 import MDBox from "components/MDBox";
-import React,{useState} from "react";
-import Dropzone from "react-dropzone-uploader"; 
-import MDSnackbar from 'components/MDSnackbar';
+import MDImageList from "components/MDImageList";
+import MDSnackbar from "components/MDSnackbar";
+import React, { useState } from "react";
+import Dropzone from "react-dropzone-uploader";
 import "react-dropzone-uploader/dist/styles.css";
-import { useDispatch } from "react-redux";
+import { shallowEqual, useDispatch, useSelector } from "react-redux";
 import { medias } from "redux/slices/inventory";
 import { postSignedUrl } from "services/common";
-import { v4 as uuidv4 } from "uuid"; 
-import { Validate } from '../../lib/Validations'; 
-import { REQUIRED_FIELDS_MEDIAS } from '../../lib/Constants';
+import { v4 as uuidv4 } from "uuid";
+import { REQUIRED_FIELDS_MEDIAS } from "../../lib/constants";
+import { Validate } from "../../lib/validations";
 
 export default function Medias(props) {
-  const { activeTab } = props;  
+  debugger;
+  let productState = { ImageLinks: [] };
+  let images = [];
+  const { activeTab, data } = props;
   let validationResponse = {};
-  const productId = `P${new Date().getTime().toString()}`;
   const dispatch = useDispatch();
-  const [openError, setOpenError] = useState({ error: false, message: '' });
-  const productState = { ImageLinks: [] };
+  const [openError, setOpenError] = useState({ error: false, message: "" });
+  let productId = "";
+  const keys = Object.keys(data);
+
+  debugger;
+  if (keys.length === 0) {
+    productId = useSelector(
+      (state) => state.inventory.vitalInfo.ProductId,
+      shallowEqual
+    );
+    productState = useSelector((state) => state.inventory.medias, shallowEqual);
+    productState = { ...productState } || {};
+  } else {
+    productState = data;
+  }
+
   const uuid = uuidv4();
   const getUploadParams = async ({ file, meta: { name } }) => {
-      
+    debugger;
     console.log(name);
     const req = {
       contentType: file.type,
@@ -35,7 +55,7 @@ export default function Medias(props) {
     };
     const res = await postSignedUrl(req);
     if (!res) return null;
-    productState.ImageLinks.push(res.fileName);
+    images.push(res.fileName);
     const axiosRes = await axios.put(res.preSignedUrl, file);
     console.log(axiosRes);
     return {
@@ -47,7 +67,7 @@ export default function Medias(props) {
   const handleClose = () => {
     const error = {
       error: false,
-      message: '',
+      message: "",
     };
     setOpenError(error);
   };
@@ -56,7 +76,9 @@ export default function Medias(props) {
   };
 
   const handleNext = (e) => {
-      
+    productState = {
+      ImageLinks: images,
+    };
     validationResponse = Validate(REQUIRED_FIELDS_MEDIAS, productState);
     if (!validationResponse.isValid) {
       const error = {
@@ -70,13 +92,10 @@ export default function Medias(props) {
     dispatch(medias(productState));
   };
   const handleBack = (e) => {
-      
-    activeTab(e, "5");
+    activeTab(e, "3");
     dispatch(medias(productState));
   };
   const handleSubmit = (files, allFiles) => {
-      
-
     console.log(files.map((f) => f.meta));
     allFiles.forEach((f) => f.remove());
   };
@@ -110,6 +129,27 @@ export default function Medias(props) {
           }}
         />
       </Grid>
+      <MDBox
+        variant="gradient"
+        bgColor="transparent"
+        borderRadius="lg"
+        coloredShadow="info"
+        mx={3}
+        mt={5}
+        p={2}
+        mb={1}
+        textAlign="center"
+      >
+        {/* <Grid display="flex" flexDirection="row" justifyContent="flex-start">
+          <ImageGallery images={productState.ImageLinks || []} />
+        </Grid> */}
+        {/* <Grid display="flex" flexDirection="row" justifyContent="flex-start">
+          <CustomCarousel images={productState.ImageLinks || []} />
+        </Grid> */}
+        <Grid display="flex" flexDirection="row" justifyContent="flex-start">
+          <MDImageList images={productState.ImageLinks || []} />
+        </Grid>
+      </MDBox>
 
       <Grid container xs={12} justifyContent="space-between">
         <Grid item>
@@ -135,9 +175,9 @@ export default function Medias(props) {
       </Grid>
       <Grid>
         <MDSnackbar
-          color='error'
-          icon='warning'
-          title='Missing required fields'
+          color="error"
+          icon="warning"
+          title="Missing required fields"
           content={`${openError.message}`}
           open={openError.error}
           onClose={handleClose}

@@ -7,27 +7,42 @@ import Tab from "@mui/material/Tab";
 import MDBox from "components/MDBox";
 import DashboardNavbar from "components/MDNavbar/DashboardNavbar/index";
 import Footer from "layouts/footer/index";
-import SelectCategory from "pages/AddProduct/Category";
-import Description from "pages/AddProduct/Description";
-import Medias from "pages/AddProduct/Images";
-import MoreDetails from "pages/AddProduct/MoreDetails";
-// import Images from "pages/AddProduct/Images";
-import Offer from "pages/AddProduct/Offer";
-import ProductVariant from "pages/AddProduct/ProductVariant";
-import VitalInfo from "pages/AddProduct/VitalInfo";
+import CustomizedAccordions from "pages/addProduct/category";
+import Description from "pages/addProduct/description";
+import Medias from "pages/addProduct/images";
+import MoreDetails from "pages/addProduct/moreDetails";
+import Offer from "pages/addProduct/offer";
+import ProductVariant from "pages/addProduct/productVariant";
+import VitalInfo from "pages/addProduct/vitalInfo";
 import React, { useState } from "react";
+import { useLocation } from "react-router-dom";
+import { shallowEqual, useSelector } from "react-redux";
+import _ from "lodash";
 import DashboardLayout from "../layoutContainers/DashboardLayout/index";
 
-function AddProduct() {
-  const [value, setValue] = useState("0"); 
+function addProduct() {
+  const [value, setValue] = useState("0");
+  const { state } = useLocation();
+  let productDetails = {};
+  debugger;
+  if (state && state.productId !== "") {
+    const products =
+      useSelector((s) => s.inventory?.products[state.type], shallowEqual) || [];
+    const productList = products[state.category];
+    if (!productList || productList.length === 0) return false;
+    productDetails = _.find(
+      productList,
+      (x) => x.ProductId === state.productId
+    );
+  }
+
+  console.log("productDetails", productDetails);
   const handleChange = (e, newValue) => {
-      
     setValue(newValue);
   };
   const switchTabs = (e, val) => {
-    setValue(val); 
+    setValue(val);
   };
-   
 
   return (
     <div>
@@ -46,35 +61,39 @@ function AddProduct() {
                   aria-label="lab API tabs example"
                 >
                   <Tab label="Category" value="0" />
-                  <Tab label="Vital info" value="1" disabled  />
-                  <Tab label="Variations" value="2" disabled  />
-                  <Tab label="Offer" value="3" disabled/>
-                  <Tab label="Images" value="4" disabled />
-                  <Tab label="Description" value="5" disabled  />
-                  <Tab label="More Details" value="6"   />
+                  <Tab label="Vital info" value="1" disabled />
+                  <Tab label="Variations" value="2" disabled />
+                  <Tab label="Offer" value="3" disabled />
+                  <Tab label="Images" value="4" />
+                  <Tab label="Description" value="5" />
+                  <Tab label="More Details" value="6" />
                 </TabList>
               </MDBox>
               <TabPanel value="0">
-                <SelectCategory open activeTab={switchTabs} />
+                <CustomizedAccordions
+                  open
+                  data={productDetails}
+                  activeTab={switchTabs}
+                />
               </TabPanel>
               <TabPanel value="1">
-                <VitalInfo activeTab={switchTabs} />
+                <VitalInfo data={productDetails} activeTab={switchTabs} />
               </TabPanel>
               <TabPanel value="2">
-                <ProductVariant activeTab={switchTabs} />
+                <ProductVariant data={productDetails} activeTab={switchTabs} />
               </TabPanel>
               <TabPanel value="3">
-                <Offer activeTab={switchTabs} />
+                <Offer data={productDetails} activeTab={switchTabs} />
               </TabPanel>
               <TabPanel value="4">
-                <Medias activeTab={switchTabs} />
+                <Medias data={productDetails} activeTab={switchTabs} />
               </TabPanel>
               <TabPanel value="5">
-                <Description activeTab={switchTabs} />
+                <Description data={productDetails} activeTab={switchTabs} />
               </TabPanel>
 
               <TabPanel value="6">
-                <MoreDetails activeTab={switchTabs} />
+                <MoreDetails data={productDetails} activeTab={switchTabs} />
               </TabPanel>
             </TabContext>
           </Grid>
@@ -86,4 +105,4 @@ function AddProduct() {
   );
 }
 
-export default AddProduct;
+export default addProduct;

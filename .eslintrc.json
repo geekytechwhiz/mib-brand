@@ -61,14 +61,9 @@
           "src"
         ],
         "extensions": [
-          ".js",
+          ".js"
         ]
       }
-    },
-    "import/parsers": {
-      "@babel/eslint-parser": [
-        ".js"
-      ]
     }
   }
 }

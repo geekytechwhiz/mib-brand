@@ -9,25 +9,42 @@ import { Box } from "@mui/material";
 import Button from "@mui/material/Button";
 import Grid from "@mui/material/Grid";
 import MDBox from "components/MDBox";
+// import MDDataGrid from "components/MDDataGrid";
+// import EditableTable from "components/MDDataGrid/customGrid";
 import MDInput from "components/MDInput";
-import MDTypography from "components/MDTypography";
+import MDPanel from "components/MDPanel";
 import MDSnackbar from "components/MDSnackbar";
-import React, { useState } from "react";
+import MDTypography from "components/MDTypography";
+import _ from "lodash";
+// import MUIDataGrid from "components/MDDataGrid/editableDataTable";
+// import DataTable from "components/RTable";
+import React, { useCallback, useState } from "react";
 import { shallowEqual, useDispatch, useSelector } from "react-redux";
+import { REQUIRED_FIELDS_DESCRIPTION } from "../../lib/constants";
+import { Validate } from "../../lib/validations";
 import { description } from "../../redux/slices/inventory";
-import { Validate } from "../../lib/Validations";
-import { REQUIRED_FIELDS_DESCRIPTION } from "../../lib/Constants";
 
 function Description(props) {
-  const { activeTab } = props;
+  const { activeTab, data } = props;
   let validationResponse = {};
-  const [openError, setOpenError] = useState({ error: false, message: "" });
+  let productState = {};
   const dispatch = useDispatch();
-  const productState =
-    useSelector((state) => state.inventory.description, shallowEqual) || {};
-  const [keyPoints, setKeyPoints] = useState([]);
+  const [openError, setOpenError] = useState({ error: false, message: "" });
+
+  const keys = Object.keys(data);
+  if (keys.length === 0) {
+    productState = useSelector(
+      (state) => state.inventory.description,
+      shallowEqual
+    );
+    productState = productState || {};
+  } else {
+    productState = data;
+  }
 
   const [product, setProduct] = useState(productState);
+  const initialPoints = product.keyPoints || [];
+  const [keyPoints, setKeyPoints] = useState(initialPoints);
 
   const handleChange = (event) => {
     const { name } = event.target;
@@ -37,13 +54,20 @@ function Description(props) {
       [name]: value,
     }));
   };
-  const handleOnKeyPress = (event) => {
+
+  const handleOnKeyPress = useCallback((event) => {
+    debugger;
     const { value } = event.target;
-    setKeyPoints((p) => ({
-      ...keyPoints,
-      ...value,
-    }));
-  };
+
+    if (event.key === "Enter") {
+      const values = _.cloneDeep(keyPoints);
+
+      const obj = { id: values.length + 1, point: value };
+      values.push(obj);
+      setKeyPoints(values);
+    }
+  });
+
   const handleClose = () => {
     const error = {
       error: false,
@@ -51,6 +75,7 @@ function Description(props) {
     };
     setOpenError(error);
   };
+
   const handleNext = (e) => {
     validationResponse = Validate(REQUIRED_FIELDS_DESCRIPTION, product);
     if (!validationResponse.isValid) {
@@ -61,12 +86,21 @@ function Description(props) {
       setOpenError(error);
       return false;
     }
+    product.keyPoints = keyPoints;
     dispatch(description(product));
     activeTab(e, "6");
   };
+
   const handleBack = (e) => {
-    activeTab(e, "2");
+    activeTab(e, "4");
   };
+
+  const handleDeleteKeyPoints = (e, item) => {
+    debugger;
+    const filteredData = _.filter(keyPoints, (x) => x.id !== item.id);
+    setKeyPoints(filteredData);
+  };
+
   return (
     <MDBox
       variant="gradient"
@@ -96,7 +130,6 @@ function Description(props) {
                 variant="h5"
                 textAlign="start"
                 fontWeight="medium"
-                 
                 mb={2}
               >
                 Product Description
@@ -120,18 +153,38 @@ function Description(props) {
                 />
               </Grid>
               <Grid item xs={12} mb={2}>
-                {/* <DynamicList keyPoints={keyPoints} /> */}
-
                 <MDInput
                   required
                   type="text"
                   name="KeyPoints"
-                  value={product.KeyPoints}
                   placeholder="Key Points"
                   label="Key Points"
                   fullWidth
                   onKeyPress={handleOnKeyPress}
                 />
+              </Grid>
+              <Grid container xs={12}>
+                <Grid item xs={12}>
+                  <MDBox pt={1} px={2}>
+                    <MDTypography variant="h6" fontWeight="medium">
+                      Key Points
+                    </MDTypography>
+                  </MDBox>
+                </Grid>
+                {keyPoints.map((x) => (
+                  <Grid item xs={12} ml={2} mb={0.5}>
+                    <MDBox>
+                      <MDPanel
+                        fullWidth
+                        item={x}
+                        handleDelete={handleDeleteKeyPoints}
+                      />
+                    </MDBox>
+                  </Grid>
+                ))}
+                <Grid>
+                  <Grid />
+                </Grid>
               </Grid>
             </Grid>
           </MDBox>

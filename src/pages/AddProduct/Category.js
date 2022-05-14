@@ -1,53 +1,120 @@
+/* eslint-disable no-unused-vars */
 /* eslint-disable react/jsx-no-useless-fragment */
 /* eslint-disable consistent-return */
 /* eslint-disable no-debugger */
 /* eslint-disable react/prop-types */
 /* eslint-disable react/destructuring-assignment */
-import Autocomplete from "@mui/material/Autocomplete";
-import Button from "@mui/material/Button";
-import Dialog from "@mui/material/Dialog";
-import DialogActions from "@mui/material/DialogActions";
-import DialogContent from "@mui/material/DialogContent";
-import DialogTitle from "@mui/material/DialogTitle";
-import Grid from "@mui/material/Grid";
+
+import ArrowBackIosNewIcon from "@mui/icons-material/ArrowBackIosNew";
+import ArrowForwardIosIcon from "@mui/icons-material/ArrowForwardIos";
+import ArrowForwardIosSharpIcon from "@mui/icons-material/ArrowForwardIosSharp";
+import MuiAccordion from "@mui/material/Accordion";
+import MuiAccordionDetails from "@mui/material/AccordionDetails";
+import MuiAccordionSummary from "@mui/material/AccordionSummary";
+import { styled } from "@mui/material/styles";
+import React, { useState } from "react";
 import MDBox from "components/MDBox";
 import MDInput from "components/MDInput";
-import MDSnackbar from "components/MDSnackbar";
-import React, { useState } from "react";
+import MDTypography from "components/MDTypography";
+import Autocomplete from "@mui/material/Autocomplete";
 import { shallowEqual, useDispatch, useSelector } from "react-redux";
+import Grid from "@mui/material/Grid";
+import Button from "@mui/material/Button";
+import MDSnackbar from "components/MDSnackbar";
+import { REQUIRED_FIELDS_CATEGORY } from "../../lib/constants";
 import { getCategories, getSubCategories } from "../../lib/helper";
+import { Validate } from "../../lib/validations";
 import { categories } from "../../redux/slices/inventory";
-import { Validate } from "../../lib/Validations";
-import {REQUIRED_FIELDS_CATEGORY} from "../../lib/Constants"
+import { BUSINESS_CATEGORY } from "../../lib/data";
 
-export default function SelectCategory(props) {
-  const { activeTab } = props; 
-  let validationResponse = {};
+const Accordion = styled((props) => (
+  <MuiAccordion disableGutters elevation={0} square {...props} />
+))(({ theme }) => ({
+  border: `1px solid ${theme.palette.divider}`,
+  "&:not(:last-child)": {
+    borderBottom: 0,
+  },
+  "&:before": {
+    display: "none",
+  },
+}));
 
-  const [openError, setOpenError] = useState({ error: false, message: "" });
-  const [open, setOpen] = React.useState(props.open);
+const AccordionSummary = styled((props) => (
+  <MuiAccordionSummary
+    expandIcon={<ArrowForwardIosSharpIcon sx={{ fontSize: "0.9rem" }} />}
+    {...props}
+  />
+))(({ theme }) => ({
+  backgroundColor:
+    theme.palette.mode === "dark"
+      ? "rgba(255, 255, 255, .05)"
+      : "rgba(0, 0, 0, .03)",
+  flexDirection: "row-reverse",
+  "& .MuiAccordionSummary-expandIconWrapper.Mui-expanded": {
+    transform: "rotate(90deg)",
+  },
+  "& .MuiAccordionSummary-content": {
+    marginLeft: theme.spacing(1),
+  },
+}));
+
+const AccordionDetails = styled(MuiAccordionDetails)(({ theme }) => ({
+  padding: theme.spacing(2),
+  borderTop: "1px solid rgba(0, 0, 0, .125)",
+}));
+
+export default function CategoryAccordion(props) {
+  const [expanded, setExpanded] = React.useState(BUSINESS_CATEGORY[0].category);
+
+  const handleChange = (panel) => (event, newExpanded) => {
+    debugger;
+    setExpanded(newExpanded ? panel : false);
+  };
+
   const dispatch = useDispatch();
-  let productState = useSelector(
-    (state) => state.inventory.categories,
-    shallowEqual
-  );
-  productState = productState || {};
-  //   productState.ProductId = productState.ProductId || productId;
+  let productState = {};
+  const { activeTab, data } = props;
+  let validationResponse = {};
+  const [openError, setOpenError] = useState({ error: false, message: "" });
+
+  const keys = Object.keys(data);
+  if (keys.length === 0) {
+    productState = useSelector(
+      (state) => state.inventory.categories,
+      shallowEqual
+    );
+    productState = productState || {};
+  } else {
+    productState = data;
+  }
+
   const [product, setProduct] = useState(productState);
-  const [productCategories, setProductCategory] = useState([]);
+
+  const handleSelect = (event, item) => {
+    const { value } = event.target;
+    if (!value || !item) return null;
+
+    setProduct(() => ({
+      ...product,
+      Category: item.category,
+      ProductCategory: value,
+    }));
+  };
+
+  const handleBack = (e) => {
+    activeTab(e, "4");
+  };
+
   const handleClose = () => {
-      
     const error = {
       error: false,
       message: "",
     };
     setOpenError(error);
   };
-
-  const handleDialogClose = (e) => {
+  const handleNext = (e) => {
     validationResponse = Validate(REQUIRED_FIELDS_CATEGORY, product);
     if (!validationResponse.isValid) {
-        
       const error = {
         error: !validationResponse.isValid,
         message: validationResponse.message,
@@ -55,152 +122,97 @@ export default function SelectCategory(props) {
       setOpenError(error);
       return false;
     }
-    setOpen(false);
-    activeTab(e, "1");
     dispatch(categories(product));
+    activeTab(e, "1");
   };
-
-  const handleChange = (event) => {
-    const { name } = event.target;
-    const { value } = event.target;
-    if (name === "Category") {
-      const subcategory = getSubCategories(value);
-      setProductCategory(subcategory);
-    }
-    setProduct(() => ({
-      ...product,
-      [name]: value,
-    }));
-  };
-
-  const handleSelect = (event) => {
-    const { name } = event.target;
-    const { value } = event.target;
-    if (!value) return null;
-    if (name === "Category") {
-      const subcategory = getSubCategories(value);
-      setProductCategory(subcategory);
-    }
-    setProduct(() => ({
-      ...product,
-      [name]: value,
-    }));
-  };
-
   return (
-    <MDBox
-      variant="gradient"
-      bgColor="transparent"
-      borderRadius="lg"
-      coloredShadow="info"
-      mx={-3}
-      mt={-2}
-      p={2}
-      mb={1}
-      textAlign="center"
-      height="100vh"
-    >
-      {open ? (
-        <></>
-      ) : (
-        <Grid container xs={12} justifyContent="center">
-          <Grid item>
-            <Button
-              color="primary"
-              onClick={() => {
-                setOpen(!open);
-              }}
-              variant="text"
-            >
-              Select your category
-            </Button>
-          </Grid>
-        </Grid>
-      )}
-      <Dialog fullWidth maxWidth="sm" open={open}>
-        <DialogTitle>Select Your primary category</DialogTitle>
-        <DialogContent>
-          <MDBox mb={2}>
-            <Autocomplete
-              disablePortal
-              required
-              placeholder="Category"
-              id="combo-category"
-              name="Category"
-              value={product.Category}
-              options={getCategories()}
-              onSelect={handleSelect}
-              sx={{
-                "& .css-tnnq9f-MuiAutocomplete-root .MuiOutlinedInput-root .MuiAutocomplete-input .MuiOutlinedInput-root":
-                  {
-                    padding: 5,
-                  },
-              }}
-              renderInput={(params) => (
-                <MDInput
-                  {...params}
-                  label="Category"
-                  required
-                  name="Category"
-                  value={product.Category}
-                  onChange={handleChange}
-                />
-              )}
-            />
-          </MDBox>
-          <MDBox>
-            <Autocomplete
-              disablePortal
-              required
-              placeholder="Product Category"
-              id="combo-product-category"
-              name="ProductCategory"
-              value={product.ProductCategory}
-              options={productCategories}
-              onSelect={handleSelect}
-              sx={{
-                "& .css-tnnq9f-MuiAutocomplete-root .MuiOutlinedInput-root .MuiAutocomplete-input .MuiOutlinedInput-root":
-                  {
-                    padding: 5,
-                  },
-              }}
-              renderInput={(params) => (
-                <MDInput
-                  {...params}
-                  required
-                  label="Product Category"
-                  name="ProductCategory"
-                  onChange={handleChange}
-                  value={product.ProductCategory}
-                />
-              )}
-            />
-          </MDBox>
-          <Grid>
-            <MDSnackbar
-              color="error"
-              icon="warning"
-              title="Missing required fields"
-              content={`${openError.message}`}
-              open={openError.error}
-              onClose={handleClose}
-              close={handleClose}
-              bgWhite
-            />
-          </Grid>
-          {/* </MDBox> */}
-        </DialogContent>
-        <DialogActions>
-          <Button
-            onClick={() => {
-              setOpen(false);
-            }}
+    <MDBox>
+      {BUSINESS_CATEGORY &&
+        BUSINESS_CATEGORY.map((x) => (
+          <Accordion
+            expanded={expanded === x.category}
+            onChange={handleChange(x.category)}
           >
-            Cancel
+            <AccordionSummary
+              aria-controls="panel1d-content"
+              id={`${x.category}`}
+            >
+              <MDTypography variant="button" fontWeight="medium" gutterBottom>
+                {x.category}
+              </MDTypography>
+            </AccordionSummary>
+            <AccordionDetails>
+              <Grid container spacing={1}>
+                <Grid item xs={6}>
+                  <MDBox mb={2}>
+                    <Autocomplete
+                      disablePortal
+                      required
+                      placeholder="Category"
+                      id="combo-category"
+                      name="Category"
+                      value={product[x.category]}
+                      options={getSubCategories(x.category)}
+                      onSelect={(e) => {
+                        handleSelect(e, x);
+                      }}
+                      sx={{
+                        "& .css-tnnq9f-MuiAutocomplete-root .MuiOutlinedInput-root .MuiAutocomplete-input .MuiOutlinedInput-root":
+                          {
+                            padding: 5,
+                          },
+                      }}
+                      renderInput={(params) => (
+                        <MDInput
+                          {...params}
+                          label="Category"
+                          required
+                          name="Category"
+                          value={product[x.category]}
+                          onChange={handleChange}
+                        />
+                      )}
+                    />
+                  </MDBox>
+                </Grid>
+              </Grid>
+            </AccordionDetails>
+          </Accordion>
+        ))}
+      <Grid container xs={12} justifyContent="space-between">
+        <Grid item>
+          <Button
+            color="primary"
+            onClick={handleBack}
+            variant="text"
+            endIcon={<ArrowBackIosNewIcon />}
+          >
+            Back
           </Button>
-          <Button onClick={handleDialogClose}>Proceed</Button>
-        </DialogActions>
-      </Dialog>
+        </Grid>
+        <Grid item>
+          <Button
+            color="primary"
+            onClick={handleNext}
+            variant="text"
+            endIcon={<ArrowForwardIosIcon />}
+          >
+            Next
+          </Button>
+        </Grid>
+      </Grid>
+      <Grid>
+        <MDSnackbar
+          color="error"
+          icon="warning"
+          title="Missing required fields"
+          content={`${openError.message}`}
+          open={openError.error}
+          onClose={handleClose}
+          close={handleClose}
+          bgWhite
+        />
+      </Grid>
     </MDBox>
   );
 }

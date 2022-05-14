@@ -1,3 +1,4 @@
+/* eslint-disable dot-notation */
 /* eslint-disable no-debugger */
 /* eslint-disable no-unused-vars */
 /* eslint-disable react/prop-types */
@@ -8,22 +9,39 @@ import { shallowEqual, useSelector } from "react-redux";
 import { getVariantDetails } from "../../lib/helper";
 
 function ProductVariant(props) {
-    
-  const { activeTab } = props;
+  debugger;
+  const { data, activeTab } = props;
+  let productState = {};
+  const keys = Object.keys(data);
+  if (keys.length === 0) {
+    productState = useSelector(
+      (state) => state.inventory.variantDetails,
+      shallowEqual
+    );
+    productState = productState || {};
+  } else {
+    productState = data;
+  }
+  // const [product, setProduct] = useState(productState);
 
   const categories = useSelector(
     (state) => state.inventory.categories,
     shallowEqual
   );
   const category = categories?.ProductCategory || "";
-  const [data, setData] = useState({});
+  const [formData, setData] = useState({});
 
   const details = getVariantDetails(category);
-  const dataset = useMemo(() => getVariantDetails(category), [data]);
+  const dataset = useMemo(() => getVariantDetails(category), [formData]);
+  dataset.map((x) => {
+    const obj = x;
+    obj["value"] = data[x.name];
+    return obj;
+  });
+  debugger;
   useEffect(() => {
-      
     setData(details);
-  }, [data]);
+  }, [formData]);
 
   return (
     <MDBox
@@ -37,7 +55,7 @@ function ProductVariant(props) {
       mb={1}
       textAlign="center"
     >
-      <DynamicForm data={dataset} activeTab={activeTab} />
+      <DynamicForm fields={dataset} activeTab={activeTab} />
       <MDBox
         style={{
           display: "flex",

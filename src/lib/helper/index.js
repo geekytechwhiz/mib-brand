@@ -2,12 +2,12 @@
 /* eslint-disable import/no-self-import */
 /* eslint-disable import/prefer-default-export */
 import _ from "lodash";
-import { Template } from "lib/Templates";
-import { businessCategory } from "../data";
+import { Template } from "lib/templates";
+import { BUSINESS_CATEGORY } from "../data";
 
 export const getCategories = () => {
   const arr = [];
-  _.forEach(businessCategory, (x) => {
+  _.forEach(BUSINESS_CATEGORY, (x) => {
     arr.push(x.category);
   });
 
@@ -19,7 +19,8 @@ export const getCategories = () => {
 };
 
 export const getSubCategories = (category) => {
-  const obj = _.find(businessCategory, (x) => x.category === category);
+  debugger;
+  const obj = _.find(BUSINESS_CATEGORY, (x) => x.category === category);
   if (!obj) return [];
   const data = _.map(obj.subCategory, (x) => ({
     label: x,
@@ -29,7 +30,6 @@ export const getSubCategories = (category) => {
 };
 
 export const getVariantDetails = (productCategory) => {
-    
   if (!productCategory) return [];
   const template = Template;
   if (!template && Object.keys(template).length === 0) return [];

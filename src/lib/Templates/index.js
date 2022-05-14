@@ -13,7 +13,7 @@ export const Template = {
     {
       label: "Screen Size ",
       component: "number",
-      type: "number",
+      type: "text",
       name: "ScreenSize",
       validation: {
         required: true,
@@ -42,8 +42,8 @@ export const Template = {
     },
     {
       label: "Battery Power (In mAH) ",
-      component: "number",
-      type: "number",
+      component: "text",
+      type: "text",
       name: "BatteryCapacity",
       validation: {
         required: true,
@@ -56,7 +56,7 @@ export const Template = {
       type: "list",
       name: "BatteryType",
       validation: {
-        required: true,
+        required: false,
         type: "decimal",
       },
       data: [
@@ -68,8 +68,8 @@ export const Template = {
     },
     {
       label: "Inbuilt Storage (in GB) ",
-      component: "number",
-      type: "number",
+      component: "text",
+      type: "text",
       name: "InbuiltStorage",
       validation: {
         required: true,
@@ -78,8 +78,8 @@ export const Template = {
     },
     {
       label: "Expandable Storage(in GB) ",
-      component: "number",
-      type: "number",
+      component: "text",
+      type: "text",
       name: "ExpandableStorage",
       validation: {
         required: true,
@@ -109,8 +109,8 @@ export const Template = {
 
     {
       label: "RAM",
-      component: "number",
-      type: "number",
+      component: "text",
+      type: "text",
       name: "RAM",
       validation: {
         required: true,
@@ -129,8 +129,8 @@ export const Template = {
     },
     {
       label: "Item Weight",
-      component: "number",
-      type: "number",
+      component: "text",
+      type: "text",
       name: "ProcessorSpeed",
       validation: {
         required: true,
@@ -139,8 +139,8 @@ export const Template = {
     },
     {
       label: "Item Dimensions",
-      component: "number",
-      type: "number",
+      component: "text",
+      type: "text",
       name: "ItemDimensions",
       validation: {
         required: true,
@@ -185,7 +185,7 @@ export const Template = {
       type: "list",
       name: "BatteryType",
       validation: {
-        required: true,
+        required: false,
         type: "decimal",
       },
       data: [

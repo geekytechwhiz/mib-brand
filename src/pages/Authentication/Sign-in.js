@@ -25,7 +25,7 @@ import {
   UNAUTHORIZED_ERROR_MSG,
   INTERNAL_SERVER_ERROR,
   INTERNAL_SERVER_ERROR_MSG,
-} from "../../lib/Constants";
+} from "../../lib/constants";
 import { getBrandThunk } from "../../redux/slices/onboarding";
 import { login } from "../../services/onboarding";
 

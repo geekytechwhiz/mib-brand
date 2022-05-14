@@ -1,57 +1,38 @@
-/**
-=========================================================
-* Material Dashboard 2 React - v2.1.0
-=========================================================
+/* eslint-disable react/jsx-no-useless-fragment */
+/* eslint-disable react/prop-types */
+/* eslint-disable react/destructuring-assignment */
 
-* Product Page: https://www.creative-tim.com/product/material-dashboard-react
-* Copyright 2022 Creative Tim (https://www.creative-tim.com)
-
-Coded by www.creative-tim.com
-
- =========================================================
-
-* The above copyright notice and this permission notice shall be included in all copies or substantial portions of the Software.
-*/
-
-// @mui material components
-import Grid from '@mui/material/Grid';
-// Material Dashboard 2 React components
-import MDBox from 'components/MDBox';
-import React from 'react';
-import MDButton from 'components/MDButton';
-import MDSnackbar from 'components/MDSnackbar';
-import { useState } from 'react';
+import Grid from "@mui/material/Grid";
+import MDBox from "components/MDBox";
+import React, { useState } from "react";
+import MDButton from "components/MDButton";
+import MDSnackbar from "components/MDSnackbar";
 
 function Notifications(props) {
-   debugger
-//   const notifications =
-//   useSelector((state) => state.root.notification, shallowEqual) || {};
-  
   const [successSB, setSuccessSB] = useState(false);
   const [infoSB, setInfoSB] = useState(false);
   const [warningSB, setWarningSB] = useState(false);
   const [errorSB, setErrorSB] = useState(false);
- 
 
-  if(props&& props.data.status==="error"){
-      setErrorSB(true);
-  }else if(props&& props.data.status==="warning"){
-    setWarningSB(true)
-  }else if(props&& props.data.status==="success"){
-    setSuccessSB(true)
+  if (props && props.data.status === "error") {
+    setErrorSB(true);
+  } else if (props && props.data.status === "warning") {
+    setWarningSB(true);
+  } else if (props && props.data.status === "success") {
+    setSuccessSB(true);
   }
   const closeSuccessSB = () => setSuccessSB(false);
   const openInfoSB = () => setInfoSB(true);
-  const closeInfoSB = () => setInfoSB(false); 
+  const closeInfoSB = () => setInfoSB(false);
   const closeWarningSB = () => setWarningSB(false);
   const closeErrorSB = () => setErrorSB(false);
   const renderSuccessSB = (
     <MDSnackbar
-      color='success'
-      icon='check'
-      title='Material Dashboard'
-      content='Hello, world! This is a notification message'
-      dateTime='11 mins ago'
+      color="success"
+      icon="check"
+      title="Material Dashboard"
+      content="Hello, world! This is a notification message"
+      dateTime="11 mins ago"
       open={successSB}
       onClose={closeSuccessSB}
       close={closeSuccessSB}
@@ -61,10 +42,10 @@ function Notifications(props) {
 
   const renderInfoSB = (
     <MDSnackbar
-      icon='notifications'
-      title='Material Dashboard'
-      content='Hello, world! This is a notification message'
-      dateTime='11 mins ago'
+      icon="notifications"
+      title="Material Dashboard"
+      content="Hello, world! This is a notification message"
+      dateTime="11 mins ago"
       open={infoSB}
       onClose={closeInfoSB}
       close={closeInfoSB}
@@ -73,11 +54,11 @@ function Notifications(props) {
 
   const renderWarningSB = (
     <MDSnackbar
-      color='warning'
-      icon='star'
-      title='Material Dashboard'
-      content='Hello, world! This is a notification message'
-      dateTime='11 mins ago'
+      color="warning"
+      icon="star"
+      title="Material Dashboard"
+      content="Hello, world! This is a notification message"
+      dateTime="11 mins ago"
       open={warningSB}
       onClose={closeWarningSB}
       close={closeWarningSB}
@@ -85,30 +66,28 @@ function Notifications(props) {
     />
   );
 
-  const RenderErrorSB = React.memo(
-   ()=>{
-  return <MDSnackbar
-    color='error'
-    icon='warning'
-    title='Material Dashboard'
-    content='Hello, world! This is a notification message'
-    dateTime='11 mins ago'
-    open={errorSB}
-    onClose={closeErrorSB}
-    close={closeErrorSB}
-    bgWhite
-  />
-   }
-  ); 
+  const RenderErrorSB = React.memo(() => (
+    <MDSnackbar
+      color="error"
+      icon="warning"
+      title="Material Dashboard"
+      content="Hello, world! This is a notification message"
+      dateTime="11 mins ago"
+      open={errorSB}
+      onClose={closeErrorSB}
+      close={closeErrorSB}
+      bgWhite
+    />
+  ));
   return (
     <MDBox p={2}>
       <Grid container spacing={3}>
         <Grid item xs={12} sm={6} lg={3}>
-          {props && props.data&& props.data.status === 'info' ? (
+          {props && props.data && props.data.status === "info" ? (
             <Grid item xs={12} sm={6} lg={3}>
               <MDButton
-                variant='gradient'
-                color='info'
+                variant="gradient"
+                color="info"
                 onClick={openInfoSB}
                 fullWidth
               >
@@ -119,11 +98,11 @@ function Notifications(props) {
           ) : (
             <></>
           )}
-          {props && props.data&& props.data.status === 'success' ? (
+          {props && props.data && props.data.status === "success" ? (
             <Grid item xs={12} sm={6} lg={3}>
               <MDButton
-                variant='gradient'
-                color='success'
+                variant="gradient"
+                color="success"
                 onClick={openInfoSB}
                 fullWidth
               >
@@ -134,26 +113,26 @@ function Notifications(props) {
           ) : (
             <></>
           )}
-          {props && props.data&& props.data.status === 'error' ? (
+          {props && props.data && props.data.status === "error" ? (
             <Grid item xs={12} sm={6} lg={3}>
               <MDButton
-                variant='gradient'
-                color='error'
+                variant="gradient"
+                color="error"
                 onClick={openInfoSB}
                 fullWidth
               >
                 info notification
               </MDButton>
-             <RenderErrorSB></RenderErrorSB>
+              <RenderErrorSB />
             </Grid>
           ) : (
             <></>
           )}
-          {props && props.data&& props.data.status === 'warning' ? (
+          {props && props.data && props.data.status === "warning" ? (
             <Grid item xs={12} sm={6} lg={3}>
               <MDButton
-                variant='gradient'
-                color='warning'
+                variant="gradient"
+                color="warning"
                 onClick={openInfoSB}
                 fullWidth
               >

@@ -2,7 +2,7 @@
 /* eslint-disable import/prefer-default-export */
 import { apiInstance } from "api";
 import axios from "axios";
-import { RESOURCE, ORIGIN } from "../../lib/Constants";
+import { RESOURCE, ORIGIN } from "../../lib/constants";
 
 export const postSignedUrl = async (payload) => {
   try {
@@ -11,10 +11,10 @@ export const postSignedUrl = async (payload) => {
       Resource: RESOURCE,
       ResourceId: payload.productId,
       FileId: payload.uuid,
-      UserId: localStorage.getItem("BrandId"),
+      UserId: localStorage.getItem("brandId"),
       Origin: ORIGIN,
     };
-
+    debugger;
     const { data } = await apiInstance.post(
       `/common/file-upload/signed-url`,
       requestBody

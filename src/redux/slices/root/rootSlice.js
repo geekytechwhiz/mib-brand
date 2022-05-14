@@ -2,14 +2,14 @@
 const { createSlice } = require("@reduxjs/toolkit");
 
 const initialState = {
-  notification:{
-    status:"",
-    message:""
+  notification: {
+    status: "",
+    message: "",
   },
-  alerts:{
-    status:"",
-    message:""
-  }
+  alerts: {
+    status: "",
+    message: "",
+  },
 };
 
 const rootSlice = createSlice({
@@ -17,11 +17,11 @@ const rootSlice = createSlice({
   initialState,
   reducers: {
     alert: (state, action) => {
-      state.alerts = {...action.payload};
+      state.alerts = { ...action.payload };
     },
     notification: (state, action) => {
-      state.notification = {...action.payload};
-    }, 
+      state.notification = { ...action.payload };
+    },
     setMiniSidenav: (state, action) => {
       state.miniSidenav = action.payload;
     },
@@ -54,7 +54,7 @@ const rootSlice = createSlice({
     },
   },
 });
-export const { 
+export const {
   notification,
   alert,
   setTransparentSidenav,

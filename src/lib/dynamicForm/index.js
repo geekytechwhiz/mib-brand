@@ -22,9 +22,11 @@ import { useDispatch } from "react-redux";
 import { variant } from "../../redux/slices/inventory";
 
 export default function DynamicForm(props) {
-  const { data } = props || [];
-  const { activeTab } = props;
+  const { fields, activeTab } = props;
   const dispatch = useDispatch();
+  const validationResponse = {};
+  const productState = {};
+  const [openError, setOpenError] = useState({ error: false, message: "" });
   // const fields = _.map(data, (x) => x.name);
   // const variantState = _.map(data, (x) => {
   //   const obj = {};
@@ -34,8 +36,7 @@ export default function DynamicForm(props) {
   const [values, setValues] = useState({});
 
   useEffect(() => {
-      
-    const fileList = _.cloneDeep(data);
+    const fileList = _.cloneDeep(fields);
     // setValues((currentValues) => {
     //   const newValues = fileList.reduce((obj, field) => {
     //     if (field.component === "field_group") {
@@ -51,10 +52,9 @@ export default function DynamicForm(props) {
 
     //   return { ...newValues, ...currentValues };
     // });
-  }, [data]);
+  }, [fields]);
 
   const fieldChanged = (event) => {
-      
     const { name } = event.target;
     const { value } = event.target;
     if (!value) return null;
@@ -81,10 +81,10 @@ export default function DynamicForm(props) {
         spacing={1}
         justifyContent="flex-start"
         flexDirection="row"
-        flexGrow={1} 
+        flexGrow={1}
       >
-        {data?.length > 0 &&
-          data?.map((field) => {
+        {fields?.length > 0 &&
+          fields?.map((field) => {
             switch (field.component) {
               case "field_group":
                 return (
@@ -94,7 +94,7 @@ export default function DynamicForm(props) {
                       field={field}
                       fieldChanged={fieldChanged}
                       name={field.name}
-                      values={values[field.name]}
+                      value={field.value || ""}
                     >
                       <FormControlLabel
                         value="exclusive"
@@ -108,13 +108,13 @@ export default function DynamicForm(props) {
                 return (
                   <Grid item xs={4} mb={2}>
                     <MDInput
-                      required
+                      required={field.validation?.required}
                       type="text"
                       label={field.label}
                       fullWidth
                       onChange={fieldChanged}
                       name={field.name}
-                      values={values[field.name]}
+                      value={field.value || ""}
                     />
                   </Grid>
                 );
@@ -122,13 +122,13 @@ export default function DynamicForm(props) {
                 return (
                   <Grid item xs={4} mb={2}>
                     <MDInput
-                      required
+                      required={field.validation?.required}
                       type="number"
                       label={field.label}
                       fullWidth
                       onChange={fieldChanged}
                       name={field.name}
-                      values={values[field.name]}
+                      value={field.value || ""}
                     />
                   </Grid>
                 );
@@ -137,12 +137,12 @@ export default function DynamicForm(props) {
                   <Grid item xs={4} mb={2}>
                     <Autocomplete
                       disablePortal
-                      required
+                      required={field.validation?.required}
                       label={field.label}
                       options={field.options}
                       fieldChanged={fieldChanged}
                       name={field.name}
-                      values={values[field.name]}
+                      value={field.value || ""}
                       sx={{
                         "& .css-tnnq9f-MuiAutocomplete-root .MuiOutlinedInput-root .MuiAutocomplete-input":
                           {
@@ -158,9 +158,8 @@ export default function DynamicForm(props) {
                           label={field.label}
                           name={field.name}
                           key={field.name}
-                          values={values[field.name]}
+                          value={field.value || ""}
                           onChange={fieldChanged}
-                          value={values[field.name]}
                         />
                       )}
                     />
@@ -170,13 +169,13 @@ export default function DynamicForm(props) {
                 return (
                   <Grid item xs={4} mb={2}>
                     <MDInput
-                      required
+                      required={field.validation?.required}
                       type="text"
                       label={field.label}
                       fullWidth
                       onChange={fieldChanged}
                       name={field.name}
-                      values={values[field.name]}
+                      value={field.value || ""}
                     />
                   </Grid>
                 );

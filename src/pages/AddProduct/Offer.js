@@ -16,24 +16,23 @@ import MDSnackbar from "components/MDSnackbar";
 import React, { useState } from "react";
 import { useDispatch, useSelector, shallowEqual } from "react-redux";
 import { offers } from "../../redux/slices/inventory";
-import { Validate } from "../../lib/Validations";
+import { Validate } from "../../lib/validations";
+import { REQUIRED_FIELDS_OFFER } from "../../lib/constants";
 
 function Offer(props) {
-  const { activeTab } = props;
-
-  const requiredFields = [
-    "YourPrice",
-    "Quantity",
-    "MRP",
-    "SellingPrice",
-    "CountryOfOrigin",
-  ];
+  const { activeTab, data } = props;
   let validationResponse = {};
+  let productState = {};
+  const dispatch = useDispatch();
   const [openError, setOpenError] = useState({ error: false, message: "" });
 
-  const dispatch = useDispatch();
-  const productState =
-    useSelector((state) => state.inventory.offers, shallowEqual) || {};
+  const keys = Object.keys(data);
+  if (keys.length === 0) {
+    productState = useSelector((state) => state.inventory.offers, shallowEqual);
+    productState = productState || {};
+  } else {
+    productState = data;
+  }
   const [product, setProduct] = useState(productState);
 
   const handleChange = (event) => {
@@ -55,7 +54,6 @@ function Offer(props) {
     }));
   };
   const handleClose = () => {
-      
     const error = {
       error: false,
       message: "",
@@ -63,9 +61,8 @@ function Offer(props) {
     setOpenError(error);
   };
   const handleNext = (e) => {
-    validationResponse = Validate(requiredFields, product);
+    validationResponse = Validate(REQUIRED_FIELDS_OFFER, product);
     if (!validationResponse.isValid) {
-        
       const error = {
         error: !validationResponse.isValid,
         message: validationResponse.message,
@@ -109,7 +106,6 @@ function Offer(props) {
                 variant="h5"
                 textAlign="start"
                 fontWeight="medium"
-                
                 mb={2}
               >
                 offers and Pricing

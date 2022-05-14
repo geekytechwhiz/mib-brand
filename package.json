@@ -17,7 +17,6 @@
     "npm": ">=6"
   },
   "dependencies": {
-    "@babel/plugin-transform-react-jsx": "^7.14.9",
     "@emotion/cache": "11.7.1",
     "@emotion/react": "^11.8.2",
     "@emotion/styled": "^11.8.1",
@@ -28,6 +27,7 @@
     "@mui/styled-engine": "5.4.1",
     "@mui/styles": "^5.5.3",
     "@mui/system": "^5.5.3",
+    "@mui/x-data-grid": "^5.10.0",
     "@reduxjs/toolkit": "^1.8.1",
     "@testing-library/jest-dom": "5.16.2",
     "@testing-library/react": "12.1.2",
@@ -48,8 +48,10 @@
     "react-dropzone-uploader": "^2.11.0",
     "react-form-validator-core": "^1.1.1",
     "react-github-btn": "1.2.1",
+    "react-imgix": "^9.5.0",
     "react-material-ui-form-validator": "^3.0.0",
     "react-redux": "^7.2.8",
+    "react-responsive-carousel": "^3.2.23",
     "react-router-dom": "6.2.1",
     "react-scripts": "5.0.0",
     "react-table": "7.7.0",

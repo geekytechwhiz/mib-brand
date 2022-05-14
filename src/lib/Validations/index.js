@@ -1,3 +1,5 @@
+/* eslint-disable prefer-const */
+/* eslint-disable no-array-constructor */
 /* eslint-disable no-debugger */
 /* eslint-disable react/destructuring-assignment */
 /* eslint-disable no-unused-expressions */
@@ -50,8 +52,8 @@ export const validateVitalInfos = (product) => {
   return count;
 };
 
-export function Validate(fields, inputs) { 
-  let errors = new Array()
+export function Validate(fields, inputs) {
+  let errors = new Array();
   let response = {
     isValid: true,
     message: "",
@@ -64,7 +66,6 @@ export function Validate(fields, inputs) {
   }
   fields.forEach((x) => {
     if (!inputs[x] || inputs[x] === "") {
-     
       errors.push(x);
     }
   });

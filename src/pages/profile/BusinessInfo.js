@@ -21,10 +21,10 @@ import { Category, SubCategory } from "../../lib/data";
 import { updateBusinessDetails } from "../../services/onboarding/index";
 
 export default function BusinessInfo() {
-  let businessDetails = useSelector((state) => state.accountInfo);
-  const { BrandId } = useSelector((state) => state.accountInfo) || "";
-  const { EmailId } = useSelector((state) => state.accountInfo) || "";
-  businessDetails = businessDetails || {};
+  let { BusinessDetails } = useSelector((state) => state.auth);
+  const { BrandId } = useSelector((state) => state.auth) || "";
+  const { EmailId } = useSelector((state) => state.auth) || "";
+  BusinessDetails = BusinessDetails || {};
   const [showProgress, setShowProgress] = useState(false);
   const [disabled, setDisabled] = useState(true);
   const [disableGstn, setDisableGstn] = useState(true);
@@ -58,7 +58,6 @@ export default function BusinessInfo() {
     </MDTypography>
   );
   const handleCancel = async () => {
-      
     const keys = Object.keys(businessInfo);
     const obj = {};
     keys.forEach((x) => {
@@ -70,7 +69,6 @@ export default function BusinessInfo() {
     setShowProgress(false);
   };
   const handleBusinessTypeChange = (event, values) => {
-      
     const { value } = values;
     setBusinessDetails(() => ({
       ...businessInfo,
@@ -78,7 +76,6 @@ export default function BusinessInfo() {
     }));
   };
   const handleSubCategoryChange = (event, values) => {
-      
     const { value } = values;
     setBusinessDetails(() => ({
       ...businessInfo,
@@ -87,7 +84,6 @@ export default function BusinessInfo() {
   };
 
   const handleCategoryChange = (event, values) => {
-      
     const { value } = values;
     setBusinessDetails(() => ({
       ...businessInfo,
@@ -96,7 +92,6 @@ export default function BusinessInfo() {
   };
 
   const handleChange = (event) => {
-      
     const { name } = event.target;
     const { value } = event.target;
     setBusinessDetails(() => ({
@@ -106,7 +101,6 @@ export default function BusinessInfo() {
   };
 
   const handleGstnSelection = (e) => {
-      
     const { value } = e.target;
     if (value === "1") {
       setDisableGstn(false);
@@ -121,7 +115,6 @@ export default function BusinessInfo() {
   };
 
   const handleSave = async () => {
-      
     setShowProgress(true);
     businessInfo.BrandId = BrandId;
     const req = { ...BusinessDetails, ...businessInfo };
@@ -165,7 +158,6 @@ export default function BusinessInfo() {
             variant="h5"
             textAlign="start"
             fontWeight="medium"
-             
             p={1}
             mb={2}
           >

@@ -1,180 +1,79 @@
-/* eslint-disable react/destructuring-assignment */
 /* eslint-disable no-debugger */
-/* eslint-disable no-unused-vars */
-// Images
-import LogoAsana from "assets/images/small-logos/logo-asana.svg";
-import MDAvatar from "components/MDAvatar";
-import MDBox from "components/MDBox";
-import CustomSelect from "components/MDDropdown/index";
-// import CustomSelect, { StyledOption } from "components/MDDropdown/index";
-import MDProgress from "components/MDProgress";
-import { LightTooltip } from "components/MDTooltip";
-import MDTypography from "components/MDTypography";
-import { useEffect, useState } from "react";
-// import Orders from "../../assets/mockData/data";
+/* eslint-disable react/prop-types */
+/* eslint-disable import/no-self-import */
+import React, { memo } from "react";
+// import MDTypography from "components/MDTypography";
+// import MDBox from "components/MDBox";
 
-function index() {
+import DataTable from "components/RTable";
+import _ from "lodash";
+import { shallowEqual, useSelector } from "react-redux";
+import OrderTable from "../../lib/tables/orderTable";
+import projectsTableData from "../../lib/projectsTableData";
+
+function ProcessOrders() {
+  let response = { orderRows: [], orderColumns: [] };
   const columns = {
-    orderId: "",
-    productName: "",
-    orderedDate: "",
-    productType: " ",
-    pinCode: 0,
-    status: " ",
-    progress: "",
-    revenue: "",
+    OrderId: "",
+    ProductName: "",
+    OrderDate: "",
+    ProductType: " ",
+    DeliveryAddress: "",
+    PinCode: 0,
+    Status: " ",
+    Progress: "",
+    Revenue: "",
   };
-  const Orders = [
-    {
-      orderId: 545454,
-      productName:
-        "AAA BB CCCcccccccccccccccccccccccccccccccccccc ssssssssssssssssssssssss xxxxxxxxxxxx",
-      orderedDate: "04/05/2022 : 10:59:45",
-      productType: "Exclusive",
-      shippingAddress: "Kakkanad, Kochi",
-      pinCode: 6565664,
-      status: "Order Placed",
-      invoice: "",
-    },
-  ];
-  const [dataRows, setDataRow] = useState([columns]);
-  const createColumn = (row, column) => (
-    <MDTypography
-      component="a"
-      href="#"
-      variant="button"
-      color="text"
-      fontWeight="medium"
-    >
-      {row[column]}
-    </MDTypography>
+  let rows = [];
+  console.log("ProcessOrders");
+  let ordersData = useSelector(
+    (state) => state.orderState.orders,
+    shallowEqual
   );
-  function ProductName(row, column) {
-    const name = row[column];
-    return (
-      <MDBox
-        display="flex"
-        sx={{ overflow: "hidden", textOverflow: "ellipsis", width: "6rem" }}
-        alignItems="center"
-        lineHeight={1}
-      >
-        <MDAvatar src={LogoAsana} name={name} size="sm" variant="rounded" />
-        {/* <Tooltip title={name}> */}
-        <LightTooltip title={name}>
-          <MDTypography
-            display="block"
-            variant="button"
-            fontWeight="medium"
-            ml={1}
-            lineHeight={1}
-          >
-            {name}
-          </MDTypography>
-        </LightTooltip>
-      </MDBox>
-    );
-  }
+  ordersData = ordersData || [];
 
-  function Status(ele) {
-    const { value } = ele;
-    const options = [
-      {
-        label: "Packed",
-        value: "packed",
-      },
-      {
-        label: "Shipped",
-        value: "shipped",
-      },
-      {
-        label: "In Transits",
-        value: "inTransits",
-      },
-    ];
-    return (
-      <MDBox display="flex" alignItems="center">
-        <MDBox m={1}>
-          <CustomSelect
-            placeholder="Category"
-            defaultValue="packed"
-            value={value}
-            label={value}
-            sx={{ width: "5rem" }}
-            options={options}
-          >
-            {/* {options.map((x) => (
-              <StyledOption sx={{ width: "5rem" }} value={x.value}>
-                {x.label}
-              </StyledOption>
-            ))} */}
-          </CustomSelect>
-        </MDBox>
-      </MDBox>
-    );
-  }
-  function Progress(row, column) {
-    const value = 60;
-    const status = row[column];
-    return (
-      <MDBox display="flex" alignItems="center">
-        <MDTypography variant="caption" color="text" fontWeight="medium">
-          {value}%
-        </MDTypography>
-        <MDBox ml={0.5} width="9rem">
-          <MDProgress variant="gradient" color="info" value={value} />
-        </MDBox>
-      </MDBox>
-    );
-  }
-  const makeRows = () => {
-    const dataset = Orders;
-    const rows = [];
-    if (dataset && dataset.length > 0) {
-      dataset.forEach((element) => {
-        const keys = Object.keys(columns);
-        const ele = {};
+  if (ordersData && ordersData.length > 0) {
+    const keys = Object.keys(columns);
+    const data =
+      ordersData &&
+      ordersData?.map((element) => {
+        const obj = _.cloneDeep(columns);
         keys.forEach((x) => {
-          if (x === "productName") {
-            ele[x] = ProductName(element, x);
-          } else if (x === "status") {
-            ele[x] = Status(element, x);
-          } else if (x === "progress") {
-            ele[x] = Progress(element, x);
-          } else {
-            ele[x] = createColumn(element, x);
-          }
+          obj[x] = element[x];
+          obj.Status = element.OrderStatus;
         });
-        rows.push(ele);
-        console.log("Element", ele);
+        return obj;
       });
-      console.log("orders", rows);
-      setDataRow(rows);
+    rows = data ?? [];
+    if (data) {
+      response = OrderTable(columns, rows);
+      // response = React.useMemo(orderTable(columns, data), [columns, data]);
+      console.log(response);
     }
-  };
-  useEffect(() => {
-      
-    console.log("Orders", Orders);
-    makeRows();
-  }, []);
+  }
 
-  return {
-    columns: [
-      { Header: "Order Id", accessor: "orderId", align: "left" },
-      { Header: "Order Date", accessor: "orderedDate", align: "center" },
-      { Header: "Product Name", accessor: "productName", align: "left" },
-      { Header: "Type", accessor: "productType", align: "center" },
-      {
-        Header: "Pin Code",
-        accessor: "pinCode",
-        align: "center",
-      },
-      { Header: "STATUS", accessor: "status", align: "center" },
-      { Header: "PROGRESS", accessor: "progress", align: "center" },
-      { Header: "Revenue", accessor: "revenue", align: "center" },
-    ],
+  const { columns: pColumns, rows: pRows } = projectsTableData();
 
-    rows: dataRows,
-  };
+  return (
+    <div>
+      <DataTable
+        table={{ columns: response.orderColumns, rows: response.orderRows }}
+        setEntriesPerPage={10}
+        canSearch
+        showTotalEntries
+        pagination
+        isSorted
+      />
+      <DataTable
+        table={{ columns: pColumns, rows: pRows }}
+        setEntriesPerPage={10}
+        canSearch
+        showTotalEntries
+        pagination
+        isSorted
+      />
+    </div>
+  );
 }
 
-export default index;
+export default memo(ProcessOrders);

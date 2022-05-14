@@ -11,7 +11,8 @@ import MDTypography from "components/MDTypography";
 import React, { useEffect, useRef, useState } from "react";
 import { TextValidator, ValidatorForm } from "react-material-ui-form-validator";
 import { Link, useNavigate } from "react-router-dom";
-import { Validate } from "../../lib/Validations/index";
+import { Validate } from "../../lib/validations/index";
+import { SIGN_UP_REQUIRED_FIELDS } from "../../lib/constants/index";
 import registerAccount from "../../services/onboarding/index";
 
 function Signup() {
@@ -20,7 +21,6 @@ function Signup() {
 
   const [user, setUser] = useState({});
   const navigate = useNavigate();
-  const requiredField = ["Name", "Moblie", "EmailId", "Password"];
   // const details = useSelector((state) => state.data);
 
   useEffect(async () => {
@@ -38,7 +38,7 @@ function Signup() {
   };
 
   const handleSubmit = async () => {
-    const validate = Validate(requiredField, user);
+    const validate = Validate(SIGN_UP_REQUIRED_FIELDS, user);
     if (!validate.isValid) {
       return false;
     }
@@ -57,7 +57,7 @@ function Signup() {
 
     if (res) {
       // setLayout(dispatch, "dashboard");
-      navigate("/authentication/sign-in");
+      navigate("/add-product", { state: { path: "add" } });
     }
   };
 
@@ -114,9 +114,11 @@ function Signup() {
               <TextValidator
                 required
                 label="Password"
+                type="password"
                 name="Password"
+                value={user.Password}
                 fullWidth
-                validators={["required", "minNumber:10", "maxNumber:15"]}
+                validators={["required"]}
                 errorMessages={[
                   "this field is required",
                   "Password must be at least 6 characters",

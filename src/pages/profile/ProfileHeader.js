@@ -3,15 +3,13 @@
 import Card from "@mui/material/Card";
 import Grid from "@mui/material/Grid";
 // Images
-import burceMars from "assets/images/bruce-mars.jpg";
+import brand from "assets/images/brand.png";
 // Material Dashboard 2 React base styles
 import breakpoints from "assets/theme/base/breakpoints";
 import MDAvatar from "components/MDAvatar";
 // Material Dashboard 2 React components
 import MDBox from "components/MDBox";
 import MDTypography from "components/MDTypography";
-// prop-types is a library for typechecking of props.
-import PropTypes from "prop-types";
 import { useEffect, useState } from "react";
 
 function ProfileHeader() {
@@ -26,12 +24,8 @@ function ProfileHeader() {
         : setTabsOrientation("horizontal");
     }
 
-    /**
-     The event listener that"s calling the handleTabsOrientation function when resizing the window.
-    */
     window.addEventListener("resize", handleTabsOrientation);
 
-    // Call the handleTabsOrientation function to set the state with the initial value.
     handleTabsOrientation();
 
     // Remove event listener on cleanup
@@ -51,12 +45,7 @@ function ProfileHeader() {
       >
         <Grid container spacing={1} alignItems="center">
           <Grid item>
-            <MDAvatar
-              src={burceMars}
-              alt="profile-image"
-              size="xl"
-              shadow="sm"
-            />
+            <MDAvatar src={brand} alt="profile-image" size="xl" shadow="sm" />
           </Grid>
           <Grid item>
             <MDBox height="100%" mt={0.5} lineHeight={1}>
