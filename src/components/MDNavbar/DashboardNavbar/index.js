@@ -1,30 +1,34 @@
+/* eslint-disable no-unused-vars */
 /* eslint-disable no-debugger */
 /* eslint-disable react/jsx-no-useless-fragment */
-import React, { useState, useEffect } from 'react';
+import React, { useState, useEffect } from "react";
 
 // react-router components
-import { useLocation, useNavigate } from 'react-router-dom';
-import { useSelector, shallowEqual } from 'react-redux';
+import { useLocation, useNavigate } from "react-router-dom";
+import { useSelector, shallowEqual, useDispatch } from "react-redux";
 
 // prop-types is a library for typechecking of props.
-import PropTypes from 'prop-types';
+import PropTypes from "prop-types";
 
 // @material-ui core components
-import AppBar from '@mui/material/AppBar';
-import Toolbar from '@mui/material/Toolbar';
-import IconButton from '@mui/material/IconButton';
-import Menu from '@mui/material/Menu';
-import Icon from '@mui/material/Icon';
+import AppBar from "@mui/material/AppBar";
+import Toolbar from "@mui/material/Toolbar";
+import IconButton from "@mui/material/IconButton";
+import Menu from "@mui/material/Menu";
+import Icon from "@mui/material/Icon";
 
 // Material Dashboard 2 React components
-import MDBox from 'components/MDBox';
-import MDInput from 'components/MDInput';
+import MDBox from "components/MDBox";
+import MDInput from "components/MDInput";
 
 // Material Dashboard 2 React example components
-import Breadcrumbs from 'components/MDBreadcrumbs';
-import NotificationItem from 'components/MDNotifications';
-import MDAlert from 'components/MDAlert';
-import MDTypography from 'components/MDTypography';
+import Breadcrumbs from "components/MDBreadcrumbs";
+import NotificationItem from "components/MDNotifications";
+import { notification } from "redux/slices/root/rootSlice";
+import MDBackdrop from "components/MDBackDrop";
+
+import MDTypography from "components/MDTypography";
+import MDSnackbar from "components/MDSnackbar";
 
 // Custom styles for DashboardNavbar
 import {
@@ -32,22 +36,23 @@ import {
   setTransparentNavbar,
   setMiniSidenav,
   setOpenConfigurator,
-} from 'context';
+} from "context";
+import TransitionAlerts from "components/CustomAlert";
 import {
   navbar,
   navbarContainer,
   navbarRow,
   navbarIconButton,
   navbarMobileMenu,
-} from './styles';
+} from "./styles";
 
 // Material Dashboard 2 React context
 
 function DashboardNavbar({ absolute, light, isMini }) {
-    
   const navigate = useNavigate();
   const [navbarType, setNavbarType] = useState();
   const [controller, dispatch] = useMaterialUIController();
+  const dispatcher = useDispatch();
   const {
     miniSidenav,
     transparentNavbar,
@@ -57,15 +62,21 @@ function DashboardNavbar({ absolute, light, isMini }) {
   } = controller;
   const [openMenu, setOpenMenu] = useState(false);
   const [openSettings, setOpenSettings] = useState(false);
-  const route = useLocation().pathname.split('/').slice(1);
+  const route = useLocation().pathname.split("/").slice(1);
   const notifications =
-    useSelector((state) => state.root.alerts, shallowEqual) || {};
+    useSelector((state) => state.root.notification, shallowEqual) || {};
+  const alerts = useSelector((state) => state.root.alerts, shallowEqual) || {};
+  const isLoading = useSelector((state) => state.root.loading, shallowEqual);
+    
+  // const [hasShowNotification, setHasShowNotification] = useState(
+  //   notifications.show
+  // );
   useEffect(() => {
     // Setting the navbar type
     if (fixedNavbar) {
-      setNavbarType('sticky');
+      setNavbarType("sticky");
     } else {
-      setNavbarType('static');
+      setNavbarType("static");
     }
 
     // A function that sets the transparent state of the navbar.
@@ -80,35 +91,46 @@ function DashboardNavbar({ absolute, light, isMini }) {
      The event listener that"s calling the handleTransparentNavbar function when 
      scrolling the window.
     */
-    window.addEventListener('scroll', handleTransparentNavbar);
+    window.addEventListener("scroll", handleTransparentNavbar);
 
     // Call the handleTransparentNavbar function to set the state with the initial value.
     handleTransparentNavbar();
 
     // Remove event listener on cleanup
-    return () => window.removeEventListener('scroll', handleTransparentNavbar);
+    return () => window.removeEventListener("scroll", handleTransparentNavbar);
   }, [dispatch, fixedNavbar]);
 
   const handleMiniSidenav = () => setMiniSidenav(dispatch, !miniSidenav);
   const handleConfiguratorOpen = () =>
     setOpenConfigurator(dispatch, !openConfigurator);
+
+  const handleCloseNotification = () => {
+    const success = {
+      show: false,
+      status: " ",
+      message: " ",
+    };
+
+    // dispatch(alert(success));
+    dispatcher(notification(success));
+  };
   const handleOpenMenu = (event) => setOpenMenu(event.currentTarget);
   const handleOpenSettings = (event) => setOpenSettings(event.currentTarget);
   const handleCloseMenu = () => setOpenMenu(false);
   const handleSettingsClose = () => setOpenSettings(false);
   const handleLogout = () => {
     localStorage.clear();
-    navigate('/');
+    navigate("/");
   };
 
   const alertContent = (name, message) => (
-    <MDTypography variant='body2' fontWeight='medium' color='white'>
+    <MDTypography variant="body2" fontWeight="medium" color="white">
       {name?.toUpperCase()}
-      <MDTypography 
-        variant='button'
-        fontWeight='small'
-        sx={{marginLeft:5}}
-        color='white'
+      <MDTypography
+        variant="button"
+        fontWeight="small"
+        sx={{ marginLeft: 5 }}
+        color="white"
       >
         {message}
       </MDTypography>
@@ -120,21 +142,21 @@ function DashboardNavbar({ absolute, light, isMini }) {
       anchorEl={openMenu}
       anchorReference={null}
       anchorOrigin={{
-        vertical: 'bottom',
-        horizontal: 'left',
+        vertical: "bottom",
+        horizontal: "left",
       }}
       open={Boolean(openMenu)}
       onClose={handleCloseMenu}
       sx={{ mt: 2 }}
     >
-      <NotificationItem icon={<Icon>email</Icon>} title='Check new messages' />
+      <NotificationItem icon={<Icon>email</Icon>} title="Check new messages" />
       <NotificationItem
         icon={<Icon>podcasts</Icon>}
-        title='Manage Podcast sessions'
+        title="Manage Podcast sessions"
       />
       <NotificationItem
         icon={<Icon>shopping_cart</Icon>}
-        title='Payment successfully completed'
+        title="Payment successfully completed"
       />
     </Menu>
   );
@@ -144,18 +166,18 @@ function DashboardNavbar({ absolute, light, isMini }) {
       anchorEl={openSettings}
       anchorReference={null}
       anchorOrigin={{
-        vertical: 'bottom',
-        horizontal: 'left',
+        vertical: "bottom",
+        horizontal: "left",
       }}
       open={Boolean(openSettings)}
       onClose={handleSettingsClose}
       sx={{ mt: 2 }}
     >
-      <NotificationItem icon={<Icon>settings</Icon>} title='Settings' />
+      <NotificationItem icon={<Icon>settings</Icon>} title="Settings" />
       <NotificationItem
         onClick={handleLogout}
         icon={<Icon>Log out</Icon>}
-        title='Log out'
+        title="Log out"
       />
     </Menu>
   );
@@ -177,59 +199,46 @@ function DashboardNavbar({ absolute, light, isMini }) {
 
   return (
     <AppBar
-      position={absolute ? 'absolute' : navbarType}
-      color='inherit'
+      position={absolute ? "absolute" : navbarType}
+      color="inherit"
       sx={(theme) =>
         navbar(theme, { transparentNavbar, absolute, light, darkMode })
       }
     >
       <MDBox pt={2} px={2}>
-        {notifications && notifications.status === 'error' ? (
-          <MDAlert color='error' dismissible>
-            {alertContent('error', notifications.message)}
-          </MDAlert>
+        <MDBackdrop show={isLoading} />
+        {alerts && alerts.show ? (
+          <TransitionAlerts
+            show={alerts.show}
+            message={alerts.message}
+            status={alerts.status}
+          />
         ) : (
           <></>
         )}
-        {notifications && notifications.status === 'info' ? (
-          <MDAlert color='info' dismissible>
-            {alertContent('info', notifications.message)}
-          </MDAlert>
+        {notifications && notifications.show ? (
+          <MDSnackbar
+            color={notifications.status}
+            icon="check"
+            title={notifications.tittle}
+            content={notifications.message}
+            open={notifications.show}
+            onClose={handleCloseNotification}
+            close={handleCloseNotification}
+            bgWhite
+          />
         ) : (
           <></>
         )}
-        {notifications && notifications.status === 'success' ? (
-          <MDAlert color='success' dismissible>
-            {alertContent('success', notifications.message)}
-          </MDAlert>
-        ) : (
-          <></>
-        )}
-        {/* <MDAlert color="success" dismissible>
-          {alertContent("success")}
-        </MDAlert>
-
-        <MDAlert color="warning" dismissible>
-          {alertContent("warning")}
-        </MDAlert>
-        <MDAlert color="info" dismissible>
-          {alertContent("info")}
-        </MDAlert>
-        <MDAlert color="light" dismissible>
-          {alertContent("light")}
-        </MDAlert>
-        <MDAlert color="dark" dismissible>
-          {alertContent("dark")}
-        </MDAlert> */}
       </MDBox>
       <Toolbar sx={(theme) => navbarContainer(theme)}>
         <MDBox
-          color='inherit'
+          color="inherit"
           mb={{ xs: 1, md: 0 }}
           sx={(theme) => navbarRow(theme, { isMini })}
         >
           <Breadcrumbs
-            icon='home'
+            icon="home"
             title={route[route.length - 1]}
             route={route}
             light={light}
@@ -238,50 +247,50 @@ function DashboardNavbar({ absolute, light, isMini }) {
         {isMini ? null : (
           <MDBox sx={(theme) => navbarRow(theme, { isMini })}>
             <MDBox pr={1}>
-              <MDInput label='Search here' />
+              <MDInput label="Search here" />
             </MDBox>
-            <MDBox color={light ? 'white' : 'inherit'}>
+            <MDBox color={light ? "white" : "inherit"}>
               <IconButton
-                size='small'
+                size="small"
                 disableRipple
-                color='inherit'
+                color="inherit"
                 sx={navbarMobileMenu}
                 onClick={handleMiniSidenav}
               >
-                <Icon sx={iconsStyle} fontSize='medium'>
-                  {miniSidenav ? 'menu_open' : 'menu'}
+                <Icon sx={iconsStyle} fontSize="medium">
+                  {miniSidenav ? "menu_open" : "menu"}
                 </Icon>
               </IconButton>
               <IconButton
-                size='small'
+                size="small"
                 disableRipple
-                color='inherit'
+                color="inherit"
                 sx={navbarIconButton}
                 onClick={handleConfiguratorOpen}
               >
                 <Icon sx={iconsStyle}>settings</Icon>
               </IconButton>
               <IconButton
-                size='small'
+                size="small"
                 disableRipple
-                color='inherit'
+                color="inherit"
                 sx={navbarIconButton}
-                aria-controls='notification-menu'
-                aria-haspopup='true'
-                variant='contained'
+                aria-controls="notification-menu"
+                aria-haspopup="true"
+                variant="contained"
                 onClick={handleOpenMenu}
               >
                 <Icon sx={iconsStyle}>notifications</Icon>
               </IconButton>
               {renderMenu()}
               <IconButton
-                size='small'
+                size="small"
                 disableRipple
-                color='inherit'
+                color="inherit"
                 sx={navbarIconButton}
-                aria-controls='account_circle-menu'
-                aria-haspopup='true'
-                variant='contained'
+                aria-controls="account_circle-menu"
+                aria-haspopup="true"
+                variant="contained"
                 onClick={handleOpenSettings}
               >
                 <Icon sx={iconsStyle}>account_circle</Icon>

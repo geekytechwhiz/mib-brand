@@ -64,7 +64,6 @@ function MoreDetails(props) {
   };
 
   const handlePublish = async () => {
-    debugger;
     const brandId = localStorage.getItem("brandId");
 
     if (!brandId) {
@@ -186,7 +185,7 @@ function MoreDetails(props) {
         <Grid item xs={5}>
           <Box mb={2}>
             <MDTypography
-              variant="h5"
+              variant="h6"
               textAlign="start"
               fontWeight="medium"
               p={3}
@@ -223,7 +222,7 @@ function MoreDetails(props) {
         </Grid>
         <Grid item xs={5}>
           <MDTypography
-            variant="h5"
+            variant="h6"
             textAlign="start"
             fontWeight="medium"
             p={3}

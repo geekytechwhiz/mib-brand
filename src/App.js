@@ -9,9 +9,7 @@ import brandDark from "assets/images/logo-ct-dark.png";
 // Images
 import brandWhite from "assets/images/logo-ct.png";
 // Material Dashboard 2 React themes
-import theme from "assets/theme";
 // Material Dashboard 2 React Dark Mode themes
-import themeDark from "assets/theme-dark";
 // Material Dashboard 2 React components
 import MDBox from "components/MDBox";
 // Material Dashboard 2 React routes
@@ -23,7 +21,6 @@ import {
   useMaterialUIController,
 } from "context";
 // Material Dashboard 2 React example components
-import Configurator from "lib/Configurator";
 import { useEffect, useMemo, useState } from "react";
 import { useDispatch } from "react-redux";
 // react-router components
@@ -34,9 +31,12 @@ import {
   useLocation,
   useNavigate,
 } from "react-router-dom";
-import routes, { basicRoutes } from "routes";
-// RTL plugins
 import rtlPlugin from "stylis-plugin-rtl";
+import routes, { basicRoutes } from "./routes";
+// RTL plugins
+import Configurator from "./lib/Configurator";
+import themeDark from "./assets/theme-dark";
+import theme from "./assets/theme";
 import Sidenav from "./components/MDSidenav/index";
 
 export default function App() {
@@ -149,6 +149,7 @@ export default function App() {
   return (
     <ThemeProvider theme={darkMode ? themeDark : theme}>
       <CssBaseline />
+      {/* <Routes>{getRoutes(inlineRoutes)}</Routes> */}
       {layout === "dashboard" && token ? (
         <>
           <Sidenav

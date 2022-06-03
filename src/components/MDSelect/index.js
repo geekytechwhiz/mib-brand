@@ -125,9 +125,9 @@ function MDSelect({ options, placeholder }) {
     <Root
       onMouseOver={() => setListboxVisible(true)}
       onMouseOut={() => setListboxVisible(false)}
-      onFocus={() => setListboxVisible(true)}
+      onFocus={() => setListboxVisible(false)}
       onBlur={() => setListboxVisible(false)}
-      onClick={() => setListboxVisible(true)}
+      onClick={() => setListboxVisible(!listboxVisible)}
     >
       <Toggle {...getButtonProps()}>
         {value ?? <span className="placeholder">{placeholder ?? " "}</span>}

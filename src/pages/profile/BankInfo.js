@@ -1,6 +1,8 @@
+/* eslint-disable react/prop-types */
 /* eslint-disable react/jsx-no-useless-fragment */
 /* eslint-disable no-debugger */
 import ModeEditOutlinedIcon from "@mui/icons-material/ModeEditOutlined";
+import { Autocomplete } from "@mui/material";
 import Grid from "@mui/material/Grid";
 import IconButton from "@mui/material/IconButton";
 import MDAlert from "components/MDAlert";
@@ -9,20 +11,22 @@ import MDButton from "components/MDButton";
 import MDInput from "components/MDInput";
 import MDModal from "components/MDModal";
 import MDTypography from "components/MDTypography";
+import { ACCOUNT_TYPE_LIST } from "lib/constants";
 import React, { useState } from "react";
-import { useSelector } from "react-redux";
-import { updateBankDetails } from "../../services/onboarding/index";
+import { useDispatch } from "react-redux";
+import { updateBankInfoThunk } from "redux/slices/onboarding/index";
 
-export default function BankInfo() {
-    
-  let bankDetails = useSelector((state) => state.accountInfo);
-  const { BrandId } = useSelector((state) => state.accountInfo) || "";
-  const { EmailId } = useSelector((state) => state.accountInfo) || "";
-  bankDetails = bankDetails || {};
+export default function BankInfo({ data }) {
+  const dispatch = useDispatch();
+  const brandId = localStorage.getItem("brandId");
   const [showProgress, setShowProgress] = useState(false);
   const [disabled, setDisabled] = useState(true);
   const [isSaved, setIsSaved] = useState(false);
-  const [bankInfo, setBankDetails] = useState(bankDetails);
+  const [bankInfo, setBankDetails] = useState(data);
+  const [accountNumValidation, setAccountNumValidation] = useState({
+    message: "",
+    isValid: true,
+  });
 
   const onHandleEdit = () => {
     const val = !disabled;
@@ -32,7 +36,6 @@ export default function BankInfo() {
     setShowProgress(false);
   };
   const handleCancel = async () => {
-      
     const keys = Object.keys(bankInfo);
     const obj = {};
     keys.forEach((x) => {
@@ -44,26 +47,25 @@ export default function BankInfo() {
     setShowProgress(false);
   };
   const handleSave = async () => {
-      
-    const bankObj = { ...bankDetails };
-    bankObj.BrandId = BrandId;
+    const bankObj = { ...data };
+    bankObj.BrandId = brandId;
     const req = { ...bankObj, ...bankInfo };
     setShowProgress(true);
-    const res = await updateBankDetails(req, EmailId);
-    if (res) {
-      setShowProgress(false);
-      setIsSaved(true);
-    }
+    dispatch(updateBankInfoThunk(req));
+    setShowProgress(false);
+    setIsSaved(true);
   };
+
   const handleChange = (event) => {
     const { name } = event.target;
     const { value } = event.target;
+
     setBankDetails(() => ({
       ...bankInfo,
       [name]: value,
     }));
   };
-  const alertContent = (name) => (
+  const alertContent = (message) => (
     <MDTypography variant="body2" color="white">
       <MDTypography
         component="a"
@@ -72,7 +74,7 @@ export default function BankInfo() {
         fontWeight="medium"
         color="white"
       >
-        {name} Saved successfully!
+        {message}
       </MDTypography>
     </MDTypography>
   );
@@ -91,7 +93,7 @@ export default function BankInfo() {
       <MDModal open={showProgress} onClose={handleClose} />
       {isSaved ? (
         <MDAlert color="success" dismissible>
-          {alertContent("Bank Details are")}
+          {alertContent("Bank Details updated successfully!")}
         </MDAlert>
       ) : (
         <></>
@@ -109,7 +111,6 @@ export default function BankInfo() {
             variant="h5"
             textAlign="start"
             fontWeight="medium"
-             
             p={1}
             mb={2}
           >
@@ -143,9 +144,40 @@ export default function BankInfo() {
             required
             type="text"
             name="BeneficiaryName"
-            label="Account holder name"
+            label="Beneficiary Name"
             fullWidth
             onChange={handleChange}
+          />
+        </Grid>
+        <Grid item xs={5} mb={2}>
+          <Autocomplete
+            disabled={disabled}
+            disablePortal
+            required
+            onChange={handleChange}
+            placeholder="Account Type"
+            value={bankInfo.AccountType}
+            error={!bankInfo.AccountType}
+            id="combo-BusinessType"
+            options={ACCOUNT_TYPE_LIST}
+            sx={{
+              "& .css-tnnq9f-MuiAutocomplete-root .MuiOutlinedInput-root .MuiAutocomplete-input":
+                {
+                  paddingTop: 0,
+                  paddingLeft: 4,
+                  paddingRight: 6,
+                  paddingBottom: 0,
+                },
+            }}
+            renderInput={(params) => (
+              <MDInput
+                disabled={disabled}
+                {...params}
+                value={bankInfo.AccountType}
+                name="AccountType"
+                label="Account Type"
+              />
+            )}
           />
         </Grid>
         <Grid item xs={5} mb={2}>
@@ -154,9 +186,36 @@ export default function BankInfo() {
             required
             error={!bankInfo.AccountNumber}
             value={bankInfo.AccountNumber}
-            type="text"
+            type="number"
             label="Account number "
             name="AccountNumber"
+            fullWidth
+            onChange={handleChange}
+          />
+        </Grid>
+        <Grid item xs={5} mb={2}>
+          <MDInput
+            disabled={disabled}
+            required
+            error={!accountNumValidation.isValid}
+            value={bankInfo.ReAccountNumber}
+            type="number"
+            onBlur={() => {
+              if (bankInfo.ReAccountNumber !== bankInfo.AccountNumber) {
+                setAccountNumValidation({
+                  isValid: false,
+                  message: "Account Number mismatch",
+                });
+              } else {
+                setAccountNumValidation({
+                  isValid: true,
+                  message: " ",
+                });
+              }
+            }}
+            label="Re-Enter Account number "
+            helperText={accountNumValidation.message}
+            name="ReAccountNumber"
             fullWidth
             onChange={handleChange}
           />

@@ -1,21 +1,30 @@
+/* eslint-disable no-debugger */
 /* eslint-disable no-param-reassign */
 const { createSlice } = require("@reduxjs/toolkit");
 
 const initialState = {
   notification: {
+    show: false,
     status: "",
     message: "",
+    tittle: "",
   },
   alerts: {
+    show: false,
     status: "",
     message: "",
+    tittle: "",
   },
+  loading: false,
 };
 
 const rootSlice = createSlice({
   name: "global",
   initialState,
   reducers: {
+    setLoading: (state, action) => {
+      state.loading = action.payload;
+    },
     alert: (state, action) => {
       state.alerts = { ...action.payload };
     },
@@ -66,5 +75,6 @@ export const {
   setDirection,
   setLayout,
   setDarkMode,
+  setLoading,
 } = rootSlice.actions;
 export default rootSlice.reducer;

@@ -6,7 +6,7 @@ import CircularProgress from "@mui/material/CircularProgress";
 import * as React from "react";
 
 export default function MDBackdrop(props) {
-  debugger;
+   
   const { show } = props;
   const [open, setOpen] = React.useState(show);
   const handleClose = () => {

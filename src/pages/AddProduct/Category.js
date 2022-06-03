@@ -67,7 +67,6 @@ export default function CategoryAccordion(props) {
   const [expanded, setExpanded] = React.useState(BUSINESS_CATEGORY[0].category);
 
   const handleChange = (panel) => (event, newExpanded) => {
-    debugger;
     setExpanded(newExpanded ? panel : false);
   };
 
@@ -137,7 +136,7 @@ export default function CategoryAccordion(props) {
               aria-controls="panel1d-content"
               id={`${x.category}`}
             >
-              <MDTypography variant="button" fontWeight="medium" gutterBottom>
+              <MDTypography variant="caption" fontWeight="medium" gutterBottom>
                 {x.category}
               </MDTypography>
             </AccordionSummary>

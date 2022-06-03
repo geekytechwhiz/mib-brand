@@ -1,18 +1,29 @@
 /* eslint-disable no-debugger */
 import MDBox from "components/MDBox";
 import React from "react";
-import BankInfo from "./BankInfo";
-import BusinessInfo from "./BusinessInfo";
-import ContactDetails from "./ContactInfo";
+import { shallowEqual, useSelector } from "react-redux";
+import ProfileDetails from "./profileDetails";
 import ProfileHeader from "./ProfileHeader";
 
 function Profile() {
+  const brandInfo = useSelector(
+    (state) => state.auth?.accountInfo,
+    shallowEqual
+  ) || {
+    BusinessDetails: {},
+    BankDetails: {},
+    ContactDetails: {},
+    BillingDetails: {},
+  };
   return (
     <MDBox>
-      <ProfileHeader />
-      <ContactDetails />
-      <BusinessInfo />
-      <BankInfo />
+      <ProfileHeader data={brandInfo} />
+      {/* <ContactDetails data={brandInfo.ContactDetails} />
+      <BusinessInfo data={brandInfo.BusinessDetails} />
+      <BillingInfo data={brandInfo.BillingDetails} />
+      <BankInfo data={brandInfo.BankDetails} />
+      <VerifyDocuments /> */}
+      <ProfileDetails data={brandInfo} />
     </MDBox>
   );
 }

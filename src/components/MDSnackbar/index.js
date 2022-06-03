@@ -17,34 +17,21 @@ import MDSnackbarIconRoot from "components/MDSnackbar/MDSnackbarIconRoot";
 // Material Dashboard 2 React context
 import { useMaterialUIController } from "context";
 
-function MDSnackbar({
-  color,
-  icon,
-  title,
-  dateTime,
-  content,
-  close,
-  bgWhite,
-  ...rest
-}) {
+function MDSnackbar({ color, icon, title, content, close, bgWhite, ...rest }) {
   const [controller] = useMaterialUIController();
   const { darkMode } = controller;
 
   let titleColor;
-  let dateTimeColor;
   let dividerColor;
 
   if (bgWhite) {
     titleColor = color;
-    dateTimeColor = "dark";
     dividerColor = false;
   } else if (color === "light") {
     titleColor = darkMode ? "inherit" : "dark";
-    dateTimeColor = darkMode ? "inherit" : "text";
     dividerColor = false;
   } else {
     titleColor = "white";
-    dateTimeColor = "white";
     dividerColor = true;
   }
 
@@ -107,9 +94,6 @@ function MDSnackbar({
             </MDTypography>
           </MDBox>
           <MDBox display="flex" alignItems="center" lineHeight={0}>
-            <MDTypography variant="caption" color={dateTimeColor}>
-              {dateTime}
-            </MDTypography>
             <Icon
               sx={{
                 color: ({ palette: { dark, white } }) =>
@@ -172,7 +156,6 @@ MDSnackbar.propTypes = {
   ]),
   icon: PropTypes.node.isRequired,
   title: PropTypes.string.isRequired,
-  dateTime: PropTypes.string.isRequired,
   content: PropTypes.node.isRequired,
   close: PropTypes.func.isRequired,
   bgWhite: PropTypes.bool,

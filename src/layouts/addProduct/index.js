@@ -18,13 +18,14 @@ import React, { useState } from "react";
 import { useLocation } from "react-router-dom";
 import { shallowEqual, useSelector } from "react-redux";
 import _ from "lodash";
+import MDTypography from "components/MDTypography";
 import DashboardLayout from "../layoutContainers/DashboardLayout/index";
 
 function addProduct() {
   const [value, setValue] = useState("0");
   const { state } = useLocation();
   let productDetails = {};
-  debugger;
+
   if (state && state.productId !== "") {
     const products =
       useSelector((s) => s.inventory?.products[state.type], shallowEqual) || [];
@@ -48,6 +49,7 @@ function addProduct() {
     <div>
       <DashboardLayout>
         <DashboardNavbar />
+
         <Grid container spacing={6}>
           <Grid item xs={12}>
             <TabContext value={value}>
@@ -60,13 +62,65 @@ function addProduct() {
                   onChange={handleChange}
                   aria-label="lab API tabs example"
                 >
-                  <Tab label="Category" value="0" />
-                  <Tab label="Vital info" value="1" disabled />
-                  <Tab label="Variations" value="2" disabled />
-                  <Tab label="Offer" value="3" disabled />
-                  <Tab label="Images" value="4" />
-                  <Tab label="Description" value="5" />
-                  <Tab label="More Details" value="6" />
+                  <Tab
+                    label={
+                      <MDTypography variant="button" fontWeight="medium">
+                        Category
+                      </MDTypography>
+                    }
+                    value="0"
+                  />
+                  <Tab
+                    label={
+                      <MDTypography variant="button" fontWeight="medium">
+                        Vital info
+                      </MDTypography>
+                    }
+                    value="1"
+                    disabled
+                  />
+                  <Tab
+                    label={
+                      <MDTypography variant="button" fontWeight="medium">
+                        Variations
+                      </MDTypography>
+                    }
+                    value="2"
+                    disabled
+                  />
+                  <Tab
+                    label={
+                      <MDTypography variant="button" fontWeight="medium">
+                        Offer
+                      </MDTypography>
+                    }
+                    value="3"
+                    disabled
+                  />
+                  <Tab
+                    label={
+                      <MDTypography variant="button" fontWeight="medium">
+                        Images
+                      </MDTypography>
+                    }
+                    value="4"
+                  />
+                  <Tab
+                    label={
+                      <MDTypography variant="button" fontWeight="medium">
+                        Description
+                      </MDTypography>
+                    }
+                    value="5"
+                  />
+                  <Tab
+                    label={
+                      <MDTypography variant="button" fontWeight="medium">
+                        More Details
+                      </MDTypography>
+                    }
+                    value="6"
+                  />
                 </TabList>
               </MDBox>
               <TabPanel value="0">

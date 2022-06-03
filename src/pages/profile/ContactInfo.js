@@ -17,15 +17,12 @@ import _ from "lodash";
 import { useSelector } from "react-redux";
 import { updateContactInfo } from "../../services/onboarding/index";
 
-function ContactInfo() {
-    
-  let contacts = useSelector((state) => state.accountInfo) || {};
+function ContactInfo({ data }) {
   const { BrandId } = useSelector((state) => state.accountInfo) || "";
   const { EmailId } = useSelector((state) => state.accountInfo) || "";
-  contacts = contacts || {};
   const [disabled, setDisabled] = useState(true);
   const [isSaved, setIsSaved] = useState(false);
-  const [contactDetails, setContactDetails] = useState(contacts);
+  const [contactDetails, setContactDetails] = useState(data || {});
   const [showProgress, setShowProgress] = useState(false);
   const onHandleEdit = () => {
     const val = !disabled;
@@ -61,11 +58,10 @@ function ContactInfo() {
     }));
   };
   const handleSave = async () => {
-      
     setShowProgress(true);
     console.log("BrandId:", BrandId);
     contactDetails.BrandId = BrandId;
-    const req = { ...contacts, ...contactDetails };
+    const req = { ...data, ...contactDetails };
     const res = await updateContactInfo(req, EmailId);
     if (res) {
       setShowProgress(false);
@@ -74,7 +70,6 @@ function ContactInfo() {
   };
 
   const handleCancel = async () => {
-      
     const keys = Object.keys(contactDetails);
     const obj = {};
     keys.forEach((x) => {
@@ -98,6 +93,14 @@ function ContactInfo() {
       </MDTypography>
     </MDTypography>
   );
+
+  const getPreferredLanguage = (details) => {
+    const languages = details.Languages;
+
+    if (!languages || languages.length === 0) return "";
+    const language = languages[0];
+    return language;
+  };
   return (
     <MDBox
       variant="gradient"
@@ -132,7 +135,6 @@ function ContactInfo() {
             variant="h5"
             textAlign="start"
             fontWeight="medium"
-            
             p={1}
             mb={2}
           >
@@ -207,6 +209,7 @@ function ContactInfo() {
               multiple="true"
               disablePortal
               required
+              value={contactDetails?.Languages}
               onChange={handleAutoCompleteChange}
               placeholder="Preferred  Language"
               id="combo-PreferredLanguage"
@@ -226,7 +229,7 @@ function ContactInfo() {
                   disabled={disabled}
                   {...params}
                   onChange={handleChange}
-                  value={contactDetails.Languages}
+                  value={getPreferredLanguage(contactDetails)}
                   label="Preferred  Language"
                 />
               )}
@@ -266,6 +269,7 @@ function ContactInfo() {
             <MDButton
               color="#007EFF"
               variant="gradient"
+              loading={showProgress}
               mx={2}
               style={{
                 color: "#007EFF",

@@ -15,7 +15,7 @@ import MDButton from "components/MDButton";
 import { useMaterialUIController } from "context";
 
 function MDPanel({ item, handleDelete }) {
-  debugger;
+   
   const [controller] = useMaterialUIController();
   const { darkMode } = controller;
 

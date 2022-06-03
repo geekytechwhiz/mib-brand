@@ -20,7 +20,6 @@ import { vitalInfo } from "../../redux/slices/inventory";
 import { REQUIRED_FIELDS_VITAL_INFO } from "../../lib/constants";
 
 function VitalInfo(props) {
-  debugger;
   const { activeTab, data } = props;
   let validationResponse = {};
   let productState = {};
@@ -57,7 +56,6 @@ function VitalInfo(props) {
   };
 
   const handleNext = (e) => {
-    debugger;
     validationResponse = Validate(REQUIRED_FIELDS_VITAL_INFO, product);
 
     if (!validationResponse.isValid) {
@@ -108,155 +106,7 @@ function VitalInfo(props) {
           >
             <Box mb={2}>
               <MDTypography
-                variant="h5"
-                textAlign="start"
-                fontWeight="medium"
-                mb={2}
-              >
-                Product category
-              </MDTypography>
-            </Box>
-            <Grid container spacing={2} xs={12}>
-              <Grid item xs={12} mb={2}>
-                <MDInput
-                  required
-                  type="text"
-                  label="Tittle"
-                  error={!product.Tittle}
-                  fullWidth
-                  onChange={handleChange}
-                  name="Tittle"
-                  value={product.Tittle}
-                  helperText="Required field"
-                />
-              </Grid>
-              <Grid item xs={6} mb={2}>
-                <MDInput
-                  required
-                  type="text"
-                  label="Brand Name"
-                  error={!product.ProductBrand}
-                  fullWidth
-                  onChange={handleChange}
-                  name="ProductBrand"
-                  value={product.ProductBrand}
-                  helperText="Required field"
-                />
-              </Grid>
-              <Grid item xs={6} mb={2}>
-                <MDInput
-                  required
-                  type="text"
-                  label="Manufacturer"
-                  name="Manufacturer"
-                  error={!product.ProductBrand}
-                  value={product.Manufacturer}
-                  fullWidth
-                  onChange={handleChange}
-                  helperText="Required field"
-                />
-              </Grid>
-              <Grid item xs={2} mb={2}>
-                <MDInput
-                  required
-                  type="text"
-                  label="Unit Count"
-                  error={!product.UnitCount}
-                  fullWidth
-                  onChange={handleChange}
-                  name="UnitCount"
-                  value={product.UnitCount}
-                  helperText="Required field"
-                />
-              </Grid>
-              <Grid item xs={2} mb={2}>
-                <Autocomplete
-                  disablePortal
-                  required
-                  value={product.UnitType}
-                  placeholder="Unit Type"
-                  id="combo-taxCode"
-                  name="UnitType"
-                  options={[
-                    { value: "Count", label: "Count" },
-                    { value: "Grams", label: "Grams" },
-                  ]}
-                  onSelect={handleChange}
-                  sx={{
-                    "& .css-tnnq9f-MuiAutocomplete-root .MuiOutlinedInput-root .MuiAutocomplete-input .MuiOutlinedInput-root":
-                      {
-                        padding: 5,
-                      },
-                  }}
-                  renderInput={(params) => (
-                    <MDInput
-                      {...params}
-                      label="Unit Type"
-                      name="UnitType"
-                      onChange={handleChange}
-                      value={product.TaxCode}
-                    />
-                  )}
-                />
-              </Grid>
-              <Grid item xs={2} mb={2}>
-                <MDInput
-                  required
-                  type="text"
-                  error={!product.Stock}
-                  label="Stock"
-                  fullWidth
-                  onChange={handleChange}
-                  name="Stock"
-                  value={product.Stock}
-                  helperText="Required field"
-                />
-              </Grid>
-              <Grid item xs={10} mb={2}>
-                <MDInput
-                  required
-                  type="text"
-                  error={!product.NumberOfItems}
-                  label="What is in the box"
-                  fullWidth
-                  onChange={handleChange}
-                  name="WarrantyDescription"
-                  value={product.NumberOfItems}
-                  helperText="Required field"
-                />
-              </Grid>
-              <Grid item xs={12} mb={2}>
-                <MDInput
-                  required
-                  type="text"
-                  error={!product.WarrantyDescription}
-                  label="Warranty Description"
-                  fullWidth
-                  onChange={handleChange}
-                  name="WarrantyDescription"
-                  value={product.WarrantyDescription}
-                  helperText="Required field"
-                />
-              </Grid>
-            </Grid>
-          </MDBox>
-        </Grid>
-      </Grid>
-      <Grid container alignItems="center" spacing={2}>
-        <Grid item xs={12}>
-          <MDBox
-            variant="gradient"
-            bgColor="transparent"
-            borderRadius="lg"
-            coloredShadow="info"
-            mx={0.5}
-            mt={2}
-            p={2}
-            mb={1}
-          >
-            <Box mb={2}>
-              <MDTypography
-                variant="h5"
+                variant="h6"
                 textAlign="start"
                 fontWeight="medium"
                 mb={2}

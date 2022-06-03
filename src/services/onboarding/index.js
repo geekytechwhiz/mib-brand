@@ -53,6 +53,7 @@ export const updateBankDetails = async (payload, emailId) => {
       AccountNumber: payload.AccountNumber,
       BankName: payload.BankName,
       BrandId: payload.BrandId,
+      AccountType: payload.AccountType,
     };
 
     const { data } = await apiInstance.patch(
@@ -90,7 +91,8 @@ export const updateBusinessDetails = async (payload, emailId) => {
   }
 };
 export const getBrandAccount = async (emailId) => {
-  const { data } = await apiInstance.get(`/brand/details/${emailId}`); 
+  const { data } = await apiInstance.get(`/brand/details/${emailId}`);
+
   return data;
 };
 export const getHealthCheck = async () => {

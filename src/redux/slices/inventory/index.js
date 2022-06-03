@@ -1,6 +1,8 @@
 /* eslint-disable no-param-reassign */
 /* eslint-disable no-debugger */
-import { getProducts } from "services/inventory";
+import { useDispatch } from "react-redux";
+import { getProducts } from "../../../services/inventory";
+import { setLoading } from "../root/rootSlice";
 // import { PRODUCT_TYPES } from '../../lib/constants/index.js';
 
 const { createSlice, createAsyncThunk } = require("@reduxjs/toolkit");
@@ -59,8 +61,11 @@ const initialState = {
 export const getProductsThunk = createAsyncThunk(
   "/inventory/products/product/{brandId}",
   async (brandId) => {
+    const dispatch = useDispatch();
+    dispatch(setLoading(true));
     const response = await getProducts(brandId);
-    debugger;
+    dispatch(setLoading(false));
+
     return response;
   }
 );

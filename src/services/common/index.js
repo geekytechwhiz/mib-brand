@@ -14,7 +14,7 @@ export const postSignedUrl = async (payload) => {
       UserId: localStorage.getItem("brandId"),
       Origin: ORIGIN,
     };
-    debugger;
+     
     const { data } = await apiInstance.post(
       `/common/file-upload/signed-url`,
       requestBody

@@ -20,7 +20,10 @@ function DefaultNavbarLink({ icon, name, route, light }) {
       p={1}
       display="flex"
       alignItems="center"
-      sx={{ cursor: "pointer", userSelect: "none" }}
+      sx={{
+        cursor: "pointer",
+        userSelect: "none",
+      }}
     >
       <Icon
         sx={{

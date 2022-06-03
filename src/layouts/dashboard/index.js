@@ -26,7 +26,7 @@ function Dashboard() {
   const emailId = localStorage.getItem("emailId");
 
   const dispatch = useDispatch();
-  dispatch(getBrandThunk(emailId));
+  if (emailId) dispatch(getBrandThunk(emailId));
 
   return (
     <DashboardLayout>

@@ -1,3 +1,5 @@
+/* eslint-disable react/prop-types */
+/* eslint-disable no-console */
 /* eslint-disable react/jsx-no-useless-fragment */
 /* eslint-disable no-debugger */
 /* eslint-disable no-unused-vars */
@@ -15,20 +17,22 @@ import MDButton from "components/MDButton";
 import MDInput from "components/MDInput";
 import MDModal from "components/MDModal";
 import MDTypography from "components/MDTypography";
+import { gstValidator } from "lib/helper/validator";
 import React, { useState } from "react";
-import { useSelector } from "react-redux";
 import { Category, SubCategory } from "../../lib/data";
 import { updateBusinessDetails } from "../../services/onboarding/index";
 
-export default function BusinessInfo() {
-  let { BusinessDetails } = useSelector((state) => state.auth);
-  const { BrandId } = useSelector((state) => state.auth) || "";
-  const { EmailId } = useSelector((state) => state.auth) || "";
-  BusinessDetails = BusinessDetails || {};
+export default function BusinessInfo({ data }) {
+  const brandId = localStorage.getItem("brandId");
+  const emailId = localStorage.getItem("emailId");
   const [showProgress, setShowProgress] = useState(false);
   const [disabled, setDisabled] = useState(true);
   const [disableGstn, setDisableGstn] = useState(true);
-  const [businessInfo, setBusinessDetails] = useState(BusinessDetails);
+  const [businessInfo, setBusinessDetails] = useState(data);
+  const [gstValidation, setGstValidation] = useState({
+    message: "",
+    isValid: true,
+  });
   const [isSaved, setIsSaved] = useState(false);
   const options = [
     {
@@ -94,6 +98,16 @@ export default function BusinessInfo() {
   const handleChange = (event) => {
     const { name } = event.target;
     const { value } = event.target;
+
+    if (name === "GSTIN") {
+      const res = gstValidator(value);
+      if (!res)
+        setGstValidation({
+          isValid: false,
+          message: "Please Enter Valid GSTIN Number",
+        });
+      console.log(verificationResponse);
+    }
     setBusinessDetails(() => ({
       ...businessInfo,
       [name]: value,
@@ -116,10 +130,10 @@ export default function BusinessInfo() {
 
   const handleSave = async () => {
     setShowProgress(true);
-    businessInfo.BrandId = BrandId;
+    businessInfo.BrandId = brandId;
     const req = { ...BusinessDetails, ...businessInfo };
 
-    const res = await updateBusinessDetails(req, EmailId);
+    const res = await updateBusinessDetails(req, emailId);
     if (res) {
       setShowProgress(false);
       setIsSaved(true);
@@ -264,6 +278,7 @@ export default function BusinessInfo() {
             disabled={disabled}
             disablePortal
             required
+            value={businessInfo.SubCategory}
             placeholder="Sub Category"
             id="combo-SubCategory"
             onChange={handleSubCategoryChange}
@@ -322,8 +337,9 @@ export default function BusinessInfo() {
               label="GSTIN"
               name="GSTIN"
               value={businessInfo.GSTIN}
-              error={!businessInfo.GSTIN}
+              error={!gstValidation.isValid}
               fullWidth
+              helperText={gstValidation.message}
               onChange={handleChange}
             />
           </Grid>
@@ -368,21 +384,6 @@ export default function BusinessInfo() {
               value={businessInfo.BrandName}
               name="BrandName"
               label="Billing Label"
-              fullWidth
-              onChange={handleChange}
-            />
-          </Grid>
-        </Grid>
-        <Grid item xs={5}>
-          <Grid item xs={8} mb={2}>
-            <MDInput
-              disabled={disabled}
-              required
-              type="text"
-              error={!businessInfo.PinCode}
-              value={businessInfo.PinCode}
-              name="PinCode"
-              label="Pin Code"
               fullWidth
               onChange={handleChange}
             />

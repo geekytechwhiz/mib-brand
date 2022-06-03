@@ -1,12 +1,14 @@
 import Icon from "@mui/material/Icon";
 import SignIn from "layouts/authentication/sign-in";
 import SignUp from "layouts/authentication/sign-up";
+import CancelledLayout from "layouts/cancelledOrdersLayout";
 import Dashboard from "layouts/dashboard";
-import Profile from "layouts/profile";
+import ProfileLayout from "layouts/profile";
+import ReturnsLayout from "layouts/returnedOrdersLayout";
 import Settlements from "layouts/settlements";
 import AddProduct from "./layouts/addProduct/index";
 import Inventory from "./layouts/inventory/index";
-import Orders from "./layouts/orders/index";
+import OrderLayout from "./layouts/orderLayout/index";
 
 const routes = [
   {
@@ -39,7 +41,7 @@ const routes = [
     key: "orders",
     icon: <Icon fontSize="small">Orders</Icon>,
     route: "/orders",
-    component: <Orders />,
+    component: <OrderLayout />,
   },
   {
     type: "collapse",
@@ -55,7 +57,31 @@ const routes = [
     key: "profile",
     icon: <Icon fontSize="small">person</Icon>,
     route: "/profile",
-    component: <Profile />,
+    component: <ProfileLayout />,
+  },
+  {
+    type: "divider",
+    name: "Sign In",
+    key: "activeOrder",
+    icon: <Icon fontSize="small">ActiveOrder</Icon>,
+    route: "/orders/active-orders",
+    component: <OrderLayout />,
+  },
+  {
+    type: "title",
+    name: "Sign In",
+    key: "returns",
+    icon: <Icon fontSize="small">Returns</Icon>,
+    route: "/orders/returns",
+    component: <ReturnsLayout />,
+  },
+  {
+    type: "title",
+    name: "Sign In",
+    key: "cancellations",
+    icon: <Icon fontSize="small">Cancellations</Icon>,
+    route: "/orders/canceled",
+    component: <CancelledLayout />,
   },
 ];
 export const basicRoutes = [

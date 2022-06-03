@@ -103,7 +103,7 @@ function Offer(props) {
           >
             <Box mb={2}>
               <MDTypography
-                variant="h5"
+                variant="h6"
                 textAlign="start"
                 fontWeight="medium"
                 mb={2}

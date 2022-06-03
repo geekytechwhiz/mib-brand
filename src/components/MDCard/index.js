@@ -12,6 +12,7 @@ import PropTypes from "prop-types";
 import React from "react";
 import { useNavigate } from "react-router-dom";
 import Imgix from "react-imgix";
+import { Button } from "@mui/material";
 // import img from '../../../public/images/marie.jpg'
 
 function MDCard({
@@ -26,7 +27,6 @@ function MDCard({
   productId,
   category,
 }) {
-  debugger;
   let img = image;
   if (!image) {
     img = "";
@@ -48,10 +48,10 @@ function MDCard({
     <MDBox
       variant="gradient"
       bgColor="transparent"
-      borderRadius="sm"
       coloredShadow="info"
       p={1}
       textAlign="flex-start"
+      borderRadius="lg"
     >
       <MDBox
         display="flex"
@@ -61,22 +61,17 @@ function MDCard({
         mb={0}
       >
         <MDBox>
-          <MDButton sx={{ padding: "1px" }} mx={0} variant="text" color="error">
-            <Icon>delete</Icon>&nbsp;delete
+          <MDButton variant="text" color="error">
+            <Icon>delete</Icon>&nbsp;
           </MDButton>
         </MDBox>
         <MDBox>
-          <MDButton
-            sx={{ padding: "1px" }}
-            mx={0}
-            variant="text"
-            color="dark"
-            onClick={handleOnClick}
-          >
-            <Icon fontSize="small">edit</Icon>&nbsp;edit
+          <MDButton mx={0} variant="text" color="dark" onClick={handleOnClick}>
+            <Icon fontSize="small">edit</Icon>
           </MDButton>
         </MDBox>
       </MDBox>
+
       <MDBox px={2} py={2} mx={0} my={0}>
         <Imgix
           src={img || ""}
@@ -85,6 +80,7 @@ function MDCard({
           imgixParams={{ fit: "crop", ar: "1:1" }}
         />
       </MDBox>
+      <Divider />
       <MDBox
         display="flex"
         component="div"
@@ -96,7 +92,7 @@ function MDCard({
         </MDTypography>
       </MDBox>
       <MDBox display="flex">
-        <MDTypography variant="button" fontWeight="medium" gutterBottom>
+        <MDTypography variant="caption" fontWeight="medium" gutterBottom>
           {brand}
         </MDTypography>
       </MDBox>
@@ -107,14 +103,14 @@ function MDCard({
           </MDTypography>
 
           <MDTypography
-            variant="button"
+            variant="caption"
             color="error"
-            fontWeight="regular"
+            fontWeight="medium"
             sx={{ px: 2 }}
           >
             {price} |
           </MDTypography>
-          <MDTypography variant="button" color="success" fontWeight="regular">
+          <MDTypography variant="caption" color="success" fontWeight="medium">
             {mrp}
           </MDTypography>
         </MDBox>
@@ -125,25 +121,33 @@ function MDCard({
       <Divider />
       <MDBox
         mb={0}
+        my={0}
         display="flex"
         justifyContent="space-between"
         alignItems="flex-start"
+        textAlign="display-inline"
       >
-        <MDTypography variant="button">
-          Stock:
-          <MDTypography component="span" variant="button" fontWeight="bold">
-            {stock} 45
+        <MDBox>
+          <MDTypography variant="caption" fontWeight="medium">
+            Stock:
+            <MDTypography component="span" variant="caption" color="text">
+              {stock} 45
+            </MDTypography>
           </MDTypography>
-        </MDTypography>
-        <MDTypography
-          variant="caption"
-          color="dark"
-          fontWeight="bold"
-          onClick={handleClickOpen}
-          sx={{ cursor: "pointer" }}
-        >
-          Update Stock +
-        </MDTypography>
+        </MDBox>
+        <MDBox>
+          <Button variant="text">
+            <MDTypography
+              variant="caption"
+              color="text"
+              fontWeight="regular"
+              onClick={handleClickOpen}
+              sx={{ cursor: "pointer" }}
+            >
+              Update Stock +
+            </MDTypography>
+          </Button>
+        </MDBox>
       </MDBox>
     </MDBox>
   );

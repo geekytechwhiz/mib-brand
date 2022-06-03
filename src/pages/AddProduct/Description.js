@@ -56,7 +56,6 @@ function Description(props) {
   };
 
   const handleOnKeyPress = useCallback((event) => {
-    debugger;
     const { value } = event.target;
 
     if (event.key === "Enter") {
@@ -96,7 +95,6 @@ function Description(props) {
   };
 
   const handleDeleteKeyPoints = (e, item) => {
-    debugger;
     const filteredData = _.filter(keyPoints, (x) => x.id !== item.id);
     setKeyPoints(filteredData);
   };
@@ -127,7 +125,7 @@ function Description(props) {
           >
             <Box mb={2}>
               <MDTypography
-                variant="h5"
+                variant="h6"
                 textAlign="start"
                 fontWeight="medium"
                 mb={2}

@@ -19,7 +19,6 @@ const CustomTabPanel = styled(TabPanel)({
 });
 
 export default function ExclusiveTab(props) {
-  debugger;
   const [value, setValue] = React.useState("1");
   const { tabs, data } = props;
   const products = data;
@@ -41,7 +40,14 @@ export default function ExclusiveTab(props) {
               sx={{ p: 1 }}
             >
               {tabs.map((x) => (
-                <Tab label={x.label} value={x.id} />
+                <Tab
+                  label={
+                    <MDTypography variant="button" fontWeight="medium">
+                      {x.label}
+                    </MDTypography>
+                  }
+                  value={x.id}
+                />
               ))}
             </TabList>
           </MDBox>

@@ -9,7 +9,7 @@ import { shallowEqual, useSelector } from "react-redux";
 import { getVariantDetails } from "../../lib/helper";
 
 function ProductVariant(props) {
-  debugger;
+   
   const { data, activeTab } = props;
   let productState = {};
   const keys = Object.keys(data);
@@ -38,7 +38,7 @@ function ProductVariant(props) {
     obj["value"] = data[x.name];
     return obj;
   });
-  debugger;
+   
   useEffect(() => {
     setData(details);
   }, [formData]);

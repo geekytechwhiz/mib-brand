@@ -1,6 +1,7 @@
+/* eslint-disable react/prop-types */
 /* eslint-disable no-debugger */
 /* eslint-disable react/forbid-prop-types */
-import { useMemo, useEffect, useState } from "react";
+import React, { useMemo, useEffect, useState } from "react";
 
 // prop-types is a library for typechecking of props
 import PropTypes from "prop-types";
@@ -38,7 +39,9 @@ function DataTable({
   table,
   pagination,
   isSorted,
+  handleRowClick,
   noEndBorder,
+  onRowSelectStateChange,
 }) {
   const defaultValue = entriesPerPage.defaultValue
     ? entriesPerPage.defaultValue
@@ -72,7 +75,7 @@ function DataTable({
     previousPage,
     setPageSize,
     setGlobalFilter,
-    state: { pageIndex, pageSize, globalFilter },
+    state: { pageIndex, pageSize, globalFilter, selectedRowIds },
   } = tableInstance;
 
   // Set the default value for the entries per page when component mounts
@@ -80,7 +83,10 @@ function DataTable({
 
   // Set the entries per page value based on the select value
   const setEntriesPerPage = (value) => setPageSize(value);
-
+  React.useEffect(
+    () => onRowSelectStateChange?.(selectedRowIds),
+    [onRowSelectStateChange, selectedRowIds]
+  );
   // Render the paginations
   const renderPagination = pageOptions.map((option) => (
     <MDPagination
@@ -145,7 +151,9 @@ function DataTable({
   }
 
   return (
-    <TableContainer sx={{ boxShadow: "none" }}>
+    <TableContainer
+      sx={{ boxShadow: "none", width: "100", overflowX: "scroll" }}
+    >
       {entriesPerPage || canSearch ? (
         <MDBox
           display="flex"
@@ -187,12 +195,13 @@ function DataTable({
           )}
         </MDBox>
       ) : null}
-      <Table {...getTableProps()}>
+      <Table {...getTableProps()} sx={{ overflowX: "scroll" }}>
         <MDBox component="thead">
           {headerGroups.map((headerGroup) => (
             <TableRow {...headerGroup.getHeaderGroupProps()}>
               {headerGroup.headers.map((column) => (
                 <DataTableHeadCell
+                  style={{ "white-space": "nowrap" }}
                   {...column.getHeaderProps(
                     isSorted && column.getSortByToggleProps()
                   )}
@@ -210,7 +219,7 @@ function DataTable({
           {page.map((row, key) => {
             prepareRow(row);
             return (
-              <TableRow {...row.getRowProps()}>
+              <TableRow {...row.getRowProps()} onClick={handleRowClick}>
                 {row.cells.map((cell) => (
                   <DataTableBodyCell
                     noBorder={noEndBorder && rows.length - 1 === key}

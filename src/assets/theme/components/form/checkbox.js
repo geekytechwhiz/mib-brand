@@ -1,33 +1,31 @@
 import borders from "assets/theme/base/borders";
 import colors from "assets/theme/base/colors";
-
-// Material Dashboard 2 React helper functions
-import pxToRem from "assets/theme/functions/pxToRem";
 import linearGradient from "assets/theme/functions/linearGradient";
 
-const { borderWidth, borderColor } = borders;
-const { transparent, info } = colors;
+const { borderColor } = borders;
+const { info } = colors;
 
 const checkbox = {
   styleOverrides: {
     root: {
-      "& .MuiSvgIcon-root": {
-        backgroundPosition: "center",
-        backgroundSize: "contain",
-        backgroundRepeat: "no-repeat",
-        width: pxToRem(20),
-        height: pxToRem(20),
-        color: transparent.main,
-        border: `${borderWidth[1]} solid ${borderColor}`,
-        borderRadius: pxToRem(5.6),
+      borderRadius: 5,
+      width: 16,
+      height: 16,
+      boxShadow:
+        "inset 0 0 0 1px rgba(16,22,26,.2), inset 0 -1px 0 rgba(16,22,26,.1)",
+      backgroundColor: "#f5f8fa",
+      backgroundImage:
+        "linear-gradient(180deg,hsla(0,0%,100%,.8),hsla(0,0%,100%,0))",
+      ".Mui-focusVisible &": {
+        outline: "2px auto rgba(19,124,189,.6)",
+        outlineOffset: 2,
       },
-
-      "&:hover": {
-        backgroundColor: transparent.main,
+      "input:hover ~ &": {
+        backgroundColor: "#ebf1f5",
       },
-
-      "&.Mui-focusVisible": {
-        border: `${borderWidth[2]} solid ${info.main} !important`,
+      "input:disabled ~ &": {
+        boxShadow: "none",
+        background: "rgba(206,217,224,.5)",
       },
     },
 

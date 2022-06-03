@@ -1,12 +1,20 @@
+/* eslint-disable react/prop-types */
+/* eslint-disable no-shadow */
+/* eslint-disable react/no-unstable-nested-components */
 /* eslint-disable react/forbid-prop-types */
 /* eslint-disable no-unused-vars */
+import ChevronRightIcon from "@mui/icons-material/ChevronRight";
+import { Dialog, DialogTitle } from "@mui/material";
 import Divider from "@mui/material/Divider";
 import Icon from "@mui/material/Icon";
+import IconButton from "@mui/material/IconButton";
 import Link from "@mui/material/Link";
 // @mui material components
 import List from "@mui/material/List";
 // Material Dashboard 2 React components
 import MDBox from "components/MDBox";
+import MDButton from "components/MDButton";
+import MDProgress from "components/MDProgress";
 import MDTypography from "components/MDTypography";
 // Material Dashboard 2 React context
 import {
@@ -19,14 +27,15 @@ import {
 // Custom styles for the Sidenav
 // prop-types is a library for typechecking of props.
 import PropTypes from "prop-types";
-import { useEffect } from "react";
+import { useEffect, useState } from "react";
 // react-router-dom components
-import { NavLink, useLocation } from "react-router-dom";
+import { NavLink, useLocation, useNavigate } from "react-router-dom";
+import SidenavCollapse from "./SidenavCollapse";
 import SidenavRoot from "./SidenavRoot";
 import sidenavLogoLabel from "./styles/sidenav";
-import SidenavCollapse from "./SidenavCollapse";
 
 function Sidenav({ color, brand, brandName, routes, ...rest }) {
+  const navigate = useNavigate();
   const [controller, dispatch] = useMaterialUIController();
   const {
     miniSidenav,
@@ -37,7 +46,7 @@ function Sidenav({ color, brand, brandName, routes, ...rest }) {
   } = controller;
   const location = useLocation();
   const collapseName = location.pathname.replace("/", "");
-
+  const [open, setOpen] = useState(false);
   let textColor = "white";
 
   if (transparentSidenav || (whiteSidenav && !darkMode)) {
@@ -74,6 +83,43 @@ function Sidenav({ color, brand, brandName, routes, ...rest }) {
     return () => window.removeEventListener("resize", handleMiniSidenav);
   }, [dispatch, location]);
 
+  function Progress({ color, value }) {
+    const onHandleClick = () => {
+      setOpen(true);
+    };
+    return (
+      <MDBox
+        display="flex"
+        flexDirection="column"
+        alignItems="left"
+        backgroundColor="#315bc2"
+        sx={{
+          backgroundColor: "white",
+          height: "3rem",
+          width: "10rem",
+        }}
+        onClick={onHandleClick}
+      >
+        <MDBox ml={0.5} width="9rem">
+          <MDTypography variant="caption" color="white" fontWeight="medium">
+            Account Activation {60}%
+            <IconButton
+              size="small"
+              aria-label="edit"
+              color="inherit"
+              onClick={onHandleClick}
+            >
+              <ChevronRightIcon fontSize="small" />
+            </IconButton>
+          </MDTypography>
+        </MDBox>
+
+        <MDBox ml={0.5} width="9rem">
+          <MDProgress variant="gradient" color="blue" value={value} />
+        </MDBox>
+      </MDBox>
+    );
+  }
   // Render all the routes from the routes.js (All the visible items on the Sidenav)
   const renderRoutes = routes.map(
     ({ type, name, icon, title, noCollapse, key, href, route }) => {
@@ -142,6 +188,33 @@ function Sidenav({ color, brand, brandName, routes, ...rest }) {
       variant="permanent"
       ownerState={{ transparentSidenav, whiteSidenav, miniSidenav, darkMode }}
     >
+      <Dialog
+        maxWidth="md"
+        fullWidth
+        open={open}
+        onClose={() => {
+          setOpen(false);
+        }}
+      >
+        <DialogTitle>
+          <MDBox mx={3} pt={3} pb={3} mb={4} textAlign="center">
+            <MDTypography variant="button" color="text" fontWeight="regular">
+              Your Account activation is incomplete Do you want to complete
+              Account Activation now ?
+              <MDButton
+                color="primary"
+                variant="text"
+                onClick={() => {
+                  setOpen(false);
+                  navigate("/profile");
+                }}
+              >
+                Click Here To Complete the Account Activation
+              </MDButton>
+            </MDTypography>
+          </MDBox>
+        </DialogTitle>
+      </Dialog>
       <MDBox pt={3} pb={1} px={4} textAlign="center">
         <MDBox
           display={{ xs: "block", xl: "none" }}
@@ -172,6 +245,17 @@ function Sidenav({ color, brand, brandName, routes, ...rest }) {
             >
               {brandName}
             </MDTypography>
+          </MDBox>
+        </MDBox>
+        <MDBox
+          component={NavLink}
+          to="/"
+          display="flex"
+          alignItems="center"
+          sx={{ backgroundColor: "primary" }}
+        >
+          <MDBox width="100%">
+            <Progress color="info" value={60} />
           </MDBox>
         </MDBox>
       </MDBox>

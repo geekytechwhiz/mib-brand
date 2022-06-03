@@ -22,7 +22,7 @@ import { REQUIRED_FIELDS_MEDIAS } from "../../lib/constants";
 import { Validate } from "../../lib/validations";
 
 export default function Medias(props) {
-  debugger;
+   
   let productState = { ImageLinks: [] };
   let images = [];
   const { activeTab, data } = props;
@@ -32,7 +32,7 @@ export default function Medias(props) {
   let productId = "";
   const keys = Object.keys(data);
 
-  debugger;
+   
   if (keys.length === 0) {
     productId = useSelector(
       (state) => state.inventory.vitalInfo.ProductId,
@@ -46,7 +46,7 @@ export default function Medias(props) {
 
   const uuid = uuidv4();
   const getUploadParams = async ({ file, meta: { name } }) => {
-    debugger;
+     
     console.log(name);
     const req = {
       contentType: file.type,

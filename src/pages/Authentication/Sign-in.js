@@ -111,83 +111,88 @@ function SignIn() {
 
   return (
     <ValidatorForm formRef="form" onSubmit={handleSubmit}>
-      <Card>
-        <MDBox pt={4} pb={3} px={3}>
-          <MDBox>
-            <MDBox mb={2}>
-              <TextValidator
-                label="Email"
-                fullWidth
-                onChange={handleChange}
-                name="EmailId"
-                value={user.EmailId}
-                validators={["required", "isEmail"]}
-                errorMessages={["this field is required", "email is not valid"]}
-              />
-            </MDBox>
-            <MDBox mb={2}>
-              <TextValidator
-                label="Password"
-                fullWidth
-                type="password"
-                onChange={handleChange}
-                name="Password"
-                value={user.Password}
-                validators={["required"]}
-                errorMessages={["this field is required"]}
-              />
-            </MDBox>
-            <MDBox display="flex" alignItems="center" ml={-1}>
-              {error.hasError ? (
-                <MDTypography variant="button" color="error">
-                  {error.message}
-                </MDTypography>
-              ) : (
-                <></>
-              )}
-            </MDBox>
-            <MDBox display="flex" alignItems="center" ml={-1}>
-              <Switch checked={rememberMe} onChange={handleSetRememberMe} />
-              <MDTypography
-                variant="button"
-                fontWeight="regular"
-                color="text"
-                onClick={handleSetRememberMe}
-                sx={{ cursor: "pointer", userSelect: "none", ml: -1 }}
-              >
-                &nbsp;&nbsp;Remember me
-              </MDTypography>
-            </MDBox>
-            <MDBox mt={4} mb={1}>
-              <MDButton
-                variant="gradient"
-                onClick={handleSubmit}
-                color="info"
-                type="submit"
-                fullWidth
-              >
-                Sign inn
-              </MDButton>
-            </MDBox>
-            <MDBox mt={3} mb={1} textAlign="center">
-              <MDTypography variant="button" color="text">
-                Don&apos;t have an account?{" "}
+      <MDBox pt={4} pb={3} mt={10} px={3}>
+        <Card>
+          <MDBox pt={4} pb={3} px={3}>
+            <MDBox>
+              <MDBox mb={2}>
+                <TextValidator
+                  label="Email"
+                  fullWidth
+                  onChange={handleChange}
+                  name="EmailId"
+                  value={user.EmailId}
+                  validators={["required", "isEmail"]}
+                  errorMessages={[
+                    "this field is required",
+                    "email is not valid",
+                  ]}
+                />
+              </MDBox>
+              <MDBox mb={2}>
+                <TextValidator
+                  label="Password"
+                  fullWidth
+                  type="password"
+                  onChange={handleChange}
+                  name="Password"
+                  value={user.Password}
+                  validators={["required"]}
+                  errorMessages={["this field is required"]}
+                />
+              </MDBox>
+              <MDBox display="flex" alignItems="center" ml={-1}>
+                {error.hasError ? (
+                  <MDTypography variant="button" color="error">
+                    {error.message}
+                  </MDTypography>
+                ) : (
+                  <></>
+                )}
+              </MDBox>
+              <MDBox display="flex" alignItems="center" ml={-1}>
+                <Switch checked={rememberMe} onChange={handleSetRememberMe} />
                 <MDTypography
-                  component={Button}
-                  to="/authentication/sign-up"
                   variant="button"
-                  color="info"
-                  fontWeight="medium"
-                  textGradient
-                  onClick={() => navigate("/authentication/sign-up")}
+                  fontWeight="regular"
+                  color="text"
+                  onClick={handleSetRememberMe}
+                  sx={{ cursor: "pointer", userSelect: "none", ml: -1 }}
                 >
-                  Sign up
+                  &nbsp;&nbsp;Remember me
                 </MDTypography>
-              </MDTypography>
+              </MDBox>
+              <MDBox mt={4} mb={1}>
+                <MDButton
+                  variant="gradient"
+                  onClick={handleSubmit}
+                  color="info"
+                  type="submit"
+                  fullWidth
+                >
+                  Sign inn
+                </MDButton>
+              </MDBox>
+              <MDBox mt={3} mb={1} textAlign="center">
+                <MDTypography variant="button" color="text">
+                  Don&apos;t have an account?{" "}
+                  <MDTypography
+                    component={Button}
+                    to="/authentication/sign-up"
+                    variant="button"
+                    color="info"
+                    fontWeight="medium"
+                    textGradient
+                    onClick={() => navigate("/authentication/sign-up")}
+                  >
+                    Sign up
+                  </MDTypography>
+                </MDTypography>
+              </MDBox>
             </MDBox>
           </MDBox>
-        </MDBox>
-      </Card>
+        </Card>
+      </MDBox>
     </ValidatorForm>
   );
 }

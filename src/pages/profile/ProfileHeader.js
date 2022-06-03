@@ -1,3 +1,4 @@
+/* eslint-disable react/prop-types */
 /* eslint-disable no-unused-vars */
 // @mui material components
 import Card from "@mui/material/Card";
@@ -12,7 +13,7 @@ import MDBox from "components/MDBox";
 import MDTypography from "components/MDTypography";
 import { useEffect, useState } from "react";
 
-function ProfileHeader() {
+function ProfileHeader({ data }) {
   const [tabsOrientation, setTabsOrientation] = useState("horizontal");
   const [tabValue, setTabValue] = useState(0);
 
@@ -50,10 +51,10 @@ function ProfileHeader() {
           <Grid item>
             <MDBox height="100%" mt={0.5} lineHeight={1}>
               <MDTypography variant="h5" fontWeight="medium">
-                Brand Name Here
+                {data.BusinessDetails?.BrandName || ""}
               </MDTypography>
               <MDTypography variant="button" color="text" fontWeight="regular">
-                Category
+                {data.BusinessDetails?.Category || ""}
               </MDTypography>
             </MDBox>
           </Grid>
