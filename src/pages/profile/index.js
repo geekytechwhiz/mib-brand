@@ -14,15 +14,11 @@ function Profile() {
     BankDetails: {},
     ContactDetails: {},
     BillingDetails: {},
+    DocumentVerification: {},
   };
   return (
     <MDBox>
       <ProfileHeader data={brandInfo} />
-      {/* <ContactDetails data={brandInfo.ContactDetails} />
-      <BusinessInfo data={brandInfo.BusinessDetails} />
-      <BillingInfo data={brandInfo.BillingDetails} />
-      <BankInfo data={brandInfo.BankDetails} />
-      <VerifyDocuments /> */}
       <ProfileDetails data={brandInfo} />
     </MDBox>
   );

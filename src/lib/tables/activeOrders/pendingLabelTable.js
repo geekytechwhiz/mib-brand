@@ -52,12 +52,12 @@ function PendingLabelTable(orders) {
   };
   const response = {
     orderColumns: [
-      { headerName: "Order ID", field: "id", width: 170, align: "center" },
+      { headerName: "Order ID", field: "id", width: 170, align: "left" },
       {
         headerName: "Product Information",
         field: "ProductName",
         align: "left",
-        width: 170,
+        width: 200,
       },
       {
         headerName: "Buyer Details",

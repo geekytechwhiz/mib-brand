@@ -12,6 +12,21 @@ const accountInfoState = {
   BankDetails: {},
   ContactDetails: {},
   BillingDetails: {},
+  DocumentVerification: {
+    AadhaarFront: false,
+    AadhaarBack: false,
+    BusinessProof: false,
+    Pan: false,
+  },
+  ProfileCompletion: {
+    AccountActivation: "",
+    BusinessDetails: "",
+    ContactDetails: "",
+    BillingDetails: "",
+    BankAccounts: "",
+    GSTNVerification: false,
+    Documents: "",
+  },
 };
 
 const initialState = {

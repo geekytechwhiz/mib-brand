@@ -9,6 +9,7 @@ import Tab from "@mui/material/Tab";
 import MDBox from "components/MDBox";
 import React, { memo, useState } from "react";
 import { shallowEqual, useSelector } from "react-redux";
+import MDTypography from "components/MDTypography";
 import Completed from "./completed";
 import InTransitOrders from "./inTransit";
 import PendingHandover from "./pendingHandover";
@@ -73,16 +74,49 @@ function ActiveOrder() {
                 aria-label="lab API tabs example"
               >
                 <Tab
-                  label={`Pending Label (${count.pendingLabel})`}
+                  label={
+                    <MDTypography variant="button" fontWeight="medium">
+                      {`Pending Label (${count.pendingLabel})`}
+                    </MDTypography>
+                  }
                   value="0"
                 />
-                <Tab label={`Pending RTD (${count.rtd})`} value="1" />
                 <Tab
-                  label={`Pending Handover (${count.pendingHandover})`}
+                  label={
+                    <MDTypography
+                      variant="button"
+                      fontWeight="medium"
+                    >{`Pending RTD (${count.rtd})`}</MDTypography>
+                  }
+                  value="1"
+                />
+                <Tab
+                  label={
+                    <MDTypography variant="button" fontWeight="medium">
+                      {" "}
+                      {`Pending Handover (${count.pendingHandover})`}
+                    </MDTypography>
+                  }
                   value="2"
                 />
-                <Tab label={`In Transit (${count.inTransit})`} value="3" />
-                <Tab label={`Delivered (${count.delivered})`} value="4" />
+                <Tab
+                  label={
+                    <MDTypography
+                      variant="button"
+                      fontWeight="medium"
+                    >{`In Transit (${count.inTransit})`}</MDTypography>
+                  }
+                  value="3"
+                />
+                <Tab
+                  label={
+                    <MDTypography
+                      variant="button"
+                      fontWeight="medium"
+                    >{`Delivered (${count.delivered})`}</MDTypography>
+                  }
+                  value="4"
+                />
               </TabList>
             </MDBox>
             <TabPanel value="0">

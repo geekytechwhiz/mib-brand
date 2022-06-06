@@ -7,6 +7,16 @@ export function MDDataTable({ rows, columns, onRowSelection }) {
   return (
     <div style={{ height: 400, width: "100%" }}>
       <DataGrid
+        sx={{
+          color: "#344767",
+          fontFamily: "Roboto Helvetica Arial sans-serif",
+          fontSize: "0.9rem",
+          opacity: "0.7",
+          fontWeight: 600,
+          background: "transparent",
+          alignItems: "left",
+          textAlign: "left",
+        }}
         rows={rows}
         columns={columns}
         pageSize={5}

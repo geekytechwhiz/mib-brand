@@ -1,21 +1,23 @@
+/* eslint-disable no-unused-vars */
 /* eslint-disable no-debugger */
 /* eslint-disable jsx-a11y/img-redundant-alt */
 /* eslint-disable react/no-unused-prop-types */
 /* eslint-disable react/prop-types */
+import { Button } from "@mui/material";
 import Divider from "@mui/material/Divider";
-import Icon from "@mui/material/Icon";
 import Rating from "@mui/material/Rating";
 import MDBox from "components/MDBox";
-import MDButton from "components/MDButton";
 import MDTypography from "components/MDTypography";
 import PropTypes from "prop-types";
-import React from "react";
-import { useNavigate } from "react-router-dom";
+import React, { useState } from "react";
 import Imgix from "react-imgix";
-import { Button } from "@mui/material";
+import { useNavigate } from "react-router-dom";
+import CardMenu from "../CardMenu";
+
 // import img from '../../../public/images/marie.jpg'
 
-function MDCard({
+function ProductCard({
+  isActive,
   price,
   mrp,
   title,
@@ -26,11 +28,14 @@ function MDCard({
   type,
   productId,
   category,
+  productCategory,
 }) {
   let img = image;
   if (!image) {
     img = "";
   }
+
+  const [openMenu, setOpenMenu] = useState(false);
   const navigate = useNavigate();
   const handleClickOpen = () => {
     alert("Clicked");
@@ -55,20 +60,19 @@ function MDCard({
     >
       <MDBox
         display="flex"
-        justifyContent="space-between"
+        component="div"
+        textAlign="right"
+        sx={{ padding: 0, overflow: "auto" }}
+        justifyContent="flex-end"
         mb={0}
-        sx={{ paddingTop: "0px !important" }}
       >
-        <MDBox sx={{ paddingTop: "0px !important" }}>
-          <MDButton variant="text" color="error">
-            <Icon>delete</Icon>&nbsp;
-          </MDButton>
-        </MDBox>
-        <MDBox sx={{ paddingTop: "0px !important" }}>
-          <MDButton mx={0} variant="text" color="dark" onClick={handleOnClick}>
-            <Icon fontSize="small">edit</Icon>
-          </MDButton>
-        </MDBox>
+        <CardMenu
+          isActive={isActive}
+          productId={productId}
+          type={type}
+          category={category}
+          productCategory={productCategory}
+        />
       </MDBox>
 
       <MDBox px={2} py={2} mx={0} my={0}>
@@ -153,12 +157,12 @@ function MDCard({
 }
 
 // Setting default values for the props of MDCard
-MDCard.defaultProps = {
+ProductCard.defaultProps = {
   color: "info",
 };
 
 // Typechecking props for the MDCard
-MDCard.propTypes = {
+ProductCard.propTypes = {
   color: PropTypes.oneOf([
     "primary",
     "secondary",
@@ -175,4 +179,4 @@ MDCard.propTypes = {
   stock: PropTypes.oneOfType([PropTypes.string, PropTypes.number]).isRequired,
 };
 
-export default MDCard;
+export default ProductCard;

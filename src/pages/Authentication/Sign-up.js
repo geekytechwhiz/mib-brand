@@ -1,3 +1,4 @@
+/* eslint-disable react/jsx-no-useless-fragment */
 /* eslint-disable import/no-named-as-default */
 /* eslint-disable consistent-return */
 /* eslint-disable no-debugger */
@@ -21,7 +22,6 @@ function Signup() {
 
   const [user, setUser] = useState({});
   const navigate = useNavigate();
-  // const details = useSelector((state) => state.data);
 
   useEffect(async () => {
     // const health = await dispatcher(healthCheckThunk());
@@ -38,27 +38,26 @@ function Signup() {
   };
 
   const handleSubmit = async () => {
-    const validate = Validate(SIGN_UP_REQUIRED_FIELDS, user);
-    if (!validate.isValid) {
-      return false;
-    }
-    const req = {
-      EmailId: user.EmailId,
-      Password: user.Password,
-      ContactDetails: {
-        Name: user.Name,
-        Mobile: user.Mobile,
-        EmailId: user.EmailId,
-        CountryCode: "+91",
-        Languages: ["English"],
-      },
-    };
-    const res = await registerAccount(req);
+    // const validate = Validate(SIGN_UP_REQUIRED_FIELDS, user);
+    // if (!validate.isValid) {
+    //   return false;
+    // }
+    // const req = {
+    //   EmailId: user.EmailId,
+    //   Password: user.Password,
+    //   ContactDetails: {
+    //     Name: user.Name,
+    //     Mobile: user.Mobile,
+    //     EmailId: user.EmailId,
+    //     CountryCode: "+91",
+    //     Languages: ["English"],
+    //   },
+    // };
+    // const res = await registerAccount(req);
+    navigate("/authentication/sign-in", { state: { register: true } });
+    // if (res) {
 
-    if (res) {
-      // setLayout(dispatch, "dashboard");
-      navigate("/add-product", { state: { path: "add" } });
-    }
+    // }
   };
 
   const handleTerms = (e) => {

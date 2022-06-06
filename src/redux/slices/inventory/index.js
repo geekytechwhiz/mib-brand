@@ -1,15 +1,19 @@
 /* eslint-disable no-param-reassign */
 /* eslint-disable no-debugger */
 import { useDispatch } from "react-redux";
-import { getProducts } from "../../../services/inventory";
+import {
+  PRODUCT_STATUS_PUBLISHED,
+  PRODUCT_STATUS_INACTIVE,
+} from "lib/constants";
+import { getProducts, patchProductStatus } from "../../../services/inventory";
 import { setLoading } from "../root/rootSlice";
-// import { PRODUCT_TYPES } from '../../lib/constants/index.js';
 
 const { createSlice, createAsyncThunk } = require("@reduxjs/toolkit");
 
 const productId = `P${new Date().getTime().toString()}`;
 const initialState = {
   products: [],
+  inActiveProducts: [],
   categories: {
     Category: "",
     ProductCategory: "",
@@ -60,16 +64,40 @@ const initialState = {
 
 export const getProductsThunk = createAsyncThunk(
   "/inventory/products/product/{brandId}",
-  async (brandId) => {
+  async (payload) => {
     const dispatch = useDispatch();
-    dispatch(setLoading(true));
-    const response = await getProducts(brandId);
+    const response = await getProducts(payload.brandId, payload.status);
+    dispatch(setLoading(false));
+
+    return response;
+  }
+);
+export const getInactiveProductsThunk = createAsyncThunk(
+  "/inventory/products/brand/{brandId}/{Status}",
+  async (payload) => {
+    const dispatch = useDispatch();
+    const response = await getProducts(payload.brandId, payload.status);
     dispatch(setLoading(false));
 
     return response;
   }
 );
 
+export const patchProductStatusThunk = createAsyncThunk(
+  "/inventory/products/brand/{brandId}/status",
+  async (payload) => {
+    const brandId = localStorage.getItem("brandId");
+    const response = await patchProductStatus(payload, brandId);
+    if (!response) return null;
+    const active = await getProducts(brandId, PRODUCT_STATUS_PUBLISHED);
+    const inActive = await getProducts(brandId, PRODUCT_STATUS_INACTIVE);
+
+    return {
+      active,
+      inActive,
+    };
+  }
+);
 const inventorySlice = createSlice({
   name: "brands",
   initialState,
@@ -95,7 +123,14 @@ const inventorySlice = createSlice({
   },
   extraReducers: (builder) => {
     builder.addCase(getProductsThunk.fulfilled, (state, action) => {
+      state.products = action.payload.active;
+      state.inActiveProducts = action.payload.inActive;
+    });
+    builder.addCase(patchProductStatusThunk.fulfilled, (state, action) => {
       state.products = action.payload;
+    });
+    builder.addCase(getInactiveProductsThunk.fulfilled, (state, action) => {
+      state.inActiveProducts = action.payload;
     });
   },
 });

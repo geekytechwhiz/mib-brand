@@ -113,16 +113,7 @@ function Description(props) {
     >
       <Grid container spacing={2}>
         <Grid item xs={12}>
-          <MDBox
-            variant="gradient"
-            bgColor="transparent"
-            borderRadius="lg"
-            coloredShadow="info"
-            mx={0.5}
-            mt={2}
-            p={2}
-            mb={1}
-          >
+          <MDBox mx={0.5} mt={2} p={2} mb={1}>
             <Box mb={2}>
               <MDTypography
                 variant="h6"

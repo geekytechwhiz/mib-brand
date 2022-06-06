@@ -16,11 +16,10 @@ export default function MediaUploader(props) {
   const uuid = uuidv4();
   let images = [];
   const getUploadParams = async ({ file, meta: { name } }) => {
-      
     console.log(name);
     const req = {
       contentType: file.type,
-      productId,
+      resourceId: productId,
       uuid,
     };
     const image = `${uuid}.${file.type}`;
@@ -38,13 +37,10 @@ export default function MediaUploader(props) {
     console.log(status, meta);
   };
   const handleNext = (e) => {
-      
     activeTab(e, "5");
     // dispatch(productDetails(product));
   };
   const handleSubmit = (files, allFiles) => {
-      
-
     console.log(files.map((f) => f.meta));
     allFiles.forEach((f) => f.remove());
   };

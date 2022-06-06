@@ -12,7 +12,7 @@ import MuiAccordion from "@mui/material/Accordion";
 import MuiAccordionDetails from "@mui/material/AccordionDetails";
 import MuiAccordionSummary from "@mui/material/AccordionSummary";
 import { styled } from "@mui/material/styles";
-import React, { useState } from "react";
+import React, { useEffect, useState } from "react";
 import MDBox from "components/MDBox";
 import MDInput from "components/MDInput";
 import MDTypography from "components/MDTypography";
@@ -64,6 +64,7 @@ const AccordionDetails = styled(MuiAccordionDetails)(({ theme }) => ({
 }));
 
 export default function CategoryAccordion(props) {
+                
   const [expanded, setExpanded] = React.useState(BUSINESS_CATEGORY[0].category);
 
   const handleChange = (panel) => (event, newExpanded) => {
@@ -87,6 +88,7 @@ export default function CategoryAccordion(props) {
     productState = data;
   }
 
+  useEffect(() => {}, []);
   const [product, setProduct] = useState(productState);
 
   const handleSelect = (event, item) => {
@@ -125,7 +127,17 @@ export default function CategoryAccordion(props) {
     activeTab(e, "1");
   };
   return (
-    <MDBox>
+    <MDBox
+      variant="gradient"
+      bgColor="transparent"
+      borderRadius="lg"
+      coloredShadow="info"
+      mx={-3}
+      mt={-2}
+      p={2}
+      mb={1}
+      textAlign="center"
+    >
       {BUSINESS_CATEGORY &&
         BUSINESS_CATEGORY.map((x) => (
           <Accordion
@@ -147,10 +159,10 @@ export default function CategoryAccordion(props) {
                     <Autocomplete
                       disablePortal
                       required
-                      placeholder="Category"
-                      id="combo-category"
-                      name="Category"
-                      value={product[x.category]}
+                      placeholder="ProductCategory"
+                      id=" ProductCategory"
+                      name="ProductCategory"
+                      value={product[x.ProductCategory]}
                       options={getSubCategories(x.category)}
                       onSelect={(e) => {
                         handleSelect(e, x);
@@ -164,10 +176,10 @@ export default function CategoryAccordion(props) {
                       renderInput={(params) => (
                         <MDInput
                           {...params}
-                          label="Category"
+                          label="ProductCategory"
                           required
-                          name="Category"
-                          value={product[x.category]}
+                          name="ProductCategory"
+                          value={product[x.ProductCategory]}
                           onChange={handleChange}
                         />
                       )}

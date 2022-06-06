@@ -10,7 +10,7 @@ import Tab from "@mui/material/Tab";
 import MDBox from "components/MDBox";
 import MDTypography from "components/MDTypography";
 import React from "react";
-import MDCard from "components/MDCard";
+import ProductCard from "./Card";
 
 const CustomTabPanel = styled(TabPanel)({
   paddingLeft: 0,
@@ -20,7 +20,7 @@ const CustomTabPanel = styled(TabPanel)({
 
 export default function ExclusiveTab(props) {
   const [value, setValue] = React.useState("1");
-  const { tabs, data } = props;
+  const { tabs, data, isActive } = props;
   const products = data;
   // const [products,setProducts]=React.useState(data||[])
   const handleChange = (event, newValue) => {
@@ -53,12 +53,13 @@ export default function ExclusiveTab(props) {
           </MDBox>
           {tabs.map((x) => (
             <CustomTabPanel sx={{ marginTop: 2 }} value={x.id}>
-              <Grid container spacing={1}>
+              <Grid container spacing={1} display="flex" flexDirection="row">
                 {products ? (
                   products[x.label].map((info) => (
                     <Grid item xs={3}>
                       {info.ImageLinks[0] ? (
-                        <MDCard
+                        <ProductCard
+                          isActive={isActive}
                           brand={info.ProductBrand}
                           ratting={info.Rating}
                           price={info.SellingPrice}
@@ -69,6 +70,7 @@ export default function ExclusiveTab(props) {
                           type={info.ProductType}
                           productId={info.ProductId}
                           category={info.Category}
+                          productCategory={info.ProductCategory}
                         />
                       ) : (
                         <></>

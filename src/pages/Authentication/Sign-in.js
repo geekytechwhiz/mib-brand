@@ -7,31 +7,33 @@
 /* eslint-disable no-unused-vars */
 // @mui material components
 
+import LoginRoundedIcon from '@mui/icons-material/LoginRounded';
 import { Button } from "@mui/material";
 import Card from "@mui/material/Card";
 import Switch from "@mui/material/Switch";
+import MDAlert from "components/MDAlert";
 import MDBox from "components/MDBox";
-import MDButton from "components/MDButton";
+// import MDButton from "components/MDButton";
+import MDLoadingButton from "components/MDLoadingButton";
 import MDTypography from "components/MDTypography";
 import { setLayout, useMaterialUIController } from "context";
 import React, { useRef, useState } from "react";
 import { TextValidator, ValidatorForm } from "react-material-ui-form-validator";
 import { useDispatch } from "react-redux";
-import { useNavigate } from "react-router-dom";
+import { useLocation, useNavigate } from "react-router-dom";
 import {
-  NOT_FOUND_STATUS_CODE,
-  NOT_FOUND_ERROR_MSG,
-  UNAUTHORIZED_STATUS_CODE,
-  UNAUTHORIZED_ERROR_MSG,
   INTERNAL_SERVER_ERROR,
-  INTERNAL_SERVER_ERROR_MSG,
+  INTERNAL_SERVER_ERROR_MSG, NOT_FOUND_ERROR_MSG, NOT_FOUND_STATUS_CODE, UNAUTHORIZED_ERROR_MSG, UNAUTHORIZED_STATUS_CODE
 } from "../../lib/constants";
 import { getBrandThunk } from "../../redux/slices/onboarding";
 import { login } from "../../services/onboarding";
 
 function SignIn() {
+                
   const navigate = useNavigate();
-  const dispatch = useDispatch();
+  const { state } = useLocation();
+  const dispatch = useDispatch(); 
+  const [isLoading, setIsLoading] = useState(false);
   const formRef = useRef("form");
   const initialRoutesSetRef = useRef(false);
   const token = localStorage.getItem("token");
@@ -77,6 +79,8 @@ function SignIn() {
   };
 
   const handleSubmit = async () => {
+    setIsLoading(true)
+    // setShowProgress(true);
     // const res = await login(user);
 
     if (!user.EmailId || !user.Password) {
@@ -84,6 +88,7 @@ function SignIn() {
     }
     const response = await login(user);
     if (response && response.auth) {
+      setIsLoading(false) 
       localStorage.setItem("token", response.token);
       localStorage.setItem("auth", true);
       localStorage.setItem("emailId", user.EmailId);
@@ -91,6 +96,7 @@ function SignIn() {
       setLayout(contextDispatch, "dashboard");
       navigate("/dashboard");
     } else {
+      setIsLoading(false) 
       const validate = validateResponse(response.status);
       const errorObj = { ...error };
       errorObj.hasError = true;
@@ -107,10 +113,24 @@ function SignIn() {
       initialRoutesSetRef.current = true;
       navigate("/authentication/sign-in");
     }
-  }
+  } 
+  const alertContent = (message) => (
+    <MDBox>
+      <MDTypography variant="body2" color="white">
+        {message}&nbsp;&nbsp;&nbsp;
+      </MDTypography>
+    </MDBox>
+  );
 
   return (
-    <ValidatorForm formRef="form" onSubmit={handleSubmit}>
+    <ValidatorForm formRef="form" onSubmit={handleSubmit}> 
+      {state?.register ? (
+        <MDAlert color="success" dismissible>
+          {alertContent("Account has been created successfully!!")}
+        </MDAlert>
+      ) : (
+        <></>
+      )}
       <MDBox pt={4} pb={3} mt={10} px={3}>
         <Card>
           <MDBox pt={4} pb={3} px={3}>
@@ -163,7 +183,7 @@ function SignIn() {
                 </MDTypography>
               </MDBox>
               <MDBox mt={4} mb={1}>
-                <MDButton
+                {/* <MDButton
                   variant="gradient"
                   onClick={handleSubmit}
                   color="info"
@@ -171,7 +191,22 @@ function SignIn() {
                   fullWidth
                 >
                   Sign inn
-                </MDButton>
+                </MDButton> */}
+                <MDLoadingButton
+                  sx={{ margin: 2 }}
+                  onClick={handleSubmit}
+                  loading ={isLoading}
+                  color="info"
+                  loadingPosition="start"
+                  startIcon={<LoginRoundedIcon/> }
+                  variant="gradient"
+                  fullWidth
+                  mx={2}
+                  name="login"
+                  size="small" 
+                >
+                 Sign inn
+                </MDLoadingButton>
               </MDBox>
               <MDBox mt={3} mb={1} textAlign="center">
                 <MDTypography variant="button" color="text">

@@ -9,6 +9,7 @@ import Tab from "@mui/material/Tab";
 import MDBox from "components/MDBox";
 import React, { memo, useState } from "react";
 import { shallowEqual, useSelector } from "react-redux";
+import MDTypography from "components/MDTypography";
 import DeliveredReturns from "./delivered";
 import InTransitReturns from "./inTransit";
 import NewReturns from "./newReturns";
@@ -67,10 +68,42 @@ function ReturnOrders() {
               }}
             >
               <TabList onChange={handleChange} aria-label="return-orders">
-                <Tab label={`New Returns (${count.newReturns})`} value="0" />
-                <Tab label={`Ready For Pickup (${count.rfp})`} value="1" />
-                <Tab label={`In Transit (${count.inTransit})`} value="2" />
-                <Tab label={`Delivered (${count.inTransit})`} value="3" />
+                <Tab
+                  label={
+                    <MDTypography
+                      variant="button"
+                      fontWeight="medium"
+                    >{`New Returns (${count.newReturns})`}</MDTypography>
+                  }
+                  value="0"
+                />
+                <Tab
+                  label={
+                    <MDTypography
+                      variant="button"
+                      fontWeight="medium"
+                    >{`Ready For Pickup (${count.rfp})`}</MDTypography>
+                  }
+                  value="1"
+                />
+                <Tab
+                  label={
+                    <MDTypography
+                      variant="button"
+                      fontWeight="medium"
+                    >{`In Transit (${count.inTransit})`}</MDTypography>
+                  }
+                  value="2"
+                />
+                <Tab
+                  label={
+                    <MDTypography
+                      variant="button"
+                      fontWeight="medium"
+                    >{`Delivered (${count.inTransit})`}</MDTypography>
+                  }
+                  value="3"
+                />
               </TabList>
             </MDBox>
             <TabPanel value="0">

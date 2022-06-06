@@ -1,5 +1,6 @@
 /* eslint-disable no-unused-vars */
 /* eslint-disable react/prop-types */
+import { Select } from "@mui/material";
 import Button from "@mui/material/Button";
 import Dialog from "@mui/material/Dialog";
 import DialogActions from "@mui/material/DialogActions";
@@ -8,7 +9,6 @@ import DialogTitle from "@mui/material/DialogTitle";
 import Icon from "@mui/material/Icon";
 import MDBox from "components/MDBox";
 import MDButton from "components/MDButton";
-import MDSelect from "components/MDSelect";
 import * as React from "react";
 
 export default function DialogSelect({ options }) {
@@ -45,7 +45,7 @@ export default function DialogSelect({ options }) {
         <DialogTitle>Update order status</DialogTitle>
         <DialogContent>
           <MDBox fullWidth sx={{ display: "flex", flexWrap: "wrap" }}>
-            <MDSelect
+            <Select
               autoFocus
               margin="dense"
               id="name"

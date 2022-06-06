@@ -5,6 +5,8 @@
 /* eslint-disable no-unused-vars */
 /* eslint-disable no-undef */
 import ModeEditOutlinedIcon from "@mui/icons-material/ModeEditOutlined";
+import CancelIcon from "@mui/icons-material/Cancel";
+import SaveIcon from "@mui/icons-material/Save";
 import Autocomplete from "@mui/material/Autocomplete";
 import FormControlLabel from "@mui/material/FormControlLabel";
 import Grid from "@mui/material/Grid";
@@ -13,9 +15,8 @@ import Radio from "@mui/material/Radio";
 import RadioGroup from "@mui/material/RadioGroup";
 import MDAlert from "components/MDAlert";
 import MDBox from "components/MDBox";
-import MDButton from "components/MDButton";
 import MDInput from "components/MDInput";
-import MDModal from "components/MDModal";
+import MDLoadingButton from "components/MDLoadingButton";
 import MDTypography from "components/MDTypography";
 import { gstValidator } from "lib/helper/validator";
 import React, { useState } from "react";
@@ -25,7 +26,7 @@ import { updateBusinessDetails } from "../../services/onboarding/index";
 export default function BusinessInfo({ data }) {
   const brandId = localStorage.getItem("brandId");
   const emailId = localStorage.getItem("emailId");
-  const [showProgress, setShowProgress] = useState(false);
+  const [isLoading, setIsLoading] = useState({ save: false, cancel: false });
   const [disabled, setDisabled] = useState(true);
   const [disableGstn, setDisableGstn] = useState(true);
   const [businessInfo, setBusinessDetails] = useState(data);
@@ -37,15 +38,15 @@ export default function BusinessInfo({ data }) {
   const options = [
     {
       label: "Private Limited",
-      value: "pvt.Ltd",
+      value: "Private Limited",
     },
     {
       label: "Public Limited",
-      value: "pub.Ltd",
+      value: "Public Limited",
     },
     {
       label: "Limited Liability Partnership",
-      value: "llp",
+      value: "Limited Liability Partnership",
     },
   ];
   const alertContent = (name) => (
@@ -73,6 +74,7 @@ export default function BusinessInfo({ data }) {
     setShowProgress(false);
   };
   const handleBusinessTypeChange = (event, values) => {
+    debugger;
     const { value } = values;
     setBusinessDetails(() => ({
       ...businessInfo,
@@ -129,29 +131,19 @@ export default function BusinessInfo({ data }) {
   };
 
   const handleSave = async () => {
-    setShowProgress(true);
+    debugger;
+    setIsLoading({ save: true, cancel: false });
     businessInfo.BrandId = brandId;
-    const req = { ...BusinessDetails, ...businessInfo };
+    const req = businessInfo;
 
     const res = await updateBusinessDetails(req, emailId);
     if (res) {
-      setShowProgress(false);
+      setIsLoading({ save: false, cancel: false });
       setIsSaved(true);
     }
   };
   return (
-    <MDBox
-      variant="gradient"
-      bgColor="transparent"
-      borderRadius="lg"
-      coloredShadow="info"
-      mx={3}
-      p={1}
-      pb={5}
-      mb={4}
-      textAlign="center"
-    >
-      <MDModal open={showProgress} />
+    <MDBox>
       {isSaved ? (
         <MDAlert color="success" dismissible>
           {alertContent("Business Details")}
@@ -238,6 +230,7 @@ export default function BusinessInfo({ data }) {
                 {...params}
                 name="BusinessType"
                 label="Business Type"
+                value={businessInfo.BusinessType}
               />
             )}
           />
@@ -405,50 +398,36 @@ export default function BusinessInfo({ data }) {
       {disabled ? (
         <></>
       ) : (
-        <div
-          style={{
-            display: "flex",
-            flexDirection: "row",
-            justifyContent: "flex-end",
-          }}
-        >
-          <div>
-            <MDButton
-              color="#007EFF"
-              variant="gradient"
+        <MDBox display="flex" flexDirection="row" justifyContent="flex-end">
+          <MDBox sx={{ mx: 2 }}>
+            <MDLoadingButton
+              loading={isLoading.cancel}
+              color="error"
+              loadingPosition="start"
+              startIcon={<CancelIcon />}
+              variant="outlined"
               mx={2}
-              style={{
-                color: "#007EFF",
-                borderColor: "#007EFF",
-                borderWidth: 1,
-                borderStyle: "solid",
-                marginRight: 20,
-              }}
               onClick={handleCancel}
               size="small"
             >
               Cancel
-            </MDButton>
-          </div>
-          <div>
-            <MDButton
-              color="#007EFF"
-              variant="gradient"
+            </MDLoadingButton>
+          </MDBox>
+          <MDBox sx={{ mx: 2 }}>
+            <MDLoadingButton
+              loading={isLoading.save}
+              color="success"
+              loadingPosition="start"
+              startIcon={<SaveIcon />}
+              variant="outlined"
               mx={2}
-              style={{
-                color: "#007EFF",
-                borderColor: "#007EFF",
-                borderWidth: 1,
-                borderStyle: "solid",
-                marginRight: 20,
-              }}
               onClick={handleSave}
               size="small"
             >
               Save
-            </MDButton>
-          </div>
-        </div>
+            </MDLoadingButton>
+          </MDBox>
+        </MDBox>
       )}
     </MDBox>
   );

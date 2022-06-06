@@ -22,6 +22,7 @@ import MDTypography from "components/MDTypography";
 import DashboardLayout from "../layoutContainers/DashboardLayout/index";
 
 function addProduct() {
+                
   const [value, setValue] = useState("0");
   const { state } = useLocation();
   let productDetails = {};
@@ -38,6 +39,7 @@ function addProduct() {
   }
 
   console.log("productDetails", productDetails);
+
   const handleChange = (e, newValue) => {
     setValue(newValue);
   };
@@ -49,110 +51,121 @@ function addProduct() {
     <div>
       <DashboardLayout>
         <DashboardNavbar />
-
-        <Grid container spacing={6}>
-          <Grid item xs={12}>
-            <TabContext value={value}>
-              <MDBox
-                sx={{
-                  maxWidth: "80%",
-                }}
-              >
-                <TabList
-                  onChange={handleChange}
-                  aria-label="lab API tabs example"
+        <MDBox
+          variant="gradient"
+          bgColor="transparent"
+          borderRadius="lg"
+          coloredShadow="info"
+          p={2}
+          mb={1}
+          textAlign="center"
+          height="100vh"
+          overflow="scroll"
+          sx={{ width: "100%", typography: "body1" }}
+        >
+          <Grid container spacing={6}>
+            <Grid item xs={12}>
+              <TabContext value={value}>
+                <MDBox
+                  sx={{
+                    maxWidth: "80%",
+                  }}
                 >
-                  <Tab
-                    label={
-                      <MDTypography variant="button" fontWeight="medium">
-                        Category
-                      </MDTypography>
-                    }
-                    value="0"
+                  <TabList
+                    onChange={handleChange}
+                    aria-label="lab API tabs example"
+                  >
+                    <Tab
+                      label={
+                        <MDTypography variant="button" fontWeight="medium">
+                          Category
+                        </MDTypography>
+                      }
+                      value="0"
+                    />
+                    <Tab
+                      label={
+                        <MDTypography variant="button" fontWeight="medium">
+                          Vital info
+                        </MDTypography>
+                      }
+                      value="1"
+                    />
+                    <Tab
+                      label={
+                        <MDTypography variant="button" fontWeight="medium">
+                          Variations
+                        </MDTypography>
+                      }
+                      value="2"
+                    />
+                    <Tab
+                      label={
+                        <MDTypography variant="button" fontWeight="medium">
+                          Offer
+                        </MDTypography>
+                      }
+                      value="3"
+                    />
+                    <Tab
+                      label={
+                        <MDTypography variant="button" fontWeight="medium">
+                          Images
+                        </MDTypography>
+                      }
+                      value="4"
+                    />
+                    <Tab
+                      label={
+                        <MDTypography variant="button" fontWeight="medium">
+                          Description
+                        </MDTypography>
+                      }
+                      value="5"
+                    />
+                    <Tab
+                      label={
+                        <MDTypography variant="button" fontWeight="medium">
+                          More Details
+                        </MDTypography>
+                      }
+                      value="6"
+                    />
+                  </TabList>
+                </MDBox>
+                <TabPanel value="0">
+                  <CustomizedAccordions
+                    open
+                    data={productDetails}
+                    activeTab={switchTabs}
                   />
-                  <Tab
-                    label={
-                      <MDTypography variant="button" fontWeight="medium">
-                        Vital info
-                      </MDTypography>
-                    }
-                    value="1"
-                    disabled
+                </TabPanel>
+                <TabPanel value="1">
+                  <VitalInfo data={productDetails} activeTab={switchTabs} />
+                </TabPanel>
+                <TabPanel value="2">
+                  <ProductVariant
+                    data={productDetails}
+                    activeTab={switchTabs}
                   />
-                  <Tab
-                    label={
-                      <MDTypography variant="button" fontWeight="medium">
-                        Variations
-                      </MDTypography>
-                    }
-                    value="2"
-                    disabled
-                  />
-                  <Tab
-                    label={
-                      <MDTypography variant="button" fontWeight="medium">
-                        Offer
-                      </MDTypography>
-                    }
-                    value="3"
-                    disabled
-                  />
-                  <Tab
-                    label={
-                      <MDTypography variant="button" fontWeight="medium">
-                        Images
-                      </MDTypography>
-                    }
-                    value="4"
-                  />
-                  <Tab
-                    label={
-                      <MDTypography variant="button" fontWeight="medium">
-                        Description
-                      </MDTypography>
-                    }
-                    value="5"
-                  />
-                  <Tab
-                    label={
-                      <MDTypography variant="button" fontWeight="medium">
-                        More Details
-                      </MDTypography>
-                    }
-                    value="6"
-                  />
-                </TabList>
-              </MDBox>
-              <TabPanel value="0">
-                <CustomizedAccordions
-                  open
-                  data={productDetails}
-                  activeTab={switchTabs}
-                />
-              </TabPanel>
-              <TabPanel value="1">
-                <VitalInfo data={productDetails} activeTab={switchTabs} />
-              </TabPanel>
-              <TabPanel value="2">
-                <ProductVariant data={productDetails} activeTab={switchTabs} />
-              </TabPanel>
-              <TabPanel value="3">
-                <Offer data={productDetails} activeTab={switchTabs} />
-              </TabPanel>
-              <TabPanel value="4">
-                <Medias data={productDetails} activeTab={switchTabs} />
-              </TabPanel>
-              <TabPanel value="5">
-                <Description data={productDetails} activeTab={switchTabs} />
-              </TabPanel>
+                </TabPanel>
+                <TabPanel value="3">
+                  <Offer data={productDetails} activeTab={switchTabs} />
+                </TabPanel>
+                <TabPanel value="4">
+                  <Medias data={productDetails} activeTab={switchTabs} />
+                </TabPanel>
+                <TabPanel value="5">
+                  <Description data={productDetails} activeTab={switchTabs} />
+                </TabPanel>
 
-              <TabPanel value="6">
-                <MoreDetails data={productDetails} activeTab={switchTabs} />
-              </TabPanel>
-            </TabContext>
+                <TabPanel value="6">
+                  <MoreDetails data={productDetails} activeTab={switchTabs} />
+                </TabPanel>
+              </TabContext>
+            </Grid>
           </Grid>
-        </Grid>
-
+        </MDBox>
         <Footer />
       </DashboardLayout>
     </div>

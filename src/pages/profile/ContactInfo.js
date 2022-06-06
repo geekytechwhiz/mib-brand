@@ -1,33 +1,24 @@
+/* eslint-disable consistent-return */
 /* eslint-disable react/prop-types */
 /* eslint-disable no-debugger */
 /* eslint-disable no-unused-vars */
 /* eslint-disable react/jsx-no-useless-fragment */
 import ModeEditOutlinedIcon from "@mui/icons-material/ModeEditOutlined";
+import SaveIcon from "@mui/icons-material/Save";
+import CancelIcon from "@mui/icons-material/Cancel";
 import Autocomplete from "@mui/material/Autocomplete";
 import Grid from "@mui/material/Grid";
 import IconButton from "@mui/material/IconButton";
 import MDAlert from "components/MDAlert";
 import MDBox from "components/MDBox";
-import MDButton from "components/MDButton";
 import MDInput from "components/MDInput";
-import MDModal from "components/MDModal";
+import MDLoadingButton from "components/MDLoadingButton";
 import MDTypography from "components/MDTypography";
-import React, { useState } from "react";
 import _ from "lodash";
-import { useSelector } from "react-redux";
+import React, { useState } from "react";
 import { updateContactInfo } from "../../services/onboarding/index";
 
 function ContactInfo({ data }) {
-  const { BrandId } = useSelector((state) => state.accountInfo) || "";
-  const { EmailId } = useSelector((state) => state.accountInfo) || "";
-  const [disabled, setDisabled] = useState(true);
-  const [isSaved, setIsSaved] = useState(false);
-  const [contactDetails, setContactDetails] = useState(data || {});
-  const [showProgress, setShowProgress] = useState(false);
-  const onHandleEdit = () => {
-    const val = !disabled;
-    setDisabled(val);
-  };
   const options = [
     {
       label: "English",
@@ -42,6 +33,23 @@ function ContactInfo({ data }) {
       value: "malayalam",
     },
   ];
+  const [disabled, setDisabled] = useState(true);
+  const [isSaved, setIsSaved] = useState(false);
+  const [contactDetails, setContactDetails] = useState(data || {});
+
+  const languages = contactDetails&&contactDetails?.Languages?.map((x) => {
+    const ele = _.find(options, (e) => {
+      if (e.label === x) return e;
+    });
+    return ele;
+  });
+
+  const [isLoading, setIsLoading] = useState({ save: false, cancel: false });
+  const onHandleEdit = () => {
+    const val = !disabled;
+    setDisabled(val);
+  };
+
   const handleChange = (event) => {
     const { name } = event.target;
     const { value } = event.target;
@@ -51,20 +59,21 @@ function ContactInfo({ data }) {
     }));
   };
   const handleAutoCompleteChange = (event, values) => {
-    const languages = values.map((x) => x.value);
     setContactDetails(() => ({
       ...contactDetails,
-      Languages: languages,
+      Languages: values,
     }));
   };
   const handleSave = async () => {
-    setShowProgress(true);
-    console.log("BrandId:", BrandId);
-    contactDetails.BrandId = BrandId;
+    debugger;
+    setIsLoading({ save: true, cancel: false });
+
+    contactDetails.BrandId = localStorage.getItem("brandId");
+    const emailId = localStorage.getItem("emailId");
     const req = { ...data, ...contactDetails };
-    const res = await updateContactInfo(req, EmailId);
+    const res = await updateContactInfo(req, emailId);
     if (res) {
-      setShowProgress(false);
+      setIsLoading({ save: false, cancel: false });
       setIsSaved(true);
     }
   };
@@ -78,7 +87,7 @@ function ContactInfo({ data }) {
     setContactDetails(() => ({
       ...obj,
     }));
-    setShowProgress(false);
+    setIsLoading({ save: false, cancel: false });
   };
   const alertContent = (name) => (
     <MDTypography variant="body2" color="white">
@@ -94,26 +103,8 @@ function ContactInfo({ data }) {
     </MDTypography>
   );
 
-  const getPreferredLanguage = (details) => {
-    const languages = details.Languages;
-
-    if (!languages || languages.length === 0) return "";
-    const language = languages[0];
-    return language;
-  };
   return (
-    <MDBox
-      variant="gradient"
-      bgColor="transparent"
-      borderRadius="lg"
-      coloredShadow="info"
-      mx={3}
-      p={1}
-      pb={5}
-      mb={4}
-      textAlign="center"
-    >
-      <MDModal open={showProgress} />
+    <MDBox textAlign="center">
       {isSaved ? (
         <MDAlert color="success" dismissible>
           {alertContent("Contact information")}
@@ -229,7 +220,7 @@ function ContactInfo({ data }) {
                   disabled={disabled}
                   {...params}
                   onChange={handleChange}
-                  value={getPreferredLanguage(contactDetails)}
+                  value={languages}
                   label="Preferred  Language"
                 />
               )}
@@ -240,51 +231,36 @@ function ContactInfo({ data }) {
       {disabled ? (
         <></>
       ) : (
-        <div
-          style={{
-            display: "flex",
-            flexDirection: "row",
-            justifyContent: "flex-end",
-          }}
-        >
-          <div>
-            <MDButton
-              color="#007EFF"
-              variant="gradient"
+        <MDBox display="flex" flexDirection="row" justifyContent="flex-end">
+          <MDBox sx={{ mx: 2 }}>
+            <MDLoadingButton
+              loading={isLoading.cancel}
+              color="error"
+              loadingPosition="start"
+              startIcon={<CancelIcon />}
+              variant="outlined"
               mx={2}
-              style={{
-                color: "#007EFF",
-                borderColor: "#007EFF",
-                borderWidth: 1,
-                borderStyle: "solid",
-                marginRight: 20,
-              }}
               onClick={handleCancel}
               size="small"
             >
               Cancel
-            </MDButton>
-          </div>
-          <div>
-            <MDButton
-              color="#007EFF"
-              variant="gradient"
-              loading={showProgress}
+            </MDLoadingButton>
+          </MDBox>
+          <MDBox sx={{ mx: 2 }}>
+            <MDLoadingButton
+              loading={isLoading.save}
+              color="success"
+              loadingPosition="start"
+              startIcon={<SaveIcon />}
+              variant="outlined"
               mx={2}
-              style={{
-                color: "#007EFF",
-                borderColor: "#007EFF",
-                borderWidth: 1,
-                borderStyle: "solid",
-                marginRight: 20,
-              }}
               onClick={handleSave}
               size="small"
             >
               Save
-            </MDButton>
-          </div>
-        </div>
+            </MDLoadingButton>
+          </MDBox>
+        </MDBox>
       )}
     </MDBox>
   );

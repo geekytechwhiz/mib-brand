@@ -38,11 +38,10 @@ import Configurator from "./lib/Configurator";
 import themeDark from "./assets/theme-dark";
 import theme from "./assets/theme";
 import Sidenav from "./components/MDSidenav/index";
+import MigoLogo from "./assets/images/logos/migobucks_brands.png";
 
 export default function App() {
   const [controller, dispatch] = useMaterialUIController();
-  const dispatcher = useDispatch();
-  const navigate = useNavigate();
   const token = localStorage.getItem("token");
   const {
     miniSidenav,
@@ -160,6 +159,7 @@ export default function App() {
                 : brandWhite
             }
             brandName="Migo Brand"
+            logo={MigoLogo}
             routes={routes}
             onMouseEnter={handleOnMouseEnter}
             onMouseLeave={handleOnMouseLeave}

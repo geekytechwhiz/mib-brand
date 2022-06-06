@@ -8,18 +8,16 @@ import * as React from "react";
 import { shallowEqual, useSelector } from "react-redux";
 import { useNavigate } from "react-router-dom";
 import _ from "lodash";
-import ExclusiveTab from "./exclusiveTab";
+import ExclusiveTab from "../exclusiveTab";
 
-export default function Products() {
+export default function ActiveProducts() {
   const navigate = useNavigate();
-  const [hasShow, setHasShow] = React.useState(true);
   let exTabs = [{ label: " ", id: "" }];
   let exData = [];
   let comboTabs = [{ label: " ", id: "" }];
   const inventoryData =
-    useSelector((state) => state.inventory?.products, shallowEqual) || [];
-  if (!inventoryData) return false;
-  if (inventoryData.length !== 0) {
+    useSelector((state) => state.inventory?.products, shallowEqual) || null;
+  if (inventoryData) {
     exData = inventoryData.Exclusive;
     const exKeys = Object.keys(inventoryData.Exclusive || {}) || [];
     const comboKeys = Object.keys(inventoryData.Combo || {}) || [];
@@ -32,7 +30,6 @@ export default function Products() {
       label: `${val}`,
     }));
   }
-
   const handleAddNew = () => {
     navigate("/add-product", {
       state: {
@@ -47,13 +44,12 @@ export default function Products() {
       bgColor="transparent"
       borderRadius="lg"
       coloredShadow="info"
-      mt={2}
       p={2}
       mb={1}
       textAlign="center"
       height="100vh"
       overflow="scroll"
-      sx={{ width: "100%", typography: "body1", overflowX: "hidden" }}
+      sx={{ width: "100%", typography: "body1" }}
     >
       <div
         style={{
@@ -67,7 +63,6 @@ export default function Products() {
             onClick={handleAddNew}
             color="#007EFF"
             variant="gradient"
-            mx={2}
             style={{
               color: "#007EFF",
               borderColor: "#007EFF",
@@ -81,10 +76,10 @@ export default function Products() {
           </MDButton>
         </div>
       </div>
-      {inventoryData && inventoryData.length === 0 ? (
-        <MDBackdrop show={hasShow} />
+      {!inventoryData ? (
+        <MDBackdrop show />
       ) : (
-        <ExclusiveTab value="1" data={exData} tabs={exTabs} />
+        <ExclusiveTab isActive data={exData} tabs={exTabs} />
       )}
     </MDBox>
   );

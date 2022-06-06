@@ -149,7 +149,10 @@ export default function ProfileDetails({ data }) {
           </MDTypography>
         </AccordionSummary>
         <AccordionDetails>
-          <VerifyDocuments />
+          <VerifyDocuments
+            data={data.DocumentVerification}
+            completion={data.ProfileCompletion}
+          />
         </AccordionDetails>
       </Accordion>
     </div>

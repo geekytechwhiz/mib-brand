@@ -94,16 +94,7 @@ function VitalInfo(props) {
     >
       <Grid container alignItems="center" spacing={2}>
         <Grid item xs={12}>
-          <MDBox
-            variant="gradient"
-            bgColor="transparent"
-            borderRadius="lg"
-            coloredShadow="info"
-            mx={0.5}
-            mt={2}
-            p={2}
-            mb={1}
-          >
+          <MDBox>
             <Box mb={2}>
               <MDTypography
                 variant="h6"
@@ -201,12 +192,12 @@ function VitalInfo(props) {
                 <MDInput
                   required
                   type="text"
-                  error={!product.NumberOfItems}
+                  error={!product.WhatIsInBox}
                   label="What is in the box"
                   fullWidth
                   onChange={handleChange}
-                  name="WarrantyDescription"
-                  value={product.NumberOfItems}
+                  name="WhatIsInBox"
+                  value={product.WhatIsInBox}
                   helperText="Required field"
                 />
               </Grid>

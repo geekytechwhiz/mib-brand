@@ -281,7 +281,12 @@ export function RenderDispatchByInfo(row) {
     >
       <MDBox ml={2} lineHeight={1}>
         <MDBox display="flex" flexDirection="row">
-          <MDTypography variant="caption" fontWeight="medium" gutterBottom>
+          <MDTypography
+            display="block"
+            variant="caption"
+            color="text"
+            fontWeight="medium"
+          >
             To Address:
           </MDTypography>
         </MDBox>
@@ -348,7 +353,12 @@ export function RenderDispatchByInfo(row) {
           </MDTypography>
         </MDBox>
         <MDBox display="flex" flexDirection="row">
-          <MDTypography variant="caption" fontWeight="medium" gutterBottom>
+          <MDTypography
+            display="block"
+            variant="caption"
+            color="text"
+            fontWeight="medium"
+          >
             Dispatched By:
           </MDTypography>
         </MDBox>

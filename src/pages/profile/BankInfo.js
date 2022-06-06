@@ -1,25 +1,24 @@
 /* eslint-disable react/prop-types */
 /* eslint-disable react/jsx-no-useless-fragment */
 /* eslint-disable no-debugger */
+import CancelIcon from "@mui/icons-material/Cancel";
 import ModeEditOutlinedIcon from "@mui/icons-material/ModeEditOutlined";
+import SaveIcon from "@mui/icons-material/Save";
 import { Autocomplete } from "@mui/material";
 import Grid from "@mui/material/Grid";
 import IconButton from "@mui/material/IconButton";
 import MDAlert from "components/MDAlert";
 import MDBox from "components/MDBox";
-import MDButton from "components/MDButton";
 import MDInput from "components/MDInput";
-import MDModal from "components/MDModal";
+import MDLoadingButton from "components/MDLoadingButton";
 import MDTypography from "components/MDTypography";
 import { ACCOUNT_TYPE_LIST } from "lib/constants";
 import React, { useState } from "react";
-import { useDispatch } from "react-redux";
-import { updateBankInfoThunk } from "redux/slices/onboarding/index";
+import { updateBankDetails } from "services/onboarding/index";
 
 export default function BankInfo({ data }) {
-  const dispatch = useDispatch();
+  const [isLoading, setIsLoading] = useState({ save: false, cancel: false });
   const brandId = localStorage.getItem("brandId");
-  const [showProgress, setShowProgress] = useState(false);
   const [disabled, setDisabled] = useState(true);
   const [isSaved, setIsSaved] = useState(false);
   const [bankInfo, setBankDetails] = useState(data);
@@ -32,9 +31,7 @@ export default function BankInfo({ data }) {
     const val = !disabled;
     setDisabled(val);
   };
-  const handleClose = () => {
-    setShowProgress(false);
-  };
+
   const handleCancel = async () => {
     const keys = Object.keys(bankInfo);
     const obj = {};
@@ -44,27 +41,36 @@ export default function BankInfo({ data }) {
     setBankDetails(() => ({
       ...obj,
     }));
-    setShowProgress(false);
+    setIsLoading({ save: false, cancel: false });
   };
   const handleSave = async () => {
+    setIsLoading({ save: true, cancel: false });
     const bankObj = { ...data };
     bankObj.BrandId = brandId;
     const req = { ...bankObj, ...bankInfo };
-    setShowProgress(true);
-    dispatch(updateBankInfoThunk(req));
-    setShowProgress(false);
-    setIsSaved(true);
+    const res = await updateBankDetails(req);
+    if (res) {
+      setIsLoading({ save: false, cancel: false });
+      setIsSaved(true);
+    }
   };
-
+  const handleAccountTypeChange = (event, values) => {
+    debugger;
+    const { value } = values;
+    setBankDetails(() => ({
+      ...bankInfo,
+      AccountType: value,
+    }));
+  };
   const handleChange = (event) => {
     const { name } = event.target;
     const { value } = event.target;
-
     setBankDetails(() => ({
       ...bankInfo,
       [name]: value,
     }));
   };
+
   const alertContent = (message) => (
     <MDTypography variant="body2" color="white">
       <MDTypography
@@ -79,18 +85,7 @@ export default function BankInfo({ data }) {
     </MDTypography>
   );
   return (
-    <MDBox
-      variant="gradient"
-      bgColor="transparent"
-      borderRadius="lg"
-      coloredShadow="info"
-      mx={3}
-      p={1}
-      pb={5}
-      mb={4}
-      textAlign="center"
-    >
-      <MDModal open={showProgress} onClose={handleClose} />
+    <MDBox textAlign="center">
       {isSaved ? (
         <MDAlert color="success" dismissible>
           {alertContent("Bank Details updated successfully!")}
@@ -154,7 +149,7 @@ export default function BankInfo({ data }) {
             disabled={disabled}
             disablePortal
             required
-            onChange={handleChange}
+            onChange={handleAccountTypeChange}
             placeholder="Account Type"
             value={bankInfo.AccountType}
             error={!bankInfo.AccountType}
@@ -250,50 +245,36 @@ export default function BankInfo({ data }) {
       {disabled ? (
         <></>
       ) : (
-        <div
-          style={{
-            display: "flex",
-            flexDirection: "row",
-            justifyContent: "flex-end",
-          }}
-        >
-          <div>
-            <MDButton
-              color="#007EFF"
-              variant="gradient"
+        <MDBox display="flex" flexDirection="row" justifyContent="flex-end">
+          <MDBox sx={{ mx: 2 }}>
+            <MDLoadingButton
+              loading={isLoading.cancel}
+              color="error"
+              loadingPosition="start"
+              startIcon={<CancelIcon />}
+              variant="outlined"
               mx={2}
-              style={{
-                color: "#007EFF",
-                borderColor: "#007EFF",
-                borderWidth: 1,
-                borderStyle: "solid",
-                marginRight: 20,
-              }}
               onClick={handleCancel}
               size="small"
             >
               Cancel
-            </MDButton>
-          </div>
-          <div>
-            <MDButton
-              color="#007EFF"
-              variant="gradient"
+            </MDLoadingButton>
+          </MDBox>
+          <MDBox sx={{ mx: 2 }}>
+            <MDLoadingButton
+              loading={isLoading.save}
+              color="success"
+              loadingPosition="start"
+              startIcon={<SaveIcon />}
+              variant="outlined"
               mx={2}
-              style={{
-                color: "#007EFF",
-                borderColor: "#007EFF",
-                borderWidth: 1,
-                borderStyle: "solid",
-                marginRight: 20,
-              }}
               onClick={handleSave}
               size="small"
             >
               Save
-            </MDButton>
-          </div>
-        </div>
+            </MDLoadingButton>
+          </MDBox>
+        </MDBox>
       )}
     </MDBox>
   );

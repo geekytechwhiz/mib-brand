@@ -1,5 +1,6 @@
 /* eslint-disable import/prefer-default-export */
-export const RESOURCE = "inventory";
+export const RESOURCE_INVENTORY = "inventory";
+export const RESOURCE_DOCUMENT_VERIFICATION = "account_verification";
 export const ORIGIN = "brand";
 export const UPLOADED_PATH =
   "https://mibuploaddev.s3.ap-south-1.amazonaws.com/inbound/inbound/inventory/brand/";
@@ -18,7 +19,6 @@ export const REQUIRED_FIELDS_VITAL_INFO = [
   "ProductBrand",
   "Tittle",
   "Manufacturer",
-  "NumberOfItems",
   "UnitCount",
   "UnitType",
 ];
@@ -83,6 +83,11 @@ export const ORDER_STATUS_PENDING_HANDOVER = "PENDING_HANDOVER";
 export const ORDER_STATUS_IN_TRANSIT = "IN_TRANSIT";
 export const ORDER_STATUS_READY_TO_DISPATCH = "READY_TO_DISPATCH";
 
+export const PRODUCT_STATUS_INACTIVE = "INACTIVE";
+export const PRODUCT_STATUS_PUBLISHED = "PUBLISHED";
+export const PRODUCT_STATUS_DRAFTED = "DRAFTED";
+export const PRODUCT_STATUS_DELETED = "DELETED";
+
 export const DOCUMENT_TYPE_LIST = [
   {
     label: "Aadhaar Card",
@@ -103,3 +108,15 @@ export const ACCOUNT_TYPE_LIST = [
     value: "CurrentAccount",
   },
 ];
+
+export const UPDATE_STATUS_LIST = [
+  "DELETED",
+  "INACTIVE",
+  "DRAFTED",
+  "PUBLISHED",
+];
+
+export const DOCUMENT_AADHAAR_FRONT = "aadhaarfront";
+export const DOCUMENT_AADHAAR_BACK = "aadhaarback";
+export const DOCUMENT_COMPANY_PROOF = "proof";
+export const DOCUMENT_COMPANY_PAN = "companypan";
