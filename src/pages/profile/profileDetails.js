@@ -8,7 +8,7 @@ import { styled } from "@mui/material/styles";
 import MDTypography from "components/MDTypography";
 import * as React from "react";
 import BankInfo from "./BankInfo";
-import BillingInfo from "./BillingDetails";
+import AddressDetails from "./AddressDetails";
 import BusinessInfo from "./BusinessInfo";
 import ContactDetails from "./ContactInfo";
 import VerifyDocuments from "./VerifyDocuments";
@@ -112,7 +112,7 @@ export default function ProfileDetails({ data }) {
           </MDTypography>
         </AccordionSummary>
         <AccordionDetails>
-          <BillingInfo data={data.BillingDetails || {}} />
+          <AddressDetails data={data.AddressDetails || {}} />
         </AccordionDetails>
       </Accordion>
       <Accordion

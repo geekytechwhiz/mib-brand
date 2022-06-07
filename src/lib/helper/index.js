@@ -54,3 +54,28 @@ export const getCurrentDateTime = () => {
   const date = new Date();
   return `${date.getDate()}/${date.getMonth()}/${date.getFullYear()}: ${date.getHours()}:${date.getMinutes()}`;
 };
+
+export const getProfileCompletionScore = (data) => {
+  let score = 0;
+  if (!data) return score;
+  if (data.AccountActivation === "Completed") {
+    score += (100 * 16.66) / 100;
+  }
+  if (data.AddressDetails === "Completed") {
+    score += (100 * 16.66) / 100;
+  }
+  if (data.BankDetails === "Completed") {
+    score += (100 * 16.66) / 100;
+  }
+  if (data.BusinessDetails === "Completed") {
+    score += (100 * 16.66) / 100;
+  }
+  if (data.ContactDetails === "Completed") {
+    score += (100 * 16.66) / 100;
+  }
+  if (data.Documents === "Completed") {
+    score += (100 * 16.66) / 100;
+  }
+  score = Math.round(score);
+  return score;
+};

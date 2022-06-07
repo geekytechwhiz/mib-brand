@@ -10,8 +10,10 @@ import MDBox from "components/MDBox";
 import MDButton from "components/MDButton";
 import MDTypography from "components/MDTypography";
 import React, { useEffect, useRef, useState } from "react";
+import ExitToAppIcon from "@mui/icons-material/ExitToApp";
 import { TextValidator, ValidatorForm } from "react-material-ui-form-validator";
 import { Link, useNavigate } from "react-router-dom";
+import MDLoadingButton from "components/MDLoadingButton";
 import { Validate } from "../../lib/validations/index";
 import { SIGN_UP_REQUIRED_FIELDS } from "../../lib/constants/index";
 import registerAccount from "../../services/onboarding/index";
@@ -19,14 +21,10 @@ import registerAccount from "../../services/onboarding/index";
 function Signup() {
   const formRef = useRef("form");
   const [disabled, setDisabled] = useState(true);
+  const [isLoading, setIsLoading] = useState(false);
 
   const [user, setUser] = useState({});
   const navigate = useNavigate();
-
-  useEffect(async () => {
-    // const health = await dispatcher(healthCheckThunk());
-    // console.log("health", health);
-  }, []);
 
   const handleChange = (event) => {
     const { name } = event.target;
@@ -38,26 +36,27 @@ function Signup() {
   };
 
   const handleSubmit = async () => {
-    // const validate = Validate(SIGN_UP_REQUIRED_FIELDS, user);
-    // if (!validate.isValid) {
-    //   return false;
-    // }
-    // const req = {
-    //   EmailId: user.EmailId,
-    //   Password: user.Password,
-    //   ContactDetails: {
-    //     Name: user.Name,
-    //     Mobile: user.Mobile,
-    //     EmailId: user.EmailId,
-    //     CountryCode: "+91",
-    //     Languages: ["English"],
-    //   },
-    // };
-    // const res = await registerAccount(req);
+    setIsLoading(true);
+    const validate = Validate(SIGN_UP_REQUIRED_FIELDS, user);
+    if (!validate.isValid) {
+      return false;
+    }
+    const req = {
+      EmailId: user.EmailId,
+      Password: user.Password,
+      ContactDetails: {
+        Name: user.Name,
+        Mobile: user.Mobile,
+        EmailId: user.EmailId,
+        CountryCode: "+91",
+        Languages: ["English"],
+      },
+    };
+    const res = await registerAccount(req);
+    if (res) {
+      console.log(res);
+    }
     navigate("/authentication/sign-in", { state: { register: true } });
-    // if (res) {
-
-    // }
   };
 
   const handleTerms = (e) => {
@@ -140,7 +139,7 @@ function Signup() {
               <MDBox display="flex" alignItems="center" ml={-1}>
                 <Checkbox
                   size="small"
-                  color="success"
+                  color="info"
                   onChange={handleTerms}
                   defaultChecked={false}
                   checked={disabled}
@@ -164,16 +163,20 @@ function Signup() {
                 </MDTypography>
               </MDBox>
               <MDBox mt={4} mb={1}>
-                <MDButton
-                  type="submit"
-                  variant="gradient"
-                  color="info"
+                <MDLoadingButton
                   disabled={!disabled}
-                  fullWidth
                   onClick={handleSubmit}
+                  loading={isLoading}
+                  color="info"
+                  loadingPosition="start"
+                  startIcon={<ExitToAppIcon />}
+                  variant="gradient"
+                  fullWidth
+                  mx={2}
+                  name="signup"
                 >
-                  sign in
-                </MDButton>
+                  Create Account
+                </MDLoadingButton>
               </MDBox>
               <MDBox mt={3} mb={1} textAlign="center">
                 <MDTypography variant="button" color="text">

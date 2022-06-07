@@ -58,9 +58,6 @@ function a11yProps(index) {
 
 function Inventory() {
   const dispatch = useDispatch();
-
-  const hasShow =
-    useSelector((state) => state.root.loading, shallowEqual) || false;
   const brandId = localStorage.getItem("brandId");
   const req = {
     brandId,
@@ -70,10 +67,16 @@ function Inventory() {
   dispatch(getProductsThunk(req));
   req.status = PRODUCT_STATUS_INACTIVE;
   dispatch(getInactiveProductsThunk(req));
+
   const [value, setValue] = React.useState(0);
   const handleChange = (event, newValue) => {
     setValue(newValue);
   };
+
+  // const loading = useSelector((state) => state.root?.loading, shallowEqual);
+  // if (loading) {
+  //   return <MDBackdrop show />;
+  // }
   return (
     <DashboardLayout>
       <DashboardNavbar />

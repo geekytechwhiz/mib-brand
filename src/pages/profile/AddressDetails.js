@@ -20,32 +20,39 @@ import MDInput from "components/MDInput";
 import MDLoadingButton from "components/MDLoadingButton";
 import MDTypography from "components/MDTypography";
 import { RESOURCE_DOCUMENT_VERIFICATION } from "lib/constants";
+import _ from "lodash";
 import React, { useRef, useState } from "react";
 import { postSignedUrl } from "services/common";
 import { v4 as uuidv4 } from "uuid";
-import { updateBankDetails } from "../../services/onboarding/index";
+import { updateAddressDetails } from "../../services/onboarding/index";
 
-export default function BillingInfo({ data }) {
+export default function AddressDetails({ data }) {
+  debugger;
   const signatureRef = useRef(null);
   const logoRef = useRef(null);
   const [isLoading, setIsLoading] = useState({
-    signature: false,
-    logo: false,
+    Signature: false,
+    Logo: false,
   });
 
   const [selectedFiles, setSelectedFiles] = useState([]);
   const [isEnabled, setIsEnabled] = useState({
-    signature: false,
-    logo: false,
+    Signature: false,
+    Logo: false,
   });
+
+  const uuid = uuidv4();
   const brandId = localStorage.getItem("brandId");
   const emailId = localStorage.getItem("emailId");
   const [disabled, setDisabled] = useState(true);
   const [isSaved, setIsSaved] = useState(false);
-  const [billingInfo, setBankDetails] = useState(data);
+  const [addressDetails, setAddressDetails] = useState(data);
+  const [isSameAddress, setIsSameAddress] = useState(false);
+  // const billingAddress = addressDetails.BillingAddress || {};
+  // const shippingAddress = addressDetails.ShippingAddress || {};
   const [document, setDocuments] = useState({
-    logo: "",
-    signature: "",
+    Logo: "",
+    Signature: "",
   });
 
   const onHandleEdit = () => {
@@ -53,44 +60,53 @@ export default function BillingInfo({ data }) {
     setDisabled(val);
   };
   const handleCancel = async () => {
-    const keys = Object.keys(billingInfo);
+    const keys = Object.keys(addressDetails);
     const obj = {};
     keys.forEach((x) => {
       obj[x] = "";
     });
-    setBankDetails(() => ({
+    setAddressDetails(() => ({
       ...obj,
     }));
 
     setIsLoading({ save: false, cancel: false });
   };
   const handleSave = async () => {
-    const bankObj = { ...data };
-    bankObj.BrandId = brandId;
-    const req = { ...bankObj, ...billingInfo };
-
     setIsLoading({ save: true, cancel: false });
-    const res = await updateBankDetails(req, emailId);
-    if (res) {
-      setIsLoading({ save: false, cancel: false });
-      setIsSaved(true);
-    }
+    const res = await updateAddressDetails(addressDetails, emailId);
+    console.log(res);
+    setIsLoading({ save: false, cancel: false });
+    setIsSaved(true);
   };
   const handleChange = (event) => {
+    debugger;
     const { name } = event.target;
     const { value } = event.target;
-    setBankDetails(() => ({
-      ...billingInfo,
-      [name]: value,
+    const temp = _.cloneDeep(addressDetails.BillingAddress);
+    temp[name] = value;
+    setAddressDetails(() => ({
+      ...addressDetails,
+      BillingAddress: temp,
     }));
   };
-  const uuid = uuidv4();
+
+  const handleShippingChange = (event) => {
+    const { name } = event.target;
+    const { value } = event.target;
+    const temp = _.cloneDeep(addressDetails.ShippingAddress);
+    temp[name] = value;
+    setAddressDetails(() => ({
+      ...addressDetails,
+      ShippingAddress: temp,
+    }));
+  };
+
   const getUploadParams = async (e) => {
     debugger;
     const { name } = e.target;
     const isLoadingObj = {
-      signature: false,
-      logo: false,
+      Signature: false,
+      Logo: false,
     };
     isLoadingObj[name] = true;
     setIsLoading(isLoadingObj);
@@ -107,15 +123,21 @@ export default function BillingInfo({ data }) {
     const axiosRes = await axios.put(res.preSignedUrl, file);
 
     if (axiosRes.status !== 200) return false;
+    const imgUlr = { Name: file.name, Url: res.fileName };
+    setAddressDetails(() => ({
+      ...addressDetails,
+      [name]: imgUlr,
+    }));
     setIsSaved(true);
     setIsEnabled({
-      signature: false,
-      logo: false,
+      Signature: false,
+      Logo: false,
     });
     setIsLoading({
-      signature: false,
-      logo: false,
+      Signature: false,
+      Logo: false,
     });
+
     return {
       body: file,
       meta: { fileUrl: `https://mibuploaddev.s3.ap-south-1.amazonaws.com` },
@@ -124,7 +146,6 @@ export default function BillingInfo({ data }) {
   };
 
   const handleFileUpload = (event) => {
-    debugger;
     const { name } = event.target;
     if (event.target.files[0]) {
       const tempSelectedFiles = selectedFiles;
@@ -135,12 +156,25 @@ export default function BillingInfo({ data }) {
         [name]: event.target.files[0].name,
       }));
       const buttonState = {
-        signature: false,
-        logo: false,
+        Signature: false,
+        Logo: false,
       };
-      buttonState[name]=true
+      buttonState[name] = true;
       setIsEnabled(buttonState);
     }
+  };
+
+  const handleCheckBox = (event) => {
+    const { checked } = event.target;
+    if (checked) {
+      const address = _.cloneDeep(addressDetails.BillingAddress);
+      setAddressDetails(() => ({
+        ...addressDetails,
+        ShippingAddress: address,
+      }));
+    }
+
+    setIsSameAddress(checked);
   };
   const alertContent = (message) => (
     <MDTypography variant="body2" color="white">
@@ -200,7 +234,6 @@ export default function BillingInfo({ data }) {
       <Grid
         container
         display="flex"
-        
         justifyContent="space-around"
         flexDirection="row"
         xs={12}
@@ -208,8 +241,7 @@ export default function BillingInfo({ data }) {
         <Grid item xs={5} mb={2}>
           <MDInput
             disabled={disabled}
-            error={!billingInfo.AddressLine1}
-            value={billingInfo.AddressLine1}
+            value={addressDetails?.BillingAddress?.AddressLine1}
             required
             type="text"
             name="AddressLine1"
@@ -221,8 +253,7 @@ export default function BillingInfo({ data }) {
         <Grid item xs={5} mb={2}>
           <MDInput
             disabled={disabled}
-            error={!billingInfo.AddressLine1}
-            value={billingInfo.AddressLine1}
+            value={addressDetails?.BillingAddress?.AddressLine2}
             required
             type="text"
             name="AddressLine2"
@@ -237,8 +268,7 @@ export default function BillingInfo({ data }) {
             required
             type="text"
             label="Pincode"
-            error={!billingInfo.PinCode}
-            value={billingInfo.PinCode}
+            value={addressDetails?.BillingAddress?.PinCode}
             name="PinCode"
             fullWidth
             onChange={handleChange}
@@ -250,8 +280,7 @@ export default function BillingInfo({ data }) {
             required
             type="text"
             name="City"
-            error={!billingInfo.City}
-            value={billingInfo.City}
+            value={addressDetails?.BillingAddress?.City}
             label="City"
             fullWidth
             onChange={handleChange}
@@ -263,10 +292,9 @@ export default function BillingInfo({ data }) {
             disabled={disabled}
             required
             type="text"
-            name="State"
-            error={!billingInfo.State}
-            value={billingInfo.State}
             label="State"
+            name="State"
+            value={addressDetails?.BillingAddress?.State}
             fullWidth
             onChange={handleChange}
           />
@@ -277,8 +305,7 @@ export default function BillingInfo({ data }) {
             required
             type="text"
             name="Phone"
-            error={!billingInfo.Phone}
-            value={billingInfo.Phone}
+            value={addressDetails?.BillingAddress?.Phone}
             label="Phone"
             fullWidth
             onChange={handleChange}
@@ -296,7 +323,13 @@ export default function BillingInfo({ data }) {
       >
         <Grid mx={2} item xs={6}>
           <FormControlLabel
-            control={<Checkbox defaultChecked />}
+            control={
+              <Checkbox
+                defaultChecked
+                checked={isSameAddress}
+                onClick={handleCheckBox}
+              />
+            }
             label={
               <MDTypography
                 display="block"
@@ -323,27 +356,25 @@ export default function BillingInfo({ data }) {
         <Grid item xs={5} mb={2}>
           <MDInput
             disabled={disabled}
-            error={!billingInfo.AddressLine1}
-            value={billingInfo.AddressLine1}
+            value={addressDetails?.ShippingAddress?.AddressLine1}
             required
             type="text"
             name="AddressLine1"
             label="Address Line 1"
             fullWidth
-            onChange={handleChange}
+            onChange={handleShippingChange}
           />
         </Grid>
         <Grid item xs={5} mb={2}>
           <MDInput
             disabled={disabled}
-            error={!billingInfo.AddressLine1}
-            value={billingInfo.AddressLine1}
+            value={addressDetails?.ShippingAddress?.AddressLine1}
             required
             type="text"
             name="AddressLine2"
             label="Address Line 2"
             fullWidth
-            onChange={handleChange}
+            onChange={handleShippingChange}
           />
         </Grid>
         <Grid item xs={5} mb={2}>
@@ -352,11 +383,10 @@ export default function BillingInfo({ data }) {
             required
             type="text"
             label="Pincode"
-            error={!billingInfo.PinCode}
-            value={billingInfo.PinCode}
+            value={addressDetails?.ShippingAddress?.PinCode}
             name="PinCode"
             fullWidth
-            onChange={handleChange}
+            onChange={handleShippingChange}
           />
         </Grid>
         <Grid item xs={5} mb={2}>
@@ -365,11 +395,10 @@ export default function BillingInfo({ data }) {
             required
             type="text"
             name="City"
-            error={!billingInfo.City}
-            value={billingInfo.City}
+            value={addressDetails?.ShippingAddress?.City}
             label="City"
             fullWidth
-            onChange={handleChange}
+            onChange={handleShippingChange}
           />
         </Grid>
 
@@ -379,11 +408,10 @@ export default function BillingInfo({ data }) {
             required
             type="text"
             name="State"
-            error={!billingInfo.State}
-            value={billingInfo.State}
+            value={addressDetails?.ShippingAddress?.State}
             label="State"
             fullWidth
-            onChange={handleChange}
+            onChange={handleShippingChange}
           />
         </Grid>
         <Grid item xs={5} mb={2}>
@@ -392,11 +420,10 @@ export default function BillingInfo({ data }) {
             required
             type="text"
             name="Phone"
-            error={!billingInfo.Phone}
-            value={billingInfo.Phone}
+            value={addressDetails?.ShippingAddress?.Phone}
             label="Phone"
             fullWidth
-            onChange={handleChange}
+            onChange={handleShippingChange}
           />
         </Grid>
       </Grid>
@@ -423,7 +450,7 @@ export default function BillingInfo({ data }) {
               <input
                 ref={logoRef}
                 type="file"
-                name="logo"
+                name="Logo"
                 accept="image/*"
                 style={{ display: "none" }}
                 onChange={handleFileUpload}
@@ -442,19 +469,19 @@ export default function BillingInfo({ data }) {
                 fontWeight="medium"
                 textAlign="left"
               >
-                {document.logo}
+                {document.Logo}
               </MDTypography>
-              {isEnabled.logo ? (
+              {isEnabled.Logo ? (
                 <MDLoadingButton
                   sx={{ margin: 2 }}
-                  loading={isLoading.logo}
-                  disabled={!isEnabled.logo}
+                  loading={isLoading.Logo}
+                  disabled={!isEnabled.Logo}
                   color="success"
                   loadingPosition="start"
                   startIcon={<PhotoCamera />}
                   variant="outlined"
                   mx={2}
-                  name="aadhaarfront"
+                  name="Logo"
                   size="small"
                   onClick={getUploadParams}
                 >
@@ -463,7 +490,7 @@ export default function BillingInfo({ data }) {
               ) : (
                 <></>
               )}
-              {billingInfo?.logo ? (
+              {addressDetails?.Logo ? (
                 <CheckCircleOutlineOutlinedIcon color="success" />
               ) : (
                 <DoDisturbOnOutlinedIcon color="error">
@@ -487,7 +514,7 @@ export default function BillingInfo({ data }) {
               <input
                 ref={signatureRef}
                 type="file"
-                name="signature"
+                name="Signature"
                 accept="image/*"
                 style={{ display: "none" }}
                 onChange={handleFileUpload}
@@ -506,19 +533,19 @@ export default function BillingInfo({ data }) {
                 fontWeight="medium"
                 textAlign="left"
               >
-                {document.signature}
+                {document.Signature}
               </MDTypography>
-              {isEnabled.signature ? (
+              {isEnabled.Signature ? (
                 <MDLoadingButton
                   sx={{ margin: 2 }}
-                  loading={isLoading.signature}
-                  disabled={!isEnabled.signature}
+                  loading={isLoading.Signature}
+                  disabled={!isEnabled.Signature}
                   color="success"
                   loadingPosition="start"
                   startIcon={<PhotoCamera />}
                   variant="outlined"
                   mx={2}
-                  name="signature"
+                  name="Signature"
                   size="small"
                   onClick={getUploadParams}
                 >
@@ -527,7 +554,7 @@ export default function BillingInfo({ data }) {
               ) : (
                 <></>
               )}
-              {billingInfo?.Signature ? (
+              {addressDetails?.Signature ? (
                 <CheckCircleOutlineOutlinedIcon color="success" />
               ) : (
                 <DoDisturbOnOutlinedIcon color="error">

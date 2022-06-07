@@ -9,7 +9,9 @@ import { styled } from "@mui/material/styles";
 import Tab from "@mui/material/Tab";
 import MDBox from "components/MDBox";
 import MDTypography from "components/MDTypography";
+import { useSelector, shallowEqual } from "react-redux";
 import React from "react";
+import MDBackdrop from "components/MDBackDrop";
 import ProductCard from "./Card";
 
 const CustomTabPanel = styled(TabPanel)({
@@ -19,14 +21,18 @@ const CustomTabPanel = styled(TabPanel)({
 });
 
 export default function ExclusiveTab(props) {
+       
+  const loading = useSelector((state) => state.root?.loading, shallowEqual);
   const [value, setValue] = React.useState("1");
   const { tabs, data, isActive } = props;
   const products = data;
-  // const [products,setProducts]=React.useState(data||[])
+
   const handleChange = (event, newValue) => {
     setValue(newValue);
   };
-
+  if (loading) {
+    return <MDBackdrop show />;
+  }
   return (
     <MDBox>
       {tabs && tabs.length > 0 ? (
@@ -55,7 +61,7 @@ export default function ExclusiveTab(props) {
             <CustomTabPanel sx={{ marginTop: 2 }} value={x.id}>
               <Grid container spacing={1} display="flex" flexDirection="row">
                 {products ? (
-                  products[x.label].map((info) => (
+                  products[x.label]?.map((info) => (
                     <Grid item xs={3}>
                       {info.ImageLinks[0] ? (
                         <ProductCard
@@ -85,9 +91,7 @@ export default function ExclusiveTab(props) {
           ))}
         </TabContext>
       ) : (
-        <MDTypography>
-          You dont have any active product in your inventory
-        </MDTypography>
+        <MDTypography>You dont have any product in your inventory</MDTypography>
       )}
     </MDBox>
   );

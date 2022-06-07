@@ -66,6 +66,7 @@ export const getProductsThunk = createAsyncThunk(
   "/inventory/products/product/{brandId}",
   async (payload) => {
     const dispatch = useDispatch();
+    dispatch(setLoading(true));
     const response = await getProducts(payload.brandId, payload.status);
     dispatch(setLoading(false));
 
@@ -76,6 +77,7 @@ export const getInactiveProductsThunk = createAsyncThunk(
   "/inventory/products/brand/{brandId}/{Status}",
   async (payload) => {
     const dispatch = useDispatch();
+    dispatch(setLoading(true));
     const response = await getProducts(payload.brandId, payload.status);
     dispatch(setLoading(false));
 
@@ -123,11 +125,11 @@ const inventorySlice = createSlice({
   },
   extraReducers: (builder) => {
     builder.addCase(getProductsThunk.fulfilled, (state, action) => {
-      state.products = action.payload.active;
-      state.inActiveProducts = action.payload.inActive;
+      state.products = action.payload;
     });
     builder.addCase(patchProductStatusThunk.fulfilled, (state, action) => {
-      state.products = action.payload;
+      state.products = action.payload.active;
+      state.inActiveProducts = action.payload.inActive;
     });
     builder.addCase(getInactiveProductsThunk.fulfilled, (state, action) => {
       state.inActiveProducts = action.payload;

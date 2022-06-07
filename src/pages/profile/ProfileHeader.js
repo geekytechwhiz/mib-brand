@@ -46,7 +46,12 @@ function ProfileHeader({ data }) {
       >
         <Grid container spacing={1} alignItems="center">
           <Grid item>
-            <MDAvatar src={brand} alt="profile-image" size="xl" shadow="sm" />
+            <MDAvatar
+              src={data?.AddressDetails?.Logo?.Url || ""}
+              alt="profile-image"
+              size="xl"
+              shadow="sm"
+            />
           </Grid>
           <Grid item>
             <MDBox height="100%" mt={0.5} lineHeight={1}>

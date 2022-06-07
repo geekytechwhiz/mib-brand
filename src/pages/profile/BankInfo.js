@@ -19,6 +19,7 @@ import { updateBankDetails } from "services/onboarding/index";
 export default function BankInfo({ data }) {
   const [isLoading, setIsLoading] = useState({ save: false, cancel: false });
   const brandId = localStorage.getItem("brandId");
+  const emailId = localStorage.getItem("emailId");
   const [disabled, setDisabled] = useState(true);
   const [isSaved, setIsSaved] = useState(false);
   const [bankInfo, setBankDetails] = useState(data);
@@ -48,14 +49,13 @@ export default function BankInfo({ data }) {
     const bankObj = { ...data };
     bankObj.BrandId = brandId;
     const req = { ...bankObj, ...bankInfo };
-    const res = await updateBankDetails(req);
+    const res = await updateBankDetails(req, emailId);
     if (res) {
       setIsLoading({ save: false, cancel: false });
       setIsSaved(true);
     }
   };
   const handleAccountTypeChange = (event, values) => {
-    debugger;
     const { value } = values;
     setBankDetails(() => ({
       ...bankInfo,

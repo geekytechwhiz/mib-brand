@@ -9,13 +9,7 @@ function Profile() {
   const brandInfo = useSelector(
     (state) => state.auth?.accountInfo,
     shallowEqual
-  ) || {
-    BusinessDetails: {},
-    BankDetails: {},
-    ContactDetails: {},
-    BillingDetails: {},
-    DocumentVerification: {},
-  };
+  );
   return (
     <MDBox>
       <ProfileHeader data={brandInfo} />

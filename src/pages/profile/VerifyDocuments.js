@@ -64,6 +64,7 @@ export default function VerifyDocuments({ data }) {
     setIsLoading({ save: false, cancel: false });
   };
   const handleSave = async () => {
+    debugger;
     const bankObj = { ...docsVerification };
     bankObj.BrandId = brandId;
     const req = { ...bankObj, ...docsVerification };
@@ -93,7 +94,6 @@ export default function VerifyDocuments({ data }) {
 
   const uuid = uuidv4();
   const getUploadParams = async (e) => {
-    debugger;
     const { name } = e.target;
     const isLoadingObj = {
       aadhaarfront: false,
@@ -148,12 +148,14 @@ export default function VerifyDocuments({ data }) {
         ...document,
         [name]: event.target.files[0].name,
       }));
-      setIsEnabled({
+      const temp = {
         aadhaarfront: true,
         aadhaarback: false,
         proof: false,
         companypan: false,
-      });
+      };
+      temp[name] = true;
+      setIsEnabled(temp);
     }
   };
   return (

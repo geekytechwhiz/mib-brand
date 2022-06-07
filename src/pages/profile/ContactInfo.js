@@ -37,12 +37,14 @@ function ContactInfo({ data }) {
   const [isSaved, setIsSaved] = useState(false);
   const [contactDetails, setContactDetails] = useState(data || {});
 
-  const languages = contactDetails&&contactDetails?.Languages?.map((x) => {
-    const ele = _.find(options, (e) => {
-      if (e.label === x) return e;
+  const languages =
+    contactDetails &&
+    contactDetails?.Languages?.map((x) => {
+      const ele = _.find(options, (e) => {
+        if (e.label === x) return e;
+      });
+      return ele;
     });
-    return ele;
-  });
 
   const [isLoading, setIsLoading] = useState({ save: false, cancel: false });
   const onHandleEdit = () => {
@@ -65,7 +67,6 @@ function ContactInfo({ data }) {
     }));
   };
   const handleSave = async () => {
-    debugger;
     setIsLoading({ save: true, cancel: false });
 
     contactDetails.BrandId = localStorage.getItem("brandId");

@@ -65,6 +65,27 @@ export const updateBankDetails = async (payload, emailId) => {
     return null;
   }
 };
+
+export const updateAddressDetails = async (payload, emailId) => {
+  try {
+    const reqParam = {
+      BillingAddress: payload.BillingAddress,
+      ShippingAddress: payload.ShippingAddress,
+      BrandId: payload.BrandId,
+      Logo: payload.Logo,
+      Signature: payload.Signature,
+    };
+
+    const { data } = await apiInstance.patch(
+      `/brand/update-address-details/${emailId}`,
+      reqParam
+    );
+    return data;
+  } catch (err) {
+    return null;
+  }
+};
+
 export const updateBusinessDetails = async (payload, emailId) => {
   try {
     const reqParam = {

@@ -1,6 +1,7 @@
 /* eslint-disable no-debugger */
 /* eslint-disable no-param-reassign */
 import { createAsyncThunk, createSlice } from "@reduxjs/toolkit";
+import { getProfileCompletionScore } from "lib/helper/index";
 import {
   login,
   getBrandAccount,
@@ -11,7 +12,7 @@ const accountInfoState = {
   BusinessDetails: {},
   BankDetails: {},
   ContactDetails: {},
-  BillingDetails: {},
+  AddressDetails: {},
   DocumentVerification: {
     AadhaarFront: false,
     AadhaarBack: false,
@@ -22,7 +23,7 @@ const accountInfoState = {
     AccountActivation: "",
     BusinessDetails: "",
     ContactDetails: "",
-    BillingDetails: "",
+    AddressDetails: "",
     BankAccounts: "",
     GSTNVerification: false,
     Documents: "",
@@ -33,6 +34,7 @@ const initialState = {
   auth: false,
   userPayload: {},
   accountInfo: accountInfoState,
+  profileScore: 0,
 };
 
 export const loginThunk = createAsyncThunk(
@@ -47,10 +49,16 @@ export const getBrandThunk = createAsyncThunk(
   "/brand/details/{emailId}",
   async (emailId) => {
     const response = await getBrandAccount(emailId);
+    let score = 0;
     if (response && response.BrandId) {
+      const { ProfileCompletion } = response;
+      score = getProfileCompletionScore(ProfileCompletion);
       localStorage.setItem("brandId", response.BrandId);
     }
-    return response;
+    return {
+      response,
+      score,
+    };
   }
 );
 
@@ -74,7 +82,8 @@ const authSlice = createSlice({
       state.userPayload = action.payload;
     });
     builder.addCase(getBrandThunk.fulfilled, (state, action) => {
-      state.accountInfo = action.payload;
+      state.accountInfo = action.payload.response;
+      state.profileScore = action.payload.score;
     });
   },
 });

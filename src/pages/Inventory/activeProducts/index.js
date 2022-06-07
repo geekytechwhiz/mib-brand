@@ -1,34 +1,40 @@
+/* eslint-disable no-debugger */
 /* eslint-disable no-unused-vars */
 /* eslint-disable react/prop-types */
 import AddIcon from "@mui/icons-material/Add";
-import MDBackdrop from "components/MDBackDrop";
 import MDBox from "components/MDBox";
 import MDButton from "components/MDButton";
+import _ from "lodash";
 import * as React from "react";
 import { shallowEqual, useSelector } from "react-redux";
 import { useNavigate } from "react-router-dom";
-import _ from "lodash";
 import ExclusiveTab from "../exclusiveTab";
 
 export default function ActiveProducts() {
   const navigate = useNavigate();
-  let exTabs = [{ label: " ", id: "" }];
+  let exTabs = [];
   let exData = [];
-  let comboTabs = [{ label: " ", id: "" }];
+  let comboTabs = [];
+
   const inventoryData =
     useSelector((state) => state.inventory?.products, shallowEqual) || null;
-  if (inventoryData) {
+
+  if (inventoryData && Object.keys(inventoryData).length > 0) {
     exData = inventoryData.Exclusive;
-    const exKeys = Object.keys(inventoryData.Exclusive || {}) || [];
-    const comboKeys = Object.keys(inventoryData.Combo || {}) || [];
-    exTabs = _.map(exKeys, (val, key) => ({
-      id: `${key + 1}`,
-      label: `${val}`,
-    }));
-    comboTabs = _.map(comboKeys, (val, key) => ({
-      id: `${key + 1}`,
-      label: `${val}`,
-    }));
+    const exKeys = Object.keys(inventoryData.Exclusive) || [];
+    const comboKeys = Object.keys(inventoryData.Combo) || [];
+    exTabs =
+      exKeys &&
+      _.map(exKeys, (val, key) => ({
+        id: `${key + 1}`,
+        label: `${val}`,
+      }));
+    comboTabs =
+      comboKeys &&
+      _.map(comboKeys, (val, key) => ({
+        id: `${key + 1}`,
+        label: `${val}`,
+      }));
   }
   const handleAddNew = () => {
     navigate("/add-product", {
@@ -76,11 +82,8 @@ export default function ActiveProducts() {
           </MDButton>
         </div>
       </div>
-      {!inventoryData ? (
-        <MDBackdrop show />
-      ) : (
-        <ExclusiveTab isActive data={exData} tabs={exTabs} />
-      )}
+
+      <ExclusiveTab isActive data={exData} tabs={exTabs} />
     </MDBox>
   );
 }

@@ -4,21 +4,21 @@
 /* eslint-disable no-debugger */
 /* eslint-disable no-unused-vars */
 /* eslint-disable no-undef */
-import ModeEditOutlinedIcon from "@mui/icons-material/ModeEditOutlined";
 import CancelIcon from "@mui/icons-material/Cancel";
+import ModeEditOutlinedIcon from "@mui/icons-material/ModeEditOutlined";
 import SaveIcon from "@mui/icons-material/Save";
+import { Checkbox } from "@mui/material";
 import Autocomplete from "@mui/material/Autocomplete";
 import FormControlLabel from "@mui/material/FormControlLabel";
 import Grid from "@mui/material/Grid";
 import IconButton from "@mui/material/IconButton";
-import Radio from "@mui/material/Radio";
-import RadioGroup from "@mui/material/RadioGroup";
 import MDAlert from "components/MDAlert";
 import MDBox from "components/MDBox";
 import MDInput from "components/MDInput";
 import MDLoadingButton from "components/MDLoadingButton";
 import MDTypography from "components/MDTypography";
-import { gstValidator } from "lib/helper/validator";
+import { useDispatch } from "react-redux";
+import { gstValidator, validatePAN } from "lib/helper/validator";
 import React, { useState } from "react";
 import { Category, SubCategory } from "../../lib/data";
 import { updateBusinessDetails } from "../../services/onboarding/index";
@@ -26,11 +26,17 @@ import { updateBusinessDetails } from "../../services/onboarding/index";
 export default function BusinessInfo({ data }) {
   const brandId = localStorage.getItem("brandId");
   const emailId = localStorage.getItem("emailId");
+  const dispatch = useDispatch();
   const [isLoading, setIsLoading] = useState({ save: false, cancel: false });
   const [disabled, setDisabled] = useState(true);
-  const [disableGstn, setDisableGstn] = useState(true);
+  const [gstSelection, setGstSelection] = useState(false);
+  const [disableGstn, setDisableGstn] = useState(false);
   const [businessInfo, setBusinessDetails] = useState(data);
   const [gstValidation, setGstValidation] = useState({
+    message: "",
+    isValid: true,
+  });
+  const [panValidation, setPanValidation] = useState({
     message: "",
     isValid: true,
   });
@@ -74,7 +80,6 @@ export default function BusinessInfo({ data }) {
     setShowProgress(false);
   };
   const handleBusinessTypeChange = (event, values) => {
-    debugger;
     const { value } = values;
     setBusinessDetails(() => ({
       ...businessInfo,
@@ -108,7 +113,14 @@ export default function BusinessInfo({ data }) {
           isValid: false,
           message: "Please Enter Valid GSTIN Number",
         });
-      console.log(verificationResponse);
+    }
+    if (name === "BusinessPAN") {
+      const validation = validatePAN(value);
+      if (!validation)
+        setPanValidation({
+          isValid: false,
+          message: "Please Enter Valid PAN Number",
+        });
     }
     setBusinessDetails(() => ({
       ...businessInfo,
@@ -118,11 +130,8 @@ export default function BusinessInfo({ data }) {
 
   const handleGstnSelection = (e) => {
     const { value } = e.target;
-    if (value === "1") {
-      setDisableGstn(false);
-    } else {
-      setDisableGstn(true);
-    }
+    setGstSelection(!gstSelection);
+    setDisableGstn(!disableGstn);
   };
 
   const onHandleEdit = () => {
@@ -131,12 +140,13 @@ export default function BusinessInfo({ data }) {
   };
 
   const handleSave = async () => {
-    debugger;
     setIsLoading({ save: true, cancel: false });
     businessInfo.BrandId = brandId;
     const req = businessInfo;
 
     const res = await updateBusinessDetails(req, emailId);
+    dispatch(getBrandThunk(emailId));
+
     if (res) {
       setIsLoading({ save: false, cancel: false });
       setIsSaved(true);
@@ -298,28 +308,12 @@ export default function BusinessInfo({ data }) {
           />
         </Grid>
         <Grid item xs={5} mb={2}>
-          <Grid item xs={12} mb={2}>
-            <RadioGroup
-              row
-              aria-labelledby="radio-buttons-group-label"
-              name="row-radio-buttons-group"
-              value="0"
-              onChange={handleGstnSelection}
-            >
-              <FormControlLabel
-                disabled={disabled}
-                control={<Radio />}
-                value="1"
-                label="We have GSTIN"
-              />
-              <FormControlLabel
-                disabled={disabled}
-                value="0"
-                control={<Radio />}
-                label="We dont have have GSTIN"
-              />
-            </RadioGroup>
-          </Grid>
+          <FormControlLabel
+            control={
+              <Checkbox checked={gstSelection} onChange={handleGstnSelection} />
+            }
+            label="We dont have have GSTIN"
+          />
         </Grid>
         <Grid item xs={5}>
           <Grid item xs={8} mb={2}>
@@ -346,7 +340,8 @@ export default function BusinessInfo({ data }) {
               label="Business PAN"
               name="BusinessPAN"
               value={businessInfo.BusinessPAN}
-              error={!businessInfo.BusinessPAN}
+              error={!panValidation.isValid}
+              helperText={panValidation.message}
               fullWidth
               onChange={handleChange}
             />

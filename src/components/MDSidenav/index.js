@@ -1,3 +1,4 @@
+/* eslint-disable no-nested-ternary */
 /* eslint-disable react/prop-types */
 /* eslint-disable no-shadow */
 /* eslint-disable react/no-unstable-nested-components */
@@ -30,6 +31,7 @@ import PropTypes from "prop-types";
 import { useEffect, useState } from "react";
 // react-router-dom components
 import { NavLink, useLocation, useNavigate } from "react-router-dom";
+import { useSelector, shallowEqual } from "react-redux";
 import SidenavCollapse from "./SidenavCollapse";
 import SidenavRoot from "./SidenavRoot";
 import sidenavLogoLabel from "./styles/sidenav";
@@ -56,7 +58,10 @@ function Sidenav({ color, brand, logo, brandName, routes, ...rest }) {
   }
 
   const closeSidenav = () => setMiniSidenav(dispatch, true);
-
+  const profileScore = useSelector(
+    (state) => state.auth?.profileScore,
+    shallowEqual
+  );
   useEffect(() => {
     // A function that sets the mini state of the sidenav.
     function handleMiniSidenav() {
@@ -102,7 +107,7 @@ function Sidenav({ color, brand, logo, brandName, routes, ...rest }) {
       >
         <MDBox ml={0.5} width="9rem">
           <MDTypography variant="caption" color="white" fontWeight="medium">
-            Account Activation {60}%
+            Account Activation {profileScore}%
             <IconButton
               size="small"
               aria-label="edit"
@@ -115,7 +120,17 @@ function Sidenav({ color, brand, logo, brandName, routes, ...rest }) {
         </MDBox>
 
         <MDBox ml={0.5} width="9rem">
-          <MDProgress variant="gradient" color="blue" value={value} />
+          <MDProgress
+            variant="gradient"
+            color={
+              profileScore < 50
+                ? "error"
+                : profileScore < 70
+                ? "info"
+                : "success"
+            }
+            value={profileScore}
+          />
         </MDBox>
       </MDBox>
     );

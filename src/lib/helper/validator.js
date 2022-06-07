@@ -1,3 +1,4 @@
+/* eslint-disable no-debugger */
 /* eslint-disable consistent-return */
 /* eslint-disable prefer-regex-literals */
 export const verifyGST = (gnumber) => {
@@ -92,3 +93,11 @@ export const ifscValidator = (ifsc) => {
   }
   return res;
 };
+
+export function validatePAN(pan) {
+  const regex = /([A-Z]){5}([0-9]){4}([A-Z]){1}$/;
+  if (regex.test(pan.toUpperCase())) {
+    return true;
+  }
+  return false;
+}

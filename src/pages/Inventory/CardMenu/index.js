@@ -46,7 +46,6 @@ export default function CardMenu({
       Status: status,
     };
     const res = dispatch(patchProductStatusThunk(req));
-    // dispatch(setLoading(false));
   };
 
   const handleOnSelect = (e) => {

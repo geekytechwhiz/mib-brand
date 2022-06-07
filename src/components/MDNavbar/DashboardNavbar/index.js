@@ -1,49 +1,41 @@
 /* eslint-disable no-unused-vars */
 /* eslint-disable no-debugger */
 /* eslint-disable react/jsx-no-useless-fragment */
-import React, { useState, useEffect } from "react";
-
-// react-router components
-import { useLocation, useNavigate } from "react-router-dom";
-import { useSelector, shallowEqual, useDispatch } from "react-redux";
-
-// prop-types is a library for typechecking of props.
-import PropTypes from "prop-types";
-
 // @material-ui core components
 import AppBar from "@mui/material/AppBar";
-import Toolbar from "@mui/material/Toolbar";
+import Icon from "@mui/material/Icon";
 import IconButton from "@mui/material/IconButton";
 import Menu from "@mui/material/Menu";
-import Icon from "@mui/material/Icon";
-
+import Toolbar from "@mui/material/Toolbar";
+import TransitionAlerts from "components/CustomAlert";
 // Material Dashboard 2 React components
 import MDBox from "components/MDBox";
-import MDInput from "components/MDInput";
-
 // Material Dashboard 2 React example components
 import Breadcrumbs from "components/MDBreadcrumbs";
+import MDInput from "components/MDInput";
 import NotificationItem from "components/MDNotifications";
-import { notification } from "redux/slices/root/rootSlice";
-import MDBackdrop from "components/MDBackDrop";
-
-import MDTypography from "components/MDTypography";
 import MDSnackbar from "components/MDSnackbar";
-
+import MDTypography from "components/MDTypography";
 // Custom styles for DashboardNavbar
 import {
-  useMaterialUIController,
-  setTransparentNavbar,
   setMiniSidenav,
   setOpenConfigurator,
+  setTransparentNavbar,
+  useMaterialUIController,
 } from "context";
-import TransitionAlerts from "components/CustomAlert";
+// prop-types is a library for typechecking of props.
+import PropTypes from "prop-types";
+import React, { useEffect, useState } from "react";
+import { shallowEqual, useDispatch, useSelector } from "react-redux";
+// react-router components
+import { useLocation, useNavigate } from "react-router-dom";
+import { notification } from "redux/slices/root/rootSlice";
 import {
   navbar,
   navbarContainer,
-  navbarRow,
   navbarIconButton,
   navbarMobileMenu,
+  navbarRow,
 } from "./styles";
 
 // Material Dashboard 2 React context
@@ -67,7 +59,7 @@ function DashboardNavbar({ absolute, light, isMini }) {
     useSelector((state) => state.root.notification, shallowEqual) || {};
   const alerts = useSelector((state) => state.root.alerts, shallowEqual) || {};
   const isLoading = useSelector((state) => state.root.loading, shallowEqual);
-    
+
   // const [hasShowNotification, setHasShowNotification] = useState(
   //   notifications.show
   // );
@@ -206,7 +198,6 @@ function DashboardNavbar({ absolute, light, isMini }) {
       }
     >
       <MDBox pt={2} px={2}>
-        <MDBackdrop show={isLoading} />
         {alerts && alerts.show ? (
           <TransitionAlerts
             show={alerts.show}

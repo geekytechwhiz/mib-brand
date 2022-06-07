@@ -1,3 +1,4 @@
+/* eslint-disable jsx-a11y/anchor-is-valid */
 /* eslint-disable react/jsx-no-useless-fragment */
 /* eslint-disable consistent-return */
 /* eslint-disable no-debugger */
@@ -8,7 +9,8 @@ import Checkbox from "@mui/material/Checkbox";
 import FormControlLabel from "@mui/material/FormControlLabel";
 import Grid from "@mui/material/Grid";
 import MDBox from "components/MDBox";
-import MDButton from "components/MDButton";
+import PublishRoundedIcon from "@mui/icons-material/PublishRounded";
+import SaveAltRoundedIcon from "@mui/icons-material/SaveAltRounded";
 import MDInput from "components/MDInput";
 import MDTypography from "components/MDTypography";
 import React, { useState } from "react";
@@ -16,6 +18,7 @@ import { useDispatch, useSelector, shallowEqual } from "react-redux";
 import { alert } from "redux/slices/root/rootSlice";
 import MDSnackbar from "components/MDSnackbar";
 import MDBackdrop from "components/MDBackDrop";
+import MDLoadingButton from "components/MDLoadingButton";
 import { postProducts } from "../../services/inventory";
 import { Validate } from "../../lib/validations";
 import {
@@ -26,6 +29,8 @@ import {
 function MoreDetails(props) {
   const { data } = props;
   let validationResponse = {};
+  const [isLoading, setIsLoading] = useState(false);
+  const [isDraftLoading, setIsDraftLoading] = useState(false);
   let productState = {};
   const [show, setShow] = useState(false);
   const dispatch = useDispatch();
@@ -114,8 +119,8 @@ function MoreDetails(props) {
     }
   };
   const handleDraft = async () => {
+    setIsDraftLoading(true);
     const brandId = localStorage.getItem("brandId");
-
     if (!brandId) {
       setOpenError({
         error: true,
@@ -278,7 +283,8 @@ function MoreDetails(props) {
       </Grid>
 
       <Grid container xs={12} justifyContent="space-between">
-        <Grid item>
+        <Grid item xs={3} />
+        <Grid item xs={5}>
           <FormControlLabel
             control={
               <Checkbox
@@ -290,45 +296,47 @@ function MoreDetails(props) {
                 checked={acceptTerms}
               />
             }
-            label="Accept terms and condition"
+            label={
+              <MDTypography variant="caption" color="link" fontWeight="medium">
+                <a href="">Accept terms and condition</a>
+              </MDTypography>
+            }
           />
         </Grid>
-        <Grid item>
-          <MDButton
-            variant="gradient"
-            color="#007EFF"
+
+        <Grid item xs={1} mx={1}>
+          <MDLoadingButton
             onClick={handleDraft}
+            loading={isDraftLoading}
+            color="warning"
             size="small"
-            style={{
-              color: "#007EFF",
-              marginRight: 50,
-              borderColor: "#007EFF",
-              borderWidth: 1,
-              borderStyle: "solid",
-            }}
+            loadingPosition="start"
+            variant="outlined"
+            startIcon={<SaveAltRoundedIcon />}
             mx={2}
+            name="save"
           >
-            {" "}
             Draft
-          </MDButton>
-          <MDButton
-            color="#007EFF"
-            variant="gradient"
-            mx={2}
+          </MDLoadingButton>
+        </Grid>
+        <Grid item xs={1} mx={1}>
+          <MDLoadingButton
             disabled={!acceptTerms}
-            style={{
-              color: "#007EFF",
-              borderColor: "#007EFF",
-              borderWidth: 1,
-              borderStyle: "solid",
-            }}
             onClick={handlePublish}
+            loading={isLoading}
+            color="success"
             size="small"
+            startIcon={<PublishRoundedIcon />}
+            loadingPosition="start"
+            variant="outlined"
+            mx={5}
+            name="save"
           >
             {" "}
             Publish
-          </MDButton>
+          </MDLoadingButton>
         </Grid>
+
         <Grid>
           <MDSnackbar
             color="error"
