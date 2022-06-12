@@ -24,7 +24,7 @@ function ProfileLayout() {
         borderRadius="lg"
         coloredShadow="info"
         mx={-3}
-        mt={-2}
+        mt={3}
         p={2}
         mb={1}
         textAlign="center"

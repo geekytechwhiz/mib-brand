@@ -4,7 +4,7 @@
 import Card from "@mui/material/Card";
 import Grid from "@mui/material/Grid";
 // Images
-import brand from "assets/images/brand.png";
+import defaultlogo from "assets/images/logos/defaultlogo.png";
 // Material Dashboard 2 React base styles
 import breakpoints from "assets/theme/base/breakpoints";
 import MDAvatar from "components/MDAvatar";
@@ -34,12 +34,12 @@ function ProfileHeader({ data }) {
   }, [tabsOrientation]);
 
   return (
-    <MDBox position="relative" mb={4}>
+    <MDBox position="relative" mb={2}>
       <Card
         sx={{
           position: "relative",
           mt: 5,
-          mx: 3,
+          mx: 0,
           py: 2,
           px: 2,
         }}
@@ -47,7 +47,7 @@ function ProfileHeader({ data }) {
         <Grid container spacing={1} alignItems="center">
           <Grid item>
             <MDAvatar
-              src={data?.AddressDetails?.Logo?.Url || ""}
+              src={data?.AddressDetails?.Logo?.Url || defaultlogo}
               alt="profile-image"
               size="xl"
               shadow="sm"

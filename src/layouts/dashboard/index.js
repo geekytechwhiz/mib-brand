@@ -1,23 +1,17 @@
 // @mui material components
 import Grid from "@mui/material/Grid";
-
 // Material Dashboard 2 React components
 import MDBox from "components/MDBox";
-
-// Material Dashboard 2 React example components
-import DashboardLayout from "layouts/layoutContainers/DashboardLayout";
-import DashboardNavbar from "components/MDNavbar/DashboardNavbar";
-import Footer from "layouts/footer";
-import ReportsBarChart from "lib/Charts/BarCharts/ReportsBarChart";
-import ReportsLineChart from "lib/Charts/LineCharts/ReportsLineChart";
 import ComplexStatisticsCard from "components/MDCards/StatisticsCard";
-
+import DashboardNavbar from "components/MDNavbar/DashboardNavbar";
 // Data
 import reportsBarChartData from "layouts/dashboard/data/reportsBarChartData";
 import reportsLineChartData from "layouts/dashboard/data/reportsLineChartData";
-
-// Dashboard components
-import OrdersOverview from "layouts/dashboard/components/OrdersOverview";
+import Footer from "layouts/footer";
+// Material Dashboard 2 React example components
+import DashboardLayout from "layouts/layoutContainers/DashboardLayout";
+import ReportsBarChart from "lib/Charts/BarCharts/ReportsBarChart";
+import ReportsLineChart from "lib/Charts/LineCharts/ReportsLineChart";
 import { useDispatch } from "react-redux";
 import { getBrandThunk } from "../../redux/slices/onboarding";
 
@@ -33,12 +27,12 @@ function Dashboard() {
       <DashboardNavbar />
       <MDBox py={3}>
         <Grid container spacing={3}>
-          <Grid item xs={12} md={6} lg={3}>
+          <Grid item xs={12} md={6} lg={4}>
             <MDBox mb={1.5}>
               <ComplexStatisticsCard
                 color="dark"
                 icon="weekend"
-                title="Bookings"
+                title="Sales"
                 count={281}
                 percentage={{
                   color: "success",
@@ -48,11 +42,11 @@ function Dashboard() {
               />
             </MDBox>
           </Grid>
-          <Grid item xs={12} md={6} lg={3}>
+          <Grid item xs={12} md={6} lg={4}>
             <MDBox mb={1.5}>
               <ComplexStatisticsCard
                 icon="leaderboard"
-                title="Today's Users"
+                title="Customers"
                 count="2,300"
                 percentage={{
                   color: "success",
@@ -62,32 +56,17 @@ function Dashboard() {
               />
             </MDBox>
           </Grid>
-          <Grid item xs={12} md={6} lg={3}>
+          <Grid item xs={12} md={6} lg={4}>
             <MDBox mb={1.5}>
               <ComplexStatisticsCard
                 color="success"
                 icon="store"
-                title="Revenue"
+                title="Avg. Revenue"
                 count="34k"
                 percentage={{
                   color: "success",
                   amount: "+1%",
                   label: "than yesterday",
-                }}
-              />
-            </MDBox>
-          </Grid>
-          <Grid item xs={12} md={6} lg={3}>
-            <MDBox mb={1.5}>
-              <ComplexStatisticsCard
-                color="primary"
-                icon="person_add"
-                title="Followers"
-                count="+91"
-                percentage={{
-                  color: "success",
-                  amount: "",
-                  label: "Just updated",
                 }}
               />
             </MDBox>
@@ -99,8 +78,8 @@ function Dashboard() {
               <MDBox mb={3}>
                 <ReportsBarChart
                   color="info"
-                  title="website views"
-                  description="Last Campaign Performance"
+                  title="Customer views"
+                  description="Customer Performance"
                   date="campaign sent 2 days ago"
                   chart={reportsBarChartData}
                 />
@@ -125,8 +104,8 @@ function Dashboard() {
               <MDBox mb={3}>
                 <ReportsLineChart
                   color="dark"
-                  title="completed tasks"
-                  description="Last Campaign Performance"
+                  title="Orders"
+                  description="Last Orders Performance"
                   date="just updated"
                   chart={tasks}
                 />
@@ -134,17 +113,7 @@ function Dashboard() {
             </Grid>
           </Grid>
         </MDBox>
-        <MDBox>
-          <Grid container spacing={3}>
-            <Grid item xs={12} md={6} lg={8}>
-              {/* <Projects /> */}
-              Project
-            </Grid>
-            <Grid item xs={12} md={6} lg={4}>
-              <OrdersOverview />
-            </Grid>
-          </Grid>
-        </MDBox>
+        <MDBox />
       </MDBox>
       <Footer />
     </DashboardLayout>

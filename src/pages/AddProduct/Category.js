@@ -21,6 +21,7 @@ import { shallowEqual, useDispatch, useSelector } from "react-redux";
 import Grid from "@mui/material/Grid";
 import Button from "@mui/material/Button";
 import MDSnackbar from "components/MDSnackbar";
+import { ExpandMoreOutlined } from "@mui/icons-material";
 import { REQUIRED_FIELDS_CATEGORY } from "../../lib/constants";
 import { getCategories, getSubCategories } from "../../lib/helper";
 import { Validate } from "../../lib/validations";
@@ -41,15 +42,12 @@ const Accordion = styled((props) => (
 
 const AccordionSummary = styled((props) => (
   <MuiAccordionSummary
-    expandIcon={<ArrowForwardIosSharpIcon sx={{ fontSize: "0.9rem" }} />}
+    expandIcon={<ExpandMoreOutlined sx={{ fontSize: "0.9rem" }} />}
     {...props}
   />
 ))(({ theme }) => ({
-  backgroundColor:
-    theme.palette.mode === "dark"
-      ? "rgba(255, 255, 255, .05)"
-      : "rgba(0, 0, 0, .03)",
-  flexDirection: "row-reverse",
+  borderRadius: "lg",
+  flexDirection: "flex-start",
   "& .MuiAccordionSummary-expandIconWrapper.Mui-expanded": {
     transform: "rotate(90deg)",
   },
@@ -64,7 +62,6 @@ const AccordionDetails = styled(MuiAccordionDetails)(({ theme }) => ({
 }));
 
 export default function CategoryAccordion(props) {
-                
   const [expanded, setExpanded] = React.useState(BUSINESS_CATEGORY[0].category);
 
   const handleChange = (panel) => (event, newExpanded) => {
@@ -134,8 +131,9 @@ export default function CategoryAccordion(props) {
       coloredShadow="info"
       mx={-3}
       mt={-2}
-      p={2}
-      mb={1}
+      px={2}
+      py={3}
+      mb={5}
       textAlign="center"
     >
       {BUSINESS_CATEGORY &&
@@ -190,7 +188,7 @@ export default function CategoryAccordion(props) {
             </AccordionDetails>
           </Accordion>
         ))}
-      <Grid container xs={12} justifyContent="space-between">
+      <Grid mt={5} container xs={12} justifyContent="space-between">
         <Grid item>
           <Button
             color="primary"

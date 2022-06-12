@@ -6,6 +6,10 @@ import Dashboard from "layouts/dashboard";
 import ProfileLayout from "layouts/profile";
 import ReturnsLayout from "layouts/returnedOrdersLayout";
 import Settlements from "layouts/settlements";
+import Inventory2OutlinedIcon from "@mui/icons-material/Inventory2Outlined";
+import AddBoxOutlinedIcon from "@mui/icons-material/AddBoxOutlined";
+import ShoppingCartOutlinedIcon from "@mui/icons-material/ShoppingCartOutlined";
+import PaymentOutlinedIcon from "@mui/icons-material/PaymentOutlined";
 import AddProduct from "./layouts/addProduct/index";
 import Inventory from "./layouts/inventory/index";
 import OrderLayout from "./layouts/orderLayout/index";
@@ -23,7 +27,8 @@ const routes = [
     type: "collapse",
     name: "Inventory",
     key: "inventory",
-    icon: <Icon fontSize="small">Inventory</Icon>,
+    // icon: <Icon fontSize="small">Inventory</Icon>,
+    icon: <Inventory2OutlinedIcon />,
     route: "/inventory",
     component: <Inventory />,
   },
@@ -31,7 +36,7 @@ const routes = [
     type: "collapse",
     name: "Add Product",
     key: "add-product",
-    icon: <Icon fontSize="small">add-product</Icon>,
+    icon: <AddBoxOutlinedIcon>add-product</AddBoxOutlinedIcon>,
     route: "/add-product",
     component: <AddProduct />,
   },
@@ -39,7 +44,7 @@ const routes = [
     type: "collapse",
     name: "Orders",
     key: "orders",
-    icon: <Icon fontSize="small">Orders</Icon>,
+    icon: <ShoppingCartOutlinedIcon>Orders</ShoppingCartOutlinedIcon>,
     route: "/orders",
     component: <OrderLayout />,
   },
@@ -47,7 +52,7 @@ const routes = [
     type: "collapse",
     name: "Settlements",
     key: "settlements",
-    icon: <Icon fontSize="small">Settlements</Icon>,
+    icon: <PaymentOutlinedIcon>Settlements</PaymentOutlinedIcon>,
     route: "/settlements",
     component: <Settlements />,
   },

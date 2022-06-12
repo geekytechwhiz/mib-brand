@@ -1,12 +1,13 @@
 /* eslint-disable no-debugger */
 /* eslint-disable react/prop-types */
-import ArrowForwardIosSharpIcon from "@mui/icons-material/ArrowForwardIosSharp";
+// import ArrowForwardIosSharpIcon from "@mui/icons-material/ArrowForwardIosSharp";
 import MuiAccordion from "@mui/material/Accordion";
 import MuiAccordionDetails from "@mui/material/AccordionDetails";
 import MuiAccordionSummary from "@mui/material/AccordionSummary";
 import { styled } from "@mui/material/styles";
 import MDTypography from "components/MDTypography";
 import * as React from "react";
+import { ExpandMoreOutlined } from "@mui/icons-material";
 import BankInfo from "./BankInfo";
 import AddressDetails from "./AddressDetails";
 import BusinessInfo from "./BusinessInfo";
@@ -27,15 +28,12 @@ const Accordion = styled((props) => (
 
 const AccordionSummary = styled((props) => (
   <MuiAccordionSummary
-    expandIcon={<ArrowForwardIosSharpIcon sx={{ fontSize: "0.9rem" }} />}
+    expandIcon={<ExpandMoreOutlined sx={{ fontSize: "0.9rem" }} />}
     {...props}
   />
 ))(({ theme }) => ({
-  backgroundColor:
-    theme.palette.mode === "dark"
-      ? "rgba(255, 255, 255, .05)"
-      : "rgba(0, 0, 0, .03)",
-  flexDirection: "row-reverse",
+  borderRadius: "lg",
+  flexDirection: "flex-start",
   "& .MuiAccordionSummary-expandIconWrapper.Mui-expanded": {
     transform: "rotate(90deg)",
   },

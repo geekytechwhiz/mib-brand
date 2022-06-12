@@ -302,6 +302,35 @@ function MoreDetails(props) {
               </MDTypography>
             }
           />
+          <MDBox display="flex" alignItems="center" ml={-1}>
+            <Checkbox
+              size="small"
+              color="info"
+              onChange={() => {
+                const value = !acceptTerms;
+                setAcceptTerms(value);
+              }}
+              defaultChecked={false}
+              checked={acceptTerms}
+            />
+            <MDTypography
+              variant="button"
+              color="text"
+              sx={{ cursor: "pointer", userSelect: "none", ml: -1 }}
+            >
+              &nbsp;&nbsp;I agree the&nbsp;
+            </MDTypography>
+            <MDTypography
+              component="a"
+              href="#"
+              variant="button"
+              fontWeight="bold"
+              color="info"
+              textGradient
+            >
+              Terms and Conditions
+            </MDTypography>
+          </MDBox>
         </Grid>
 
         <Grid item xs={1} mx={1}>
