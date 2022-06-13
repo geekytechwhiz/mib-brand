@@ -7,7 +7,7 @@
 /* eslint-disable no-unused-vars */
 // @mui material components
 
-import LoginRoundedIcon from '@mui/icons-material/LoginRounded';
+import LoginRoundedIcon from "@mui/icons-material/LoginRounded";
 import { Button } from "@mui/material";
 import Card from "@mui/material/Card";
 import Switch from "@mui/material/Switch";
@@ -23,16 +23,19 @@ import { useDispatch } from "react-redux";
 import { useLocation, useNavigate } from "react-router-dom";
 import {
   INTERNAL_SERVER_ERROR,
-  INTERNAL_SERVER_ERROR_MSG, NOT_FOUND_ERROR_MSG, NOT_FOUND_STATUS_CODE, UNAUTHORIZED_ERROR_MSG, UNAUTHORIZED_STATUS_CODE
+  INTERNAL_SERVER_ERROR_MSG,
+  NOT_FOUND_ERROR_MSG,
+  NOT_FOUND_STATUS_CODE,
+  UNAUTHORIZED_ERROR_MSG,
+  UNAUTHORIZED_STATUS_CODE,
 } from "../../lib/constants";
 import { getBrandThunk } from "../../redux/slices/onboarding";
 import { login } from "../../services/onboarding";
 
 function SignIn() {
-                
   const navigate = useNavigate();
   const { state } = useLocation();
-  const dispatch = useDispatch(); 
+  const dispatch = useDispatch();
   const [isLoading, setIsLoading] = useState(false);
   const formRef = useRef("form");
   const initialRoutesSetRef = useRef(false);
@@ -79,7 +82,7 @@ function SignIn() {
   };
 
   const handleSubmit = async () => {
-    setIsLoading(true)
+    setIsLoading(true);
     // setShowProgress(true);
     // const res = await login(user);
 
@@ -88,7 +91,7 @@ function SignIn() {
     }
     const response = await login(user);
     if (response && response.auth) {
-      setIsLoading(false) 
+      setIsLoading(false);
       localStorage.setItem("token", response.token);
       localStorage.setItem("auth", true);
       localStorage.setItem("emailId", user.EmailId);
@@ -96,7 +99,7 @@ function SignIn() {
       setLayout(contextDispatch, "dashboard");
       navigate("/dashboard");
     } else {
-      setIsLoading(false) 
+      setIsLoading(false);
       const validate = validateResponse(response.status);
       const errorObj = { ...error };
       errorObj.hasError = true;
@@ -113,7 +116,7 @@ function SignIn() {
       initialRoutesSetRef.current = true;
       navigate("/authentication/sign-in");
     }
-  } 
+  }
   const alertContent = (message) => (
     <MDBox>
       <MDTypography variant="body2" color="white">
@@ -123,7 +126,7 @@ function SignIn() {
   );
 
   return (
-    <ValidatorForm formRef="form" onSubmit={handleSubmit}> 
+    <ValidatorForm formRef="form" onSubmit={handleSubmit}>
       {state?.register ? (
         <MDAlert color="success" dismissible>
           {alertContent("Account has been created successfully!!")}
@@ -195,17 +198,17 @@ function SignIn() {
                 <MDLoadingButton
                   sx={{ margin: 2 }}
                   onClick={handleSubmit}
-                  loading ={isLoading}
+                  loading={isLoading}
                   color="info"
                   loadingPosition="start"
-                  startIcon={<LoginRoundedIcon/> }
+                  startIcon={<LoginRoundedIcon />}
                   variant="gradient"
                   fullWidth
                   mx={2}
                   name="login"
-                  size="small" 
+                  size="small"
                 >
-                 Sign inn
+                  Sign in
                 </MDLoadingButton>
               </MDBox>
               <MDBox mt={3} mb={1} textAlign="center">

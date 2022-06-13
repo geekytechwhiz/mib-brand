@@ -1,3 +1,5 @@
+/* eslint-disable consistent-return */
+/* eslint-disable no-unused-vars */
 /* eslint-disable react/prop-types */
 /* eslint-disable jsx-a11y/label-has-associated-control */
 /* eslint-disable react/jsx-no-useless-fragment */
@@ -14,7 +16,6 @@ import FormControlLabel from "@mui/material/FormControlLabel";
 import Grid from "@mui/material/Grid";
 import IconButton from "@mui/material/IconButton";
 import axios from "axios";
-import MDAlert from "components/MDAlert";
 import MDBox from "components/MDBox";
 import MDInput from "components/MDInput";
 import MDLoadingButton from "components/MDLoadingButton";
@@ -24,10 +25,13 @@ import _ from "lodash";
 import React, { useRef, useState } from "react";
 import { postSignedUrl } from "services/common";
 import { v4 as uuidv4 } from "uuid";
+import { useDispatch } from "react-redux";
+import { alert } from "redux/slices/root/rootSlice";
 import { updateAddressDetails } from "../../services/onboarding/index";
 
 export default function AddressDetails({ data }) {
   debugger;
+  const dispatch = useDispatch();
   const signatureRef = useRef(null);
   const logoRef = useRef(null);
   const [isLoading, setIsLoading] = useState({
@@ -45,11 +49,9 @@ export default function AddressDetails({ data }) {
   const brandId = localStorage.getItem("brandId");
   const emailId = localStorage.getItem("emailId");
   const [disabled, setDisabled] = useState(true);
-  const [isSaved, setIsSaved] = useState(false);
+  // const [isSaved, setIsSaved] = useState(false);
   const [addressDetails, setAddressDetails] = useState(data);
   const [isSameAddress, setIsSameAddress] = useState(false);
-  // const billingAddress = addressDetails.BillingAddress || {};
-  // const shippingAddress = addressDetails.ShippingAddress || {};
   const [document, setDocuments] = useState({
     Logo: "",
     Signature: "",
@@ -72,11 +74,28 @@ export default function AddressDetails({ data }) {
     setIsLoading({ save: false, cancel: false });
   };
   const handleSave = async () => {
+    debugger;
     setIsLoading({ save: true, cancel: false });
-    const res = await updateAddressDetails(addressDetails, emailId);
-    console.log(res);
+    const res = await updateAddressDetails(addressDetails, emailId, brandId);
     setIsLoading({ save: false, cancel: false });
-    setIsSaved(true);
+    console.log(res);
+    if (res) {
+      const success = {
+        show: true,
+        tittle: "Updated Successfully",
+        status: "success",
+        message: "Address details has been updated successfully!",
+      };
+      dispatch(alert(success));
+    } else {
+      const error = {
+        show: true,
+        tittle: "Updated Action failed",
+        status: "error",
+        message: "Updated Action failed!",
+      };
+      dispatch(alert(error));
+    }
   };
   const handleChange = (event) => {
     debugger;
@@ -122,13 +141,29 @@ export default function AddressDetails({ data }) {
     if (!res) return null;
     const axiosRes = await axios.put(res.preSignedUrl, file);
 
-    if (axiosRes.status !== 200) return false;
+    if (axiosRes.status !== 200) {
+      const error = {
+        show: true,
+        tittle: "Updated Action failed",
+        status: "error",
+        message: "Updated Action failed!",
+      };
+      dispatch(alert(error));
+    } else {
+      const success = {
+        show: true,
+        tittle: "Updated Successfully",
+        status: "success",
+        message: "File uploaded successfully!",
+      };
+      dispatch(alert(success));
+    }
     const imgUlr = { Name: file.name, Url: res.fileName };
     setAddressDetails(() => ({
       ...addressDetails,
       [name]: imgUlr,
     }));
-    setIsSaved(true);
+
     setIsEnabled({
       Signature: false,
       Logo: false,
@@ -137,12 +172,6 @@ export default function AddressDetails({ data }) {
       Signature: false,
       Logo: false,
     });
-
-    return {
-      body: file,
-      meta: { fileUrl: `https://mibuploaddev.s3.ap-south-1.amazonaws.com` },
-      url: res.preSignedUrl,
-    };
   };
 
   const handleFileUpload = (event) => {
@@ -176,31 +205,8 @@ export default function AddressDetails({ data }) {
 
     setIsSameAddress(checked);
   };
-  const alertContent = (message) => (
-    <MDTypography variant="body2" color="white">
-      <CheckCircleOutlineRoundedIcon />
-      <MDTypography
-        sx={{ padding: 2 }}
-        component="a"
-        href="#"
-        variant="body2"
-        fontWeight="medium"
-        color="white"
-      >
-        {message}
-      </MDTypography>
-    </MDTypography>
-  );
-
   return (
     <MDBox textAlign="center">
-      {isSaved ? (
-        <MDAlert color="success" dismissible>
-          {alertContent("Document uploaded successfully!")}
-        </MDAlert>
-      ) : (
-        <></>
-      )}
       <Grid
         container
         display="flex"
@@ -368,7 +374,7 @@ export default function AddressDetails({ data }) {
         <Grid item xs={5} mb={2}>
           <MDInput
             disabled={disabled}
-            value={addressDetails?.ShippingAddress?.AddressLine1}
+            value={addressDetails?.ShippingAddress?.AddressLine2}
             required
             type="text"
             name="AddressLine2"
@@ -432,11 +438,11 @@ export default function AddressDetails({ data }) {
         container
         display="flex"
         spacing={1}
-        justifyContent="center"
-        flexDirection="column"
+        justifyContent="space-between"
+        flexDirection="row"
         xs={12}
       >
-        <Grid item xs={5} mb={1} textAlign="left">
+        <Grid item xs={5} mb={1}>
           <MDTypography
             variant="caption"
             color="text"
@@ -449,6 +455,7 @@ export default function AddressDetails({ data }) {
             <label htmlFor="icon-button-photo">
               <input
                 ref={logoRef}
+                disabled={disabled}
                 type="file"
                 name="Logo"
                 accept="image/*"
@@ -490,7 +497,7 @@ export default function AddressDetails({ data }) {
               ) : (
                 <></>
               )}
-              {addressDetails?.Logo ? (
+              {addressDetails?.Logo?.Url ? (
                 <CheckCircleOutlineOutlinedIcon color="success" />
               ) : (
                 <DoDisturbOnOutlinedIcon color="error">
@@ -500,7 +507,7 @@ export default function AddressDetails({ data }) {
             </label>
           </>
         </Grid>
-        <Grid item xs={12} mb={1} textAlign="left">
+        <Grid item xs={5} mb={1}>
           <MDTypography
             variant="caption"
             color="text"
@@ -513,6 +520,7 @@ export default function AddressDetails({ data }) {
             <label htmlFor="icon-button-photo">
               <input
                 ref={signatureRef}
+                disabled={disabled}
                 type="file"
                 name="Signature"
                 accept="image/*"
@@ -554,7 +562,7 @@ export default function AddressDetails({ data }) {
               ) : (
                 <></>
               )}
-              {addressDetails?.Signature ? (
+              {addressDetails?.Signature?.Url ? (
                 <CheckCircleOutlineOutlinedIcon color="success" />
               ) : (
                 <DoDisturbOnOutlinedIcon color="error">

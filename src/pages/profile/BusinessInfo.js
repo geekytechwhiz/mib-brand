@@ -20,6 +20,7 @@ import MDTypography from "components/MDTypography";
 import { useDispatch } from "react-redux";
 import { gstValidator, validatePAN } from "lib/helper/validator";
 import React, { useState } from "react";
+import { getBrandThunk } from "redux/slices/onboarding/index";
 import { Category, SubCategory } from "../../lib/data";
 import { updateBusinessDetails } from "../../services/onboarding/index";
 
@@ -143,7 +144,9 @@ export default function BusinessInfo({ data }) {
     setIsLoading({ save: true, cancel: false });
     businessInfo.BrandId = brandId;
     const req = businessInfo;
-
+    if (req.GSTIN) {
+      req.GSTNVerification = true;
+    }
     const res = await updateBusinessDetails(req, emailId);
     dispatch(getBrandThunk(emailId));
 
@@ -307,18 +310,10 @@ export default function BusinessInfo({ data }) {
             )}
           />
         </Grid>
-        <Grid item xs={5} mb={2}>
-          <FormControlLabel
-            control={
-              <Checkbox checked={gstSelection} onChange={handleGstnSelection} />
-            }
-            label="We dont have have GSTIN"
-          />
-        </Grid>
         <Grid item xs={5}>
           <Grid item xs={8} mb={2}>
             <MDInput
-              disabled={disableGstn}
+              disabled={disabled}
               required
               type="text"
               label="GSTIN"
@@ -332,7 +327,7 @@ export default function BusinessInfo({ data }) {
           </Grid>
         </Grid>
         <Grid item xs={5}>
-          <Grid item xs={12} mb={2}>
+          <Grid item xs={8} mb={2}>
             <MDInput
               disabled={disabled}
               required
@@ -348,7 +343,7 @@ export default function BusinessInfo({ data }) {
           </Grid>
         </Grid>
         <Grid item xs={5}>
-          <Grid item xs={8} mb={2}>
+          <Grid item xs={12} mb={2}>
             <MDInput
               disabled={disabled}
               required

@@ -1,3 +1,4 @@
+/* eslint-disable consistent-return */
 /* eslint-disable react/prop-types */
 /* eslint-disable no-unused-vars */
 /* eslint-disable jsx-a11y/label-has-associated-control */
@@ -5,25 +6,27 @@
 /* eslint-disable no-debugger */
 import CancelIcon from "@mui/icons-material/Cancel";
 import CheckCircleOutlineOutlinedIcon from "@mui/icons-material/CheckCircleOutlineOutlined";
-import CheckCircleOutlineRoundedIcon from "@mui/icons-material/CheckCircleOutlineRounded";
 import DoDisturbOnOutlinedIcon from "@mui/icons-material/DoDisturbOnOutlined";
 import PhotoCamera from "@mui/icons-material/PhotoCamera";
 import SaveIcon from "@mui/icons-material/Save";
 import Grid from "@mui/material/Grid";
 import IconButton from "@mui/material/IconButton";
 import axios from "axios";
-import MDAlert from "components/MDAlert";
 import MDBox from "components/MDBox";
 import MDLoadingButton from "components/MDLoadingButton";
 import MDTypography from "components/MDTypography";
 import { RESOURCE_DOCUMENT_VERIFICATION } from "lib/constants";
+import _ from "lodash";
 import React, { useRef, useState } from "react";
+import { useDispatch } from "react-redux";
+import { alert } from "redux/slices/root/rootSlice";
 import { postSignedUrl } from "services/common";
 import { v4 as uuidv4 } from "uuid";
-import { updateBankDetails } from "../../services/onboarding/index";
+import { updateDocuments } from "../../services/onboarding/index";
 
 export default function VerifyDocuments({ data }) {
-  const verification = data;
+  debugger;
+  const dispatch = useDispatch();
   const aadharFrontRef = useRef(null);
   const aadharBackRef = useRef(null);
   const proofRef = useRef(null);
@@ -31,25 +34,23 @@ export default function VerifyDocuments({ data }) {
   const brandId = localStorage.getItem("brandId");
   const emailId = localStorage.getItem("emailId");
   const [document, setDocuments] = useState({
-    aadhaarFront: "",
-    aadhaarBack: "",
+    AadhaarFront: "",
+    AadhaarBack: "",
   });
   const [selectedFiles, setSelectedFiles] = useState([]);
   const [isLoading, setIsLoading] = useState({
-    aadhaarfront: false,
-    aadhaarback: false,
-    proof: false,
-    companypan: false,
+    AadhaarFront: false,
+    AadhaarBack: false,
+    BusinessProof: false,
+    Pan: false,
   });
   const [isEnabled, setIsEnabled] = useState({
-    aadhaarfront: false,
-    aadhaarback: false,
-    proof: false,
-    companypan: false,
+    AadhaarFront: false,
+    AadhaarBack: false,
+    BusinessProof: false,
+    Pan: false,
   });
-  const [isSaved, setIsSaved] = useState(false);
-  const [docsVerification, setDocsVerification] = useState({});
-  const images = [];
+  const [docsVerification, setDocsVerification] = useState(data);
 
   const handleCancel = async () => {
     const keys = Object.keys(docsVerification);
@@ -65,76 +66,105 @@ export default function VerifyDocuments({ data }) {
   };
   const handleSave = async () => {
     debugger;
-    const bankObj = { ...docsVerification };
-    bankObj.BrandId = brandId;
-    const req = { ...bankObj, ...docsVerification };
+    const docs = { ...docsVerification };
+    docs.BrandId = brandId;
+    const req = { ...docsVerification };
     setIsLoading({ save: true, cancel: false });
-    const res = await updateBankDetails(req, emailId);
-    if (res) {
-      setIsLoading({ save: false, cancel: false });
-      setIsSaved(true);
+    const res = await updateDocuments(req, emailId, brandId);
+    setIsLoading({ save: false, cancel: false });
+    if (!res) {
+      const error = {
+        show: true,
+        tittle: "Updated Action failed",
+        status: "error",
+        message: "Updated Action failed!",
+      };
+      dispatch(alert(error));
+    } else {
+      const success = {
+        show: true,
+        tittle: "Updated Successfully",
+        status: "success",
+        message: "Documents has been updated successfully!",
+      };
+      dispatch(alert(success));
     }
   };
 
-  const alertContent = (message) => (
-    <MDTypography variant="body2" color="white">
-      <CheckCircleOutlineRoundedIcon />
-      <MDTypography
-        sx={{ padding: 2 }}
-        component="a"
-        href="#"
-        variant="body2"
-        fontWeight="medium"
-        color="white"
-      >
-        {message}
-      </MDTypography>
-    </MDTypography>
-  );
-
   const uuid = uuidv4();
   const getUploadParams = async (e) => {
-    const { name } = e.target;
-    const isLoadingObj = {
-      aadhaarfront: false,
-      aadhaarback: false,
-      proof: false,
-      companypan: false,
-    };
-    isLoadingObj[name] = true;
-    setIsLoading(isLoadingObj);
-    const file = selectedFiles[0];
-    const req = {
-      contentType: file.type,
-      resource: RESOURCE_DOCUMENT_VERIFICATION,
-      brandId,
-      resourceId: name,
-      uuid,
-    };
-    const res = await postSignedUrl(req);
-    if (!res) return null;
-    images.push(res.fileName);
-    const axiosRes = await axios.put(res.preSignedUrl, file);
+    debugger;
+    try {
+      const { name } = e.target;
+      const isLoadingObj = {
+        AadhaarFront: false,
+        AadhaarBack: false,
+        BusinessProof: false,
+        Pan: false,
+      };
+      isLoadingObj[name] = true;
+      setIsLoading(isLoadingObj);
+      const file = selectedFiles[0];
+      const req = {
+        contentType: file.type,
+        resource: RESOURCE_DOCUMENT_VERIFICATION,
+        brandId,
+        resourceId: name,
+        uuid,
+      };
+      const res = await postSignedUrl(req);
+      if (!res) return null;
+      // images.push(res.fileName);
+      const axiosRes = await axios.put(res.preSignedUrl, file);
 
-    if (axiosRes.status !== 200) return false;
-    setIsSaved(true);
-    setIsEnabled({
-      aadhaarfront: false,
-      aadhaarback: false,
-      proof: false,
-      companypan: false,
-    });
-    setIsLoading({
-      aadhaarfront: false,
-      aadhaarback: false,
-      proof: false,
-      companypan: false,
-    });
-    return {
-      body: file,
-      meta: { fileUrl: `https://mibuploaddev.s3.ap-south-1.amazonaws.com` },
-      url: res.preSignedUrl,
-    };
+      if (axiosRes.status !== 200) return false;
+      const initialState = _.cloneDeep(docsVerification);
+      initialState[name] = {
+        Uploaded: true,
+        Verified: true,
+        Url: res.fileName,
+      };
+      setDocsVerification(initialState);
+      const success = {
+        show: true,
+        tittle: "Updated Successfully",
+        status: "success",
+        message: "Document uploaded successfully!",
+      };
+      dispatch(alert(success));
+      setIsEnabled({
+        AadhaarFront: false,
+        AadhaarBack: false,
+        BusinessProof: false,
+        Pan: false,
+      });
+      setIsLoading({
+        AadhaarFront: false,
+        AadhaarBack: false,
+        BusinessProof: false,
+        Pan: false,
+      });
+    } catch (err) {
+      setIsEnabled({
+        AadhaarFront: false,
+        AadhaarBack: false,
+        BusinessProof: false,
+        Pan: false,
+      });
+      setIsLoading({
+        AadhaarFront: false,
+        AadhaarBack: false,
+        BusinessProof: false,
+        Pan: false,
+      });
+      const error = {
+        show: true,
+        tittle: "Updated Action failed",
+        status: "error",
+        message: "Something went wrong!",
+      };
+      dispatch(alert(error));
+    }
   };
 
   const handleFileUpload = (event) => {
@@ -144,15 +174,11 @@ export default function VerifyDocuments({ data }) {
       const tempSelectedFiles = selectedFiles;
       tempSelectedFiles.push(event.target.files[0]);
       setSelectedFiles(tempSelectedFiles);
-      setDocuments(() => ({
-        ...document,
-        [name]: event.target.files[0].name,
-      }));
       const temp = {
-        aadhaarfront: true,
-        aadhaarback: false,
-        proof: false,
-        companypan: false,
+        AadhaarFront: false,
+        AadhaarBack: false,
+        BusinessProof: false,
+        Pan: false,
       };
       temp[name] = true;
       setIsEnabled(temp);
@@ -160,13 +186,6 @@ export default function VerifyDocuments({ data }) {
   };
   return (
     <MDBox textAlign="center">
-      {isSaved ? (
-        <MDAlert color="success" dismissible>
-          {alertContent("Document has been uploaded successfully")}
-        </MDAlert>
-      ) : (
-        <></>
-      )}
       <Grid
         container
         display="flex"
@@ -209,14 +228,14 @@ export default function VerifyDocuments({ data }) {
               fontWeight="medium"
               textAlign="left"
             >
-              Aadhaar Back of Authorized Signatory
+              Aadhaar Front of Authorized Signatory
             </MDTypography>
             <>
               <label htmlFor="icon-button-photo">
                 <input
                   ref={aadharFrontRef}
                   type="file"
-                  name="aadhaarFront"
+                  name="AadhaarFront"
                   accept="image/*"
                   style={{ display: "none" }}
                   onChange={handleFileUpload}
@@ -235,19 +254,19 @@ export default function VerifyDocuments({ data }) {
                   fontWeight="medium"
                   textAlign="left"
                 >
-                  {document.aadhaarFront}
+                  {document.AadhaarFront}
                 </MDTypography>
-                {isEnabled.aadhaarfront ? (
+                {isEnabled.AadhaarFront ? (
                   <MDLoadingButton
                     sx={{ margin: 2 }}
-                    loading={isLoading.aadhaarfront}
-                    disabled={!isEnabled.aadhaarfront}
+                    loading={isLoading.AadhaarFront}
+                    disabled={!isEnabled.AadhaarFront}
                     color="success"
                     loadingPosition="start"
                     startIcon={<PhotoCamera />}
                     variant="outlined"
                     mx={2}
-                    name="aadhaarfront"
+                    name="AadhaarFront"
                     size="small"
                     onClick={getUploadParams}
                   >
@@ -256,7 +275,7 @@ export default function VerifyDocuments({ data }) {
                 ) : (
                   <></>
                 )}
-                {verification?.AadhaarFront ? (
+                {docsVerification?.AadhaarFront?.Uploaded ? (
                   <CheckCircleOutlineOutlinedIcon color="success" />
                 ) : (
                   <DoDisturbOnOutlinedIcon color="error">
@@ -281,7 +300,7 @@ export default function VerifyDocuments({ data }) {
                 <input
                   ref={aadharBackRef}
                   type="file"
-                  name="aadhaarBack"
+                  name="AadhaarBack"
                   accept="image/*"
                   style={{ display: "none" }}
                   onChange={handleFileUpload}
@@ -300,19 +319,19 @@ export default function VerifyDocuments({ data }) {
                   fontWeight="medium"
                   textAlign="left"
                 >
-                  {document.aadhaarBack}
+                  {document.AadhaarBack}
                 </MDTypography>
-                {isEnabled.aadhaarback ? (
+                {isEnabled.AadhaarBack ? (
                   <MDLoadingButton
                     sx={{ margin: 2 }}
-                    loading={isLoading.aadhaarback}
-                    disabled={!isEnabled.aadhaarback}
+                    loading={isLoading.AadhaarBack}
+                    disabled={!isEnabled.AadhaarBack}
                     color="success"
                     loadingPosition="start"
                     startIcon={<PhotoCamera />}
                     variant="outlined"
                     mx={2}
-                    name="aadhaarback"
+                    name="AadhaarBack"
                     size="small"
                     onClick={getUploadParams}
                   >
@@ -321,7 +340,7 @@ export default function VerifyDocuments({ data }) {
                 ) : (
                   <></>
                 )}
-                {verification?.AadhaarBack ? (
+                {docsVerification?.AadhaarBack?.Uploaded ? (
                   <CheckCircleOutlineOutlinedIcon color="success" />
                 ) : (
                   <DoDisturbOnOutlinedIcon color="error">
@@ -346,7 +365,7 @@ export default function VerifyDocuments({ data }) {
                 <input
                   ref={proofRef}
                   type="file"
-                  name="proof"
+                  name="BusinessProof"
                   accept="image/*"
                   style={{ display: "none" }}
                   onChange={handleFileUpload}
@@ -365,19 +384,19 @@ export default function VerifyDocuments({ data }) {
                   fontWeight="medium"
                   textAlign="left"
                 >
-                  {document.proof}
+                  {document.BusinessProof}
                 </MDTypography>
-                {isEnabled.proof ? (
+                {isEnabled.BusinessProof ? (
                   <MDLoadingButton
                     sx={{ margin: 2 }}
-                    loading={isLoading.proof}
-                    disabled={!isEnabled.proof}
+                    loading={isLoading.BusinessProof}
+                    disabled={!isEnabled.BusinessProof}
                     color="success"
                     loadingPosition="start"
                     startIcon={<PhotoCamera />}
                     variant="outlined"
                     mx={2}
-                    name="aadhaarback"
+                    name="AadhaarBack"
                     size="small"
                     onClick={getUploadParams}
                   >
@@ -386,7 +405,7 @@ export default function VerifyDocuments({ data }) {
                 ) : (
                   <></>
                 )}
-                {verification?.BusinessProof ? (
+                {docsVerification?.BusinessProof?.Uploaded ? (
                   <CheckCircleOutlineOutlinedIcon color="success" />
                 ) : (
                   <DoDisturbOnOutlinedIcon color="error">
@@ -410,7 +429,7 @@ export default function VerifyDocuments({ data }) {
               <label htmlFor="icon-button-photo">
                 <input
                   ref={panRef}
-                  name="companypan"
+                  name="Pan"
                   type="file"
                   accept="image/*"
                   style={{ display: "none" }}
@@ -430,19 +449,19 @@ export default function VerifyDocuments({ data }) {
                   fontWeight="medium"
                   textAlign="left"
                 >
-                  {document.companypan}
+                  {document.Pan}
                 </MDTypography>
-                {isEnabled.companypan ? (
+                {isEnabled.Pan ? (
                   <MDLoadingButton
                     sx={{ margin: 2 }}
-                    loading={isLoading.companypan}
-                    disabled={!isEnabled.companypan}
+                    loading={isLoading.Pan}
+                    disabled={!isEnabled.Pan}
                     color="success"
                     loadingPosition="start"
                     startIcon={<PhotoCamera />}
                     variant="outlined"
                     mx={2}
-                    name="aadhaarback"
+                    name="AadhaarBack"
                     size="small"
                     onClick={getUploadParams}
                   >
@@ -451,7 +470,7 @@ export default function VerifyDocuments({ data }) {
                 ) : (
                   <></>
                 )}
-                {verification?.Pan ? (
+                {docsVerification?.Pan?.Uploaded ? (
                   <CheckCircleOutlineOutlinedIcon color="success" />
                 ) : (
                   <DoDisturbOnOutlinedIcon color="error">

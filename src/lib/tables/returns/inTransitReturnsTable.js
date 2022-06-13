@@ -5,7 +5,6 @@
 /* eslint-disable no-debugger */
 /* eslint-disable no-unused-vars */
 // Images
-import { Checkbox } from "@mui/material";
 import {
   RenderAddressColumn,
   RenderColumn,
@@ -15,6 +14,7 @@ import {
   ReturnInfo,
 } from "lib/tables/common";
 import React from "react";
+import { RenderWarehouseAddress } from "../common";
 
 function InTransitReturns(orders, brandInfo) {
   const rows = [];
@@ -55,6 +55,10 @@ function InTransitReturns(orders, brandInfo) {
         ProductInfo: RenderReturnProductInfo(element, "ProductInfo"),
         QualityCheck: RenderColumn(element, "QualityCheck"),
         Reason: RenderColumn(element, "Reason"),
+        WarehouseAddress: RenderWarehouseAddress(
+          brandInfo?.AddressDetails?.ShippingAddress,
+          brandInfo?.BusinessDetails
+        ),
         Dimension: RenderPackageInfo(element),
         ShippingDetails: RenderColumn(element, "ShippingDetails"),
       };
@@ -110,7 +114,7 @@ function InTransitReturns(orders, brandInfo) {
         },
         {
           Header: "Warehouse Address",
-          accessor: "PickupAddress",
+          accessor: "WarehouseAddress",
           align: "left",
           width: 200,
         },

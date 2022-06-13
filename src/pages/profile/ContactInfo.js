@@ -16,9 +16,12 @@ import MDLoadingButton from "components/MDLoadingButton";
 import MDTypography from "components/MDTypography";
 import _ from "lodash";
 import React, { useState } from "react";
+import { useDispatch } from "react-redux";
+import { alert } from "redux/slices/root/rootSlice";
 import { updateContactInfo } from "../../services/onboarding/index";
 
 function ContactInfo({ data }) {
+  const dispatch = useDispatch();
   const options = [
     {
       label: "English",
@@ -34,7 +37,6 @@ function ContactInfo({ data }) {
     },
   ];
   const [disabled, setDisabled] = useState(true);
-  const [isSaved, setIsSaved] = useState(false);
   const [contactDetails, setContactDetails] = useState(data || {});
 
   const languages =
@@ -73,9 +75,24 @@ function ContactInfo({ data }) {
     const emailId = localStorage.getItem("emailId");
     const req = { ...data, ...contactDetails };
     const res = await updateContactInfo(req, emailId);
-    if (res) {
-      setIsLoading({ save: false, cancel: false });
-      setIsSaved(true);
+    setIsLoading({ save: false, cancel: false });
+    debugger;
+    if (!res) {
+      const error = {
+        show: true,
+        tittle: "Updated Action failed",
+        status: "error",
+        message: "Updated Action failed!",
+      };
+      dispatch(alert(error));
+    } else {
+      const success = {
+        show: true,
+        tittle: "Updated Successfully",
+        status: "success",
+        message: "Contact information uploaded successfully!",
+      };
+      dispatch(alert(success));
     }
   };
 
@@ -90,30 +107,8 @@ function ContactInfo({ data }) {
     }));
     setIsLoading({ save: false, cancel: false });
   };
-  const alertContent = (name) => (
-    <MDTypography variant="body2" color="white">
-      <MDTypography
-        component="a"
-        href="#"
-        variant="body2"
-        fontWeight="medium"
-        color="white"
-      >
-        {name} Saved successfully!
-      </MDTypography>
-    </MDTypography>
-  );
-
   return (
     <MDBox textAlign="center">
-      {isSaved ? (
-        <MDAlert color="success" dismissible>
-          {alertContent("Contact information")}
-        </MDAlert>
-      ) : (
-        <></>
-      )}
-
       <Grid
         container
         display="flex"

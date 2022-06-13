@@ -1,3 +1,4 @@
+/* eslint-disable react/jsx-no-useless-fragment */
 /* eslint-disable no-debugger */
 /* eslint-disable no-unused-vars */
 /* eslint-disable react/prop-types */
@@ -7,7 +8,9 @@ import MDButton from "components/MDButton";
 import _ from "lodash";
 import * as React from "react";
 import { shallowEqual, useSelector } from "react-redux";
+import { Button, Dialog, DialogTitle } from "@mui/material";
 import { useNavigate } from "react-router-dom";
+import MDTypography from "components/MDTypography";
 import ExclusiveTab from "../exclusiveTab";
 
 export default function ActiveProducts() {
@@ -18,7 +21,10 @@ export default function ActiveProducts() {
 
   const inventoryData =
     useSelector((state) => state.inventory?.products, shallowEqual) || null;
-
+  const businessDetails =
+    useSelector((state) => state.auth?.accountInfo?.BusinessDetails) || null;
+  const [hasGSTVerified, setHasGSTVerified] = React.useState(true);
+  const [open, setOpen] = React.useState(false);
   if (inventoryData && Object.keys(inventoryData).length > 0) {
     exData = inventoryData.Exclusive;
     const exKeys = Object.keys(inventoryData.Exclusive) || [];
@@ -37,11 +43,16 @@ export default function ActiveProducts() {
       }));
   }
   const handleAddNew = () => {
-    navigate("/add-product", {
-      state: {
-        productId: "",
-      },
-    });
+    debugger;
+    if (!businessDetails.GSTNVerification) {
+      setOpen(true);
+    } else {
+      navigate("/add-product", {
+        state: {
+          productId: "",
+        },
+      });
+    }
   };
 
   return (
@@ -82,6 +93,32 @@ export default function ActiveProducts() {
           </MDButton>
         </div>
       </div>
+
+      <Dialog
+        maxWidth="md"
+        fullWidth
+        open={open}
+        onClose={() => {
+          setOpen(false);
+        }}
+      >
+        <DialogTitle>
+          <MDBox mx={3} pt={3} pb={3} mb={4} textAlign="center">
+            <MDTypography variant="button" color="error" fontWeight="regular">
+              Your have not verified your GST Number!!
+            </MDTypography>
+            <Button
+              variant="text"
+              onClick={() => {
+                setOpen(false);
+                navigate("/profile");
+              }}
+            >
+              Click Here To Verify your GSTN
+            </Button>
+          </MDBox>
+        </DialogTitle>
+      </Dialog>
 
       <ExclusiveTab isActive data={exData} tabs={exTabs} />
     </MDBox>

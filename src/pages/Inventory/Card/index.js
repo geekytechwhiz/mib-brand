@@ -133,8 +133,14 @@ function ProductCard({
         <MDBox>
           <MDTypography variant="caption" fontWeight="medium">
             Stock:
-            <MDTypography component="span" variant="caption" color="text">
-              {stock} 45
+            <MDTypography
+              component="span"
+              variant="caption"
+              fontWeight="medium"
+              px={1}
+              color={stock < 5 ? "error" : "success"}
+            >
+              {stock}
             </MDTypography>
           </MDTypography>
         </MDBox>

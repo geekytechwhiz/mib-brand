@@ -27,6 +27,7 @@ export const login = async (payload) => {
 
 export const updateContactInfo = async (payload, emailId) => {
   try {
+    debugger;
     const reqParam = {
       Name: payload.Name,
       Mobile: payload.Mobile,
@@ -45,33 +46,34 @@ export const updateContactInfo = async (payload, emailId) => {
     return null;
   }
 };
-export const updateBankDetails = async (payload, emailId) => {
+export const updateBankDetails = async (payload, emailId, brandId) => {
   try {
+    debugger;
     const reqParam = {
       BeneficiaryName: payload.BeneficiaryName,
       IFSCode: payload.IFSCode,
       AccountNumber: payload.AccountNumber,
       BankName: payload.BankName,
-      BrandId: payload.BrandId,
+      BrandId: brandId,
       AccountType: payload.AccountType,
     };
 
-    const { data } = await apiInstance.patch(
+    const response = await apiInstance.patch(
       `/brand/bank-details/${emailId}`,
       reqParam
     );
-    return data;
+    return response;
   } catch (err) {
     return null;
   }
 };
 
-export const updateAddressDetails = async (payload, emailId) => {
+export const updateAddressDetails = async (payload, emailId, brandId) => {
   try {
     const reqParam = {
       BillingAddress: payload.BillingAddress,
       ShippingAddress: payload.ShippingAddress,
-      BrandId: payload.BrandId,
+      BrandId: brandId,
       Logo: payload.Logo,
       Signature: payload.Signature,
     };
@@ -94,6 +96,7 @@ export const updateBusinessDetails = async (payload, emailId) => {
       Category: payload.Category,
       SubCategory: payload.SubCategory,
       GSTIN: payload.GSTIN,
+      GSTNVerification: payload.GSTNVerification,
       BusinessPAN: payload.BusinessPAN,
       PANOwnerName: payload.PANOwnerName,
       BrandName: payload.BrandName,
@@ -104,6 +107,24 @@ export const updateBusinessDetails = async (payload, emailId) => {
 
     const { data } = await apiInstance.patch(
       `/brand/business-details/${emailId}`,
+      reqParam
+    );
+    return data;
+  } catch (err) {
+    return null;
+  }
+};
+
+export const updateDocuments = async (payload, emailId, brandId) => {
+  try {
+    debugger;
+    const reqParam = {
+      BrandId: brandId,
+      ...payload,
+    };
+
+    const { data } = await apiInstance.patch(
+      `/brand/update-documents/${emailId}`,
       reqParam
     );
     return data;

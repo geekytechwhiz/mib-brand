@@ -128,7 +128,6 @@ function DashboardNavbar({ absolute, light, isMini }) {
       </MDTypography>
     </MDTypography>
   );
-  // Render the notifications menu
   const renderMenu = () => (
     <Menu
       anchorEl={openMenu}

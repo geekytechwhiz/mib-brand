@@ -3,7 +3,6 @@
 /* eslint-disable react/prop-types */
 /* eslint-disable no-debugger */
 import MoreVertIcon from "@mui/icons-material/MoreVert";
-import { LoadingButton } from "@mui/lab";
 import { Dialog, DialogTitle, Icon } from "@mui/material";
 import IconButton from "@mui/material/IconButton";
 import Menu from "@mui/material/Menu";
@@ -11,11 +10,16 @@ import MenuItem from "@mui/material/MenuItem";
 import MDBox from "components/MDBox";
 import MDButton from "components/MDButton";
 import MDTypography from "components/MDTypography";
-import { PRODUCT_STATUS_DELETED, PRODUCT_STATUS_INACTIVE } from "lib/constants";
+import {
+  PRODUCT_STATUS_DELETED,
+  PRODUCT_STATUS_INACTIVE,
+  PRODUCT_STATUS_PUBLISHED,
+} from "lib/constants";
 import React, { useState } from "react";
 import { useDispatch } from "react-redux";
 import { useNavigate } from "react-router-dom";
 import { patchProductStatusThunk } from "redux/slices/inventory/index";
+import { alert } from "redux/slices/root/rootSlice";
 
 const ITEM_HEIGHT = 48;
 
@@ -39,13 +43,21 @@ export default function CardMenu({
     setAnchorEl(null);
   };
 
-  const updateStatus = (status) => {
+  const updateStatus = async (status) => {
+    const success = {
+      show: true,
+      tittle: "Deleted Successfully",
+      status: "success",
+      message: "Product has been deleted successfully!",
+    };
+
     const req = {
       ProductId: productId,
       ProductCategory: productCategory,
       Status: status,
     };
-    const res = dispatch(patchProductStatusThunk(req));
+    const res = await dispatch(patchProductStatusThunk(req)).unwrap();
+    if (res) dispatch(alert(success));
   };
 
   const handleOnSelect = (e) => {
@@ -59,7 +71,10 @@ export default function CardMenu({
         },
       });
     } else if (value === 2) {
-      updateStatus(PRODUCT_STATUS_INACTIVE);
+      const status = isActive
+        ? PRODUCT_STATUS_INACTIVE
+        : PRODUCT_STATUS_PUBLISHED;
+      updateStatus(status);
     } else if (value === 3) {
       setHasDelete(true);
     }
@@ -80,7 +95,14 @@ export default function CardMenu({
               }}
             >
               <MDTypography variant="caption" fontWeight="medium" color="error">
-                Do you really want to delete ? or make as inactive!
+                Do you really want to delete ?{" "}
+                <MDTypography
+                  variant="caption"
+                  fontWeight="medium"
+                  color="secondary"
+                >
+                  or make as inactive!
+                </MDTypography>
               </MDTypography>
             </MDBox>
             <MDBox
@@ -93,15 +115,19 @@ export default function CardMenu({
                 justifyContent: "space-between",
               }}
             >
-              <LoadingButton
+              <MDButton
                 variant="outlined"
-                color="success"
+                color="secondary"
                 onClick={() => {
-                  updateStatus(PRODUCT_STATUS_INACTIVE);
+                  updateStatus(
+                    isActive
+                      ? PRODUCT_STATUS_INACTIVE
+                      : PRODUCT_STATUS_PUBLISHED
+                  );
                 }}
               >
                 <Icon>inactive</Icon>&nbsp;Mark As Inactive
-              </LoadingButton>
+              </MDButton>
               <MDButton
                 variant="outlined"
                 color="error"

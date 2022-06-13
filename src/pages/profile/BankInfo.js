@@ -7,21 +7,22 @@ import SaveIcon from "@mui/icons-material/Save";
 import { Autocomplete } from "@mui/material";
 import Grid from "@mui/material/Grid";
 import IconButton from "@mui/material/IconButton";
-import MDAlert from "components/MDAlert";
 import MDBox from "components/MDBox";
 import MDInput from "components/MDInput";
 import MDLoadingButton from "components/MDLoadingButton";
 import MDTypography from "components/MDTypography";
 import { ACCOUNT_TYPE_LIST } from "lib/constants";
 import React, { useState } from "react";
+import { useDispatch } from "react-redux";
+import { alert } from "redux/slices/root/rootSlice";
 import { updateBankDetails } from "services/onboarding/index";
 
 export default function BankInfo({ data }) {
+  const dispatch = useDispatch();
   const [isLoading, setIsLoading] = useState({ save: false, cancel: false });
-  const brandId = localStorage.getItem("brandId");
+  // const brandId = localStorage.getItem("brandId");
   const emailId = localStorage.getItem("emailId");
   const [disabled, setDisabled] = useState(true);
-  const [isSaved, setIsSaved] = useState(false);
   const [bankInfo, setBankDetails] = useState(data);
   const [accountNumValidation, setAccountNumValidation] = useState({
     message: "",
@@ -45,14 +46,29 @@ export default function BankInfo({ data }) {
     setIsLoading({ save: false, cancel: false });
   };
   const handleSave = async () => {
+    debugger;
     setIsLoading({ save: true, cancel: false });
     const bankObj = { ...data };
-    bankObj.BrandId = brandId;
     const req = { ...bankObj, ...bankInfo };
     const res = await updateBankDetails(req, emailId);
-    if (res) {
-      setIsLoading({ save: false, cancel: false });
-      setIsSaved(true);
+    debugger;
+    setIsLoading({ save: false, cancel: false });
+    if (!res) {
+      const error = {
+        show: true,
+        tittle: "Updated Action failed",
+        status: "error",
+        message: "Updated Action failed!",
+      };
+      dispatch(alert(error));
+    } else {
+      const success = {
+        show: true,
+        tittle: "Updated Successfully",
+        status: "success",
+        message: "Bank details has been updated successfully!",
+      };
+      dispatch(alert(success));
     }
   };
   const handleAccountTypeChange = (event, values) => {
@@ -71,28 +87,8 @@ export default function BankInfo({ data }) {
     }));
   };
 
-  const alertContent = (message) => (
-    <MDTypography variant="body2" color="white">
-      <MDTypography
-        component="a"
-        href="#"
-        variant="body2"
-        fontWeight="medium"
-        color="white"
-      >
-        {message}
-      </MDTypography>
-    </MDTypography>
-  );
   return (
     <MDBox textAlign="center">
-      {isSaved ? (
-        <MDAlert color="success" dismissible>
-          {alertContent("Bank Details updated successfully!")}
-        </MDAlert>
-      ) : (
-        <></>
-      )}
       <Grid
         container
         display="flex"

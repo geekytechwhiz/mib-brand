@@ -319,7 +319,7 @@ export function RenderDispatchByInfo(row) {
             color="text"
             fontWeight="regular"
           >
-            {row?.DeliveryDetails.HouseName}
+            {row?.DeliveryDetails?.HouseName}
           </MDTypography>
           <MDTypography
             style={{ wordWrap: "break-word" }}
@@ -333,8 +333,8 @@ export function RenderDispatchByInfo(row) {
             color="text"
             fontWeight="regular"
           >
-            {row && row?.DeliveryDetails.Street}{" "}
-            {row && row?.DeliveryDetails.District}
+            {(row && row?.DeliveryDetails?.Street) || ""}
+            {(row && row?.DeliveryDetails?.District) || ""}
           </MDTypography>
           <MDTypography
             style={{ wordWrap: "break-word" }}
@@ -404,7 +404,7 @@ export function RenderWarehouseAddress(address, businessDetails) {
           WebkitBoxOrient: "vertical",
         }}
       >
-        {businessDetails.BusinessName}
+        {businessDetails?.BusinessName}
       </MDTypography>
       <MDTypography
         variant="caption"
@@ -418,14 +418,14 @@ export function RenderWarehouseAddress(address, businessDetails) {
           WebkitBoxOrient: "vertical",
         }}
       >
-        {address.Street}, {address.Street}
+        {address?.Street}, {address?.Street}
       </MDTypography>
       <MDTypography variant="caption" color="text" fontWeight="regular">
-        {address.City}
+        {address?.City}
       </MDTypography>
       <MDTypography variant="caption" color="text" fontWeight="regular">
-        {address.State}
-        {address.PostalCode}
+        {address?.State}
+        {address?.PostalCode}
       </MDTypography>
     </MDBox>
   );

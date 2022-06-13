@@ -137,6 +137,7 @@ function MoreDetails(props) {
       };
       setOpenError(error);
       setShow(false);
+      setIsDraftLoading(false);
       return false;
     }
     const request = {
@@ -157,6 +158,8 @@ function MoreDetails(props) {
         message:
           "Product upload failed. Please check for any error or try again",
       };
+
+      setIsDraftLoading(false);
       dispatch(alert(error));
     } else {
       const success = {
@@ -164,6 +167,8 @@ function MoreDetails(props) {
         message:
           "Product has been uploaded to your inventory and will be live in few minutes",
       };
+
+      setIsDraftLoading(false);
       dispatch(alert(success));
     }
   };
@@ -282,27 +287,10 @@ function MoreDetails(props) {
         </Grid>
       </Grid>
 
-      <Grid container xs={12} justifyContent="space-between">
+      <Grid container xs={12} mt={5} justifyContent="space-between">
         <Grid item xs={3} />
         <Grid item xs={5}>
-          <FormControlLabel
-            control={
-              <Checkbox
-                size="small"
-                onClick={() => {
-                  const value = !acceptTerms;
-                  setAcceptTerms(value);
-                }}
-                checked={acceptTerms}
-              />
-            }
-            label={
-              <MDTypography variant="caption" color="link" fontWeight="medium">
-                <a href="">Accept terms and condition</a>
-              </MDTypography>
-            }
-          />
-          <MDBox display="flex" alignItems="center" ml={-1}>
+          <MDBox display="flex" alignItems="center" ml={1} px={1}>
             <Checkbox
               size="small"
               color="info"
@@ -316,7 +304,7 @@ function MoreDetails(props) {
             <MDTypography
               variant="button"
               color="text"
-              sx={{ cursor: "pointer", userSelect: "none", ml: -1 }}
+              sx={{ cursor: "pointer", userSelect: "none", ml: 1 }}
             >
               &nbsp;&nbsp;I agree the&nbsp;
             </MDTypography>

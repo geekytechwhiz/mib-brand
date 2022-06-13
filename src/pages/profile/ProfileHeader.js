@@ -1,3 +1,4 @@
+/* eslint-disable no-debugger */
 /* eslint-disable react/prop-types */
 /* eslint-disable no-unused-vars */
 // @mui material components
@@ -14,6 +15,7 @@ import MDTypography from "components/MDTypography";
 import { useEffect, useState } from "react";
 
 function ProfileHeader({ data }) {
+  debugger;
   const [tabsOrientation, setTabsOrientation] = useState("horizontal");
   const [tabValue, setTabValue] = useState(0);
 

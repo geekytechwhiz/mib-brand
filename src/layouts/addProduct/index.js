@@ -7,7 +7,7 @@ import Tab from "@mui/material/Tab";
 import MDBox from "components/MDBox";
 import DashboardNavbar from "components/MDNavbar/DashboardNavbar/index";
 import Footer from "layouts/footer/index";
-import CustomizedAccordions from "pages/addProduct/category";
+import CustomizedAccordions from "pages/addProduct/verticals";
 import Description from "pages/addProduct/description";
 import Medias from "pages/addProduct/images";
 import MoreDetails from "pages/addProduct/moreDetails";
@@ -22,7 +22,6 @@ import MDTypography from "components/MDTypography";
 import DashboardLayout from "../layoutContainers/DashboardLayout/index";
 
 function addProduct() {
-                
   const [value, setValue] = useState("0");
   const { state } = useLocation();
   let productDetails = {};
@@ -78,7 +77,7 @@ function addProduct() {
                     <Tab
                       label={
                         <MDTypography variant="button" fontWeight="medium">
-                          Category
+                          Verticals
                         </MDTypography>
                       }
                       value="0"

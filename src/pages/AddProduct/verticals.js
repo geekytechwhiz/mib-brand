@@ -5,28 +5,31 @@
 /* eslint-disable react/prop-types */
 /* eslint-disable react/destructuring-assignment */
 
+import { ExpandMoreOutlined, Search } from "@mui/icons-material";
 import ArrowBackIosNewIcon from "@mui/icons-material/ArrowBackIosNew";
 import ArrowForwardIosIcon from "@mui/icons-material/ArrowForwardIos";
-import ArrowForwardIosSharpIcon from "@mui/icons-material/ArrowForwardIosSharp";
 import MuiAccordion from "@mui/material/Accordion";
 import MuiAccordionDetails from "@mui/material/AccordionDetails";
 import MuiAccordionSummary from "@mui/material/AccordionSummary";
+import Autocomplete from "@mui/material/Autocomplete";
+import Button from "@mui/material/Button";
+import Divider from "@mui/material/Divider";
+import Grid from "@mui/material/Grid";
+import IconButton from "@mui/material/IconButton";
+import InputBase from "@mui/material/InputBase";
 import { styled } from "@mui/material/styles";
-import React, { useEffect, useState } from "react";
 import MDBox from "components/MDBox";
 import MDInput from "components/MDInput";
-import MDTypography from "components/MDTypography";
-import Autocomplete from "@mui/material/Autocomplete";
-import { shallowEqual, useDispatch, useSelector } from "react-redux";
-import Grid from "@mui/material/Grid";
-import Button from "@mui/material/Button";
 import MDSnackbar from "components/MDSnackbar";
-import { ExpandMoreOutlined } from "@mui/icons-material";
+import MDTypography from "components/MDTypography";
+import _ from "lodash";
+import React, { useEffect, useState } from "react";
+import { shallowEqual, useDispatch, useSelector } from "react-redux";
 import { REQUIRED_FIELDS_CATEGORY } from "../../lib/constants";
-import { getCategories, getSubCategories } from "../../lib/helper";
+import { BUSINESS_CATEGORY } from "../../lib/data";
+import { getSubCategories } from "../../lib/helper";
 import { Validate } from "../../lib/validations";
 import { categories } from "../../redux/slices/inventory";
-import { BUSINESS_CATEGORY } from "../../lib/data";
 
 const Accordion = styled((props) => (
   <MuiAccordion disableGutters elevation={0} square {...props} />
@@ -63,6 +66,7 @@ const AccordionDetails = styled(MuiAccordionDetails)(({ theme }) => ({
 
 export default function CategoryAccordion(props) {
   const [expanded, setExpanded] = React.useState(BUSINESS_CATEGORY[0].category);
+  const [verticals, setVerticals] = useState(BUSINESS_CATEGORY);
 
   const handleChange = (panel) => (event, newExpanded) => {
     setExpanded(newExpanded ? panel : false);
@@ -73,7 +77,7 @@ export default function CategoryAccordion(props) {
   const { activeTab, data } = props;
   let validationResponse = {};
   const [openError, setOpenError] = useState({ error: false, message: "" });
-
+  const [productCategory, setProductCategory] = useState("");
   const keys = Object.keys(data);
   if (keys.length === 0) {
     productState = useSelector(
@@ -85,7 +89,11 @@ export default function CategoryAccordion(props) {
     productState = data;
   }
 
-  useEffect(() => {}, []);
+  useEffect(() => {
+    debugger;
+    setProductCategory(productState.ProductCategory);
+  }, [productCategory]);
+
   const [product, setProduct] = useState(productState);
 
   const handleSelect = (event, item) => {
@@ -109,6 +117,18 @@ export default function CategoryAccordion(props) {
       message: "",
     };
     setOpenError(error);
+  };
+  const handleKeyDown = (e) => {
+    debugger;
+    const { value } = e.target;
+    if (!value) {
+      setVerticals(BUSINESS_CATEGORY);
+    } else {
+      const filteredData = _.filter(BUSINESS_CATEGORY, (x) =>
+        _.includes(x.category, value)
+      );
+      setVerticals(filteredData);
+    }
   };
   const handleNext = (e) => {
     validationResponse = Validate(REQUIRED_FIELDS_CATEGORY, product);
@@ -136,8 +156,22 @@ export default function CategoryAccordion(props) {
       mb={5}
       textAlign="center"
     >
-      {BUSINESS_CATEGORY &&
-        BUSINESS_CATEGORY.map((x) => (
+      <MDBox sx={{ p: "2px 4px", display: "flex", alignItems: "center" }}>
+        <InputBase
+          fullWidth
+          sx={{ ml: 1, flex: 1, borderRadius: "lg" }}
+          placeholder="Search for your vertical"
+          // onKeyDown={handleKeyDown}
+          onKeyUp={handleKeyDown}
+          inputProps={{ "aria-label": "search for your vertical" }}
+        />
+        <IconButton type="submit" sx={{ p: "10px" }} aria-label="search">
+          <Search />
+        </IconButton>
+        <Divider sx={{ height: 28, m: 0.5 }} orientation="vertical" />
+      </MDBox>
+      {verticals &&
+        verticals.map((x) => (
           <Accordion
             expanded={expanded === x.category}
             onChange={handleChange(x.category)}
@@ -160,7 +194,7 @@ export default function CategoryAccordion(props) {
                       placeholder="ProductCategory"
                       id=" ProductCategory"
                       name="ProductCategory"
-                      value={product[x.ProductCategory]}
+                      value={productCategory}
                       options={getSubCategories(x.category)}
                       onSelect={(e) => {
                         handleSelect(e, x);
@@ -177,7 +211,7 @@ export default function CategoryAccordion(props) {
                           label="ProductCategory"
                           required
                           name="ProductCategory"
-                          value={product[x.ProductCategory]}
+                          value={productCategory}
                           onChange={handleChange}
                         />
                       )}

@@ -13,7 +13,7 @@ import { useDispatch } from "react-redux";
 export default function TransitionAlerts({ show, message, status }) {
   const [open, setOpen] = React.useState(show);
   const dispatch = useDispatch();
-
+  // #1d8102
   return (
     <Box sx={{ width: "100%" }}>
       <Collapse in={open}>
@@ -46,12 +46,28 @@ export default function TransitionAlerts({ show, message, status }) {
               lineClamp: 0.5,
               boxOrient: "vertical",
               overflow: "hidden",
+              textTransform: "uppercase",
             }}
             variant="alert"
             color="inherit"
-            fontWeight="regular"
+            fontWeight="medium"
           >
-            {status}! {message}
+            {status}!{" "}
+            <MDTypography
+              style={{ wordWrap: "break-word" }}
+              sx={{
+                display: "box",
+                lineClamp: 0.5,
+                boxOrient: "vertical",
+                overflow: "hidden",
+              }}
+              variant="alert"
+              color="inherit"
+              fontWeight="regular"
+            >
+              {" "}
+              {message}
+            </MDTypography>
           </MDTypography>
         </Alert>
       </Collapse>

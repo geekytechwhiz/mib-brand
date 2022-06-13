@@ -148,7 +148,7 @@ export default function ProfileDetails({ data }) {
         </AccordionSummary>
         <AccordionDetails>
           <VerifyDocuments
-            data={data.DocumentVerification}
+            data={data.Documents}
             completion={data.ProfileCompletion}
           />
         </AccordionDetails>

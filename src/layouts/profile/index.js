@@ -23,7 +23,7 @@ function ProfileLayout() {
         bgColor="transparent"
         borderRadius="lg"
         coloredShadow="info"
-        mx={-3}
+        mx={1}
         mt={3}
         p={2}
         mb={1}

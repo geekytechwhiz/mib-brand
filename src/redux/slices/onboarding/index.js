@@ -14,10 +14,26 @@ const accountInfoState = {
   ContactDetails: {},
   AddressDetails: {},
   DocumentVerification: {
-    AadhaarFront: false,
-    AadhaarBack: false,
-    BusinessProof: false,
-    Pan: false,
+    AadhaarFront: {
+      Uploaded: false,
+      Verified: false,
+      Url: "",
+    },
+    AadhaarBack: {
+      Uploaded: false,
+      Verified: false,
+      Url: "",
+    },
+    BusinessProof: {
+      Uploaded: false,
+      Verified: false,
+      Url: "",
+    },
+    Pan: {
+      Uploaded: false,
+      Verified: false,
+      Url: "",
+    },
   },
   ProfileCompletion: {
     AccountActivation: "",
@@ -25,7 +41,6 @@ const accountInfoState = {
     ContactDetails: "",
     AddressDetails: "",
     BankAccounts: "",
-    GSTNVerification: false,
     Documents: "",
   },
 };

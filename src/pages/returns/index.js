@@ -124,6 +124,7 @@ function ReturnOrders() {
               <InTransitReturns
                 activeTab={switchTabs}
                 orders={returnsData.IN_TRANSIT || []}
+                brandInfo={brandInfo}
               />
             </TabPanel>
             <TabPanel value="3">

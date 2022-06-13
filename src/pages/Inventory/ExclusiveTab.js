@@ -21,7 +21,6 @@ const CustomTabPanel = styled(TabPanel)({
 });
 
 export default function ExclusiveTab(props) {
-       
   const loading = useSelector((state) => state.root?.loading, shallowEqual);
   const [value, setValue] = React.useState("1");
   const { tabs, data, isActive } = props;
