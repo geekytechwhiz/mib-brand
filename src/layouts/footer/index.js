@@ -42,7 +42,7 @@ function Footer({ company, links }) {
         fontSize={size.sm}
         px={1.5}
       >
-        &copy;Migobucks Technologies Pvt LTD {new Date().getFullYear()}
+        &copy;Migobucks Technologies Private Limited 2022
       </MDBox>
       <MDBox
         component="ul"

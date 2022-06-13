@@ -128,7 +128,7 @@ function Description(props) {
               <Grid item xs={12} mb={2}>
                 <MDInput
                   required
-                  error
+                  error={!product.ProductDescription}
                   type="text"
                   label="Product Description"
                   name="ProductDescription"
@@ -139,6 +139,19 @@ function Description(props) {
                   maxRows={8}
                   helperText="Required field"
                   multiline
+                />
+              </Grid>
+              <Grid item xs={4} mb={2}>
+                <MDInput
+                  required
+                  error={!product.Stock}
+                  type="number"
+                  label="Stock"
+                  name="Stock"
+                  value={product.Stock}
+                  fullWidth
+                  onChange={handleChange}
+                  helperText="Required field"
                 />
               </Grid>
               <Grid item xs={12} mb={2}>

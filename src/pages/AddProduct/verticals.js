@@ -65,6 +65,7 @@ const AccordionDetails = styled(MuiAccordionDetails)(({ theme }) => ({
 }));
 
 export default function CategoryAccordion(props) {
+  debugger;
   const [expanded, setExpanded] = React.useState(BUSINESS_CATEGORY[0].category);
   const [verticals, setVerticals] = useState(BUSINESS_CATEGORY);
 
@@ -77,7 +78,7 @@ export default function CategoryAccordion(props) {
   const { activeTab, data } = props;
   let validationResponse = {};
   const [openError, setOpenError] = useState({ error: false, message: "" });
-  const [productCategory, setProductCategory] = useState("");
+  const [ProductCategory, setProductCategory] = useState("");
   const keys = Object.keys(data);
   if (keys.length === 0) {
     productState = useSelector(
@@ -91,15 +92,17 @@ export default function CategoryAccordion(props) {
 
   useEffect(() => {
     debugger;
-    setProductCategory(productState.ProductCategory);
-  }, [productCategory]);
+    if (keys.length !== 0) {
+      setProductCategory(productState.ProductCategory);
+    }
+  }, [ProductCategory]);
 
   const [product, setProduct] = useState(productState);
 
   const handleSelect = (event, item) => {
     const { value } = event.target;
     if (!value || !item) return null;
-
+    setProductCategory(value);
     setProduct(() => ({
       ...product,
       Category: item.category,
@@ -161,7 +164,7 @@ export default function CategoryAccordion(props) {
           fullWidth
           sx={{ ml: 1, flex: 1, borderRadius: "lg" }}
           placeholder="Search for your vertical"
-          // onKeyDown={handleKeyDown}
+          v
           onKeyUp={handleKeyDown}
           inputProps={{ "aria-label": "search for your vertical" }}
         />
@@ -194,7 +197,7 @@ export default function CategoryAccordion(props) {
                       placeholder="ProductCategory"
                       id=" ProductCategory"
                       name="ProductCategory"
-                      value={productCategory}
+                      value={ProductCategory}
                       options={getSubCategories(x.category)}
                       onSelect={(e) => {
                         handleSelect(e, x);
@@ -211,7 +214,7 @@ export default function CategoryAccordion(props) {
                           label="ProductCategory"
                           required
                           name="ProductCategory"
-                          value={productCategory}
+                          value={ProductCategory}
                           onChange={handleChange}
                         />
                       )}

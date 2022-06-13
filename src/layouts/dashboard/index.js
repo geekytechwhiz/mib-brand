@@ -105,7 +105,7 @@ function Dashboard() {
                 <ReportsLineChart
                   color="dark"
                   title="Orders"
-                  description="Last Orders Performance"
+                  description="Latest Orders Performance"
                   date="just updated"
                   chart={tasks}
                 />

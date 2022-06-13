@@ -18,11 +18,16 @@ import { shallowEqual, useDispatch, useSelector } from "react-redux";
 import { medias } from "redux/slices/inventory";
 import { postSignedUrl } from "services/common";
 import { v4 as uuidv4 } from "uuid";
-import { REQUIRED_FIELDS_MEDIAS } from "../../lib/constants";
+import {
+  REQUIRED_FIELDS_MEDIAS,
+  RESOURCE_INVENTORY,
+} from "../../lib/constants";
 import { Validate } from "../../lib/validations";
 
 export default function Medias(props) {
   let productState = { ImageLinks: [] };
+
+  const brandId = localStorage.getItem("brandId");
   let images = [];
   const { activeTab, data } = props;
   let validationResponse = {};
@@ -44,12 +49,16 @@ export default function Medias(props) {
 
   const uuid = uuidv4();
   const getUploadParams = async ({ file, meta: { name } }) => {
+    debugger;
     console.log(name);
     const req = {
       contentType: file.type,
       resourceId: productId,
+      resource: RESOURCE_INVENTORY,
+      brandId,
       uuid,
     };
+
     const res = await postSignedUrl(req);
     if (!res) return null;
     images.push(res.fileName);

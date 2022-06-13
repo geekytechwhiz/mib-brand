@@ -1,5 +1,6 @@
 import Icon from "@mui/material/Icon";
 import SignIn from "layouts/authentication/sign-in";
+import ResetPassword from "layouts/authentication/reset-password";
 import SignUp from "layouts/authentication/sign-up";
 import CancelledLayout from "layouts/cancelledOrdersLayout";
 import Dashboard from "layouts/dashboard";
@@ -97,6 +98,15 @@ export const basicRoutes = [
     icon: <Icon fontSize="small">login</Icon>,
     route: "/authentication/sign-in",
     component: <SignIn />,
+  },
+
+  {
+    type: "collapse",
+    name: "Reset Password",
+    key: "sign-in",
+    icon: <Icon fontSize="small">Reset Password</Icon>,
+    route: "/authentication/reset-password",
+    component: <ResetPassword />,
   },
   {
     type: "collapse",

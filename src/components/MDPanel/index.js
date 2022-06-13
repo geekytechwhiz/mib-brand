@@ -15,7 +15,6 @@ import MDButton from "components/MDButton";
 import { useMaterialUIController } from "context";
 
 function MDPanel({ item, handleDelete }) {
-   
   const [controller] = useMaterialUIController();
   const { darkMode } = controller;
 
@@ -31,7 +30,7 @@ function MDPanel({ item, handleDelete }) {
       mb={0}
       mt={0}
     >
-      <Grid item xs={11} mb={0.5}>
+      <Grid item xs={11} mb={0.5} px={1}>
         <MDBox sx={{ textAlign: "left" }}>
           <MDTypography
             variant="caption"
@@ -44,7 +43,7 @@ function MDPanel({ item, handleDelete }) {
           </MDTypography>
         </MDBox>
       </Grid>
-      <Grid item xs={1} mb={0.5}>
+      <Grid item xs={1} mb={0.5} pr={2}>
         <MDBox alignItems="flex-start">
           <MDBox>
             <MDButton

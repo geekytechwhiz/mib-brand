@@ -6,6 +6,7 @@ import { ORIGIN } from "../../lib/constants";
 
 export const postSignedUrl = async (payload) => {
   try {
+    debugger;
     const requestBody = {
       ContentType: payload.contentType,
       Resource: payload.resource,
