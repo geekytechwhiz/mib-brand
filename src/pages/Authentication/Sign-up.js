@@ -167,7 +167,7 @@ function Signup() {
                   disabled={!disabled}
                   onClick={handleSubmit}
                   loading={isLoading}
-                  color="info"
+                  color="primary"
                   loadingPosition="start"
                   startIcon={<ExitToAppIcon />}
                   variant="gradient"

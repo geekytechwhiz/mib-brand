@@ -8,6 +8,7 @@ export const UPLOADED_PATH =
 export const NOT_FOUND_STATUS_CODE = 404;
 export const UNAUTHORIZED_STATUS_CODE = 401;
 export const INTERNAL_SERVER_ERROR = 500;
+export const STATUS_CODE_SUCCESS = 200;
 export const NOT_FOUND_ERROR_MSG = "Given Email id not found in our system";
 export const UNAUTHORIZED_ERROR_MSG = "Incorrect email or password";
 export const INTERNAL_SERVER_ERROR_MSG =

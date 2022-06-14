@@ -29,7 +29,6 @@ export default function MDSearch() {
         fullWidth
         sx={{ ml: 1, flex: 1, borderRadius: "lg" }}
         onClick={handleClickOpen}
-        onKeyDown={}
         placeholder="Search for your vertical"
         inputProps={{ "aria-label": "search for your vertical" }}
       />

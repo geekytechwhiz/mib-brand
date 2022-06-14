@@ -1,10 +1,10 @@
 /* eslint-disable no-debugger */
+import { responseBuilder } from "lib/helper";
 import { apiInstance } from "../../api";
 
 const registerAccount = async (reqParam) => {
   try {
-    const { data } = await apiInstance.post("/brand/register", reqParam);
-    return data;
+    return responseBuilder(await apiInstance.post("/brand/register", reqParam));
   } catch (err) {
     return null;
   }
@@ -37,11 +37,9 @@ export const updateContactInfo = async (payload, emailId) => {
       BrandId: payload.BrandId,
     };
 
-    const { data } = await apiInstance.patch(
-      `/brand/contact-info/${emailId}`,
-      reqParam
+    return responseBuilder(
+      await apiInstance.patch(`/brand/contact-info/${emailId}`, reqParam)
     );
-    return data;
   } catch (err) {
     return null;
   }
@@ -58,11 +56,9 @@ export const updateBankDetails = async (payload, emailId, brandId) => {
       AccountType: payload.AccountType,
     };
 
-    const response = await apiInstance.patch(
-      `/brand/bank-details/${emailId}`,
-      reqParam
+    return responseBuilder(
+      await apiInstance.patch(`/brand/bank-details/${emailId}`, reqParam)
     );
-    return response;
   } catch (err) {
     return null;
   }
@@ -78,11 +74,12 @@ export const updateAddressDetails = async (payload, emailId, brandId) => {
       Signature: payload.Signature,
     };
 
-    const { data } = await apiInstance.patch(
-      `/brand/update-address-details/${emailId}`,
-      reqParam
+    return responseBuilder(
+      await apiInstance.patch(
+        `/brand/update-address-details/${emailId}`,
+        reqParam
+      )
     );
-    return data;
   } catch (err) {
     return null;
   }
@@ -105,11 +102,9 @@ export const updateBusinessDetails = async (payload, emailId) => {
       BrandId: payload.BrandId,
     };
 
-    const { data } = await apiInstance.patch(
-      `/brand/business-details/${emailId}`,
-      reqParam
+    return responseBuilder(
+      await apiInstance.patch(`/brand/business-details/${emailId}`, reqParam)
     );
-    return data;
   } catch (err) {
     return null;
   }
@@ -123,28 +118,23 @@ export const updateDocuments = async (payload, emailId, brandId) => {
       ...payload,
     };
 
-    const { data } = await apiInstance.patch(
-      `/brand/update-documents/${emailId}`,
-      reqParam
+    return responseBuilder(
+      await apiInstance.patch(`/brand/update-documents/${emailId}`, reqParam)
     );
-    return data;
   } catch (err) {
     return null;
   }
 };
 export const getBrandAccount = async (emailId) => {
+  debugger;
   const { data } = await apiInstance.get(`/brand/details/${emailId}`);
-
   return data;
 };
 export const getHealthCheck = async () => {
   const { data } = await apiInstance.get("/authorizer/health");
   return data;
 };
-export const postHealth = async () => {
-  const { data } = await apiInstance.post("/authorizer/health");
-
-  return data;
-};
+export const postHealth = async () =>
+  responseBuilder(await apiInstance.post("/authorizer/health"));
 
 export default registerAccount;

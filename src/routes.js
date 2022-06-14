@@ -1,6 +1,6 @@
 import Icon from "@mui/material/Icon";
 import SignIn from "layouts/authentication/sign-in";
-import ResetPassword from "layouts/authentication/reset-password";
+import ResetPassword from "layouts/authentication/reset-password/index";
 import SignUp from "layouts/authentication/sign-up";
 import CancelledLayout from "layouts/cancelledOrdersLayout";
 import Dashboard from "layouts/dashboard";

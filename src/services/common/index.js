@@ -34,3 +34,21 @@ export const putImage = async (url, payload, config) => {
     return null;
   }
 };
+export const postPasswordResetRequest = async (payload) => {
+  try {
+    debugger;
+    const requestBody = {
+      Name: payload.name,
+      ToAddress: payload.toAddress,
+      Origin: "Migo Brand",
+    };
+
+    const { data } = await apiInstance.post(
+      `/email-service/reset-password`,
+      requestBody
+    );
+    return data;
+  } catch (err) {
+    return null;
+  }
+};

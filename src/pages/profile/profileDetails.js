@@ -71,7 +71,7 @@ export default function ProfileDetails({ data }) {
           </MDTypography>
         </AccordionSummary>
         <AccordionDetails>
-          <ContactDetails data={data.ContactDetails || {}} />
+          <ContactDetails data={data?.ContactDetails || {}} />
         </AccordionDetails>
       </Accordion>
       <Accordion
@@ -90,7 +90,7 @@ export default function ProfileDetails({ data }) {
           </MDTypography>
         </AccordionSummary>
         <AccordionDetails>
-          <BusinessInfo data={data.BusinessDetails || {}} />
+          <BusinessInfo data={data?.BusinessDetails || {}} />
         </AccordionDetails>
       </Accordion>
 
@@ -110,7 +110,7 @@ export default function ProfileDetails({ data }) {
           </MDTypography>
         </AccordionSummary>
         <AccordionDetails>
-          <AddressDetails data={data.AddressDetails || {}} />
+          <AddressDetails data={data?.AddressDetails || {}} />
         </AccordionDetails>
       </Accordion>
       <Accordion
@@ -129,7 +129,7 @@ export default function ProfileDetails({ data }) {
           </MDTypography>
         </AccordionSummary>
         <AccordionDetails>
-          <BankInfo data={data.BankDetails || {}} />
+          <BankInfo data={data?.BankDetails || {}} />
         </AccordionDetails>
       </Accordion>
       <Accordion
@@ -148,8 +148,8 @@ export default function ProfileDetails({ data }) {
         </AccordionSummary>
         <AccordionDetails>
           <VerifyDocuments
-            data={data.Documents}
-            completion={data.ProfileCompletion}
+            data={data?.Documents}
+            completion={data?.ProfileCompletion}
           />
         </AccordionDetails>
       </Accordion>

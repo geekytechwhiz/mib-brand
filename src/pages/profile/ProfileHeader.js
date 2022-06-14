@@ -17,7 +17,6 @@ import { useEffect, useState } from "react";
 function ProfileHeader({ data }) {
   debugger;
   const [tabsOrientation, setTabsOrientation] = useState("horizontal");
-  const [tabValue, setTabValue] = useState(0);
 
   useEffect(() => {
     // A function that sets the orientation state of the tabs.
@@ -58,10 +57,10 @@ function ProfileHeader({ data }) {
           <Grid item>
             <MDBox height="100%" mt={0.5} lineHeight={1}>
               <MDTypography variant="h5" fontWeight="medium">
-                {data.BusinessDetails?.BrandName || ""}
+                {data?.BusinessDetails?.BrandName || ""}
               </MDTypography>
               <MDTypography variant="button" color="text" fontWeight="regular">
-                {data.BusinessDetails?.Category || ""}
+                {data?.BusinessDetails?.Category || ""}
               </MDTypography>
             </MDBox>
           </Grid>

@@ -1,7 +1,8 @@
 /* eslint-disable no-debugger */
 /* eslint-disable no-param-reassign */
 import { createAsyncThunk, createSlice } from "@reduxjs/toolkit";
-import { getProfileCompletionScore } from "lib/helper/index";
+import { responseBuilder, getProfileCompletionScore } from "lib/helper";
+
 import {
   login,
   getBrandAccount,
@@ -64,14 +65,16 @@ export const getBrandThunk = createAsyncThunk(
   "/brand/details/{emailId}",
   async (emailId) => {
     const response = await getBrandAccount(emailId);
+    debugger;
     let score = 0;
-    if (response && response.BrandId) {
-      const { ProfileCompletion } = response;
-      score = getProfileCompletionScore(ProfileCompletion);
-      localStorage.setItem("brandId", response.BrandId);
-    }
+    if (response.statusCode !== 200 && !response.data) return null;
+    const { data } = response;
+    const { ProfileCompletion } = data;
+    score = getProfileCompletionScore(ProfileCompletion);
+    localStorage.setItem("brandId", data.BrandId);
+
     return {
-      response,
+      data,
       score,
     };
   }
@@ -83,8 +86,7 @@ export const updateBankInfoThunk = createAsyncThunk(
     const emailId = localStorage.getItem("emailId");
     const res = await updateBankDetails(payload, emailId);
     if (!res) return {};
-    const response = await getBrandAccount(emailId);
-    return response;
+    return responseBuilder(await getBrandAccount(emailId));
   }
 );
 
@@ -97,7 +99,8 @@ const authSlice = createSlice({
       state.userPayload = action.payload;
     });
     builder.addCase(getBrandThunk.fulfilled, (state, action) => {
-      state.accountInfo = action.payload.response;
+      debugger;
+      state.accountInfo = action.payload.data;
       state.profileScore = action.payload.score;
     });
   },

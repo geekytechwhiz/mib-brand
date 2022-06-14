@@ -328,7 +328,7 @@ function MoreDetails(props) {
             color="warning"
             size="small"
             loadingPosition="start"
-            variant="outlined"
+            variant="gradient"
             startIcon={<SaveAltRoundedIcon />}
             mx={2}
             name="save"
@@ -345,7 +345,7 @@ function MoreDetails(props) {
             size="small"
             startIcon={<PublishRoundedIcon />}
             loadingPosition="start"
-            variant="outlined"
+            variant="gradient"
             mx={5}
             name="save"
           >

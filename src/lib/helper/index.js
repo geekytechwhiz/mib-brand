@@ -1,3 +1,4 @@
+/* eslint-disable consistent-return */
 /* eslint-disable no-restricted-globals */
 /* eslint-disable no-param-reassign */
 /* eslint-disable no-multi-assign */
@@ -7,6 +8,15 @@
 import _ from "lodash";
 import { Template } from "lib/templates";
 import { BUSINESS_CATEGORY } from "../data";
+import {
+  INTERNAL_SERVER_ERROR,
+  INTERNAL_SERVER_ERROR_MSG,
+  NOT_FOUND_ERROR_MSG,
+  NOT_FOUND_STATUS_CODE,
+  UNAUTHORIZED_ERROR_MSG,
+  UNAUTHORIZED_STATUS_CODE,
+  STATUS_CODE_SUCCESS,
+} from "../constants";
 
 export const getCategories = () => {
   const arr = [];
@@ -78,4 +88,52 @@ export const getProfileCompletionScore = (data) => {
   }
   score = Math.round(score);
   return score;
+};
+
+export const responseValidator = (res) => {
+  debugger;
+  const response = {
+    message: "",
+    isValid: true,
+  };
+  if (res.statusCode && res.statusCode === NOT_FOUND_STATUS_CODE) {
+    return {
+      message: NOT_FOUND_ERROR_MSG,
+      isValid: false,
+    };
+  }
+  if (res.statusCode && res.statusCode === UNAUTHORIZED_STATUS_CODE) {
+    return {
+      message: UNAUTHORIZED_ERROR_MSG,
+      isValid: false,
+    };
+  }
+  if (res.statusCode && res.statusCode === INTERNAL_SERVER_ERROR) {
+    return {
+      message: INTERNAL_SERVER_ERROR_MSG,
+      isValid: false,
+    };
+  }
+  if (res.statusCode && res.statusCode === STATUS_CODE_SUCCESS) {
+    return response;
+  }
+};
+
+export const responseBuilder = (response) => {
+  debugger;
+  let responseBody = null;
+  if (!response) {
+    return responseBody;
+  }
+  const { data } = response;
+  if (!data) {
+    return responseBody;
+  }
+  if (
+    data?.statusCode &&
+    (data?.statusCode === 200 || data?.statusCode === 201)
+  ) {
+    responseBody = data.data || {};
+  }
+  return responseBody;
 };

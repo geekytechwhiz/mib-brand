@@ -21,14 +21,7 @@ import React, { useRef, useState } from "react";
 import { TextValidator, ValidatorForm } from "react-material-ui-form-validator";
 import { useDispatch } from "react-redux";
 import { useLocation, useNavigate } from "react-router-dom";
-import {
-  INTERNAL_SERVER_ERROR,
-  INTERNAL_SERVER_ERROR_MSG,
-  NOT_FOUND_ERROR_MSG,
-  NOT_FOUND_STATUS_CODE,
-  UNAUTHORIZED_ERROR_MSG,
-  UNAUTHORIZED_STATUS_CODE,
-} from "../../lib/constants";
+import { responseValidator } from "lib/helper";
 import { getBrandThunk } from "../../redux/slices/onboarding";
 import { login } from "../../services/onboarding";
 
@@ -40,7 +33,7 @@ function SignIn() {
   const formRef = useRef("form");
   const initialRoutesSetRef = useRef(false);
   const token = localStorage.getItem("token");
-  const [error, setError] = useState({ message: "", hasError: false });
+  const [error, setError] = useState({ message: "", isValid: false });
 
   const [rememberMe, setRememberMe] = useState(false);
   const [user, setUser] = useState({ EmailId: "", Password: "" });
@@ -67,25 +60,8 @@ function SignIn() {
     }));
   };
 
-  const validateResponse = (res) => {
-    if (res.statusCode && res.statusCode === NOT_FOUND_STATUS_CODE) {
-      return NOT_FOUND_ERROR_MSG;
-    }
-    if (res.statusCode && res.statusCode === UNAUTHORIZED_STATUS_CODE) {
-      return UNAUTHORIZED_ERROR_MSG;
-    }
-    if (res.statusCode && res.statusCode === INTERNAL_SERVER_ERROR) {
-      return INTERNAL_SERVER_ERROR_MSG;
-    }
-
-    return "Uncaught Migo Error";
-  };
-
   const handleSubmit = async () => {
     setIsLoading(true);
-    // setShowProgress(true);
-    // const res = await login(user);
-
     if (!user.EmailId || !user.Password) {
       return false;
     }
@@ -100,11 +76,10 @@ function SignIn() {
       navigate("/dashboard");
     } else {
       setIsLoading(false);
-      const validate = validateResponse(response.status);
-      const errorObj = { ...error };
-      errorObj.hasError = true;
-      errorObj.message = validate;
-      setError(errorObj);
+      const validate = responseValidator(response.status);
+      if (!validate.isValid) {
+        setError(validate);
+      }
       return false;
     }
   };
@@ -134,7 +109,7 @@ function SignIn() {
       ) : (
         <></>
       )}
-      <MDBox pt={4} pb={3} mt={10} px={3}>
+      <MDBox pt={4} pb={1} mt={10} px={3}>
         <Card>
           <MDBox pt={4} pb={3} px={3}>
             <MDBox>
@@ -164,9 +139,13 @@ function SignIn() {
                   errorMessages={["this field is required"]}
                 />
               </MDBox>
-              <MDBox display="flex" alignItems="center" ml={-1}>
-                {error.hasError ? (
-                  <MDTypography variant="button" color="error">
+              <MDBox display="flex" alignItems="center" ml={1}>
+                {error.isValid ? (
+                  <MDTypography
+                    variant="caption"
+                    fontWeight="medium"
+                    color="error"
+                  >
                     {error.message}
                   </MDTypography>
                 ) : (
@@ -185,39 +164,42 @@ function SignIn() {
                   &nbsp;&nbsp;Remember me
                 </MDTypography>
               </MDBox>
-              <MDBox mt={4} mb={1}>
-                {/* <MDButton
-                  variant="gradient"
-                  onClick={handleSubmit}
-                  color="info"
-                  type="submit"
-                  fullWidth
-                >
-                  Sign inn
-                </MDButton> */}
+              <MDBox mt={4} mb={0}>
                 <MDLoadingButton
-                  sx={{ margin: 2 }}
                   onClick={handleSubmit}
                   loading={isLoading}
-                  color="info"
+                  color="primary"
                   loadingPosition="start"
                   startIcon={<LoginRoundedIcon />}
                   variant="gradient"
                   fullWidth
                   mx={2}
                   name="login"
-                  size="small"
                 >
                   Sign in
                 </MDLoadingButton>
               </MDBox>
-              <MDBox mt={3} mb={1} textAlign="center">
-                <MDTypography variant="button" color="text">
+              <MDBox mt={1} textAlign="left">
+                <MDTypography
+                  component={Button}
+                  to="/authentication/reset-password"
+                  variant="caption"
+                  color="info"
+                  fontWeight="medium"
+                  textGradient
+                  onClick={() => navigate("/authentication/reset-password")}
+                >
+                  Forgot password
+                </MDTypography>
+              </MDBox>
+
+              <MDBox mt={1} textAlign="right">
+                <MDTypography variant="caption" color="text">
                   Don&apos;t have an account?{" "}
                   <MDTypography
                     component={Button}
                     to="/authentication/sign-up"
-                    variant="button"
+                    variant="caption"
                     color="info"
                     fontWeight="medium"
                     textGradient
