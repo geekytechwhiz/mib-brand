@@ -42,6 +42,8 @@ function PendingLabelTable(orders) {
         ProductName: element.ProductName,
         DeliveryAddress: formatAddress(element.DeliveryDetails),
         Amount: element.Amount,
+        PaymentStatus: element.PaymentStatus,
+        PaymentMode: element.PaymentMode || "",
         SLA: element.SLA,
         Tags: element.Tags,
       };
@@ -70,6 +72,18 @@ function PendingLabelTable(orders) {
         field: "Amount",
         align: "center",
         width: 100,
+      },
+      {
+        headerName: "Payment Status",
+        field: "PaymentStatus",
+        align: "center",
+        width: 170,
+      },
+      {
+        headerName: "Payment Mode",
+        field: "PaymentMode",
+        align: "center",
+        width: 150,
       },
       {
         headerName: "SLA/Dispatched by",

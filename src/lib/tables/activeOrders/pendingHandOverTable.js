@@ -46,7 +46,8 @@ function ReadyToDispatchTable(orders) {
 
     rows.forEach((element) => {
       const res = {
-        Courier: RenderLogisticsPartner(element.Courier, "Courier"),
+        OrderId: element.OrderId,
+        Courier: RenderLogisticsPartner(element, "DispatchedBy"),
         HandoverTime: RenderDate(element, "HandoverTime"),
         Quantity: RenderColumn(element, "Quantity"),
         Amount: RenderColumn(element, "Amount"),
@@ -61,6 +62,11 @@ function ReadyToDispatchTable(orders) {
   };
   const response = {
     orderColumns: [
+      {
+        Header: "Order # ",
+        accessor: "OrderId",
+        align: "left",
+      },
       {
         Header: "Logistics Partner ",
         accessor: "Courier",

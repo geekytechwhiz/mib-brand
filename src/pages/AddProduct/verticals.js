@@ -110,10 +110,6 @@ export default function CategoryAccordion(props) {
     }));
   };
 
-  const handleBack = (e) => {
-    activeTab(e, "4");
-  };
-
   const handleClose = () => {
     const error = {
       error: false,
@@ -226,16 +222,7 @@ export default function CategoryAccordion(props) {
           </Accordion>
         ))}
       <Grid mt={5} container xs={12} justifyContent="space-between">
-        <Grid item>
-          <Button
-            color="primary"
-            onClick={handleBack}
-            variant="text"
-            endIcon={<ArrowBackIosNewIcon />}
-          >
-            Back
-          </Button>
-        </Grid>
+        <Grid item />
         <Grid item>
           <Button
             color="primary"

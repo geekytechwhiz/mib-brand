@@ -26,6 +26,7 @@ function ResetPassword() {
   const [otp, setOtp] = useState();
   const [response, setResponse] = useState({});
   const [error, setError] = useState({ message: "", isValid: false });
+  const [captionText, setCaptionText] = useState("");
   const [passwordValidation, setPasswordValidation] = useState({
     message: "",
     isValid: true,
@@ -67,6 +68,7 @@ function ResetPassword() {
       setIsLoading(false);
       return false;
     }
+    setCaptionText("You will receive an e-mail with OTP in maximum 60 seconds");
     setIsLoading(false);
     setResponse(res?.body);
     setHasShowOtp(true);
@@ -76,19 +78,33 @@ function ResetPassword() {
       <MDBox pt={4} pb={3} mt={10} px={3}>
         <Card>
           <MDBox textAlign="center">
-            <MDTypography variant="body" fontWeight="medium" mt={1}>
+            <MDTypography
+              variant="body"
+              fontWeight="medium"
+              color="primary"
+              mt={1}
+            >
               Reset Password
             </MDTypography>
             <MDTypography
               display="block"
               variant="caption"
               fontWeight="medium"
-              color="error"
+              color="success"
               my={1}
             >
-              You will receive an e-mail with OTP in maximum 60 seconds
+              {captionText}
             </MDTypography>
           </MDBox>
+          {/* <MDBox display="flex" alignItems="center" ml={1}>
+            {!error.isValid ? (
+              <MDTypography variant="caption" fontWeight="medium" color="error">
+                {error.message}
+              </MDTypography>
+            ) : (
+              <></>
+            )}
+          </MDBox> */}
           <MDBox pt={4} pb={3} px={3}>
             <MDBox component="form" role="form">
               {hasShowOtp ? (

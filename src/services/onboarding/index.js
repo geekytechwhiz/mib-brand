@@ -12,6 +12,7 @@ const registerAccount = async (reqParam) => {
 
 export const login = async (payload) => {
   try {
+    debugger;
     const { EmailId, Password } = payload;
     const reqParam = {
       EmailId,

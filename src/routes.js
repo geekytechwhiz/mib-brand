@@ -11,6 +11,10 @@ import Inventory2OutlinedIcon from "@mui/icons-material/Inventory2Outlined";
 import AddBoxOutlinedIcon from "@mui/icons-material/AddBoxOutlined";
 import ShoppingCartOutlinedIcon from "@mui/icons-material/ShoppingCartOutlined";
 import PaymentOutlinedIcon from "@mui/icons-material/PaymentOutlined";
+import MiscellaneousServicesIcon from "@mui/icons-material/MiscellaneousServices";
+import LoyaltyIcon from "@mui/icons-material/Loyalty";
+import VisibilityOutlinedIcon from "@mui/icons-material/VisibilityOutlined";
+import ServicesLayout from "layouts/servicesLayout";
 import AddProduct from "./layouts/addProduct/index";
 import Inventory from "./layouts/inventory/index";
 import OrderLayout from "./layouts/orderLayout/index";
@@ -115,6 +119,40 @@ export const basicRoutes = [
     icon: <Icon fontSize="small">assignment</Icon>,
     route: "/authentication/sign-up",
     component: <SignUp />,
+  },
+];
+export const companyRoutes = [
+  {
+    type: "collapse",
+    name: "Migo Inventory",
+    key: "MigoInventory",
+    icon: <AddBoxOutlinedIcon>Migo Inventory</AddBoxOutlinedIcon>,
+    route: "/services/migo-inventory",
+    component: <ServicesLayout />,
+  },
+  {
+    type: "collapse",
+    name: "Brand Booster",
+    key: "BrandBooster",
+    icon: <MiscellaneousServicesIcon>Brand Booster</MiscellaneousServicesIcon>,
+    route: "/services/brand-booster",
+    component: <ServicesLayout />,
+  },
+  {
+    type: "collapse",
+    name: "Loyalty Program",
+    key: "LoyaltyProgram",
+    icon: <LoyaltyIcon>Loyalty Program</LoyaltyIcon>,
+    route: "/services/loyalty-program",
+    component: <ServicesLayout />,
+  },
+  {
+    type: "collapse",
+    name: "Voucher Management",
+    key: "VoucherManagement",
+    icon: <VisibilityOutlinedIcon>Voucher Management</VisibilityOutlinedIcon>,
+    route: "/services/voucher-management",
+    component: <ServicesLayout />,
   },
 ];
 

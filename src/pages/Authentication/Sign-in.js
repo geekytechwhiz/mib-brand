@@ -61,10 +61,13 @@ function SignIn() {
   };
 
   const handleSubmit = async () => {
-    setIsLoading(true);
     if (!user.EmailId || !user.Password) {
+      setError({ message: "Email and Password is mandatory!", isValid: false });
       return false;
     }
+    debugger;
+    setError({ message: "", isValid: false });
+    setIsLoading(true);
     const response = await login(user);
     if (response && response.auth) {
       setIsLoading(false);
@@ -77,10 +80,10 @@ function SignIn() {
     } else {
       setIsLoading(false);
       const validate = responseValidator(response.status);
+      debugger;
       if (!validate.isValid) {
         setError(validate);
       }
-      return false;
     }
   };
   if (!initialRoutesSetRef.current) {
@@ -140,7 +143,7 @@ function SignIn() {
                 />
               </MDBox>
               <MDBox display="flex" alignItems="center" ml={1}>
-                {error.isValid ? (
+                {!error.isValid ? (
                   <MDTypography
                     variant="caption"
                     fontWeight="medium"

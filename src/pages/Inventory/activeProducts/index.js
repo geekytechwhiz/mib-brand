@@ -11,6 +11,7 @@ import { shallowEqual, useSelector } from "react-redux";
 import { Button, Dialog, DialogTitle } from "@mui/material";
 import { useNavigate } from "react-router-dom";
 import MDTypography from "components/MDTypography";
+import MDLoadingButton from "components/MDLoadingButton";
 import ExclusiveTab from "../exclusiveTab";
 
 export default function ActiveProducts() {
@@ -76,21 +77,15 @@ export default function ActiveProducts() {
         }}
       >
         <div>
-          <MDButton
+          <MDLoadingButton
             onClick={handleAddNew}
-            color="#007EFF"
+            color="primary"
             variant="gradient"
-            style={{
-              color: "#007EFF",
-              borderColor: "#007EFF",
-              borderWidth: 1,
-              borderStyle: "solid",
-            }}
             size="small"
             endIcon={<AddIcon />}
           >
             Add New
-          </MDButton>
+          </MDLoadingButton>
         </div>
       </div>
 

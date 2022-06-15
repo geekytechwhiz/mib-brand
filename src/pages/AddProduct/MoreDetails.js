@@ -325,7 +325,7 @@ function MoreDetails(props) {
           <MDLoadingButton
             onClick={handleDraft}
             loading={isDraftLoading}
-            color="warning"
+            color="secondary"
             size="small"
             loadingPosition="start"
             variant="gradient"
@@ -341,7 +341,7 @@ function MoreDetails(props) {
             disabled={!acceptTerms}
             onClick={handlePublish}
             loading={isLoading}
-            color="success"
+            color="primary"
             size="small"
             startIcon={<PublishRoundedIcon />}
             loadingPosition="start"

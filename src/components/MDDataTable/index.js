@@ -8,10 +8,10 @@ export function MDDataTable({ rows, columns, onRowSelection }) {
     <div style={{ height: 400, width: "100%" }}>
       <DataGrid
         sx={{
-          color: "#344767",
+          color: "#7b809a",
           fontFamily: "Roboto Helvetica Arial sans-serif",
           fontSize: "0.9rem",
-          opacity: "0.7",
+          // opacity: "0.7",
           fontWeight: 600,
           background: "transparent",
           alignItems: "left",

@@ -603,7 +603,7 @@ export function RenderAction(name, description) {
   );
 }
 
-export function RenderLogisticsPartner(name, description) {
+export function RenderLogisticsPartner(row, column) {
   return (
     <MDBox
       display="flex"
@@ -611,24 +611,25 @@ export function RenderLogisticsPartner(name, description) {
       alignItems="left"
       lineHeight={1}
     >
-      <MDAvatar src={productImage} name={name} size="lg" variant="rounded" />
-      <LightTooltip title={name}>
+      <MDAvatar
+        src={productImage}
+        name={row[column]}
+        size="lg"
+        variant="rounded"
+      />
+      <LightTooltip title={row[column]}>
         <MDTypography
-          display="block"
           variant="caption"
-          fontWeight="regular"
+          fontWeight="medium"
           color="primary"
           ml={1}
-          lineHeight={1}
+          pt={3}
           sx={{
             overflow: "hidden",
             textOverflow: "ellipsis",
-            display: "-webkit-box",
-            WebkitLineClamp: "2",
-            WebkitBoxOrient: "vertical",
           }}
         >
-          {description}
+          {row[column]}
         </MDTypography>
       </LightTooltip>
     </MDBox>

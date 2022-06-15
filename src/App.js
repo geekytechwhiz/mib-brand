@@ -32,7 +32,7 @@ import {
   useNavigate,
 } from "react-router-dom";
 import rtlPlugin from "stylis-plugin-rtl";
-import routes, { basicRoutes } from "./routes";
+import routes, { basicRoutes, companyRoutes } from "./routes";
 // RTL plugins
 import Configurator from "./lib/Configurator";
 import themeDark from "./assets/theme-dark";
@@ -43,6 +43,7 @@ import MigoLogo from "./assets/images/logos/migobucks_brands.png";
 export default function App() {
   const [controller, dispatch] = useMaterialUIController();
   const token = localStorage.getItem("token");
+  const routeList = routes.concat(companyRoutes);
   const {
     miniSidenav,
     direction,
@@ -160,13 +161,28 @@ export default function App() {
             }
             brandName="Migo Brand"
             logo={MigoLogo}
-            routes={routes}
+            routes={routeList}
+            settingsRoutes={[]}
+            onMouseEnter={handleOnMouseEnter}
+            onMouseLeave={handleOnMouseLeave}
+          />
+          <Sidenav
+            color={sidenavColor}
+            brand={
+              (transparentSidenav && !darkMode) || whiteSidenav
+                ? brandDark
+                : brandWhite
+            }
+            brandName="Migo Brand"
+            logo={MigoLogo}
+            routes={routeList}
+            settingsRoutes={companyRoutes}
             onMouseEnter={handleOnMouseEnter}
             onMouseLeave={handleOnMouseLeave}
           />
           <Configurator />
           <Routes>
-            {getRoutes(routes)}
+            {getRoutes(routeList)}
             <Route path="*" element={<Navigate to="/dashboard" />} />
           </Routes>
         </>

@@ -15,6 +15,7 @@ import MDSnackbar from "components/MDSnackbar";
 import MDTypography from "components/MDTypography";
 import React, { useState } from "react";
 import { shallowEqual, useDispatch, useSelector } from "react-redux";
+import { ArrowBackIos } from "@mui/icons-material";
 import { Validate } from "../../lib/validations";
 import { vitalInfo } from "../../redux/slices/inventory";
 import { REQUIRED_FIELDS_VITAL_INFO } from "../../lib/constants";
@@ -54,7 +55,9 @@ function VitalInfo(props) {
       [name]: value,
     }));
   };
-
+  const handleBack = (e) => {
+    activeTab(e, "0");
+  };
   const handleNext = (e) => {
     validationResponse = Validate(REQUIRED_FIELDS_VITAL_INFO, product);
 
@@ -219,7 +222,16 @@ function VitalInfo(props) {
         </Grid>
       </Grid>
       <Grid container xs={12} justifyContent="space-between">
-        <Grid item />
+        <Grid item>
+          <Button
+            color="primary"
+            onClick={handleBack}
+            variant="text"
+            endIcon={<ArrowBackIos />}
+          >
+            Back
+          </Button>
+        </Grid>
         <Grid item>
           <Button
             color="primary"

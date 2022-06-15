@@ -9,18 +9,7 @@ import MDTypography from "components/MDTypography";
 import { useEffect, useState } from "react";
 
 function index() {
-  const Orders = [
-    {
-      orderId: 545454,
-      productName: "AAA BB CCC",
-      orderedDate: "04/05/2022 : 10:59:45",
-      productType: "Exclusive",
-      shippingAddress: "Kakkanad, Kochi",
-      pinCode: 6565664,
-      status: "Order Placed",
-      invoice: "",
-    },
-  ];
+  const Orders = [];
   const columns = {
     settlementDate: "",
     settlementId: "",
@@ -118,7 +107,6 @@ function index() {
     }
   };
   useEffect(() => {
-      
     makeRows();
   }, []);
 

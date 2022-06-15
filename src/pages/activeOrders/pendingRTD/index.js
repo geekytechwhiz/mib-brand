@@ -30,6 +30,7 @@ function ReadyToDispatch({ orders }) {
   const dispatch = useDispatch();
   const [dateTime, setDateTime] = React.useState(null);
   const [enabled, setEnabled] = React.useState(true);
+  const [count, setCount] = React.useState(0);
   let response = { rows: [], columns: [] };
   const [open, setOpen] = React.useState(false);
   const selectedOrders =
@@ -95,10 +96,12 @@ function ReadyToDispatch({ orders }) {
   };
 
   const handleMarkRTD = async () => {
+    debugger;
     const length = reference ? Object.keys(reference)?.length : 0;
     if (length > 0) {
       const markedOrders = await getSelectedOrders();
       dispatch(setMarkReadyToDispatch(markedOrders));
+      setCount(length);
       setOpen(true);
     }
   };
@@ -137,6 +140,7 @@ function ReadyToDispatch({ orders }) {
           >
             <Grid item xs={5}>
               <MDInput
+                fullWidth
                 id="datetime-local"
                 label="Handover Time"
                 type="datetime-local"
@@ -170,7 +174,7 @@ function ReadyToDispatch({ orders }) {
                     color="secondary"
                     fontWeight="medium"
                   >
-                    {`Are you sure you want to mark the ${2} selected orders as RTD? This action can't be reversed `}
+                    {`Are you sure you want to mark the ${count} selected orders as RTD? This action can't be reversed `}
                   </MDTypography>
                 }
               />
