@@ -1,9 +1,8 @@
-// @mui material components
 import Divider from "@mui/material/Divider";
 import Icon from "@mui/material/Icon";
 import IconButton from "@mui/material/IconButton";
 import Switch from "@mui/material/Switch";
-// Material Dashboard 2 React components
+
 import MDBox from "components/MDBox";
 import MDButton from "components/MDButton";
 import MDTypography from "components/MDTypography";

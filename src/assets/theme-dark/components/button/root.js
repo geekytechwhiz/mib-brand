@@ -1,7 +1,7 @@
 import typography from "assets/theme-dark/base/typography";
 import borders from "assets/theme-dark/base/borders";
 
-// Material Dashboard 2 React Helper Functions
+        
 import pxToRem from "assets/theme-dark/functions/pxToRem";
 
 const { fontWeightBold, size } = typography;

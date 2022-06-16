@@ -3,14 +3,14 @@
 import createCache from "@emotion/cache";
 import CssBaseline from "@mui/material/CssBaseline";
 import Icon from "@mui/material/Icon";
-// @mui material components
+
 import { ThemeProvider } from "@mui/material/styles";
 import brandDark from "assets/images/logo-ct-dark.png";
 // Images
 import brandWhite from "assets/images/logo-ct.png";
 // Material Dashboard 2 React themes
 // Material Dashboard 2 React Dark Mode themes
-// Material Dashboard 2 React components
+
 import MDBox from "components/MDBox";
 // Material Dashboard 2 React routes
 // Material Dashboard 2 React contexts

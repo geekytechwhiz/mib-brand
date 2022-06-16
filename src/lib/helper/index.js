@@ -12,6 +12,7 @@ import {
   INTERNAL_SERVER_ERROR,
   INTERNAL_SERVER_ERROR_MSG,
   NOT_FOUND_ERROR_MSG,
+  SYSTEM_ERROR_MSG,
   NOT_FOUND_STATUS_CODE,
   UNAUTHORIZED_ERROR_MSG,
   UNAUTHORIZED_STATUS_CODE,
@@ -93,9 +94,15 @@ export const getProfileCompletionScore = (data) => {
 export const responseValidator = (res) => {
   debugger;
   const response = {
-    message: "",
+    message: "Success",
     isValid: true,
   };
+  if (!res || res.statusCode) {
+    return {
+      message: SYSTEM_ERROR_MSG,
+      isValid: false,
+    };
+  }
   if (res.statusCode && res.statusCode === NOT_FOUND_STATUS_CODE) {
     return {
       message: NOT_FOUND_ERROR_MSG,
@@ -117,6 +124,7 @@ export const responseValidator = (res) => {
   if (res.statusCode && res.statusCode === STATUS_CODE_SUCCESS) {
     return response;
   }
+  return response;
 };
 
 export const responseBuilder = (response) => {

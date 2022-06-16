@@ -3,13 +3,12 @@
 /* eslint-disable no-debugger */
 /* eslint-disable no-unused-vars */
 /* eslint-disable react/jsx-no-useless-fragment */
+import CancelIcon from "@mui/icons-material/Cancel";
 import ModeEditOutlinedIcon from "@mui/icons-material/ModeEditOutlined";
 import SaveIcon from "@mui/icons-material/Save";
-import CancelIcon from "@mui/icons-material/Cancel";
 import Autocomplete from "@mui/material/Autocomplete";
 import Grid from "@mui/material/Grid";
 import IconButton from "@mui/material/IconButton";
-import MDAlert from "components/MDAlert";
 import MDBox from "components/MDBox";
 import MDInput from "components/MDInput";
 import MDLoadingButton from "components/MDLoadingButton";
@@ -18,7 +17,7 @@ import _ from "lodash";
 import React, { useState } from "react";
 import { useDispatch } from "react-redux";
 import { alert } from "redux/slices/root/rootSlice";
-import { updateContactInfo } from "../../services/onboarding/index";
+import { updateContactInfo } from "services/onboarding";
 
 function ContactInfo({ data }) {
   const dispatch = useDispatch();

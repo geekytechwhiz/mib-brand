@@ -8,8 +8,8 @@ import MDBox from "components/MDBox";
 import MDTypography from "components/MDTypography";
 import React, { useState } from "react";
 import { shallowEqual, useSelector } from "react-redux";
-import ProfileDetails from "./profileDetails";
-import ProfileHeader from "./ProfileHeader";
+import AccountDetails from "./accountDetails";
+import ProfileSettings from "./profileSettings";
 
 function Profile() {
   const brandInfo = useSelector(
@@ -21,62 +21,52 @@ function Profile() {
     setValue(newValue);
   };
   return (
-    <MDBox>
-      <MDBox
-        variant="gradient"
-        bgColor="transparent"
-        borderRadius="lg"
-        coloredShadow="info"
-        p={2}
-        mb={1}
-        textAlign="center"
-        height="100vh"
-        overflow="scroll"
-        sx={{ width: "100%", typography: "body1" }}
-      >
-        <Grid container spacing={6}>
-          <Grid item xs={12}>
-            <TabContext value={value}>
-              <MDBox
-                sx={{
-                  maxWidth: "80%",
-                }}
+    <MDBox
+      textAlign="center"
+      height="auto"
+      minHeight="100vh"
+      maxHeight="auto"
+      sx={{ width: "100%", typography: "body1" }}
+    >
+      <Grid container spacing={6}>
+        <Grid item xs={12}>
+          <TabContext value={value}>
+            <MDBox
+              sx={{
+                maxWidth: "80%",
+              }}
+            >
+              <TabList
+                onChange={handleChange}
+                aria-label="lab API tabs example"
               >
-                <TabList
-                  onChange={handleChange}
-                  aria-label="lab API tabs example"
-                >
-                  <Tab
-                    label={
-                      <MDTypography variant="button" fontWeight="medium">
-                        Account Details
-                      </MDTypography>
-                    }
-                    value="0"
-                  />
-                  <Tab
-                    label={
-                      <MDTypography variant="button" fontWeight="medium">
-                        Settings
-                      </MDTypography>
-                    }
-                    value="1"
-                  />
-                </TabList>
-              </MDBox>
-              <TabPanel value="0">
-                <MDBox>
-                  <ProfileHeader data={brandInfo} />
-                  <ProfileDetails data={brandInfo} />
-                </MDBox>
-              </TabPanel>
-              <TabPanel value="1">
-                <MDBox>Not yet implemented</MDBox>
-              </TabPanel>
-            </TabContext>
-          </Grid>
+                <Tab
+                  label={
+                    <MDTypography variant="button" fontWeight="medium">
+                      Account Details
+                    </MDTypography>
+                  }
+                  value="0"
+                />
+                <Tab
+                  label={
+                    <MDTypography variant="button" fontWeight="medium">
+                      Settings
+                    </MDTypography>
+                  }
+                  value="1"
+                />
+              </TabList>
+            </MDBox>
+            <TabPanel value="0">
+              <AccountDetails data={brandInfo} />
+            </TabPanel>
+            <TabPanel value="1">
+              <ProfileSettings data={brandInfo} />
+            </TabPanel>
+          </TabContext>
         </Grid>
-      </MDBox>
+      </Grid>
     </MDBox>
   );
 }

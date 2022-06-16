@@ -1,13 +1,13 @@
 /* eslint-disable no-unused-vars */
-// @mui material components
+
 import Card from "@mui/material/Card";
 import Grid from "@mui/material/Grid";
 // Images
 import burceMars from "assets/images/bruce-mars.jpg";
-// Material Dashboard 2 React base styles
+
 import breakpoints from "assets/theme/base/breakpoints";
 import MDAvatar from "components/MDAvatar";
-// Material Dashboard 2 React components
+
 import MDBox from "components/MDBox";
 import MDTypography from "components/MDTypography";
 // prop-types is a library for typechecking of props.

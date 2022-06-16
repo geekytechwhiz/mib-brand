@@ -1,12 +1,11 @@
 import PropTypes from "prop-types";
 
-// @mui material components
+    
 import ListItem from "@mui/material/ListItem";
 import ListItemIcon from "@mui/material/ListItemIcon";
 import ListItemText from "@mui/material/ListItemText";
 import Icon from "@mui/material/Icon";
 
-// Material Dashboard 2 React components
 import MDBox from "components/MDBox";
 
 // Custom styles for the SidenavCollapse

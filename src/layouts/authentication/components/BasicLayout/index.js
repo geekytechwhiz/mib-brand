@@ -1,6 +1,5 @@
-// @mui material components
 import Grid from "@mui/material/Grid";
-// Material Dashboard 2 React components
+
 import MDBox from "components/MDBox";
 import Footer from "layouts/authentication/components/Footer";
 import PropTypes from "prop-types";

@@ -1,6 +1,6 @@
 /* eslint-disable no-debugger */
 /* eslint-disable no-debugger */
-// Material Dashboard 2 React components
+
 import Grid from "@mui/material/Grid";
 import MDBox from "components/MDBox";
 import DashboardNavbar from "components/MDNavbar/DashboardNavbar";

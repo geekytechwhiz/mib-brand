@@ -8,7 +8,7 @@
 /* eslint-disable react/no-unstable-nested-components */
 /* eslint-disable no-return-assign */
 import { Grid } from '@mui/material';
-// Material Dashboard 2 React components
+
 import MDBox from 'components/MDBox';
 import MDTypography from 'components/MDTypography';
 import { getCurrentDateTime } from 'lib/helper';

@@ -1,6 +1,6 @@
 import colors from "assets/theme/base/colors";
 
-// Material Dashboard 2 React helper functions
+        
 import rgba from "assets/theme/functions/rgba";
 
 const { info, white, gradients } = colors;

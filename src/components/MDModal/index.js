@@ -1,8 +1,8 @@
 /* eslint-disable no-unused-vars */
-// Material Dashboard 2 React components
+  
 import Box from "@mui/material/Box";
 import CircularProgress from "@mui/material/CircularProgress";
-// @mui material components
+    
 import Fade from "@mui/material/Fade";
 import Modal from "@mui/material/Modal";
 // prop-types is a library for typechecking of props

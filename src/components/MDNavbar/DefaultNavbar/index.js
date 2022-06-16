@@ -6,18 +6,15 @@ import { Link } from "react-router-dom";
 // prop-types is a library for typechecking of props.
 import PropTypes from "prop-types";
 
-// @mui material components
 import Container from "@mui/material/Container";
 import Icon from "@mui/material/Icon";
 
-// Material Dashboard 2 React components
 import MDBox from "components/MDBox";
 import MDTypography from "components/MDTypography";
 import MDButton from "components/MDButton";
 
 // Material Dashboard 2 React example components
 
-// Material Dashboard 2 React base styles
 import breakpoints from "assets/theme/base/breakpoints";
 
 // Material Dashboard 2 React context

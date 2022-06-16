@@ -1,7 +1,8 @@
 /* eslint-disable no-debugger */
-// Material Dashboard 2 React components
+
 import MDBox from "components/MDBox";
 import DashboardNavbar from "components/MDNavbar/DashboardNavbar";
+import MDTypography from "components/MDTypography";
 import Footer from "layouts/footer";
 // Material Dashboard 2 React example components
 import DashboardLayout from "layouts/layoutContainers/DashboardLayout";
@@ -28,7 +29,9 @@ function ServicesLayout() {
         mb={1}
         textAlign="center"
       >
-        Not implemented
+        <MDTypography variant="caption" fontWeight="medium" color="text">
+          No Data Found
+        </MDTypography>
       </MDBox>
       <Footer />
     </DashboardLayout>

@@ -10,6 +10,16 @@ const registerAccount = async (reqParam) => {
   }
 };
 
+export const passwordReset = async (reqParam) => {
+  try {
+    debugger;
+    return responseBuilder(
+      await apiInstance.patch("/authorizer/register", reqParam)
+    );
+  } catch (err) {
+    return null;
+  }
+};
 export const login = async (payload) => {
   try {
     debugger;

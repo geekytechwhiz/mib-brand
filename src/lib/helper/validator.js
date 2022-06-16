@@ -1,6 +1,8 @@
 /* eslint-disable no-debugger */
 /* eslint-disable consistent-return */
 /* eslint-disable prefer-regex-literals */
+import { REQUIRED_FIELDS_SIGN_UP } from "lib/constants";
+
 export const verifyGST = (gnumber) => {
   const gstVal = gnumber;
   const response = {
@@ -101,3 +103,30 @@ export function validatePAN(pan) {
   }
   return false;
 }
+
+export const ValidateSignUp = (formData) => {
+  let response = {
+    isValid: true,
+    message: "",
+  };
+  const errors = [];
+  if (!formData) {
+    response = {
+      isValid: false,
+      message: `Required fields ${[...REQUIRED_FIELDS_SIGN_UP]}`,
+    };
+  }
+  REQUIRED_FIELDS_SIGN_UP.forEach((x) => {
+    if (!formData[x] || formData[x] === "") {
+      errors.push(x);
+    }
+  });
+
+  if (errors.length > 0) {
+    response = {
+      isValid: false,
+      message: `Required fields ${[...errors]}`,
+    };
+  }
+  return response;
+};

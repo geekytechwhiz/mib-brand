@@ -7,9 +7,7 @@
 import CancelIcon from "@mui/icons-material/Cancel";
 import ModeEditOutlinedIcon from "@mui/icons-material/ModeEditOutlined";
 import SaveIcon from "@mui/icons-material/Save";
-import { Checkbox } from "@mui/material";
 import Autocomplete from "@mui/material/Autocomplete";
-import FormControlLabel from "@mui/material/FormControlLabel";
 import Grid from "@mui/material/Grid";
 import IconButton from "@mui/material/IconButton";
 import MDAlert from "components/MDAlert";
@@ -17,12 +15,12 @@ import MDBox from "components/MDBox";
 import MDInput from "components/MDInput";
 import MDLoadingButton from "components/MDLoadingButton";
 import MDTypography from "components/MDTypography";
-import { useDispatch } from "react-redux";
+import { Category, SubCategory } from "lib/data";
 import { gstValidator, validatePAN } from "lib/helper/validator";
 import React, { useState } from "react";
+import { useDispatch } from "react-redux";
 import { getBrandThunk } from "redux/slices/onboarding/index";
-import { Category, SubCategory } from "../../lib/data";
-import { updateBusinessDetails } from "../../services/onboarding/index";
+import { updateBusinessDetails } from "services/onboarding/index";
 
 export default function BusinessInfo({ data }) {
   const brandId = localStorage.getItem("brandId");

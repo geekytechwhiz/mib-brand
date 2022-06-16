@@ -9,10 +9,18 @@ export const NOT_FOUND_STATUS_CODE = 404;
 export const UNAUTHORIZED_STATUS_CODE = 401;
 export const INTERNAL_SERVER_ERROR = 500;
 export const STATUS_CODE_SUCCESS = 200;
+export const SYSTEM_ERROR_MSG = "System Error";
 export const NOT_FOUND_ERROR_MSG = "Given Email id is not found in our system";
 export const UNAUTHORIZED_ERROR_MSG = "Incorrect email or password";
 export const INTERNAL_SERVER_ERROR_MSG =
   "Something happened in our backend system. Please contact our support team";
+
+export const REQUIRED_FIELDS_SIGN_UP = [
+  "Name",
+  "Mobile",
+  "EmailId",
+  "Password",
+];
 
 export const PRODUCT_TYPES = ["EXCLUSIVE", "COMBO"];
 export const REQUIRED_FIELDS_CATEGORY = ["Category", "ProductCategory"];
@@ -49,13 +57,6 @@ export const ALL_REQUIRED_FIELDS = [
   "CountryOfOrigin",
 ];
 
-export const SIGN_UP_REQUIRED_FIELDS = [
-  "Name",
-  "Mobile",
-  "EmailId",
-  "Password",
-];
-
 export const MORE_DETAILS_REQUIRED_FIELDS = ["BuddyMargin", "LoyaltyPoint"];
 
 export const ORDER_STATUS = [
@@ -73,6 +74,7 @@ export const RETURN_ORDER_STATUS = [
   "IN_TRANSIT",
   "REJECTED",
 ];
+
 export const ORDER_STATUS_REJECTED = "REJECTED";
 export const ORDER_STATUS_RETURNED_READY_FOR_PICKUP =
   "RETURNED_READY_FOR_PICKUP";

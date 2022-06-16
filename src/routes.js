@@ -151,7 +151,7 @@ export const companyRoutes = [
     name: "Voucher Management",
     key: "VoucherManagement",
     icon: <VisibilityOutlinedIcon>Voucher Management</VisibilityOutlinedIcon>,
-    route: "/services/voucher-management",
+    route: "/profile/voucher-management",
     component: <ServicesLayout />,
   },
 ];

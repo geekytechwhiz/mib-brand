@@ -10,9 +10,9 @@ import Divider from "@mui/material/Divider";
 import Icon from "@mui/material/Icon";
 import IconButton from "@mui/material/IconButton";
 import Link from "@mui/material/Link";
-// @mui material components
+
 import List from "@mui/material/List";
-// Material Dashboard 2 React components
+
 import MDBox from "components/MDBox";
 import MDButton from "components/MDButton";
 import MDProgress from "components/MDProgress";
@@ -347,7 +347,6 @@ function Sidenav({
         }
       />
       <List>{renderRoutes}</List>
-      <List>{renderSettingsRoutes}</List>
 
       <MDBox p={2} mt="auto">
         <MDButton

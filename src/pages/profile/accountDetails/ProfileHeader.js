@@ -1,14 +1,14 @@
 /* eslint-disable react/prop-types */
 /* eslint-disable no-unused-vars */
-// @mui material components
+
 import Card from "@mui/material/Card";
 import Grid from "@mui/material/Grid";
 // Images
 import defaultlogo from "assets/images/logos/defaultlogo.png";
-// Material Dashboard 2 React base styles
+
 import breakpoints from "assets/theme/base/breakpoints";
 import MDAvatar from "components/MDAvatar";
-// Material Dashboard 2 React components
+
 import MDBox from "components/MDBox";
 import MDTypography from "components/MDTypography";
 import { useEffect, useState } from "react";

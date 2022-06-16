@@ -1,10 +1,9 @@
-// @mui material components
 import Container from "@mui/material/Container";
 import Icon from "@mui/material/Icon";
 // Material Dashboard 2 React example components
-// Material Dashboard 2 React base styles
+
 import breakpoints from "assets/theme/base/breakpoints";
-// Material Dashboard 2 React components
+
 import MDBox from "components/MDBox";
 import MDButton from "components/MDButton";
 // Material Dashboard 2 React context

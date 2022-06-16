@@ -3,10 +3,10 @@ import { useState } from "react";
 // prop-types is a library for typechecking of props
 import PropTypes from "prop-types";
 
-// @mui material components
+    
 import Fade from "@mui/material/Fade";
 
-// Material Dashboard 2 React components
+  
 import MDBox from "components/MDBox";
 
 // Custom styles for the MDAlert

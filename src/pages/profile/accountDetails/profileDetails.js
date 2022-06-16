@@ -1,15 +1,15 @@
 /* eslint-disable no-debugger */
 /* eslint-disable react/prop-types */
 // import ArrowForwardIosSharpIcon from "@mui/icons-material/ArrowForwardIosSharp";
+import { ExpandMoreOutlined } from "@mui/icons-material";
 import MuiAccordion from "@mui/material/Accordion";
 import MuiAccordionDetails from "@mui/material/AccordionDetails";
 import MuiAccordionSummary from "@mui/material/AccordionSummary";
 import { styled } from "@mui/material/styles";
 import MDTypography from "components/MDTypography";
 import * as React from "react";
-import { ExpandMoreOutlined } from "@mui/icons-material";
-import BankInfo from "./BankInfo";
 import AddressDetails from "./AddressDetails";
+import BankInfo from "./BankInfo";
 import BusinessInfo from "./BusinessInfo";
 import ContactDetails from "./ContactInfo";
 import VerifyDocuments from "./VerifyDocuments";

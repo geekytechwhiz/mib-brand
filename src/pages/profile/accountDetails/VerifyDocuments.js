@@ -21,8 +21,8 @@ import React, { useRef, useState } from "react";
 import { useDispatch } from "react-redux";
 import { alert } from "redux/slices/root/rootSlice";
 import { postSignedUrl } from "services/common";
+import { updateDocuments } from "services/onboarding/index";
 import { v4 as uuidv4 } from "uuid";
-import { updateDocuments } from "../../services/onboarding/index";
 
 export default function VerifyDocuments({ data }) {
   debugger;

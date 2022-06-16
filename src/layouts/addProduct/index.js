@@ -59,7 +59,6 @@ function addProduct() {
           mb={1}
           textAlign="center"
           height="100vh"
-          overflow="scroll"
           sx={{ width: "100%", typography: "body1" }}
         >
           <Grid container spacing={6}>

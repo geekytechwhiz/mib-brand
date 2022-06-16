@@ -6,7 +6,6 @@
 /* eslint-disable no-debugger */
 import CancelIcon from "@mui/icons-material/Cancel";
 import CheckCircleOutlineOutlinedIcon from "@mui/icons-material/CheckCircleOutlineOutlined";
-import CheckCircleOutlineRoundedIcon from "@mui/icons-material/CheckCircleOutlineRounded";
 import DoDisturbOnOutlinedIcon from "@mui/icons-material/DoDisturbOnOutlined";
 import ModeEditOutlinedIcon from "@mui/icons-material/ModeEditOutlined";
 import PhotoCamera from "@mui/icons-material/PhotoCamera";
@@ -23,11 +22,11 @@ import MDTypography from "components/MDTypography";
 import { RESOURCE_DOCUMENT_VERIFICATION } from "lib/constants";
 import _ from "lodash";
 import React, { useRef, useState } from "react";
-import { postSignedUrl } from "services/common";
-import { v4 as uuidv4 } from "uuid";
 import { useDispatch } from "react-redux";
 import { alert } from "redux/slices/root/rootSlice";
-import { updateAddressDetails } from "../../services/onboarding/index";
+import { postSignedUrl } from "services/common";
+import { updateAddressDetails } from "services/onboarding/index";
+import { v4 as uuidv4 } from "uuid";
 
 export default function AddressDetails({ data }) {
   debugger;

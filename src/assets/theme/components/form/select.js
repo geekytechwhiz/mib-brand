@@ -1,6 +1,6 @@
 import colors from "assets/theme/base/colors";
 
-// Material Dashboard 2 React helper functions
+        
 import pxToRem from "assets/theme/functions/pxToRem";
 
 const { transparent } = colors;

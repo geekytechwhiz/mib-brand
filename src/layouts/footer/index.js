@@ -1,9 +1,9 @@
 /* eslint-disable react/forbid-prop-types */
-// @mui material components
+
 import Link from "@mui/material/Link";
-// Material Dashboard 2 React base styles
+
 import typography from "assets/theme/base/typography";
-// Material Dashboard 2 React components
+
 import MDBox from "components/MDBox";
 import MDTypography from "components/MDTypography";
 import PropTypes from "prop-types";

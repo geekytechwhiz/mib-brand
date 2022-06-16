@@ -5,10 +5,9 @@
 /* eslint-disable no-unused-expressions */
 /* eslint-disable no-debugger */
 /* eslint-disable no-unused-vars */
-// @mui material components
 
 import LoginRoundedIcon from "@mui/icons-material/LoginRounded";
-import { Button } from "@mui/material";
+import { Button, IconButton, OutlinedInput } from "@mui/material";
 import Card from "@mui/material/Card";
 import Switch from "@mui/material/Switch";
 import MDAlert from "components/MDAlert";
@@ -22,6 +21,9 @@ import { TextValidator, ValidatorForm } from "react-material-ui-form-validator";
 import { useDispatch } from "react-redux";
 import { useLocation, useNavigate } from "react-router-dom";
 import { responseValidator } from "lib/helper";
+import InputAdornment from "@mui/material/InputAdornment";
+import Visibility from "@mui/icons-material/Visibility";
+import VisibilityOff from "@mui/icons-material/VisibilityOff";
 import { getBrandThunk } from "../../redux/slices/onboarding";
 import { login } from "../../services/onboarding";
 
@@ -34,6 +36,7 @@ function SignIn() {
   const initialRoutesSetRef = useRef(false);
   const token = localStorage.getItem("token");
   const [error, setError] = useState({ message: "", isValid: false });
+  const [showPassword, setShowPassword] = React.useState(false);
 
   const [rememberMe, setRememberMe] = useState(false);
   const [user, setUser] = useState({ EmailId: "", Password: "" });
@@ -49,8 +52,14 @@ function SignIn() {
 
   const [controller, contextDispatch] = useMaterialUIController();
 
+  const handleClickShowPassword = () => {
+    setShowPassword(!showPassword);
+  };
   const handleSetRememberMe = () => setRememberMe(!rememberMe);
 
+  const handleMouseDownPassword = (event) => {
+    event.preventDefault();
+  };
   const handleChange = (event) => {
     const { name } = event.target;
     const { value } = event.target;
@@ -69,9 +78,9 @@ function SignIn() {
     setError({ message: "", isValid: false });
     setIsLoading(true);
     const response = await login(user);
-    if (response && response.auth) {
+    if (response && response?.data?.auth) {
       setIsLoading(false);
-      localStorage.setItem("token", response.token);
+      localStorage.setItem("token", response?.data?.token);
       localStorage.setItem("auth", true);
       localStorage.setItem("emailId", user.EmailId);
       dispatch(getBrandThunk(user.EmailId));
@@ -79,7 +88,7 @@ function SignIn() {
       navigate("/dashboard");
     } else {
       setIsLoading(false);
-      const validate = responseValidator(response.status);
+      const validate = responseValidator(response);
       debugger;
       if (!validate.isValid) {
         setError(validate);
@@ -105,13 +114,22 @@ function SignIn() {
 
   return (
     <ValidatorForm formRef="form" onSubmit={handleSubmit}>
-      {state?.register ? (
-        <MDAlert color="success" dismissible>
-          {alertContent("Account has been created successfully!!")}
-        </MDAlert>
-      ) : (
-        <></>
-      )}
+      <MDBox px={3}>
+        {state?.register ? (
+          <MDAlert color="success" dismissible>
+            {alertContent("Account has been created successfully!!")}
+          </MDAlert>
+        ) : (
+          <></>
+        )}
+        {state?.passwordReset ? (
+          <MDAlert color="success" dismissible>
+            {alertContent(" Password has been changed successfully!!")}
+          </MDAlert>
+        ) : (
+          <></>
+        )}
+      </MDBox>
       <MDBox pt={4} pb={1} mt={10} px={3}>
         <Card>
           <MDBox pt={4} pb={3} px={3}>
@@ -131,15 +149,27 @@ function SignIn() {
                 />
               </MDBox>
               <MDBox mb={2}>
-                <TextValidator
+                <OutlinedInput
                   label="Password"
                   fullWidth
-                  type="password"
+                  type={showPassword ? "text" : "password"}
                   onChange={handleChange}
                   name="Password"
                   value={user.Password}
                   validators={["required"]}
                   errorMessages={["this field is required"]}
+                  endAdornment={
+                    <InputAdornment position="end">
+                      <IconButton
+                        aria-label="toggle password visibility"
+                        onClick={handleClickShowPassword}
+                        onMouseDown={handleMouseDownPassword}
+                        edge="end"
+                      >
+                        {showPassword ? <VisibilityOff /> : <Visibility />}
+                      </IconButton>
+                    </InputAdornment>
+                  }
                 />
               </MDBox>
               <MDBox display="flex" alignItems="center" ml={1}>

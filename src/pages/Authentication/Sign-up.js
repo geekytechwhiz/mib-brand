@@ -3,23 +3,23 @@
 /* eslint-disable consistent-return */
 /* eslint-disable no-debugger */
 /* eslint-disable no-unused-vars */
+import ExitToAppIcon from "@mui/icons-material/ExitToApp";
 import { Checkbox } from "@mui/material";
 import Card from "@mui/material/Card";
-// // Material Dashboard 2 React components
+//
 import MDBox from "components/MDBox";
-import MDButton from "components/MDButton";
+import MDLoadingButton from "components/MDLoadingButton";
 import MDTypography from "components/MDTypography";
-import React, { useEffect, useRef, useState } from "react";
-import ExitToAppIcon from "@mui/icons-material/ExitToApp";
+import React, { useRef, useState } from "react";
 import { TextValidator, ValidatorForm } from "react-material-ui-form-validator";
 import { Link, useNavigate } from "react-router-dom";
-import MDLoadingButton from "components/MDLoadingButton";
+import { REQUIRED_FIELDS_SIGN_UP } from "../../lib/constants/index";
 import { Validate } from "../../lib/validations/index";
-import { SIGN_UP_REQUIRED_FIELDS } from "../../lib/constants/index";
 import registerAccount from "../../services/onboarding/index";
 
 function Signup() {
   const formRef = useRef("form");
+  const [error, setError] = useState({ message: "", isValid: false });
   const [disabled, setDisabled] = useState(true);
   const [isLoading, setIsLoading] = useState(false);
 
@@ -36,11 +36,12 @@ function Signup() {
   };
 
   const handleSubmit = async () => {
-    setIsLoading(true);
-    const validate = Validate(SIGN_UP_REQUIRED_FIELDS, user);
+    const validate = Validate(REQUIRED_FIELDS_SIGN_UP, user);
     if (!validate.isValid) {
+      setError({ message: validate.message, isValid: false });
       return false;
     }
+    setIsLoading(true);
     const req = {
       EmailId: user.EmailId,
       Password: user.Password,
@@ -162,6 +163,19 @@ function Signup() {
                   Terms and Conditions
                 </MDTypography>
               </MDBox>
+              <MDBox display="flex" alignItems="center" ml={1} mt={2}>
+                {!error.isValid ? (
+                  <MDTypography
+                    variant="caption"
+                    fontWeight="medium"
+                    color="error"
+                  >
+                    {error.message}
+                  </MDTypography>
+                ) : (
+                  <></>
+                )}
+              </MDBox>
               <MDBox mt={4} mb={1}>
                 <MDLoadingButton
                   disabled={!disabled}
@@ -178,7 +192,7 @@ function Signup() {
                   Create Account
                 </MDLoadingButton>
               </MDBox>
-              <MDBox mt={3} mb={1} textAlign="center">
+              <MDBox mt={2} mb={1} textAlign="center">
                 <MDTypography variant="button" color="text">
                   Already have an account?{" "}
                   <MDTypography

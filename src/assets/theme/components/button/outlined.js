@@ -1,7 +1,7 @@
 import colors from "assets/theme/base/colors";
 import Typography from "assets/theme/base/typography";
 
-// Material Dashboard 2 React Helper Functions
+        
 import pxToRem from "assets/theme/functions/pxToRem";
 
 const { transparent, light, info, secondary } = colors;

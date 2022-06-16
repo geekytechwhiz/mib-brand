@@ -72,7 +72,7 @@ export function Validate(fields, inputs) {
   if (errors.length > 0) {
     response = {
       isValid: false,
-      message: `Required fields ${[...errors]}`,
+      message: `Required fields are ${[...errors]}`,
     };
   }
   return response;
