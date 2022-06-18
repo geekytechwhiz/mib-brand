@@ -1,9 +1,9 @@
+/* eslint-disable react/jsx-no-useless-fragment */
 /* eslint-disable no-unused-vars */
 /* eslint-disable no-debugger */
 /* eslint-disable jsx-a11y/img-redundant-alt */
 /* eslint-disable react/no-unused-prop-types */
 /* eslint-disable react/prop-types */
-import { Button } from "@mui/material";
 import Divider from "@mui/material/Divider";
 import Rating from "@mui/material/Rating";
 import MDBox from "components/MDBox";
@@ -13,6 +13,7 @@ import React, { useState } from "react";
 import Imgix from "react-imgix";
 import { useNavigate } from "react-router-dom";
 import CardMenu from "../CardMenu";
+import UpdateStock from "../updateStock";
 
 // import img from '../../../public/images/marie.jpg'
 
@@ -35,10 +36,10 @@ function ProductCard({
     img = "";
   }
 
-  const [openMenu, setOpenMenu] = useState(false);
+  const [hasUpdate, setHasUpdate] = useState(false);
   const navigate = useNavigate();
   const handleClickOpen = () => {
-    alert("Clicked");
+    setHasUpdate(true);
   };
   const handleOnClick = () => {
     navigate("/add-product", {
@@ -145,7 +146,7 @@ function ProductCard({
           </MDTypography>
         </MDBox>
         <MDBox>
-          <Button variant="text">
+          {/* <Button variant="text">
             <MDTypography
               variant="caption"
               color="text"
@@ -155,7 +156,8 @@ function ProductCard({
             >
               Update Stock +
             </MDTypography>
-          </Button>
+          </Button> */}
+          <UpdateStock />
         </MDBox>
       </MDBox>
     </MDBox>

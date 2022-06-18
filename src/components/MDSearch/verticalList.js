@@ -15,7 +15,7 @@ export default function SelectedListItem() {
   const [selectedIndex, setSelectedIndex] = React.useState(1);
 
   const handleListItemClick = (event, index) => {
-    debugger;
+             
     setSelectedIndex(index);
   };
 

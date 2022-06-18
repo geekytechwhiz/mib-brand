@@ -44,7 +44,7 @@ export default function ActiveProducts() {
       }));
   }
   const handleAddNew = () => {
-    debugger;
+             
     if (!businessDetails.GSTNVerification) {
       setOpen(true);
     } else {

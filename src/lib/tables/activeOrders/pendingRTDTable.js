@@ -11,7 +11,7 @@ import MDTypography from "components/MDTypography";
 import React from "react";
 import { RenderProductName, RenderColumn } from "../common/index";
 
-function ReadyToDispatchTable(orders) {
+function PendingRTDTable(orders) {
   const rows = [];
   const resp = {
     ProductName: "",
@@ -75,10 +75,11 @@ function ReadyToDispatchTable(orders) {
 
   const getRows = () => {
     const dataRows = [];
+    debugger;
     rows.forEach((element, index) => {
       const res = {
         index,
-        OrderId: element.OrderId,
+        OrderId: RenderColumn(element, "OrderId"),
         ProductName: RenderProductName(element, "ProductName"),
         ItemId: RenderColumn(element, "ProductId"),
         Quantity: RenderColumn(element, "Quantity"),
@@ -150,4 +151,4 @@ function ReadyToDispatchTable(orders) {
   return response;
 }
 
-export default ReadyToDispatchTable;
+export default PendingRTDTable;

@@ -7,14 +7,15 @@
 // Images
 
 import {
-  RenderAction,
   RenderColumn,
+  PaymentStatus,
   RenderDate,
-  RenderLogisticsPartner,
-} from "lib/tables/common";
+  ProductNameAndImage,
+  RenderAction,
+} from "../common/index";
 // import { useEffect, useState } from "react";
 
-function ReadyToDispatchTable(orders) {
+function SettlementTable(orders) {
   const rows = [];
   const resp = {
     ProductName: "",
@@ -40,20 +41,18 @@ function ReadyToDispatchTable(orders) {
       rows.push(obj);
     });
   }
-
   const getRows = () => {
     const dataRows = [];
 
     rows.forEach((element) => {
       const res = {
+        Date: RenderDate(element, "Date"),
+        SettlementId: RenderColumn(element, "OrderId"),
         OrderId: RenderColumn(element, "OrderId"),
-        Courier: RenderLogisticsPartner(element, "DispatchedBy"),
-        HandoverTime: RenderDate(element, "HandoverTime"),
-        Quantity: RenderColumn(element, "Quantity"),
-        Amount: RenderColumn(element, "Amount"),
-        TrackingId: RenderColumn(element, "TrackingId"),
-        Tag: RenderColumn(element, "Tag"),
-        Actions: RenderAction("download", "manifest"),
+        ProductName: ProductNameAndImage(element, "ProductName"),
+        Amount: RenderColumn(element, "Amount", true),
+        Status: PaymentStatus(element, "Status"),
+        Action: RenderAction(null, null, true),
       };
       dataRows.push(res);
     });
@@ -61,32 +60,25 @@ function ReadyToDispatchTable(orders) {
     return dataRows;
   };
   const response = {
-    orderColumns: [
+    columns: [
+      { Header: "Date", accessor: "Date", align: "left" },
+      { Header: "Order #", accessor: "OrderId", align: "center" },
+      { Header: "Settlement ID", accessor: "SettlementId", align: "center" },
       {
-        Header: "Order # ",
-        accessor: "OrderId",
-        align: "left",
-      },
-      {
-        Header: "Logistics Partner ",
-        accessor: "Courier",
-        align: "left",
-      },
-      {
-        Header: "Handover Date & Time",
-        accessor: "HandoverTime",
+        Header: "Product Name ",
+        accessor: "ProductName",
         align: "center",
       },
-      { Header: "No.of Orders", accessor: "Quantity", align: "center" },
-      { Header: "Tracking ID", accessor: "TrackingId", align: "center" },
-      { Header: "Tag", accessor: "Tag", align: "center" },
-      { Header: "Actions", accessor: "Actions", align: "center" },
+
+      { Header: "Amount", accessor: "Amount", align: "center" },
+      { Header: "Status", accessor: "Status", align: "center" },
+      { Header: "Statement", accessor: "Action", align: "center" },
     ],
 
-    orderRows: getRows(),
+    rows: getRows(),
   };
 
   return response;
 }
 
-export default ReadyToDispatchTable;
+export default SettlementTable;

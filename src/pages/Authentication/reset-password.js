@@ -47,7 +47,7 @@ function ResetPassword() {
   };
 
   const handleResetPassword = async () => {
-    debugger;
+             
     setIsLoading(true);
     const request = {
       EmailId: email,
@@ -62,33 +62,30 @@ function ResetPassword() {
         message: "Something went wrong please contact support team",
       });
     } else {
-      navigate("/authentication/sign-in", { state: { passwordReset: true } });
+      navigate("/authentication/sign-in", {
+        state: { register: false, passwordReset: true },
+      });
     }
   };
 
   const handleRequestResetPassword = async () => {
-    debugger;
+             
     if (!email) {
       setError({ message: "Email Id is mandatory!", isValid: false });
       return false;
     }
     setIsLoading(true);
     const { data } = await dispatch(getBrandThunk(email)).unwrap();
-    const validate = responseValidator(data);
-    if (!validate.isValid) {
-      setError(validate);
-      setIsLoading(false);
-      return false;
-    }
+
     const req = {
       name: data?.ContactDetails?.Name,
       toAddress: email,
     };
     const res = await postPasswordResetRequest(req);
-    debugger;
-    const validatePasswordRequest = responseValidator(data);
+             
+    const validatePasswordRequest = responseValidator(res);
     if (!validatePasswordRequest.isValid) {
-      setError(validate);
+      setError(validatePasswordRequest);
       setIsLoading(false);
       return false;
     }

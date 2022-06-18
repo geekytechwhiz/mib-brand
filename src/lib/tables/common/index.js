@@ -5,7 +5,7 @@
 
 import CancelOutlinedIcon from "@mui/icons-material/CancelOutlined";
 import CheckCircleOutlinedIcon from "@mui/icons-material/CheckCircleOutlined";
-import { Button } from "@mui/material";
+import { Avatar, Button } from "@mui/material";
 import Icon from "@mui/material/Icon";
 import productImage from "assets/images/logos/shiprocket.png";
 import MDAvatar from "components/MDAvatar";
@@ -16,6 +16,7 @@ import MDProgress from "components/MDProgress";
 import { LightTooltip } from "components/MDTooltip";
 import MDTypography from "components/MDTypography";
 import { utcToLocalDateFormatter } from "lib/helper/index";
+import InventoryIcon from "@mui/icons-material/Inventory";
 import Imgix from "react-imgix";
 
 export function RenderBadge() {
@@ -27,6 +28,57 @@ export function RenderBadge() {
         variant="gradient"
         size="sm"
       />
+    </MDBox>
+  );
+}
+
+export function ProductNameAndImage(row, column) {
+  const name = row[column];
+  return (
+    <MDBox
+      display="flex"
+      alignItems="center"
+      lineHeight={1}
+      sx={{ overflow: "hidden", textOverflow: "ellipsis", width: "10rem" }}
+    >
+      <Avatar sx={{ bgcolor: "green" }}>
+        <InventoryIcon />
+      </Avatar>
+      <MDTypography
+        component="a"
+        href="#"
+        variant="button"
+        color="text"
+        fontWeight="medium"
+        ml={1}
+        lineHeight={1}
+      >
+        {name}
+      </MDTypography>
+    </MDBox>
+  );
+}
+
+export function PaymentStatus(row, column) {
+  const name = row[column];
+
+  return (
+    <MDBox display="flex" alignItems="center" lineHeight={1}>
+      {name === "SUCCESS" ? (
+        <MDBadge
+          badgeContent={name}
+          color="success"
+          variant="gradient"
+          size="sm"
+        />
+      ) : (
+        <MDBadge
+          badgeContent={name}
+          color="error"
+          variant="gradient"
+          size="sm"
+        />
+      )}
     </MDBox>
   );
 }
@@ -55,9 +107,11 @@ export function RenderProductName(row, column) {
 
       <LightTooltip title={name}>
         <MDTypography
-          variant="caption"
+          component="a"
+          href="#"
+          variant="button"
           color="text"
-          fontWeight="regular"
+          fontWeight="medium"
           display="block"
           ml={1}
           lineHeight={1}
@@ -80,14 +134,24 @@ export function RenderMultiLineColumn({ title, description }) {
   return (
     <MDBox lineHeight={1} textAlign="left">
       <MDTypography
-        display="block"
-        variant="caption"
+        component="a"
+        href="#"
+        variant="button"
         color="text"
         fontWeight="medium"
+        display="block"
       >
         {title}
       </MDTypography>
-      <MDTypography variant="caption">{description}</MDTypography>
+      <MDTypography
+        component="a"
+        href="#"
+        variant="button"
+        color="text"
+        fontWeight="medium"
+      >
+        {description}
+      </MDTypography>
     </MDBox>
   );
 }
@@ -105,7 +169,13 @@ export function ReturnInfo(element) {
       flexDirection="column"
       sx={{ width: 200, minWidth: 200 }}
     >
-      <MDTypography color="text" variant="caption" fontWeight="medium">
+      <MDTypography
+        component="a"
+        href="#"
+        variant="button"
+        color="text"
+        fontWeight="medium"
+      >
         {element.ReturnOrderId}
       </MDTypography>
     </MDBox>
@@ -120,18 +190,24 @@ export function RefundInfo(element) {
       flexDirection="column"
       sx={{ width: "15rem" }}
     >
-      <MDTypography variant="caption" color="text" fontWeight="regular">
+      <MDTypography
+        component="a"
+        href="#"
+        variant="button"
+        color="text"
+        fontWeight="medium"
+      >
         {element.RefundStatus}
       </MDTypography>
       <MDBox display="flex" justifyContent="space-between" alignItems="left">
         <MDTypography
+          color="text"
           display="block"
           variant="caption"
-          color="text"
           fontWeight="medium"
         >
           Refund Mode:&nbsp;&nbsp;&nbsp;
-          <MDTypography variant="caption" color="text" fontWeight="regular">
+          <MDTypography color="text" variant="caption" fontWeight="regular">
             {element.RefundMode}
           </MDTypography>
         </MDTypography>
@@ -547,7 +623,13 @@ export function RenderProductInfo(row, column) {
 export function RenderDate(row, column) {
   return (
     <MDBox lineHeight={1} sx={{ width: "10rem" }} textAlign="left">
-      <MDTypography variant="caption" color="text" fontWeight="regular">
+      <MDTypography
+        component="a"
+        href="#"
+        variant="button"
+        color="text"
+        fontWeight="medium"
+      >
         {utcToLocalDateFormatter(row[column]) || ""}
       </MDTypography>
     </MDBox>
@@ -557,7 +639,13 @@ export function RenderDate(row, column) {
 export function RenderColumn(row, column, isAmount) {
   return (
     <MDBox lineHeight={1} textAlign="left">
-      <MDTypography variant="caption" color="text" fontWeight="regular">
+      <MDTypography
+        component="a"
+        href="#"
+        variant="button"
+        color="text"
+        fontWeight="medium"
+      >
         {isAmount && row[column]
           ? `Rs. ${(Math.round(row[column] * 100) / 100).toFixed(2)}`
           : row[column]}
@@ -566,14 +654,9 @@ export function RenderColumn(row, column, isAmount) {
   );
 }
 
-export function RenderAction(name, description) {
+export function RenderAction(name, description, hasDisabled) {
   return (
     <MDBox display="flex" alignItems="left">
-      <MDBox mr={2}>
-        <MDButton variant="outlined" color="success" iconOnly circular>
-          <Icon sx={{ fontWeight: "bold" }}>download</Icon>
-        </MDButton>
-      </MDBox>
       <MDBox display="flex" flexDirection="column">
         <MDTypography
           display="block"
@@ -582,9 +665,14 @@ export function RenderAction(name, description) {
           fontWeight="regular"
           gutterBottom
         >
-          {name}
+          {name || ""}
         </MDTypography>
         <MDTypography
+          component="a"
+          href="#"
+          variant="button"
+          color="text"
+          fontWeight="medium"
           style={{ wordWrap: "break-word" }}
           sx={{
             display: "box",
@@ -592,12 +680,20 @@ export function RenderAction(name, description) {
             boxOrient: "vertical",
             overflow: "hidden",
           }}
-          variant="caption"
-          color="text"
-          fontWeight="regular"
         >
-          {description}{" "}
+          {description || ""}{" "}
         </MDTypography>
+      </MDBox>
+      <MDBox mr={2}>
+        <MDButton
+          disabled={hasDisabled}
+          variant="outlined"
+          color="success"
+          iconOnly
+          circular
+        >
+          <Icon sx={{ fontWeight: "bold" }}>download</Icon>
+        </MDButton>
       </MDBox>
     </MDBox>
   );
@@ -619,9 +715,11 @@ export function RenderLogisticsPartner(row, column) {
       />
       <LightTooltip title={row[column]}>
         <MDTypography
+          component="a"
+          href="#"
           variant="caption"
+          color="text"
           fontWeight="medium"
-          color="primary"
           ml={1}
           pt={3}
           sx={{

@@ -29,7 +29,7 @@ import { updateAddressDetails } from "services/onboarding/index";
 import { v4 as uuidv4 } from "uuid";
 
 export default function AddressDetails({ data }) {
-  debugger;
+           
   const dispatch = useDispatch();
   const signatureRef = useRef(null);
   const logoRef = useRef(null);
@@ -73,7 +73,7 @@ export default function AddressDetails({ data }) {
     setIsLoading({ save: false, cancel: false });
   };
   const handleSave = async () => {
-    debugger;
+             
     setIsLoading({ save: true, cancel: false });
     const res = await updateAddressDetails(addressDetails, emailId, brandId);
     setIsLoading({ save: false, cancel: false });
@@ -97,7 +97,7 @@ export default function AddressDetails({ data }) {
     }
   };
   const handleChange = (event) => {
-    debugger;
+             
     const { name } = event.target;
     const { value } = event.target;
     const temp = _.cloneDeep(addressDetails.BillingAddress);
@@ -120,7 +120,7 @@ export default function AddressDetails({ data }) {
   };
 
   const getUploadParams = async (e) => {
-    debugger;
+             
     const { name } = e.target;
     const isLoadingObj = {
       Signature: false,

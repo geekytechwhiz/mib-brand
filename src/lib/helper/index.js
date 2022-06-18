@@ -92,12 +92,11 @@ export const getProfileCompletionScore = (data) => {
 };
 
 export const responseValidator = (res) => {
-  debugger;
   const response = {
     message: "Success",
     isValid: true,
   };
-  if (!res || res.statusCode) {
+  if (!res || res.statusCode !== 200) {
     return {
       message: SYSTEM_ERROR_MSG,
       isValid: false,
@@ -118,6 +117,17 @@ export const responseValidator = (res) => {
   if (res.statusCode && res.statusCode === INTERNAL_SERVER_ERROR) {
     return {
       message: INTERNAL_SERVER_ERROR_MSG,
+      isValid: false,
+    };
+  }
+  if (
+    res.statusCode &&
+    res.statusCode === STATUS_CODE_SUCCESS &&
+    res.data?.auth === false
+  ) {
+    const { data } = res;
+    return {
+      message: data?.status?.message,
       isValid: false,
     };
   }

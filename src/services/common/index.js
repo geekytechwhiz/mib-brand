@@ -6,7 +6,7 @@ import { ORIGIN } from "../../lib/constants";
 
 export const postSignedUrl = async (payload) => {
   try {
-    debugger;
+             
     const requestBody = {
       ContentType: payload.contentType,
       Resource: payload.resource,
@@ -36,7 +36,7 @@ export const putImage = async (url, payload, config) => {
 };
 export const postPasswordResetRequest = async (payload) => {
   try {
-    debugger;
+             
     const requestBody = {
       Name: payload.name,
       ToAddress: payload.toAddress,

@@ -1,20 +1,20 @@
+import AddBoxOutlinedIcon from "@mui/icons-material/AddBoxOutlined";
+import Inventory2OutlinedIcon from "@mui/icons-material/Inventory2Outlined";
+import LoyaltyIcon from "@mui/icons-material/Loyalty";
+import MiscellaneousServicesIcon from "@mui/icons-material/MiscellaneousServices";
+import PaymentOutlinedIcon from "@mui/icons-material/PaymentOutlined";
+import ShoppingCartOutlinedIcon from "@mui/icons-material/ShoppingCartOutlined";
+import VisibilityOutlinedIcon from "@mui/icons-material/VisibilityOutlined";
 import Icon from "@mui/material/Icon";
-import SignIn from "layouts/authentication/sign-in";
 import ResetPassword from "layouts/authentication/reset-password/index";
+import SignIn from "layouts/authentication/sign-in";
 import SignUp from "layouts/authentication/sign-up";
 import CancelledLayout from "layouts/cancelledOrdersLayout";
 import Dashboard from "layouts/dashboard";
 import ProfileLayout from "layouts/profile";
 import ReturnsLayout from "layouts/returnedOrdersLayout";
-import Settlements from "layouts/settlements";
-import Inventory2OutlinedIcon from "@mui/icons-material/Inventory2Outlined";
-import AddBoxOutlinedIcon from "@mui/icons-material/AddBoxOutlined";
-import ShoppingCartOutlinedIcon from "@mui/icons-material/ShoppingCartOutlined";
-import PaymentOutlinedIcon from "@mui/icons-material/PaymentOutlined";
-import MiscellaneousServicesIcon from "@mui/icons-material/MiscellaneousServices";
-import LoyaltyIcon from "@mui/icons-material/Loyalty";
-import VisibilityOutlinedIcon from "@mui/icons-material/VisibilityOutlined";
 import ServicesLayout from "layouts/servicesLayout";
+import Settlements from "layouts/settlements";
 import AddProduct from "./layouts/addProduct/index";
 import Inventory from "./layouts/inventory/index";
 import OrderLayout from "./layouts/orderLayout/index";
@@ -53,6 +53,7 @@ const routes = [
     route: "/orders",
     component: <OrderLayout />,
   },
+
   {
     type: "collapse",
     name: "Settlements",

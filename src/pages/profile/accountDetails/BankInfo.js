@@ -12,7 +12,7 @@ import MDInput from "components/MDInput";
 import MDLoadingButton from "components/MDLoadingButton";
 import MDTypography from "components/MDTypography";
 import { ACCOUNT_TYPE_LIST } from "lib/constants";
-import React, { useState } from "react";
+import React, { useEffect, useState } from "react";
 import { useDispatch } from "react-redux";
 import { alert } from "redux/slices/root/rootSlice";
 import { updateBankDetails } from "services/onboarding/index";
@@ -20,7 +20,6 @@ import { updateBankDetails } from "services/onboarding/index";
 export default function BankInfo({ data }) {
   const dispatch = useDispatch();
   const [isLoading, setIsLoading] = useState({ save: false, cancel: false });
-  // const brandId = localStorage.getItem("brandId");
   const emailId = localStorage.getItem("emailId");
   const [disabled, setDisabled] = useState(true);
   const [bankInfo, setBankDetails] = useState(data);
@@ -46,12 +45,12 @@ export default function BankInfo({ data }) {
     setIsLoading({ save: false, cancel: false });
   };
   const handleSave = async () => {
-    debugger;
     setIsLoading({ save: true, cancel: false });
     const bankObj = { ...data };
     const req = { ...bankObj, ...bankInfo };
-    const res = await updateBankDetails(req, emailId);
-    debugger;
+    const brandId = localStorage.getItem("brandId");
+    const res = await updateBankDetails(req, emailId, brandId);
+
     setIsLoading({ save: false, cancel: false });
     if (!res) {
       const error = {
@@ -86,6 +85,14 @@ export default function BankInfo({ data }) {
       [name]: value,
     }));
   };
+
+  useEffect(() => {
+    debugger;
+    setBankDetails(() => ({
+      ...bankInfo,
+      AccountType: data.AccountType,
+    }));
+  }, []);
 
   return (
     <MDBox textAlign="center">
@@ -184,33 +191,38 @@ export default function BankInfo({ data }) {
             onChange={handleChange}
           />
         </Grid>
-        <Grid item xs={5} mb={2}>
-          <MDInput
-            disabled={disabled}
-            required
-            error={!accountNumValidation.isValid}
-            value={bankInfo.ReAccountNumber}
-            type="number"
-            onBlur={() => {
-              if (bankInfo.ReAccountNumber !== bankInfo.AccountNumber) {
-                setAccountNumValidation({
-                  isValid: false,
-                  message: "Account Number mismatch",
-                });
-              } else {
-                setAccountNumValidation({
-                  isValid: true,
-                  message: " ",
-                });
-              }
-            }}
-            label="Re-Enter Account number "
-            helperText={accountNumValidation.message}
-            name="ReAccountNumber"
-            fullWidth
-            onChange={handleChange}
-          />
-        </Grid>
+        {disabled ? (
+          <Grid item xs={5} mb={2} />
+        ) : (
+          <Grid item xs={5} mb={2}>
+            <MDInput
+              disabled={disabled}
+              required
+              error={!accountNumValidation.isValid}
+              value={bankInfo.ReAccountNumber}
+              type="number"
+              onBlur={() => {
+                if (bankInfo.ReAccountNumber !== bankInfo.AccountNumber) {
+                  setAccountNumValidation({
+                    isValid: false,
+                    message: "Account Number mismatch",
+                  });
+                } else {
+                  setAccountNumValidation({
+                    isValid: true,
+                    message: " ",
+                  });
+                }
+              }}
+              label="Re-Enter Account number "
+              helperText={accountNumValidation.message}
+              name="ReAccountNumber"
+              fullWidth
+              onChange={handleChange}
+            />
+          </Grid>
+        )}
+
         <Grid item xs={5} mb={2}>
           <MDInput
             disabled={disabled}

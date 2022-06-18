@@ -17,7 +17,7 @@ import _ from "lodash";
 import React, { useState } from "react";
 import { useDispatch } from "react-redux";
 import { alert } from "redux/slices/root/rootSlice";
-import { updateContactInfo } from "services/onboarding";
+import { generateOTP, updateContactInfo } from "services/onboarding";
 
 function ContactInfo({ data }) {
   const dispatch = useDispatch();
@@ -37,9 +37,13 @@ function ContactInfo({ data }) {
   ];
   const [disabled, setDisabled] = useState(true);
   const [contactDetails, setContactDetails] = useState(data || {});
+  const [hasVerify, setHasVerify] = useState(false);
+  const [otpDetails, setOtpDetails] = useState({});
+  const [hasVerifyLoading, setHasVerifyLoading] = useState(false);
 
   const languages =
     contactDetails &&
+    contactDetails?.Languages?.length > 0 &&
     contactDetails?.Languages?.map((x) => {
       const ele = _.find(options, (e) => {
         if (e.label === x) return e;
@@ -75,7 +79,7 @@ function ContactInfo({ data }) {
     const req = { ...data, ...contactDetails };
     const res = await updateContactInfo(req, emailId);
     setIsLoading({ save: false, cancel: false });
-    debugger;
+
     if (!res) {
       const error = {
         show: true,
@@ -106,6 +110,50 @@ function ContactInfo({ data }) {
     }));
     setIsLoading({ save: false, cancel: false });
   };
+
+  const handleGenerateOtp = async (e) => {
+    setHasVerifyLoading(true);
+    const req = {
+      ContactNumber: contactDetails.Mobile,
+      Action: "VERIFY_MOBILE",
+    };
+    const res = await generateOTP(req);
+    setHasVerify(true);
+    setOtpDetails(res);
+    setHasVerifyLoading(false);
+  };
+
+  const handleVerify = async (e) => {
+    const currentTime = new Date().getTime();
+    if (otpDetails.Otp !== contactDetails?.OTP) {
+      const error = {
+        show: true,
+        tittle: "Mobile Number verification failed",
+        status: "error",
+        message: "Invalid OTP",
+      };
+      dispatch(alert(error));
+    } else if (currentTime >= otpDetails.ExpiresIn) {
+      const error = {
+        show: true,
+        tittle: "Mobile Number verification failed",
+        status: "error",
+        message: "OTP Expired",
+      };
+      dispatch(alert(error));
+    }
+    if (
+      otpDetails.Otp === contactDetails.OTP &&
+      currentTime <= otpDetails.ExpiresIn
+    ) {
+      setContactDetails(() => ({
+        ...contactDetails,
+        MobileVerified: true,
+      }));
+    }
+    setHasVerify(false);
+  };
+
   return (
     <MDBox textAlign="center">
       <Grid
@@ -161,18 +209,78 @@ function ContactInfo({ data }) {
           </Grid>
         </Grid>
         <Grid item xs={5}>
-          <Grid item xs={8} mb={2}>
-            <MDInput
-              disabled={disabled}
-              required
-              type="number  "
-              label="Contact Number"
-              value={contactDetails.Mobile}
-              name="Mobile"
-              fullWidth
-              onChange={handleChange}
-            />
-          </Grid>
+          {!hasVerify ? (
+            <Grid item xs={8} mb={2} display="flex" flexDirection="row">
+              <MDInput
+                disabled={disabled}
+                required
+                type="number"
+                label="Contact Number"
+                value={contactDetails.Mobile}
+                name="Mobile"
+                fullWidth
+                onChange={handleChange}
+              />
+              {disabled ? (
+                <></>
+              ) : (
+                <MDLoadingButton
+                  onClick={handleGenerateOtp}
+                  color="info"
+                  loading={hasVerifyLoading}
+                  loadingPosition="start"
+                  variant="text"
+                  mx={2}
+                  size="small"
+                  name="OTP"
+                >
+                  <MDTypography
+                    variant="button"
+                    color="info"
+                    fontWeight="regular"
+                  >
+                    Verify
+                  </MDTypography>
+                </MDLoadingButton>
+              )}
+            </Grid>
+          ) : (
+            <>
+              <Grid
+                item
+                xs={8}
+                mb={2}
+                display="flex"
+                flexDirection="row"
+                justifyContent="space-between"
+              >
+                <MDInput
+                  disabled={disabled}
+                  required
+                  type="number"
+                  label="OTP"
+                  value={contactDetails.OTP || ""}
+                  name="OTP"
+                  onChange={handleChange}
+                />
+                {disabled ? (
+                  <></>
+                ) : (
+                  <MDLoadingButton
+                    onClick={handleVerify}
+                    color="primary"
+                    loadingPosition="start"
+                    variant="gradient"
+                    mx={2}
+                    size="small"
+                    name="OTP"
+                  >
+                    Verify
+                  </MDLoadingButton>
+                )}
+              </Grid>
+            </>
+          )}
         </Grid>
         <Grid item xs={5}>
           <Grid item xs={12} mb={2}>

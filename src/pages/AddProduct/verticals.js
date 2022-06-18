@@ -65,7 +65,7 @@ const AccordionDetails = styled(MuiAccordionDetails)(({ theme }) => ({
 }));
 
 export default function CategoryAccordion(props) {
-  debugger;
+           
   const [expanded, setExpanded] = React.useState(BUSINESS_CATEGORY[0].category);
   const [verticals, setVerticals] = useState(BUSINESS_CATEGORY);
 
@@ -91,7 +91,7 @@ export default function CategoryAccordion(props) {
   }
 
   useEffect(() => {
-    debugger;
+             
     if (keys.length !== 0) {
       setProductCategory(productState.ProductCategory);
     }
@@ -118,7 +118,7 @@ export default function CategoryAccordion(props) {
     setOpenError(error);
   };
   const handleKeyDown = (e) => {
-    debugger;
+             
     const { value } = e.target;
     if (!value) {
       setVerticals(BUSINESS_CATEGORY);

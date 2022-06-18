@@ -11,16 +11,18 @@ import React, { memo } from "react";
 
 function CancelledOrders() {
   let response = { rows: [], columns: [] };
-  const data = useSelector((state) => state.orderState.cancelled, shallowEqual);
+  const data =
+    useSelector((state) => state.orderState?.cancelled, shallowEqual) || [];
   const orderData =
     (data &&
-      data.map((x, index) => ({
+      data.length > 0 &&
+      data?.map((x, index) => ({
         index,
         ...x,
       }))) ||
     [];
 
-  response = CancelledOrdersTable(orderData || []);
+  response = CancelledOrdersTable(orderData);
 
   return (
     <div>

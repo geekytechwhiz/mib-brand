@@ -100,7 +100,7 @@ function ReturnOrders() {
                     <MDTypography
                       variant="button"
                       fontWeight="medium"
-                    >{`Delivered (${count.inTransit})`}</MDTypography>
+                    >{`Delivered (${count.delivered})`}</MDTypography>
                   }
                   value="3"
                 />

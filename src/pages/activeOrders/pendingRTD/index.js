@@ -13,7 +13,7 @@ import MDInput from "components/MDInput";
 import MDTypography from "components/MDTypography";
 import DataTable from "components/RTable";
 import { ORDER_STATUS_PENDING_HANDOVER } from "lib/constants";
-import ReadyToDispatchTable from "lib/tables/activeOrders/pendingRTDTable";
+import PendingRTDTable from "lib/tables/activeOrders/pendingRTDTable";
 import _ from "lodash";
 // import _ from "lodash";
 import React, { memo } from "react";
@@ -36,7 +36,7 @@ function ReadyToDispatch({ orders }) {
   const selectedOrders =
     useSelector((state) => state.orderState.readyToDispatch, shallowEqual) ||
     [];
-  response = ReadyToDispatchTable(orders || []);
+  response = PendingRTDTable(orders || []);
   const handleClick = (val) => {
     reference = val;
   };
@@ -96,7 +96,6 @@ function ReadyToDispatch({ orders }) {
   };
 
   const handleMarkRTD = async () => {
-    debugger;
     const length = reference ? Object.keys(reference)?.length : 0;
     if (length > 0) {
       const markedOrders = await getSelectedOrders();

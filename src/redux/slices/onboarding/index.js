@@ -65,7 +65,7 @@ export const getBrandThunk = createAsyncThunk(
   "/brand/details/{emailId}",
   async (emailId) => {
     const response = await getBrandAccount(emailId);
-    debugger;
+
     let score = 0;
     if (response.statusCode !== 200 && !response.data) return null;
     const { data } = response;
@@ -99,7 +99,6 @@ const authSlice = createSlice({
       state.userPayload = action.payload;
     });
     builder.addCase(getBrandThunk.fulfilled, (state, action) => {
-      debugger;
       state.accountInfo = action.payload.data;
       state.profileScore = action.payload.score;
     });

@@ -46,7 +46,9 @@ function SignIn() {
       navigate("/dashboard");
     } else {
       initialRoutesSetRef.current = true;
-      navigate("/authentication/sign-in");
+      navigate("/authentication/sign-in", {
+        state: { register: false, passwordReset: false },
+      });
     }
   }
 
@@ -74,7 +76,7 @@ function SignIn() {
       setError({ message: "Email and Password is mandatory!", isValid: false });
       return false;
     }
-    debugger;
+
     setError({ message: "", isValid: false });
     setIsLoading(true);
     const response = await login(user);
@@ -89,7 +91,7 @@ function SignIn() {
     } else {
       setIsLoading(false);
       const validate = responseValidator(response);
-      debugger;
+
       if (!validate.isValid) {
         setError(validate);
       }
@@ -101,7 +103,9 @@ function SignIn() {
       navigate("/dashboard");
     } else {
       initialRoutesSetRef.current = true;
-      navigate("/authentication/sign-in");
+      navigate("/authentication/sign-in", {
+        state: { register: false, passwordReset: false },
+      });
     }
   }
   const alertContent = (message) => (
@@ -176,7 +180,7 @@ function SignIn() {
                 {!error.isValid ? (
                   <MDTypography
                     variant="caption"
-                    fontWeight="medium"
+                    fontWeight="regular"
                     color="error"
                   >
                     {error.message}

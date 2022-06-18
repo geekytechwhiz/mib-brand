@@ -10,7 +10,7 @@ import React, { memo } from "react";
 
 function InTransitReturns({ orders, brandInfo }) {
   let response = { rows: [], columns: [] };
-  debugger;
+           
   const orderData = orders.map((x, index) => ({
     index,
     ...x,

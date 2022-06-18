@@ -25,7 +25,7 @@ import { updateDocuments } from "services/onboarding/index";
 import { v4 as uuidv4 } from "uuid";
 
 export default function VerifyDocuments({ data }) {
-  debugger;
+           
   const dispatch = useDispatch();
   const aadharFrontRef = useRef(null);
   const aadharBackRef = useRef(null);
@@ -65,7 +65,7 @@ export default function VerifyDocuments({ data }) {
     setIsLoading({ save: false, cancel: false });
   };
   const handleSave = async () => {
-    debugger;
+             
     const docs = { ...docsVerification };
     docs.BrandId = brandId;
     const req = { ...docsVerification };
@@ -93,7 +93,7 @@ export default function VerifyDocuments({ data }) {
 
   const uuid = uuidv4();
   const getUploadParams = async (e) => {
-    debugger;
+             
     try {
       const { name } = e.target;
       const isLoadingObj = {
@@ -168,7 +168,7 @@ export default function VerifyDocuments({ data }) {
   };
 
   const handleFileUpload = (event) => {
-    debugger;
+             
     const { name } = event.target;
     if (event.target.files[0]) {
       const tempSelectedFiles = selectedFiles;

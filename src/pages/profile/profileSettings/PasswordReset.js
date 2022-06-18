@@ -59,7 +59,7 @@ function PasswordReset({ data }) {
     const req = { ...data, ...contactDetails };
     const res = await updateContactInfo(req, emailId);
     setIsLoading(false);
-    debugger;
+             
     if (!res) {
       const err = {
         show: true,
@@ -80,7 +80,7 @@ function PasswordReset({ data }) {
   };
 
   const handleResetPassword = async () => {
-    debugger;
+             
     setIsLoading(true);
   };
   const handleCancel = async () => {
@@ -96,7 +96,7 @@ function PasswordReset({ data }) {
   };
 
   const handleRequestResetPassword = async () => {
-    debugger;
+             
     setIsLoading(true);
     setHasShowOtp(true);
     // const userResponse = await getBrandAccount(email);
@@ -111,7 +111,7 @@ function PasswordReset({ data }) {
     //   toAddress: email,
     // };
     // const res = await postPasswordResetRequest(req);
-    // debugger;
+    //          
     // const validatePasswordRequest = responseValidator(userResponse);
     // if (!validatePasswordRequest.isValid) {
     //   setError(validate);

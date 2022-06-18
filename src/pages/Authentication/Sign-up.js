@@ -4,7 +4,7 @@
 /* eslint-disable no-debugger */
 /* eslint-disable no-unused-vars */
 import ExitToAppIcon from "@mui/icons-material/ExitToApp";
-import { Checkbox } from "@mui/material";
+import { Checkbox, IconButton } from "@mui/material";
 import Card from "@mui/material/Card";
 //
 import MDBox from "components/MDBox";
@@ -13,15 +13,17 @@ import MDTypography from "components/MDTypography";
 import React, { useRef, useState } from "react";
 import { TextValidator, ValidatorForm } from "react-material-ui-form-validator";
 import { Link, useNavigate } from "react-router-dom";
+import registerAccount, { generateOTP } from "services/onboarding/index";
 import { REQUIRED_FIELDS_SIGN_UP } from "../../lib/constants/index";
 import { Validate } from "../../lib/validations/index";
-import registerAccount from "../../services/onboarding/index";
 
 function Signup() {
   const formRef = useRef("form");
   const [error, setError] = useState({ message: "", isValid: false });
   const [disabled, setDisabled] = useState(true);
   const [isLoading, setIsLoading] = useState(false);
+  const [otpDetails, setOtpDetails] = useState({});
+  const [hasVerify, setHasVerify] = useState(false);
 
   const [user, setUser] = useState({});
   const navigate = useNavigate();
@@ -35,10 +37,43 @@ function Signup() {
     }));
   };
 
+  const handleGenerateOtp = async (e) => {
+    const req = {
+      ContactNumber: user.Mobile,
+      Action: "VERIFY_MOBILE",
+    };
+    const res = await generateOTP(req);
+    setHasVerify(true);
+    setOtpDetails(res);
+    console.log(res);
+  };
+
+  const handleVerify = async (e) => {
+    const currentTime = new Date().getTime();
+    if (otpDetails.Otp !== user.OTP) {
+      setError({ isValid: false, message: "Invalid OTP" });
+    } else if (currentTime >= otpDetails.ExpiresIn) {
+      setError({ isValid: false, message: "OTP Expired" });
+    }
+    if (otpDetails.Otp === user.OTP && currentTime <= otpDetails.ExpiresIn) {
+      setUser(() => ({
+        ...user,
+        MobileVerified: true,
+      }));
+    }
+    setHasVerify(false);
+  };
   const handleSubmit = async () => {
     const validate = Validate(REQUIRED_FIELDS_SIGN_UP, user);
     if (!validate.isValid) {
       setError({ message: validate.message, isValid: false });
+      return false;
+    }
+    if (!user?.MobileVerified) {
+      setError({
+        message: "Please verify your contact number and proceed",
+        isValid: false,
+      });
       return false;
     }
     setIsLoading(true);
@@ -85,21 +120,6 @@ function Signup() {
               </MDBox>
               <MDBox mb={2}>
                 <TextValidator
-                  label="Mobile Number"
-                  name="Mobile"
-                  required
-                  value={user.Mobile}
-                  fullWidth
-                  errorMessages={[
-                    "this field is required",
-                    "Mobile is not valid",
-                  ]}
-                  validators={["required", "minNumber:10"]}
-                  onChange={handleChange}
-                />
-              </MDBox>
-              <MDBox mb={2}>
-                <TextValidator
                   required
                   label="Email"
                   value={user.EmailId}
@@ -112,6 +132,68 @@ function Signup() {
                   ]}
                   onChange={handleChange}
                 />
+              </MDBox>
+              <MDBox
+                mb={2}
+                sx={{
+                  display: "flex",
+                  flexDirection: "row",
+                  justifyContent: "space-between",
+                }}
+              >
+                {hasVerify ? (
+                  <>
+                    <TextValidator
+                      label="OTP"
+                      name="OTP"
+                      required
+                      value={user.OTP || ""}
+                      fullWidth
+                      errorMessages={["this field is required"]}
+                      validators={["required", "minNumber:10"]}
+                      onChange={handleChange}
+                      inputProps={{ maxLength: 6 }}
+                    />
+                    <MDLoadingButton
+                      disabled={!disabled}
+                      onClick={handleVerify}
+                      loading={isLoading}
+                      color="primary"
+                      loadingPosition="start"
+                      variant="gradient"
+                      mx={2}
+                      size="small"
+                      name="OTP"
+                    >
+                      Verify
+                    </MDLoadingButton>
+                  </>
+                ) : (
+                  <>
+                    <TextValidator
+                      label="Mobile Number"
+                      name="Mobile"
+                      required
+                      value={user.Mobile}
+                      fullWidth
+                      errorMessages={[
+                        "this field is required",
+                        "Mobile is not valid",
+                      ]}
+                      validators={["required", "minNumber:10"]}
+                      onChange={handleChange}
+                    />
+                    <IconButton onClick={handleGenerateOtp}>
+                      <MDTypography
+                        variant="button"
+                        color="info"
+                        fontWeight="regular"
+                      >
+                        Verify
+                      </MDTypography>
+                    </IconButton>
+                  </>
+                )}
               </MDBox>
               <MDBox mb={2}>
                 <TextValidator
@@ -167,7 +249,7 @@ function Signup() {
                 {!error.isValid ? (
                   <MDTypography
                     variant="caption"
-                    fontWeight="medium"
+                    fontWeight="regular"
                     color="error"
                   >
                     {error.message}

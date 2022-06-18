@@ -12,7 +12,6 @@ const registerAccount = async (reqParam) => {
 
 export const passwordReset = async (reqParam) => {
   try {
-    debugger;
     return responseBuilder(
       await apiInstance.patch("/authorizer/register", reqParam)
     );
@@ -22,7 +21,6 @@ export const passwordReset = async (reqParam) => {
 };
 export const login = async (payload) => {
   try {
-    debugger;
     const { EmailId, Password } = payload;
     const reqParam = {
       EmailId,
@@ -36,16 +34,32 @@ export const login = async (payload) => {
   }
 };
 
-export const updateContactInfo = async (payload, emailId) => {
+export const generateOTP = async (payload) => {
   try {
-    debugger;
+    const requestBody = {
+      countryCode: "+91",
+      contactNumber: payload.ContactNumber,
+      action: payload.Action,
+      emailId: payload.EmailId,
+    };
+
+    return responseBuilder(
+      await apiInstance.post(`/authorizer/generate-otp`, requestBody)
+    );
+  } catch (err) {
+    return null;
+  }
+};
+
+export const updateContactInfo = async (payload, emailId, brandId) => {
+  try {
     const reqParam = {
       Name: payload.Name,
       Mobile: payload.Mobile,
       CountryCode: "+91",
-      EmailId: payload.EmailId,
+      EmailId: emailId,
       Languages: payload.Languages,
-      BrandId: payload.BrandId,
+      BrandId: brandId,
     };
 
     return responseBuilder(
@@ -61,6 +75,7 @@ export const updateBankDetails = async (payload, emailId, brandId) => {
     const reqParam = {
       BeneficiaryName: payload.BeneficiaryName,
       IFSCode: payload.IFSCode,
+      EmailId: emailId,
       AccountNumber: payload.AccountNumber,
       BankName: payload.BankName,
       BrandId: brandId,
@@ -123,7 +138,6 @@ export const updateBusinessDetails = async (payload, emailId) => {
 
 export const updateDocuments = async (payload, emailId, brandId) => {
   try {
-    debugger;
     const reqParam = {
       BrandId: brandId,
       ...payload,
@@ -137,7 +151,6 @@ export const updateDocuments = async (payload, emailId, brandId) => {
   }
 };
 export const getBrandAccount = async (emailId) => {
-  debugger;
   const { data } = await apiInstance.get(`/brand/details/${emailId}`);
   return data;
 };
