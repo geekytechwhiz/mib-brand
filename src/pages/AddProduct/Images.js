@@ -49,7 +49,6 @@ export default function Medias(props) {
 
   const uuid = uuidv4();
   const getUploadParams = async ({ file, meta: { name } }) => {
-             
     console.log(name);
     const req = {
       contentType: file.type,

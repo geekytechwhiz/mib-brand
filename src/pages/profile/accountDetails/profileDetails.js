@@ -1,11 +1,12 @@
 /* eslint-disable no-debugger */
 /* eslint-disable react/prop-types */
 // import ArrowForwardIosSharpIcon from "@mui/icons-material/ArrowForwardIosSharp";
-import { ExpandMoreOutlined } from "@mui/icons-material";
-import MuiAccordion from "@mui/material/Accordion";
-import MuiAccordionDetails from "@mui/material/AccordionDetails";
-import MuiAccordionSummary from "@mui/material/AccordionSummary";
-import { styled } from "@mui/material/styles";
+
+import {
+  MDAccordion,
+  MDAccordionSummary,
+  MDAccordionDetails,
+} from "components/MDAccordion";
 import MDTypography from "components/MDTypography";
 import * as React from "react";
 import AddressDetails from "./AddressDetails";
@@ -13,39 +14,6 @@ import BankInfo from "./BankInfo";
 import BusinessInfo from "./BusinessInfo";
 import ContactDetails from "./ContactInfo";
 import VerifyDocuments from "./VerifyDocuments";
-
-const Accordion = styled((props) => (
-  <MuiAccordion disableGutters elevation={0} square {...props} />
-))(({ theme }) => ({
-  border: `1px solid ${theme.palette.divider}`,
-  "&:not(:last-child)": {
-    borderBottom: 0,
-  },
-  "&:before": {
-    display: "none",
-  },
-}));
-
-const AccordionSummary = styled((props) => (
-  <MuiAccordionSummary
-    expandIcon={<ExpandMoreOutlined sx={{ fontSize: "0.9rem" }} />}
-    {...props}
-  />
-))(({ theme }) => ({
-  borderRadius: "lg",
-  flexDirection: "flex-start",
-  "& .MuiAccordionSummary-expandIconWrapper.Mui-expanded": {
-    transform: "rotate(90deg)",
-  },
-  "& .MuiAccordionSummary-content": {
-    marginLeft: theme.spacing(1),
-  },
-}));
-
-const AccordionDetails = styled(MuiAccordionDetails)(({ theme }) => ({
-  padding: theme.spacing(2),
-  borderTop: "1px solid rgba(0, 0, 0, .125)",
-}));
 
 export default function ProfileDetails({ data }) {
   const [expanded, setExpanded] = React.useState("panel1");
@@ -56,11 +24,11 @@ export default function ProfileDetails({ data }) {
 
   return (
     <div>
-      <Accordion
+      <MDAccordion
         expanded={expanded === "panel1"}
         onChange={handleChange("panel1")}
       >
-        <AccordionSummary aria-controls="panel1d-content" id="panel1d-header">
+        <MDAccordionSummary aria-controls="panel1d-content" id="panel1d-header">
           <MDTypography
             display="block"
             variant="button"
@@ -69,16 +37,16 @@ export default function ProfileDetails({ data }) {
           >
             Contact Info
           </MDTypography>
-        </AccordionSummary>
-        <AccordionDetails>
+        </MDAccordionSummary>
+        <MDAccordionDetails>
           <ContactDetails data={data?.ContactDetails || {}} />
-        </AccordionDetails>
-      </Accordion>
-      <Accordion
+        </MDAccordionDetails>
+      </MDAccordion>
+      <MDAccordion
         expanded={expanded === "panel2"}
         onChange={handleChange("panel2")}
       >
-        <AccordionSummary aria-controls="panel2d-content" id="panel2d-header">
+        <MDAccordionSummary aria-controls="panel2d-content" id="panel2d-header">
           <MDTypography
             display="block"
             variant="button"
@@ -88,17 +56,17 @@ export default function ProfileDetails({ data }) {
             {" "}
             Business Details
           </MDTypography>
-        </AccordionSummary>
-        <AccordionDetails>
+        </MDAccordionSummary>
+        <MDAccordionDetails>
           <BusinessInfo data={data?.BusinessDetails || {}} />
-        </AccordionDetails>
-      </Accordion>
+        </MDAccordionDetails>
+      </MDAccordion>
 
-      <Accordion
+      <MDAccordion
         expanded={expanded === "panel5"}
         onChange={handleChange("panel5")}
       >
-        <AccordionSummary aria-controls="panel3d-content" id="panel3d-header">
+        <MDAccordionSummary aria-controls="panel3d-content" id="panel3d-header">
           <MDTypography
             display="block"
             variant="button"
@@ -108,16 +76,16 @@ export default function ProfileDetails({ data }) {
             {" "}
             Billing Information
           </MDTypography>
-        </AccordionSummary>
-        <AccordionDetails>
+        </MDAccordionSummary>
+        <MDAccordionDetails>
           <AddressDetails data={data?.AddressDetails || {}} />
-        </AccordionDetails>
-      </Accordion>
-      <Accordion
+        </MDAccordionDetails>
+      </MDAccordion>
+      <MDAccordion
         expanded={expanded === "panel3"}
         onChange={handleChange("panel3")}
       >
-        <AccordionSummary aria-controls="panel3d-content" id="panel3d-header">
+        <MDAccordionSummary aria-controls="panel3d-content" id="panel3d-header">
           <MDTypography
             display="block"
             variant="button"
@@ -127,16 +95,16 @@ export default function ProfileDetails({ data }) {
             {" "}
             Bank Details
           </MDTypography>
-        </AccordionSummary>
-        <AccordionDetails>
+        </MDAccordionSummary>
+        <MDAccordionDetails>
           <BankInfo data={data?.BankDetails || {}} />
-        </AccordionDetails>
-      </Accordion>
-      <Accordion
+        </MDAccordionDetails>
+      </MDAccordion>
+      <MDAccordion
         expanded={expanded === "panel4"}
         onChange={handleChange("panel4")}
       >
-        <AccordionSummary aria-controls="panel3d-content" id="panel3d-header">
+        <MDAccordionSummary aria-controls="panel3d-content" id="panel3d-header">
           <MDTypography
             display="block"
             variant="button"
@@ -145,14 +113,14 @@ export default function ProfileDetails({ data }) {
           >
             Verify Documents
           </MDTypography>
-        </AccordionSummary>
-        <AccordionDetails>
+        </MDAccordionSummary>
+        <MDAccordionDetails>
           <VerifyDocuments
             data={data?.Documents}
             completion={data?.ProfileCompletion}
           />
-        </AccordionDetails>
-      </Accordion>
+        </MDAccordionDetails>
+      </MDAccordion>
     </div>
   );
 }

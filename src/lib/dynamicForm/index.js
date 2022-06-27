@@ -88,7 +88,7 @@ export default function DynamicForm(props) {
             switch (field.component) {
               case "field_group":
                 return (
-                  <Grid item xs={4} mb={2}>
+                  <Grid item xs={field.size || 4} mb={2}>
                     <RadioGroup
                       key={field._uid}
                       field={field}
@@ -106,7 +106,7 @@ export default function DynamicForm(props) {
                 );
               case "text":
                 return (
-                  <Grid item xs={4} mb={2}>
+                  <Grid item xs={field.size || 4} mb={2}>
                     <MDInput
                       required={field.validation?.required}
                       type="text"
@@ -120,7 +120,7 @@ export default function DynamicForm(props) {
                 );
               case "number":
                 return (
-                  <Grid item xs={4} mb={2}>
+                  <Grid item xs={field.size || 4} mb={2}>
                     <MDInput
                       required={field.validation?.required}
                       type="number"
@@ -134,7 +134,7 @@ export default function DynamicForm(props) {
                 );
               case "options":
                 return (
-                  <Grid item xs={4} mb={2}>
+                  <Grid item xs={field.size || 4} mb={2}>
                     <Autocomplete
                       disablePortal
                       required={field.validation?.required}

@@ -318,4 +318,45 @@ export const Template = {
       },
     },
   ],
+  Refrigerator: [
+    {
+      label: "Motor",
+      component: "text",
+      type: "text",
+      name: "Motor",
+      validation: {
+        required: true,
+      },
+    },
+    {
+      label: "Size",
+      component: "number",
+      type: "text",
+      name: "ScreenSize",
+      validation: {
+        required: false,
+        type: "decimal",
+      },
+    },
+    {
+      label: "Color",
+      component: "options",
+      type: "options",
+      name: "Color",
+      validation: {
+        required: true,
+        type: "text",
+      },
+      options: [
+        {
+          value: "1",
+          name: "black",
+        },
+        {
+          value: "2",
+          name: "blue",
+        },
+      ],
+    },
+  ],
 };

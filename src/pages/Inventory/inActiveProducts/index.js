@@ -11,7 +11,6 @@ export default function InactiveProducts() {
   let exTabs = [];
   let exData = [];
   let comboTabs = [];
-
   const inventoryData =
     useSelector((state) => state.inventory?.inActiveProducts, shallowEqual) ||
     null;

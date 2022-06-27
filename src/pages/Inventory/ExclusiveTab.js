@@ -21,6 +21,8 @@ const CustomTabPanel = styled(TabPanel)({
 });
 
 export default function ExclusiveTab(props) {
+  if (!props) return React.Fragment;
+
   const loading = useSelector((state) => state.root?.loading, shallowEqual);
   const [value, setValue] = React.useState("1");
   const { tabs, data, isActive } = props;
@@ -62,20 +64,20 @@ export default function ExclusiveTab(props) {
                 {products ? (
                   products[x.label]?.map((info) => (
                     <Grid item xs={3}>
-                      {info.ImageLinks[0] ? (
+                      {info?.ImageLinks[0] ? (
                         <ProductCard
-                          isActive={isActive}
-                          brand={info.ProductBrand}
-                          ratting={info.Rating}
-                          price={info.SellingPrice}
-                          mrp={info.MRP}
-                          title={info.Tittle}
-                          stock={info.Stock || 0}
-                          image={info.ImageLinks[0]}
-                          type={info.ProductType}
-                          productId={info.ProductId}
-                          category={info.Category}
-                          productCategory={info.ProductCategory}
+                          isActive={isActive || false}
+                          brand={info?.ProductBrand || ""}
+                          ratting={info?.Rating || 0}
+                          price={info?.SellingPrice || 0}
+                          mrp={info?.MRP || 0}
+                          title={info?.Tittle || ""}
+                          stock={info?.Stock || 0}
+                          image={info?.ImageLinks[0]}
+                          type={info?.ProductType || ""}
+                          productId={info?.ProductId || ""}
+                          category={info?.Category || ""}
+                          productCategory={info?.ProductCategory || ""}
                         />
                       ) : (
                         <></>

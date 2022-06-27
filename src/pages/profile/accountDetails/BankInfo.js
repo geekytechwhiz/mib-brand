@@ -87,7 +87,6 @@ export default function BankInfo({ data }) {
   };
 
   useEffect(() => {
-    debugger;
     setBankDetails(() => ({
       ...bankInfo,
       AccountType: data.AccountType,

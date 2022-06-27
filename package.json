@@ -43,6 +43,7 @@
     "install-peerdeps": "^3.0.3",
     "lodash": "^4.17.21",
     "prop-types": "15.8.1",
+    "query-string": "^7.1.1",
     "react": "17.0.2",
     "react-chartjs-2": "3.0.4",
     "react-datetime-picker": "^3.5.0",

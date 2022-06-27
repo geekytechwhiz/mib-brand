@@ -71,7 +71,6 @@ export const updateContactInfo = async (payload, emailId, brandId) => {
 };
 export const updateBankDetails = async (payload, emailId, brandId) => {
   try {
-    debugger;
     const reqParam = {
       BeneficiaryName: payload.BeneficiaryName,
       IFSCode: payload.IFSCode,

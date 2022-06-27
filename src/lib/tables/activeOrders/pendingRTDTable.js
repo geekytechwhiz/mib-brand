@@ -75,7 +75,6 @@ function PendingRTDTable(orders) {
 
   const getRows = () => {
     const dataRows = [];
-    debugger;
     rows.forEach((element, index) => {
       const res = {
         index,

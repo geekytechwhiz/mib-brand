@@ -19,7 +19,6 @@ export default function ActiveProducts() {
   let exTabs = [];
   let exData = [];
   let comboTabs = [];
-
   const inventoryData =
     useSelector((state) => state.inventory?.products, shallowEqual) || null;
   const businessDetails =
@@ -27,9 +26,9 @@ export default function ActiveProducts() {
   const [hasGSTVerified, setHasGSTVerified] = React.useState(true);
   const [open, setOpen] = React.useState(false);
   if (inventoryData && Object.keys(inventoryData).length > 0) {
-    exData = inventoryData.Exclusive;
-    const exKeys = Object.keys(inventoryData.Exclusive) || [];
-    const comboKeys = Object.keys(inventoryData.Combo) || [];
+    exData = inventoryData?.Exclusive;
+    const exKeys = Object.keys(inventoryData?.Exclusive) || [];
+    const comboKeys = Object.keys(inventoryData?.Combo) || [];
     exTabs =
       exKeys &&
       _.map(exKeys, (val, key) => ({
@@ -44,7 +43,6 @@ export default function ActiveProducts() {
       }));
   }
   const handleAddNew = () => {
-             
     if (!businessDetails.GSTNVerification) {
       setOpen(true);
     } else {

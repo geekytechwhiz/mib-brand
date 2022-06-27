@@ -35,6 +35,26 @@ const routes = [
     // icon: <Icon fontSize="small">Inventory</Icon>,
     icon: <Inventory2OutlinedIcon />,
     route: "/inventory",
+    children: [
+      {
+        name: "Product List",
+        path: "/admin/products",
+        type: "collapse",
+        key: "inventory",
+        // icon: <Icon fontSize="small">Inventory</Icon>,
+        icon: <Inventory2OutlinedIcon />,
+        route: "/inventory",
+      },
+      {
+        name: "Create Product",
+        type: "collapse",
+        key: "inventory",
+        // icon: <Icon fontSize="small">Inventory</Icon>,
+        icon: <Inventory2OutlinedIcon />,
+        route: "/inventory",
+        path: "/admin/products/create",
+      },
+    ],
     component: <Inventory />,
   },
   {
