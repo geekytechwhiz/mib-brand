@@ -1,12 +1,12 @@
 /* eslint-disable no-debugger */
-/* eslint-disable import/prefer-default-export */
-import { apiInstance } from "api";
+/* eslint-disable import/prefer-default-export */ 
 import { responseBuilder } from "lib/helper";
+import api from "../../api";
 
 export const getProducts = async (brandId, status) => {
   try {
     return responseBuilder(
-      await apiInstance.get(`/inventory/products/brand/${brandId}`, {
+      await api.get(`/inventory/products/brand/${brandId}`, {
         params: {
           Status: status,
         },
@@ -20,7 +20,7 @@ export const getProducts = async (brandId, status) => {
 export const postProducts = async (payload, brandId) => {
   try {
     return responseBuilder(
-      await apiInstance.post(
+      await api.post(
         `/inventory/products/brand/${brandId}/product`,
         payload
       )
@@ -31,7 +31,7 @@ export const postProducts = async (payload, brandId) => {
 };
 export const patchProducts = async (payload, brandId) => {
   try {
-    const { data } = await apiInstance.patch(
+    const { data } = await api.patch(
       `/inventory/products/brand/${brandId}/product`,
       payload
     );
@@ -43,7 +43,7 @@ export const patchProducts = async (payload, brandId) => {
 
 export const patchProductStatus = async (payload, brandId) => {
   try {
-    const { data } = await apiInstance.patch(
+    const { data } = await api.patch(
       `products/brand/${brandId}/product/${payload.ProductId}/status`,
       payload
     );

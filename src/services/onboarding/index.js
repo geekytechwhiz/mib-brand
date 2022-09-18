@@ -1,11 +1,11 @@
 /* eslint-disable no-debugger */
 import { responseBuilder } from "lib/helper";
-import { apiInstance } from "../../api";
+import api from "../../api";
 
 const registerAccount = async (reqParam) => {
   try {
     debugger
-    return responseBuilder(await apiInstance.post("/brand/register", reqParam));
+    return responseBuilder(await api.post("/brand/register", reqParam));
   } catch (err) {
     return null;
   }
@@ -14,7 +14,7 @@ const registerAccount = async (reqParam) => {
 export const passwordReset = async (reqParam) => {
   try {
     return responseBuilder(
-      await apiInstance.patch("/authorizer/register", reqParam)
+      await api.patch("/authorizer/register", reqParam)
     );
   } catch (err) {
     return null;
@@ -28,7 +28,7 @@ export const login = async (payload) => {
       Password,
     };
 
-    const { data } = await apiInstance.post("/authorizer/login", reqParam);
+    const { data } = await api.post("/authorizer/login", reqParam);
     return data;
   } catch (err) {
     return null;
@@ -45,7 +45,7 @@ export const generateOTP = async (payload) => {
     };
 
     return responseBuilder(
-      await apiInstance.post(`/authorizer/generate-otp`, requestBody)
+      await api.post(`/authorizer/generate-otp`, requestBody)
     );
   } catch (err) {
     return null;
@@ -64,7 +64,7 @@ export const updateContactInfo = async (payload, emailId, brandId) => {
     };
 
     return responseBuilder(
-      await apiInstance.patch(`/brand/contact-info/${emailId}`, reqParam)
+      await api.patch(`/brand/contact-info/${emailId}`, reqParam)
     );
   } catch (err) {
     return null;
@@ -83,7 +83,7 @@ export const updateBankDetails = async (payload, emailId, brandId) => {
     };
 
     return responseBuilder(
-      await apiInstance.patch(`/brand/bank-details/${emailId}`, reqParam)
+      await api.patch(`/brand/bank-details/${emailId}`, reqParam)
     );
   } catch (err) {
     return null;
@@ -101,7 +101,7 @@ export const updateAddressDetails = async (payload, emailId, brandId) => {
     };
 
     return responseBuilder(
-      await apiInstance.patch(
+      await api.patch(
         `/brand/update-address-details/${emailId}`,
         reqParam
       )
@@ -129,7 +129,7 @@ export const updateBusinessDetails = async (payload, emailId) => {
     };
 
     return responseBuilder(
-      await apiInstance.patch(`/brand/business-details/${emailId}`, reqParam)
+      await api.patch(`/brand/business-details/${emailId}`, reqParam)
     );
   } catch (err) {
     return null;
@@ -144,18 +144,18 @@ export const updateDocuments = async (payload, emailId, brandId) => {
     };
 
     return responseBuilder(
-      await apiInstance.patch(`/brand/update-documents/${emailId}`, reqParam)
+      await api.patch(`/brand/update-documents/${emailId}`, reqParam)
     );
   } catch (err) {
     return null;
   }
 };
-export const getBrandAccount = async (emailId) => responseBuilder(await apiInstance.get(`/brand/details/${emailId}`));
+export const getBrandAccount = async (emailId) => responseBuilder(await api.get(`/brand/details/${emailId}`));
 
 
-export const getHealthCheck = async () => responseBuilder(await apiInstance.get("/authorizer/health"));
+export const getHealthCheck = async () => responseBuilder(await api.get("/authorizer/health"));
 
 export const postHealth = async () =>
-  responseBuilder(await apiInstance.post("/authorizer/health"));
+  responseBuilder(await api.post("/authorizer/health"));
 
 export default registerAccount;

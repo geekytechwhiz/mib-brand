@@ -1,8 +1,9 @@
 /* eslint-disable no-debugger */
 /* eslint-disable import/prefer-default-export */
-import { apiInstance } from "api";
+ 
 import axios from "axios";
 import { ORIGIN } from "../../lib/constants";
+import api from "../../api";
 
 export const postSignedUrl = async (payload) => {
   try {
@@ -16,7 +17,7 @@ export const postSignedUrl = async (payload) => {
       Origin: ORIGIN,
     };
 
-    const { data } = await apiInstance.post(
+    const { data } = await api.post(
       `/common/file-upload/signed-url`,
       requestBody
     );
@@ -43,7 +44,7 @@ export const postPasswordResetRequest = async (payload) => {
       Origin: "Migo Brand",
     };
 
-    const { data } = await apiInstance.post(
+    const { data } = await api.post(
       `/email-service/reset-password`,
       requestBody
     );
