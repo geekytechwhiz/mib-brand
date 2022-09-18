@@ -1,0 +1,114 @@
+{
+  "name": "migo-brand",
+  "version": "1.0.0",
+  "private": true,
+  "author": "Prasanth",
+  "license": "See license in https://www.migobucks.com/license",
+  "description": "React version of Material Dashboard 2 by Creative Tim",
+  "repository": {
+    "type": "git",
+    "url": "https://gitlab.com/mib-web-apps/migo-brand.git"
+  },
+  "engines": {
+    "node": "14 || 15 || 16",
+    "npm": ">=6"
+  },
+  "dependencies": {
+    "@babel/plugin-transform-react-jsx": "^7.14.9",
+    "@emotion/cache": "11.7.1",
+    "@emotion/react": "^11.9.0",
+    "@emotion/styled": "^11.8.1",
+    "@material-ui/data-grid": "^4.0.0-alpha.37",
+    "@mui/base": "^5.0.0-alpha.74",
+    "@mui/icons-material": "^5.5.1",
+    "@mui/lab": "^5.0.0-alpha.75",
+    "@mui/material": "^5.8.0",
+    "@mui/styled-engine": "5.4.1",
+    "@mui/styles": "^5.5.3",
+    "@mui/system": "^5.5.3",
+    "@mui/x-data-grid": "^5.11.0",
+    "@mui/x-date-pickers": "^5.0.0-alpha.4",
+    "@reduxjs/toolkit": "^1.8.1",
+    "@testing-library/jest-dom": "5.16.2",
+    "@testing-library/react": "12.1.2",
+    "@testing-library/user-event": "13.5.0",
+    "axios": "^0.26.1",
+    "chart.js": "3.4.1",
+    "chroma-js": "2.4.2",
+    "clsx": "^1.1.1",
+    "D": "^1.0.0",
+    "downshift": "^6.1.7",
+    "eslint-config-airbnb": "^19.0.4",
+    "eslint-config-airbnb-base": "^15.0.0",
+    "install-peerdeps": "^3.0.3",
+    "lodash": "^4.17.21",
+    "prop-types": "15.8.1",
+    "query-string": "^7.1.1",
+    "react": "17.0.2",
+    "react-chartjs-2": "3.0.4",
+    "react-datetime-picker": "^3.5.0",
+    "react-dom": "17.0.2",
+    "react-dropzone-uploader": "^2.11.0",
+    "react-github-btn": "1.2.1",
+    "react-imgix": "^9.5.1",
+    "react-lazy-load-image-component": "^1.5.4",
+    "react-lazyload": "^3.2.0",
+    "react-material-ui-form-validator": "^3.0.0",
+    "react-redux": "^7.2.8",
+    "react-router-dom": "6.2.1",
+    "react-scripts": "5.0.0",
+    "react-table": "7.7.0",
+    "react-to-print": "^2.14.7",
+    "react-window": "^1.8.6",
+    "redux": "^4.1.2",
+    "redux-thunk": "^2.4.1",
+    "stylis": "4.0.13",
+    "stylis-plugin-rtl": "2.0.2",
+    "uuid": "^8.3.2",
+    "web-vitals": "2.1.4",
+    "yarn": "^1.22.18",
+    "yup": "0.32.11"
+  },
+  "scripts": {
+    "lint": "eslint \"src/**/*.{js,jsx}\"",
+    "lint:fix": "eslint \"src/**/*.{js,jsx}\" --fix",
+    "start": "react-scripts start",
+    "build": "react-scripts build",
+    "test": "react-scripts test",
+    "eject": "react-scripts eject",
+    "format": "prettier-eslint --eslint-config-path ./.eslintrc.js --write '**/*.js'",
+    "install:clean": "rm -rf node_modules/ && rm -rf package-lock.json && npm install && npm start"
+  },
+  "eslintConfig": {
+    "extends": [
+      "react-app",
+      "react-app/jest"
+    ]
+  },
+  "browserslist": {
+    "production": [
+      ">0.2%",
+      "not dead",
+      "not op_mini all"
+    ],
+    "development": [
+      "last 1 chrome version",
+      "last 1 firefox version",
+      "last 1 safari version"
+    ]
+  },
+  "devDependencies": {
+    "@redux-devtools/core": "^3.11.0",
+    "eslint": "^8.12.0",
+    "eslint-config-airbnb": "19.0.4",
+    "eslint-config-prettier": "^8.5.0",
+    "eslint-plugin-import": "2.25.4",
+    "eslint-plugin-jsx-a11y": "6.5.1",
+    "eslint-plugin-prettier": "^4.0.0",
+    "eslint-plugin-react": "^7.29.4",
+    "eslint-plugin-react-hooks": "4.3.0",
+    "prettier": "^2.6.1",
+    "prettier-eslint": "^13.0.0",
+    "prettier-eslint-cli": "^5.0.1"
+  }
+}
