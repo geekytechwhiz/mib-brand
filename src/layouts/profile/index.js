@@ -1,9 +1,6 @@
 /* eslint-disable no-debugger */
 
 import MDBox from "components/MDBox";
-import DashboardNavbar from "components/MDNavbar/DashboardNavbar";
-import Footer from "layouts/footer";
-import DashboardLayout from "layouts/layoutContainers/DashboardLayout";
 import Profile from "pages/profile";
 import { useDispatch } from "react-redux";
 import { getBrandThunk } from "redux/slices/onboarding";
@@ -14,9 +11,7 @@ function ProfileLayout() {
   dispatch(getBrandThunk(emailId));
 
   setTimeout(() => {}, 3000);
-  return (
-    <DashboardLayout>
-      <DashboardNavbar />
+  return ( 
       <MDBox
         variant="gradient"
         bgColor="transparent"
@@ -29,9 +24,7 @@ function ProfileLayout() {
         textAlign="center"
       >
         <Profile />
-      </MDBox>
-      <Footer />
-    </DashboardLayout>
+      </MDBox> 
   );
 }
 

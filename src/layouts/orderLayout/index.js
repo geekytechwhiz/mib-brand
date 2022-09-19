@@ -3,17 +3,13 @@
 
 import Grid from "@mui/material/Grid";
 import MDBox from "components/MDBox";
-import DashboardNavbar from "components/MDNavbar/DashboardNavbar";
 import OMSNavbar from "components/MDNavbar/OMSNavbar";
-import Footer from "layouts/footer";
-import DashboardLayout from "layouts/layoutContainers/DashboardLayout";
 import ActiveOrders from "pages/activeOrders";
-import React from "react";
 import { useDispatch } from "react-redux";
 import { getBrandThunk } from "../../redux/slices/onboarding/index";
 import {
   getOrderThunk,
-  getReturnsThunk,
+  getReturnsThunk
 } from "../../redux/slices/orders/orderSlice";
 
 function OrderLayout() {
@@ -24,8 +20,7 @@ function OrderLayout() {
   const emailId = localStorage.getItem("emailId");
   if (emailId) dispatch(getBrandThunk(emailId));
   return (
-    <DashboardLayout>
-      <DashboardNavbar />
+    <>
       <OMSNavbar />
       <MDBox my={10} pt={1} pb={1}>
         <Grid container spacing={6}>
@@ -33,9 +28,7 @@ function OrderLayout() {
             <ActiveOrders />
           </Grid>
         </Grid>
-      </MDBox>
-      <Footer />
-    </DashboardLayout>
+      </MDBox></>
   );
 }
 

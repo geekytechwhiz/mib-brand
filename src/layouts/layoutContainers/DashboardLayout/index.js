@@ -1,5 +1,7 @@
 import MDBox from "components/MDBox";
+import DashboardNavbar from "components/MDNavbar/DashboardNavbar";
 import { setLayout, useMaterialUIController } from "context";
+import Footer from "layouts/footer";
 import PropTypes from "prop-types";
 import React, { useEffect } from "react";
 import { useLocation } from "react-router-dom";
@@ -28,7 +30,9 @@ function DashboardLayout({ children }) {
         },
       })}
     >
+      < DashboardNavbar />
       {children}
+      <Footer />
     </MDBox>
   );
 }

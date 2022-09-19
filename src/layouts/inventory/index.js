@@ -78,9 +78,7 @@ function Inventory() {
   //   return <MDBackdrop show />;
   // }
   return (
-    <DashboardLayout>
-      <DashboardNavbar />
-      {/* <MDBackdrop show={hasShow} /> */}
+    
       <MDBox>
         <Box sx={{ borderBottom: 1, borderColor: "divider" }}>
           <Tabs
@@ -112,9 +110,7 @@ function Inventory() {
         <TabPanel value={value} index={1}>
           <InactiveProducts />
         </TabPanel>
-      </MDBox>
-      <Footer />
-    </DashboardLayout>
+      </MDBox> 
   );
 }
 
