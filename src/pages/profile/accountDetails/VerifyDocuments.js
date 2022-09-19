@@ -15,7 +15,7 @@ import axios from "axios";
 import MDBox from "components/MDBox";
 import MDLoadingButton from "components/MDLoadingButton";
 import MDTypography from "components/MDTypography";
-import { RESOURCE_DOCUMENT_VERIFICATION } from "lib/constants";
+import { RESOURCE_DOCUMENT_VERIFICATION } from "constants";
 import _ from "lodash";
 import React, { useRef, useState } from "react";
 import { useDispatch } from "react-redux";
@@ -25,7 +25,6 @@ import { updateDocuments } from "services/onboarding/index";
 import { v4 as uuidv4 } from "uuid";
 
 export default function VerifyDocuments({ data }) {
-           
   const dispatch = useDispatch();
   const aadharFrontRef = useRef(null);
   const aadharBackRef = useRef(null);
@@ -65,7 +64,6 @@ export default function VerifyDocuments({ data }) {
     setIsLoading({ save: false, cancel: false });
   };
   const handleSave = async () => {
-             
     const docs = { ...docsVerification };
     docs.BrandId = brandId;
     const req = { ...docsVerification };
@@ -75,7 +73,7 @@ export default function VerifyDocuments({ data }) {
     if (!res) {
       const error = {
         show: true,
-        tittle: "Updated Action failed",
+        title: "Updated Action failed",
         status: "error",
         message: "Updated Action failed!",
       };
@@ -83,7 +81,7 @@ export default function VerifyDocuments({ data }) {
     } else {
       const success = {
         show: true,
-        tittle: "Updated Successfully",
+        title: "Updated Successfully",
         status: "success",
         message: "Documents has been updated successfully!",
       };
@@ -93,7 +91,6 @@ export default function VerifyDocuments({ data }) {
 
   const uuid = uuidv4();
   const getUploadParams = async (e) => {
-             
     try {
       const { name } = e.target;
       const isLoadingObj = {
@@ -127,7 +124,7 @@ export default function VerifyDocuments({ data }) {
       setDocsVerification(initialState);
       const success = {
         show: true,
-        tittle: "Updated Successfully",
+        title: "Updated Successfully",
         status: "success",
         message: "Document uploaded successfully!",
       };
@@ -159,7 +156,7 @@ export default function VerifyDocuments({ data }) {
       });
       const error = {
         show: true,
-        tittle: "Updated Action failed",
+        title: "Updated Action failed",
         status: "error",
         message: "Something went wrong!",
       };
@@ -168,7 +165,6 @@ export default function VerifyDocuments({ data }) {
   };
 
   const handleFileUpload = (event) => {
-             
     const { name } = event.target;
     if (event.target.files[0]) {
       const tempSelectedFiles = selectedFiles;

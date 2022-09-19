@@ -9,7 +9,7 @@ import NewReturnTable from "lib/tables/returns/newReturnsTable";
 import {
   ORDER_STATUS_RETURNED_READY_FOR_PICKUP,
   ORDER_STATUS_REJECTED,
-} from "lib/constants";
+} from "constants";
 import { useDispatch } from "react-redux";
 import { updateReturnOrderThunk } from "redux/slices/orders/orderSlice";
 import { notification } from "redux/slices/root/rootSlice";
@@ -63,7 +63,7 @@ function NewReturns({ orders, brandInfo }) {
       dispatch(updateReturnOrderThunk(request));
       const success = {
         show: true,
-        tittle: "Updated Successfully",
+        title: "Updated Successfully",
         status: "success",
         message: `Order has been ${status} successfully !!`,
       };
@@ -71,7 +71,7 @@ function NewReturns({ orders, brandInfo }) {
     } catch (err) {
       const error = {
         show: true,
-        tittle: "Error",
+        title: "Error",
         status: "error",
         message: "Something went wrong Please contact support team!!",
       };

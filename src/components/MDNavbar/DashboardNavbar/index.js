@@ -210,7 +210,7 @@ function DashboardNavbar({ absolute, light, isMini }) {
           <MDSnackbar
             color={notifications.status}
             icon="check"
-            title={notifications.tittle}
+            title={notifications.title}
             content={notifications.message}
             open={notifications.show}
             onClose={handleCloseNotification}

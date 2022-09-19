@@ -12,7 +12,7 @@ import MDTypography from "components/MDTypography";
 import { useSelector, shallowEqual } from "react-redux";
 import React from "react";
 import MDBackdrop from "components/MDBackDrop";
-import ProductCard from "./Card";
+import ProductCard from "./card";
 
 const CustomTabPanel = styled(TabPanel)({
   paddingLeft: 0,

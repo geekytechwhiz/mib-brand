@@ -6,22 +6,16 @@ import Tab from "@mui/material/Tab";
 import Tabs from "@mui/material/Tabs";
 import MDBox from "components/MDBox";
 import MDTypography from "components/MDTypography";
-import Footer from "layouts/footer/index";
-import DashboardLayout from "layouts/layoutContainers/DashboardLayout";
+import {
+  PRODUCT_STATUS_INACTIVE, PRODUCT_STATUS_PUBLISHED
+} from "constants/index";
 import PropTypes from "prop-types";
 import React from "react";
-import { useDispatch, useSelector, shallowEqual } from "react-redux";
+import { useDispatch } from "react-redux";  
+import ActiveProducts from "pages/inventory/activeProducts";
+import InactiveProducts from "../../pages/inventory/inActiveProducts/index"; 
 import {
-  PRODUCT_STATUS_PUBLISHED,
-  PRODUCT_STATUS_INACTIVE,
-} from "lib/constants/index";
-import MDBackdrop from "components/MDBackDrop";
-import DashboardNavbar from "../../components/MDNavbar/DashboardNavbar/index";
-import ActiveProducts from "../../pages/inventory/activeProducts/index";
-import InactiveProducts from "../../pages/inventory/inActiveProducts/index";
-import {
-  getProductsThunk,
-  getInactiveProductsThunk,
+  getInactiveProductsThunk, getProductsThunk
 } from "../../redux/slices/inventory/index";
 
 function TabPanel(props) {
@@ -78,9 +72,7 @@ function Inventory() {
   //   return <MDBackdrop show />;
   // }
   return (
-    <DashboardLayout>
-      <DashboardNavbar />
-      {/* <MDBackdrop show={hasShow} /> */}
+    
       <MDBox>
         <Box sx={{ borderBottom: 1, borderColor: "divider" }}>
           <Tabs
@@ -112,9 +104,7 @@ function Inventory() {
         <TabPanel value={value} index={1}>
           <InactiveProducts />
         </TabPanel>
-      </MDBox>
-      <Footer />
-    </DashboardLayout>
+      </MDBox> 
   );
 }
 

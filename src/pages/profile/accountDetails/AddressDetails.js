@@ -19,7 +19,7 @@ import MDBox from "components/MDBox";
 import MDInput from "components/MDInput";
 import MDLoadingButton from "components/MDLoadingButton";
 import MDTypography from "components/MDTypography";
-import { RESOURCE_DOCUMENT_VERIFICATION } from "lib/constants";
+import { RESOURCE_DOCUMENT_VERIFICATION } from "constants";
 import _ from "lodash";
 import React, { useRef, useState } from "react";
 import { useDispatch } from "react-redux";
@@ -29,7 +29,6 @@ import { updateAddressDetails } from "services/onboarding/index";
 import { v4 as uuidv4 } from "uuid";
 
 export default function AddressDetails({ data }) {
-           
   const dispatch = useDispatch();
   const signatureRef = useRef(null);
   const logoRef = useRef(null);
@@ -72,8 +71,8 @@ export default function AddressDetails({ data }) {
 
     setIsLoading({ save: false, cancel: false });
   };
+
   const handleSave = async () => {
-             
     setIsLoading({ save: true, cancel: false });
     const res = await updateAddressDetails(addressDetails, emailId, brandId);
     setIsLoading({ save: false, cancel: false });
@@ -81,7 +80,7 @@ export default function AddressDetails({ data }) {
     if (res) {
       const success = {
         show: true,
-        tittle: "Updated Successfully",
+        title: "Updated Successfully",
         status: "success",
         message: "Address details has been updated successfully!",
       };
@@ -89,7 +88,7 @@ export default function AddressDetails({ data }) {
     } else {
       const error = {
         show: true,
-        tittle: "Updated Action failed",
+        title: "Updated Action failed",
         status: "error",
         message: "Updated Action failed!",
       };
@@ -97,7 +96,6 @@ export default function AddressDetails({ data }) {
     }
   };
   const handleChange = (event) => {
-             
     const { name } = event.target;
     const { value } = event.target;
     const temp = _.cloneDeep(addressDetails.BillingAddress);
@@ -120,7 +118,6 @@ export default function AddressDetails({ data }) {
   };
 
   const getUploadParams = async (e) => {
-             
     const { name } = e.target;
     const isLoadingObj = {
       Signature: false,
@@ -143,7 +140,7 @@ export default function AddressDetails({ data }) {
     if (axiosRes.status !== 200) {
       const error = {
         show: true,
-        tittle: "Updated Action failed",
+        title: "Updated Action failed",
         status: "error",
         message: "Updated Action failed!",
       };
@@ -151,7 +148,7 @@ export default function AddressDetails({ data }) {
     } else {
       const success = {
         show: true,
-        tittle: "Updated Successfully",
+        title: "Updated Successfully",
         status: "success",
         message: "File uploaded successfully!",
       };

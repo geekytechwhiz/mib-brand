@@ -1,14 +1,15 @@
 /* eslint-disable no-debugger */
 /* eslint-disable import/prefer-default-export */
-import { apiInstance } from "api";
-import { ORDER_STATUS, RETURN_ORDER_STATUS } from "lib/constants/index";
+ 
+import { ORDER_STATUS, RETURN_ORDER_STATUS } from "constants/index";
 import _ from "lodash";
 import { responseBuilder } from "lib/helper";
+import api from "../../api";
 
 export const getAllOrders = async (brandId) => {
   try {
     const orders = await responseBuilder(
-      await apiInstance.get(`/oms/order/brand/${brandId}`)
+      await api.get(`/oms/order/brand/${brandId}`)
     );
     const response = _.groupBy(orders, "OrderStatus");
     ORDER_STATUS.forEach((element) => {
@@ -25,7 +26,7 @@ export const getAllOrders = async (brandId) => {
 
 export const updateOrder = async (req) => {
   try {
-    return responseBuilder(await apiInstance.patch(`/oms/order`, req));
+    return responseBuilder(await api.patch(`/oms/order`, req));
   } catch (err) {
     return err;
   }
@@ -33,7 +34,7 @@ export const updateOrder = async (req) => {
 export const getAllReturns = async (brandId) => {
   try {
     const data = await responseBuilder(
-      await apiInstance.get(`/oms/order/returns/brand/${brandId}`)
+      await api.get(`/oms/order/returns/brand/${brandId}`)
     );
     const orders = data;
     const response = _.groupBy(orders, "OrderStatus");
@@ -51,7 +52,7 @@ export const getAllReturns = async (brandId) => {
 export const getCancelledOrders = async (brandId) => {
   try {
     const orders = responseBuilder(
-      await apiInstance.get(`/oms/order/cancel/brand/${brandId}`)
+      await api.get(`/oms/order/cancel/brand/${brandId}`)
     );
     // const orders = data.body;
 
@@ -63,7 +64,7 @@ export const getCancelledOrders = async (brandId) => {
 
 export const updateReturns = async (req) => {
   try {
-    return responseBuilder(await apiInstance.patch(`/oms/order/returns`, req));
+    return responseBuilder(await api.patch(`/oms/order/returns`, req));
   } catch (err) {
     return err;
   }

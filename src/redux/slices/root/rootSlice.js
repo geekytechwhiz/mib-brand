@@ -7,13 +7,13 @@ const initialState = {
     show: false,
     status: "",
     message: "",
-    tittle: "",
+    title: "",
   },
   alerts: {
     show: false,
     status: "",
     message: "",
-    tittle: "",
+    title: "",
   },
   loading: false,
 };

@@ -16,11 +16,11 @@ import MDInput from "components/MDInput";
 import MDLoadingButton from "components/MDLoadingButton";
 import MDTypography from "components/MDTypography";
 import { Category, SubCategory } from "lib/data";
-import { gstValidator, validatePAN } from "lib/helper/validator";
 import React, { useState } from "react";
 import { useDispatch } from "react-redux";
 import { getBrandThunk } from "redux/slices/onboarding/index";
 import { updateBusinessDetails } from "services/onboarding/index";
+import { gstValidator, validatePAN } from "../../../helper/validator";
 
 export default function BusinessInfo({ data }) {
   const brandId = localStorage.getItem("brandId");
@@ -211,6 +211,21 @@ export default function BusinessInfo({ data }) {
               value={businessInfo.BusinessName}
               error={!businessInfo.BusinessName}
               name="BusinessName"
+              onChange={handleChange}
+            />
+          </Grid>
+        </Grid>
+        <Grid item xs={5}>
+          <Grid item xs={12} mb={2}>
+            <MDInput
+              disabled={disabled}
+              required
+              type="text"
+              label="Business Category"
+              fullWidth
+              value={businessInfo.Category}
+              error={!businessInfo.Category}
+              name="Category"
               onChange={handleChange}
             />
           </Grid>

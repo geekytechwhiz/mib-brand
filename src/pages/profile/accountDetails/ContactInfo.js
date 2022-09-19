@@ -83,7 +83,7 @@ function ContactInfo({ data }) {
     if (!res) {
       const error = {
         show: true,
-        tittle: "Updated Action failed",
+        title: "Updated Action failed",
         status: "error",
         message: "Updated Action failed!",
       };
@@ -91,7 +91,7 @@ function ContactInfo({ data }) {
     } else {
       const success = {
         show: true,
-        tittle: "Updated Successfully",
+        title: "Updated Successfully",
         status: "success",
         message: "Contact information uploaded successfully!",
       };
@@ -128,7 +128,7 @@ function ContactInfo({ data }) {
     if (otpDetails.Otp !== contactDetails?.OTP) {
       const error = {
         show: true,
-        tittle: "Mobile Number verification failed",
+        title: "Mobile Number verification failed",
         status: "error",
         message: "Invalid OTP",
       };
@@ -136,7 +136,7 @@ function ContactInfo({ data }) {
     } else if (currentTime >= otpDetails.ExpiresIn) {
       const error = {
         show: true,
-        tittle: "Mobile Number verification failed",
+        title: "Mobile Number verification failed",
         status: "error",
         message: "OTP Expired",
       };

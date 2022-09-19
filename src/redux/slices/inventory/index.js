@@ -4,7 +4,7 @@ import { useDispatch } from "react-redux";
 import {
   PRODUCT_STATUS_PUBLISHED,
   PRODUCT_STATUS_INACTIVE,
-} from "lib/constants";
+} from "constants";
 import { getProducts, patchProductStatus } from "../../../services/inventory";
 import { setLoading } from "../root/rootSlice";
 
@@ -22,7 +22,7 @@ const initialState = {
     ProductId: productId,
     ProductType: "Exclusive",
     BrandName: "",
-    Tittle: "",
+    Title: "",
     NumberOfItems: "",
     UnitCount: "",
     UnitType: "",
@@ -67,6 +67,7 @@ export const getProductsThunk = createAsyncThunk(
   async (payload) => {
     const dispatch = useDispatch();
     dispatch(setLoading(true));
+        
     const response = await getProducts(payload.brandId, payload.status);
     dispatch(setLoading(false));
 
@@ -120,6 +121,7 @@ const inventorySlice = createSlice({
       state.description = action.payload;
     },
     variant: (state, action) => {
+          
       state.variant = action.payload;
     },
   },

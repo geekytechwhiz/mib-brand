@@ -17,7 +17,7 @@ import { notification } from "redux/slices/root/rootSlice";
 import {
   ORDER_STATUS_READY_TO_DISPATCH,
   ORDER_STATUS_CANCELLED,
-} from "lib/constants";
+} from "constants";
 import PendingLabelTable from "../../../lib/tables/activeOrders/pendingLabelTable";
 import GenerateBillingLabel from "./generateLabel";
 
@@ -43,7 +43,7 @@ function PendingLabelOrders({ orders }) {
   const handleCancelOrder = () => {
     const success = {
       show: true,
-      tittle: "Cancelled Successfully",
+      title: "Cancelled Successfully",
       status: "success",
       message: "Order has been cancelled!!",
     };
@@ -66,7 +66,7 @@ function PendingLabelOrders({ orders }) {
   const handleReadyToDispatch = async () => {
     const success = {
       show: true,
-      tittle: "Updated Successfully",
+      title: "Updated Successfully",
       status: "success",
       message: "Order has been marked as ready to dispatch!!",
     };
@@ -89,7 +89,7 @@ function PendingLabelOrders({ orders }) {
     } catch (err) {
       const error = {
         show: true,
-        tittle: "Error",
+        title: "Error",
         status: "error",
         message: "Something went wrong Please contact support team!!",
       };

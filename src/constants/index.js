@@ -1,3 +1,23 @@
+export const IDLE = 'IDLE'
+export const PENDING = 'PENDING'
+export const SUCCESS = 'SUCCESS'
+export const ERROR = 'ERROR'
+
+export const defaultStatuses = [
+  'IDLE',
+  'PENDING',
+  'SUCCESS',
+  'ERROR',
+]
+
+
+export const apiStatus = {
+  IDLE,
+  PENDING,
+  SUCCESS,
+  ERROR,
+}
+
 /* eslint-disable import/prefer-default-export */
 export const RESOURCE_INVENTORY = "inventory";
 export const RESOURCE_DOCUMENT_VERIFICATION = "account_verification";
@@ -26,7 +46,7 @@ export const PRODUCT_TYPES = ["EXCLUSIVE", "COMBO"];
 export const REQUIRED_FIELDS_CATEGORY = ["Category", "ProductCategory"];
 export const REQUIRED_FIELDS_VITAL_INFO = [
   "ProductBrand",
-  "Tittle",
+  "Title",
   "Manufacturer",
   "UnitCount",
   "UnitType",
@@ -47,7 +67,7 @@ export const ALL_REQUIRED_FIELDS = [
   "ProductCategory",
   "ProductDescription",
   "ProductBrand",
-  "Tittle",
+  "Title",
   "Manufacturer",
   "NumberOfItems",
   "UnitCount",

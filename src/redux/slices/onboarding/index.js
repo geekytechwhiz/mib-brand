@@ -64,17 +64,16 @@ export const loginThunk = createAsyncThunk(
 export const getBrandThunk = createAsyncThunk(
   "/brand/details/{emailId}",
   async (emailId) => {
+        
     const response = await getBrandAccount(emailId);
 
-    let score = 0;
-    if (response.statusCode !== 200 && !response.data) return null;
-    const { data } = response;
-    const { ProfileCompletion } = data;
+    let score = 0; 
+    const { ProfileCompletion } = response;
     score = getProfileCompletionScore(ProfileCompletion);
-    localStorage.setItem("brandId", data.BrandId);
+    localStorage.setItem("brandId", response.BrandId);
 
     return {
-      data,
+      data:response,
       score,
     };
   }
@@ -96,10 +95,17 @@ const authSlice = createSlice({
   reducers: {},
   extraReducers: (builder) => {
     builder.addCase(loginThunk.fulfilled, (state, action) => {
+          
       state.userPayload = action.payload;
     });
     builder.addCase(getBrandThunk.fulfilled, (state, action) => {
-      state.accountInfo = action.payload.data;
+          
+      state.accountInfo = action?.payload.data;
+      state.profileScore = action?.payload.score;
+    });
+    builder.addCase(getBrandThunk.rejected, (state, action) => {
+          
+      state.accountInfo = action.payload;
       state.profileScore = action.payload.score;
     });
   },

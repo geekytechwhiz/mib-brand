@@ -9,16 +9,25 @@ import Icon from "@mui/material/Icon";
 import ResetPassword from "layouts/authentication/reset-password/index";
 import SignIn from "layouts/authentication/sign-in";
 import SignUp from "layouts/authentication/sign-up";
-import CancelledLayout from "layouts/cancelledOrdersLayout";
+import CancelledLayout from "layouts/cancelledOrders";
 import Dashboard from "layouts/dashboard";
+import layoutContainer from "layouts/layoutContainers";
 import ProfileLayout from "layouts/profile";
-import ReturnsLayout from "layouts/returnedOrdersLayout";
-import ServicesLayout from "layouts/servicesLayout";
+import ReturnsLayout from "layouts/returnedOrders";
+import MigoServices from "layouts/migo-services";
 import Settlements from "layouts/settlements";
 import AddProduct from "./layouts/addProduct/index";
 import Inventory from "./layouts/inventory/index";
 import OrderLayout from "./layouts/orderLayout/index";
 
+const InventoryContainer = layoutContainer(Inventory)
+const AddProductContainer = layoutContainer(AddProduct)
+const OrderContainer = layoutContainer(OrderLayout)
+const SettlementsContainer = layoutContainer(Settlements)
+const ProfileContainer = layoutContainer(ProfileLayout)
+const ReturnsContainer = layoutContainer(ReturnsLayout)
+const MigoServicesContainer = layoutContainer(MigoServices)
+const CancelledContainer = layoutContainer(CancelledLayout)
 const routes = [
   {
     type: "collapse",
@@ -32,7 +41,6 @@ const routes = [
     type: "collapse",
     name: "Inventory",
     key: "inventory",
-    // icon: <Icon fontSize="small">Inventory</Icon>,
     icon: <Inventory2OutlinedIcon />,
     route: "/inventory",
     children: [
@@ -41,7 +49,6 @@ const routes = [
         path: "/admin/products",
         type: "collapse",
         key: "inventory",
-        // icon: <Icon fontSize="small">Inventory</Icon>,
         icon: <Inventory2OutlinedIcon />,
         route: "/inventory",
       },
@@ -49,13 +56,12 @@ const routes = [
         name: "Create Product",
         type: "collapse",
         key: "inventory",
-        // icon: <Icon fontSize="small">Inventory</Icon>,
         icon: <Inventory2OutlinedIcon />,
         route: "/inventory",
         path: "/admin/products/create",
       },
     ],
-    component: <Inventory />,
+    component: <InventoryContainer />,
   },
   {
     type: "collapse",
@@ -63,7 +69,7 @@ const routes = [
     key: "add-product",
     icon: <AddBoxOutlinedIcon>add-product</AddBoxOutlinedIcon>,
     route: "/add-product",
-    component: <AddProduct />,
+    component: <AddProductContainer />,
   },
   {
     type: "collapse",
@@ -71,7 +77,7 @@ const routes = [
     key: "orders",
     icon: <ShoppingCartOutlinedIcon>Orders</ShoppingCartOutlinedIcon>,
     route: "/orders",
-    component: <OrderLayout />,
+    component: <OrderContainer />,
   },
 
   {
@@ -80,7 +86,7 @@ const routes = [
     key: "settlements",
     icon: <PaymentOutlinedIcon>Settlements</PaymentOutlinedIcon>,
     route: "/settlements",
-    component: <Settlements />,
+    component: <SettlementsContainer />,
   },
   {
     type: "collapse",
@@ -88,7 +94,7 @@ const routes = [
     key: "profile",
     icon: <Icon fontSize="small">person</Icon>,
     route: "/profile",
-    component: <ProfileLayout />,
+    component: <ProfileContainer />,
   },
   {
     type: "divider",
@@ -96,7 +102,7 @@ const routes = [
     key: "activeOrder",
     icon: <Icon fontSize="small">ActiveOrder</Icon>,
     route: "/orders/active-orders",
-    component: <OrderLayout />,
+    component: <OrderContainer />,
   },
   {
     type: "title",
@@ -104,7 +110,7 @@ const routes = [
     key: "returns",
     icon: <Icon fontSize="small">Returns</Icon>,
     route: "/orders/returns",
-    component: <ReturnsLayout />,
+    component: <ReturnsContainer />,
   },
   {
     type: "title",
@@ -112,7 +118,7 @@ const routes = [
     key: "cancellations",
     icon: <Icon fontSize="small">Cancellations</Icon>,
     route: "/orders/canceled",
-    component: <CancelledLayout />,
+    component: <CancelledContainer />,
   },
 ];
 export const basicRoutes = [
@@ -149,7 +155,7 @@ export const companyRoutes = [
     key: "MigoInventory",
     icon: <AddBoxOutlinedIcon>Migo Inventory</AddBoxOutlinedIcon>,
     route: "/services/migo-inventory",
-    component: <ServicesLayout />,
+    component: <MigoServicesContainer />,
   },
   {
     type: "collapse",
@@ -157,7 +163,7 @@ export const companyRoutes = [
     key: "BrandBooster",
     icon: <MiscellaneousServicesIcon>Brand Booster</MiscellaneousServicesIcon>,
     route: "/services/brand-booster",
-    component: <ServicesLayout />,
+    component: <MigoServicesContainer />,
   },
   {
     type: "collapse",
@@ -165,7 +171,7 @@ export const companyRoutes = [
     key: "LoyaltyProgram",
     icon: <LoyaltyIcon>Loyalty Program</LoyaltyIcon>,
     route: "/services/loyalty-program",
-    component: <ServicesLayout />,
+    component: <MigoServicesContainer />,
   },
   {
     type: "collapse",
@@ -173,7 +179,7 @@ export const companyRoutes = [
     key: "VoucherManagement",
     icon: <VisibilityOutlinedIcon>Voucher Management</VisibilityOutlinedIcon>,
     route: "/profile/voucher-management",
-    component: <ServicesLayout />,
+    component: <MigoServicesContainer />,
   },
 ];
 

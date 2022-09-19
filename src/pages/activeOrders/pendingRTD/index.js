@@ -12,7 +12,7 @@ import FormControlLabel from "@mui/material/FormControlLabel";
 import MDInput from "components/MDInput";
 import MDTypography from "components/MDTypography";
 import DataTable from "components/RTable";
-import { ORDER_STATUS_PENDING_HANDOVER } from "lib/constants";
+import { ORDER_STATUS_PENDING_HANDOVER } from "constants";
 import PendingRTDTable from "lib/tables/activeOrders/pendingRTDTable";
 import _ from "lodash";
 // import _ from "lodash";
@@ -63,7 +63,7 @@ function ReadyToDispatch({ orders }) {
     const success = {
       show: true,
       status: "Success",
-      tittle: "Updated Successfully",
+      title: "Updated Successfully",
       message: "Order has been marked as ready to dispatch!!",
     };
 
@@ -87,7 +87,7 @@ function ReadyToDispatch({ orders }) {
       const error = {
         show: true,
         status: "error",
-        tittle: "Update Unsuccessful",
+        title: "Update Unsuccessful",
         message: "Something went wrong Please contact support team!!",
       };
       dispatch(notification(error));

@@ -17,7 +17,7 @@ import {
   UNAUTHORIZED_ERROR_MSG,
   UNAUTHORIZED_STATUS_CODE,
   STATUS_CODE_SUCCESS,
-} from "../constants";
+} from "../../constants"
 
 export const getCategories = () => {
   const arr = [];
@@ -123,11 +123,11 @@ export const responseValidator = (res) => {
   if (
     res.statusCode &&
     res.statusCode === STATUS_CODE_SUCCESS &&
-    res.data?.auth === false
+    res.payload?.auth === false
   ) {
-    const { data } = res;
+    const { payload } = res;
     return {
-      message: data?.status?.message,
+      message: payload?.status?.message,
       isValid: false,
     };
   }
@@ -137,7 +137,8 @@ export const responseValidator = (res) => {
   return response;
 };
 
-export const responseBuilder = (response) => {
+export const responseBuilder = (response) => { 
+      
   let responseBody = null;
   if (!response) {
     return responseBody;
@@ -146,11 +147,13 @@ export const responseBuilder = (response) => {
   if (!data) {
     return responseBody;
   }
-  if (
-    data?.statusCode &&
+  if ((data && data.statusCode) &&
+  data?.statusCode &&
     (data?.statusCode === 200 || data?.statusCode === 201)
   ) {
-    responseBody = data.data || {};
+    responseBody = data?.payload || {};
   }
   return responseBody;
 };
+
+export const getKeyLength = (x) => Object.keys(x).length;

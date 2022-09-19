@@ -5,21 +5,18 @@ import TabPanel from "@mui/lab/TabPanel";
 import Grid from "@mui/material/Grid";
 import Tab from "@mui/material/Tab";
 import MDBox from "components/MDBox";
-import DashboardNavbar from "components/MDNavbar/DashboardNavbar/index";
-import Footer from "layouts/footer/index";
-import CustomizedAccordions from "pages/addProduct/verticals";
+import MDTypography from "components/MDTypography";
+import _ from "lodash";
 import Description from "pages/addProduct/description";
 import Medias from "pages/addProduct/images";
 import MoreDetails from "pages/addProduct/moreDetails";
 import Offer from "pages/addProduct/offer";
 import ProductVariant from "pages/addProduct/productVariant";
+import CustomizedAccordions from "pages/addProduct/verticals";
 import VitalInfo from "pages/addProduct/vitalInfo";
-import React, { useState } from "react";
-import { useLocation } from "react-router-dom";
+import { useState } from "react";
 import { shallowEqual, useSelector } from "react-redux";
-import _ from "lodash";
-import MDTypography from "components/MDTypography";
-import DashboardLayout from "../layoutContainers/DashboardLayout/index";
+import { useLocation } from "react-router-dom";
 
 function addProduct() {
   const [value, setValue] = useState("0");
@@ -47,9 +44,6 @@ function addProduct() {
   };
 
   return (
-    <div>
-      <DashboardLayout>
-        <DashboardNavbar />
         <MDBox
           variant="gradient"
           bgColor="transparent"
@@ -58,7 +52,8 @@ function addProduct() {
           p={2}
           mb={1}
           textAlign="center"
-          height="100vh"
+          minHeight="100vh"
+          maxHeight="auto"
           sx={{ width: "100%", typography: "body1" }}
         >
           <Grid container spacing={6}>
@@ -92,7 +87,7 @@ function addProduct() {
                     <Tab
                       label={
                         <MDTypography variant="button" fontWeight="medium">
-                          Variations
+                          Specifications
                         </MDTypography>
                       }
                       value="2"
@@ -163,10 +158,7 @@ function addProduct() {
               </TabContext>
             </Grid>
           </Grid>
-        </MDBox>
-        <Footer />
-      </DashboardLayout>
-    </div>
+        </MDBox>  
   );
 }
 

@@ -59,11 +59,11 @@ function PasswordReset({ data }) {
     const req = { ...data, ...contactDetails };
     const res = await updateContactInfo(req, emailId);
     setIsLoading(false);
-             
+
     if (!res) {
       const err = {
         show: true,
-        tittle: "Updated Action failed",
+        title: "Updated Action failed",
         status: "error",
         message: "Updated Action failed!",
       };
@@ -71,7 +71,7 @@ function PasswordReset({ data }) {
     } else {
       const success = {
         show: true,
-        tittle: "Updated Successfully",
+        title: "Updated Successfully",
         status: "success",
         message: "Contact information uploaded successfully!",
       };
@@ -80,7 +80,6 @@ function PasswordReset({ data }) {
   };
 
   const handleResetPassword = async () => {
-             
     setIsLoading(true);
   };
   const handleCancel = async () => {
@@ -96,7 +95,6 @@ function PasswordReset({ data }) {
   };
 
   const handleRequestResetPassword = async () => {
-             
     setIsLoading(true);
     setHasShowOtp(true);
     // const userResponse = await getBrandAccount(email);
@@ -111,7 +109,7 @@ function PasswordReset({ data }) {
     //   toAddress: email,
     // };
     // const res = await postPasswordResetRequest(req);
-    //          
+    //
     // const validatePasswordRequest = responseValidator(userResponse);
     // if (!validatePasswordRequest.isValid) {
     //   setError(validate);

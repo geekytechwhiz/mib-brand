@@ -11,7 +11,7 @@ import MDBox from "components/MDBox";
 import MDInput from "components/MDInput";
 import MDLoadingButton from "components/MDLoadingButton";
 import MDTypography from "components/MDTypography";
-import { ACCOUNT_TYPE_LIST } from "lib/constants";
+import { ACCOUNT_TYPE_LIST } from "constants";
 import React, { useEffect, useState } from "react";
 import { useDispatch } from "react-redux";
 import { alert } from "redux/slices/root/rootSlice";
@@ -55,7 +55,7 @@ export default function BankInfo({ data }) {
     if (!res) {
       const error = {
         show: true,
-        tittle: "Updated Action failed",
+        title: "Updated Action failed",
         status: "error",
         message: "Updated Action failed!",
       };
@@ -63,7 +63,7 @@ export default function BankInfo({ data }) {
     } else {
       const success = {
         show: true,
-        tittle: "Updated Successfully",
+        title: "Updated Successfully",
         status: "success",
         message: "Bank details has been updated successfully!",
       };
