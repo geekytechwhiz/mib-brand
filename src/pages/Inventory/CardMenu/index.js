@@ -14,7 +14,7 @@ import {
   PRODUCT_STATUS_DELETED,
   PRODUCT_STATUS_INACTIVE,
   PRODUCT_STATUS_PUBLISHED,
-} from "lib/constants";
+} from "constants";
 import React, { useState } from "react";
 import { useDispatch } from "react-redux";
 import { useNavigate } from "react-router-dom";
@@ -46,7 +46,7 @@ export default function CardMenu({
   const updateStatus = async (status) => {
     const success = {
       show: true,
-      tittle: "Deleted Successfully",
+      title: "Deleted Successfully",
       status: "success",
       message: "Product has been deleted successfully!",
     };

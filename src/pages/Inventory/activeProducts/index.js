@@ -3,41 +3,30 @@
 /* eslint-disable no-unused-vars */
 /* eslint-disable react/prop-types */
 import AddIcon from "@mui/icons-material/Add";
+import { Button, Dialog, DialogTitle } from "@mui/material";
 import MDBox from "components/MDBox";
-import MDButton from "components/MDButton";
+import MDLoadingButton from "components/MDLoadingButton";
+import MDTypography from "components/MDTypography";
 import _ from "lodash";
 import * as React from "react";
 import { shallowEqual, useSelector } from "react-redux";
-import { Button, Dialog, DialogTitle } from "@mui/material";
 import { useNavigate } from "react-router-dom";
-import MDTypography from "components/MDTypography";
-import MDLoadingButton from "components/MDLoadingButton";
-import ExclusiveTab from "../exclusiveTab";
+import ProductList from "../productList";
 
 export default function ActiveProducts() {
   const navigate = useNavigate();
-  let exTabs = [];
-  let exData = [];
-  let comboTabs = [];
+  let tabs = [];
   const inventoryData =
     useSelector((state) => state.inventory?.products, shallowEqual) || null;
   const businessDetails =
     useSelector((state) => state.auth?.accountInfo?.BusinessDetails) || null;
-  const [hasGSTVerified, setHasGSTVerified] = React.useState(true);
+  // const [hasGSTVerified, setHasGSTVerified] = React.useState(true);
   const [open, setOpen] = React.useState(false);
   if (inventoryData && Object.keys(inventoryData).length > 0) {
-    exData = inventoryData?.Exclusive;
-    const exKeys = Object.keys(inventoryData?.Exclusive) || [];
-    const comboKeys = Object.keys(inventoryData?.Combo) || [];
-    exTabs =
+    const exKeys = Object.keys(inventoryData) || [];
+    tabs =
       exKeys &&
       _.map(exKeys, (val, key) => ({
-        id: `${key + 1}`,
-        label: `${val}`,
-      }));
-    comboTabs =
-      comboKeys &&
-      _.map(comboKeys, (val, key) => ({
         id: `${key + 1}`,
         label: `${val}`,
       }));
@@ -113,7 +102,7 @@ export default function ActiveProducts() {
         </DialogTitle>
       </Dialog>
 
-      <ExclusiveTab isActive data={exData} tabs={exTabs} />
+      <ProductList isActive data={inventoryData} tabs={tabs} />
     </MDBox>
   );
 }

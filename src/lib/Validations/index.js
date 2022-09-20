@@ -14,9 +14,9 @@ export const validationOption = {
     error: false,
     message: "Brand Name is Required",
   },
-  Tittle: {
+  Title: {
     error: false,
-    message: "Tittle is  Required",
+    message: "Title is  Required",
   },
   Description: {
     error: false,
@@ -29,13 +29,13 @@ export const validationOption = {
 };
 
 export const validation = {
-  Tittle: "Tittle is Required",
+  Title: "Title is Required",
 };
 export const validateVitalInfos = (product) => {
   let count = 0;
   const productDetailsObj = {
     ProductBrand: "",
-    Tittle: "",
+    Title: "",
   };
   const productModelKeys = Object.keys(productDetailsObj);
   productModelKeys.forEach((x) => {

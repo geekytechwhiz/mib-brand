@@ -25,7 +25,7 @@ import MDTypography from "components/MDTypography";
 import _ from "lodash";
 import React, { useEffect, useState } from "react";
 import { shallowEqual, useDispatch, useSelector } from "react-redux";
-import { REQUIRED_FIELDS_CATEGORY } from "../../lib/constants";
+import { REQUIRED_FIELDS_CATEGORY } from "../../constants";
 import { BUSINESS_CATEGORY } from "../../lib/data";
 import { getSubCategories } from "../../lib/helper";
 import { Validate } from "../../lib/validations";
