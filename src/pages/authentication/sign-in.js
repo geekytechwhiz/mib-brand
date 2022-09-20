@@ -80,9 +80,9 @@ function SignIn() {
     setError({ message: "", isValid: false });
     setIsLoading(true);
     const response = await login(user);
-    if (response && response?.data?.auth) {
+    if (response && response?.payload?.auth) {
       setIsLoading(false);
-      localStorage.setItem("token", response?.data?.token);
+      localStorage.setItem("token", response?.payload?.token);
       localStorage.setItem("auth", true);
       localStorage.setItem("emailId", user.EmailId);
       dispatch(getBrandThunk(user.EmailId));

@@ -30,8 +30,6 @@ function ProductVariant(props) {
   } else {
     productState = data;
   }
-  // const [product, setProduct] = useState(productState);
-
   const categories = useSelector(
     (state) => state.inventory.categories,
     shallowEqual
