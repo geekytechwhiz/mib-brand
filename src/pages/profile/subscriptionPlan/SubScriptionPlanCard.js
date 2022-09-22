@@ -40,10 +40,46 @@ function SubScriptionPlanCard({ isSubscribed }) {
         bgColor="transparent"
         display="flex"
         flexDirection="column"
+        alignItems="center"
       >
         <MDTypography fontSize="smaller" alignSelf="flex-start" margin="10px">
           Upgrade
         </MDTypography>
+        <img
+          src="http://mindscroll.com/images/cover_image/pricing.jpg"
+          alt=""
+          width="80%"
+          height="50%"
+          style={{ objectFit: "fill" }}
+        />
+        <MDBox
+          display="flex"
+          width="100%"
+          alignItems="center"
+          justifyContent="space-evenly"
+          paddingTop="10px"
+        >
+          <MDTypography color="gray-300" fontSize="0.9rem">
+            Migo Inventory
+          </MDTypography>
+          <MDBox
+            width="40%"
+            height="20px"
+            borderRadius="xl"
+            bgColor="#25428a"
+            color="white"
+            cursor="pointer"
+            display="flex"
+            alignItems="center"
+            justifyContent="center"
+            fontSize="0.8rem"
+            sx={{
+              cursor: "pointer",
+            }}
+          >
+            Subscribe
+          </MDBox>
+        </MDBox>
       </MDBox>
       <MDBox
         width="100%"
