@@ -10,6 +10,7 @@ import React, { useState } from "react";
 import { shallowEqual, useSelector } from "react-redux";
 import AccountDetails from "./accountDetails";
 import ProfileSettings from "./profileSettings";
+import SubscriptionPlan from "./subscriptionPlan";
 
 function Profile() {
   const brandInfo = useSelector(
@@ -56,6 +57,14 @@ function Profile() {
                   }
                   value="1"
                 />
+                <Tab
+                  label={
+                    <MDTypography variant="button" fontWeight="medium">
+                      Subscription Plan
+                    </MDTypography>
+                  }
+                  value="2"
+                />
               </TabList>
             </MDBox>
             <TabPanel value="0">
@@ -63,6 +72,9 @@ function Profile() {
             </TabPanel>
             <TabPanel value="1">
               <ProfileSettings data={brandInfo} />
+            </TabPanel>
+            <TabPanel value="2">
+              <SubscriptionPlan />
             </TabPanel>
           </TabContext>
         </Grid>
