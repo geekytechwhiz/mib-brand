@@ -19,7 +19,7 @@ import MDInput from "components/MDInput";
 import _ from "lodash";
 import React, { useEffect, useState } from "react";
 import { useDispatch } from "react-redux";
-import { variant } from "../../redux/slices/inventory";
+import { variant } from "../../redux-store/slices/inventory";
 
 export default function DynamicForm(props) {
   const { fields, activeTab } = props;
@@ -81,8 +81,7 @@ export default function DynamicForm(props) {
         spacing={1}
         justifyContent="flex-start"
         flexDirection="row"
-        flexGrow={1}
-      >
+        flexGrow={1}>
         {fields?.length > 0 &&
           fields?.map((field) => {
             switch (field.component) {
@@ -94,8 +93,7 @@ export default function DynamicForm(props) {
                       field={field}
                       fieldChanged={fieldChanged}
                       name={field.name}
-                      value={field.value || ""}
-                    >
+                      value={field.value || ""}>
                       <FormControlLabel
                         value="exclusive"
                         control={<Radio />}
@@ -187,16 +185,14 @@ export default function DynamicForm(props) {
           display: "flex",
           flexDirection: "row",
           justifyContent: "flex-end",
-        }}
-      >
+        }}>
         <Grid container xs={12} justifyContent="space-between">
           <Grid item>
             <Button
               color="primary"
               onClick={handleBack}
               variant="text"
-              endIcon={<ArrowBackIosNewIcon />}
-            >
+              endIcon={<ArrowBackIosNewIcon />}>
               Back
             </Button>
           </Grid>
@@ -205,8 +201,7 @@ export default function DynamicForm(props) {
               color="primary"
               onClick={handleNext}
               variant="text"
-              endIcon={<ArrowForwardIosIcon />}
-            >
+              endIcon={<ArrowForwardIosIcon />}>
               Next
             </Button>
           </Grid>

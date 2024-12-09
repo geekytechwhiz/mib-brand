@@ -1,12 +1,14 @@
-
 /* eslint-disable react/function-component-definition */
-const { default: DashboardLayout } = require("./DashboardLayout")
+// const { default: DashboardLayout } = require("./DashboardLayout")
+import DashboardLayout from "./DashboardLayout";
 
-const layoutContainer = (Components) => ({...props}) => (
-
-    <DashboardLayout>
+const layoutContainer =
+  (Components) =>
+  ({ ...props }) =>
+    (
+      <DashboardLayout>
         <Components {...props} />
-    </DashboardLayout>
-)
+      </DashboardLayout>
+    );
 
-export default layoutContainer
+export default layoutContainer;

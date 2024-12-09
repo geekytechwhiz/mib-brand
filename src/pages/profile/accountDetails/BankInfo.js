@@ -14,7 +14,7 @@ import MDTypography from "components/MDTypography";
 import { ACCOUNT_TYPE_LIST } from "constants";
 import React, { useEffect, useState } from "react";
 import { useDispatch } from "react-redux";
-import { alert } from "redux/slices/root/rootSlice";
+import { alert } from "redux-store/slices/root/rootSlice";
 import { updateBankDetails } from "services/onboarding/index";
 
 export default function BankInfo({ data }) {
@@ -101,16 +101,14 @@ export default function BankInfo({ data }) {
         spacing={1}
         justifyContent="space-around"
         flexDirection="row"
-        xs={12}
-      >
+        xs={12}>
         <Grid item xs={11}>
           <MDTypography
             variant="h5"
             textAlign="start"
             fontWeight="medium"
             p={1}
-            mb={2}
-          >
+            mb={2}>
             Bank Details
           </MDTypography>
         </Grid>
@@ -119,8 +117,7 @@ export default function BankInfo({ data }) {
             size="small"
             aria-label="edit"
             color="inherit"
-            onClick={onHandleEdit}
-          >
+            onClick={onHandleEdit}>
             <ModeEditOutlinedIcon fontSize="small">Edit</ModeEditOutlinedIcon>
           </IconButton>
         </Grid>
@@ -131,8 +128,7 @@ export default function BankInfo({ data }) {
         spacing={1}
         justifyContent="space-around"
         flexDirection="row"
-        xs={12}
-      >
+        xs={12}>
         <Grid item xs={5} mb={2}>
           <MDInput
             disabled={disabled}
@@ -262,8 +258,7 @@ export default function BankInfo({ data }) {
               variant="outlined"
               mx={2}
               onClick={handleCancel}
-              size="small"
-            >
+              size="small">
               Cancel
             </MDLoadingButton>
           </MDBox>
@@ -276,8 +271,7 @@ export default function BankInfo({ data }) {
               variant="outlined"
               mx={2}
               onClick={handleSave}
-              size="small"
-            >
+              size="small">
               Save
             </MDLoadingButton>
           </MDBox>

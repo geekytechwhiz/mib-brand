@@ -6,7 +6,7 @@ import App from "./App";
 import { MaterialUIControllerProvider } from "./context";
 import { Fallback } from "./lib/error/fallback";
 import { ErrorBoundary } from "./lib/error";
-import configureStore from "./redux/store";
+import configureStore from "./redux-store/store";
 
 // Material Dashboard 2 React Context Provider
 

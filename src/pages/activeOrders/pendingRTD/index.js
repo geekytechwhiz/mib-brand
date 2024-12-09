@@ -21,8 +21,8 @@ import { shallowEqual, useDispatch, useSelector } from "react-redux";
 import {
   setMarkReadyToDispatch,
   updateOrderThunk,
-} from "redux/slices/orders/orderSlice";
-import { notification } from "redux/slices/root/rootSlice";
+} from "redux-store/slices/orders/orderSlice";
+import { notification } from "redux-store/slices/root/rootSlice";
 import GenerateBillingLabel from "../pendingLabel/generateLabel";
 
 function ReadyToDispatch({ orders }) {
@@ -135,8 +135,7 @@ function ReadyToDispatch({ orders }) {
             spacing={2}
             my={2}
             justifyContent="flex-start"
-            flexDirection="row"
-          >
+            flexDirection="row">
             <Grid item xs={5}>
               <MDInput
                 fullWidth
@@ -171,8 +170,7 @@ function ReadyToDispatch({ orders }) {
                     }}
                     variant="caption"
                     color="secondary"
-                    fontWeight="medium"
-                  >
+                    fontWeight="medium">
                     {`Are you sure you want to mark the ${count} selected orders as RTD? This action can't be reversed `}
                   </MDTypography>
                 }
@@ -183,8 +181,7 @@ function ReadyToDispatch({ orders }) {
               display="flex"
               spacing={1}
               alignItems="center"
-              justifyContent="flex-end"
-            >
+              justifyContent="flex-end">
               <Grid item pt={5} mt={5}>
                 <Button
                   color="dark"
@@ -192,8 +189,7 @@ function ReadyToDispatch({ orders }) {
                   variant="contained"
                   onClick={() => {
                     setOpen(false);
-                  }}
-                >
+                  }}>
                   Go Back
                 </Button>
               </Grid>
@@ -203,8 +199,7 @@ function ReadyToDispatch({ orders }) {
                   sx={{ color: "black" }}
                   variant="contained"
                   disabled={enabled}
-                  onClick={handleRTD}
-                >
+                  onClick={handleRTD}>
                   Mark RTD
                 </Button>
               </Grid>
@@ -229,8 +224,7 @@ function ReadyToDispatch({ orders }) {
             color="dark"
             sx={{ color: "black" }}
             variant="contained"
-            onClick={handleMarkRTD}
-          >
+            onClick={handleMarkRTD}>
             Mark RTD
           </Button>
         </Grid>

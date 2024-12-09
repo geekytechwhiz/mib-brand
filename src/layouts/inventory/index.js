@@ -7,16 +7,18 @@ import Tabs from "@mui/material/Tabs";
 import MDBox from "components/MDBox";
 import MDTypography from "components/MDTypography";
 import {
-  PRODUCT_STATUS_INACTIVE, PRODUCT_STATUS_PUBLISHED
+  PRODUCT_STATUS_INACTIVE,
+  PRODUCT_STATUS_PUBLISHED,
 } from "constants/index";
 import PropTypes from "prop-types";
 import React from "react";
-import { useDispatch } from "react-redux";  
+import { useDispatch } from "react-redux";
 import ActiveProducts from "pages/inventory/activeProducts";
-import InactiveProducts from "../../pages/inventory/inActiveProducts/index"; 
+import InactiveProducts from "../../pages/inventory/inActiveProducts/index";
 import {
-  getInactiveProductsThunk, getProductsThunk
-} from "../../redux/slices/inventory/index";
+  getInactiveProductsThunk,
+  getProductsThunk,
+} from "../../redux-store/slices/inventory/index";
 
 function TabPanel(props) {
   const { children, value, index, ...other } = props;
@@ -27,8 +29,7 @@ function TabPanel(props) {
       hidden={value !== index}
       id={`simple-tabpanel-${index}`}
       aria-labelledby={`simple-tab-${index}`}
-      {...other}
-    >
+      {...other}>
       {value === index && (
         <MDTypography variant="button" fontWeight="medium">
           {children}
@@ -72,39 +73,37 @@ function Inventory() {
   //   return <MDBackdrop show />;
   // }
   return (
-    
-      <MDBox>
-        <Box sx={{ borderBottom: 1, borderColor: "divider" }}>
-          <Tabs
-            value={value}
-            onChange={handleChange}
-            aria-label="basic tabs example"
-          >
-            <Tab
-              label={
-                <MDTypography variant="button" fontWeight="medium">
-                  Active Products
-                </MDTypography>
-              }
-              {...a11yProps(0)}
-            />
-            <Tab
-              label={
-                <MDTypography variant="button" fontWeight="medium">
-                  Inactive Products
-                </MDTypography>
-              }
-              {...a11yProps(1)}
-            />
-          </Tabs>
-        </Box>
-        <TabPanel value={value} index={0}>
-          <ActiveProducts />
-        </TabPanel>
-        <TabPanel value={value} index={1}>
-          <InactiveProducts />
-        </TabPanel>
-      </MDBox> 
+    <MDBox>
+      <Box sx={{ borderBottom: 1, borderColor: "divider" }}>
+        <Tabs
+          value={value}
+          onChange={handleChange}
+          aria-label="basic tabs example">
+          <Tab
+            label={
+              <MDTypography variant="button" fontWeight="medium">
+                Active Products
+              </MDTypography>
+            }
+            {...a11yProps(0)}
+          />
+          <Tab
+            label={
+              <MDTypography variant="button" fontWeight="medium">
+                Inactive Products
+              </MDTypography>
+            }
+            {...a11yProps(1)}
+          />
+        </Tabs>
+      </Box>
+      <TabPanel value={value} index={0}>
+        <ActiveProducts />
+      </TabPanel>
+      <TabPanel value={value} index={1}>
+        <InactiveProducts />
+      </TabPanel>
+    </MDBox>
   );
 }
 

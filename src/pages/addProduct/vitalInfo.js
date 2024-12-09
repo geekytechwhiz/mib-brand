@@ -17,7 +17,7 @@ import React, { useState } from "react";
 import { shallowEqual, useDispatch, useSelector } from "react-redux";
 import { ArrowBackIos } from "@mui/icons-material";
 import { Validate } from "../../lib/validations";
-import { vitalInfo } from "../../redux/slices/inventory";
+import { vitalInfo } from "../../redux-store/slices/inventory";
 import { REQUIRED_FIELDS_VITAL_INFO } from "../../constants";
 
 function VitalInfo(props) {
@@ -93,8 +93,7 @@ function VitalInfo(props) {
       mt={-2}
       p={2}
       mb={1}
-      textAlign="center"
-    >
+      textAlign="center">
       <Grid container alignItems="center" spacing={2}>
         <Grid item xs={12}>
           <MDBox>
@@ -103,8 +102,7 @@ function VitalInfo(props) {
                 variant="h6"
                 textAlign="start"
                 fontWeight="medium"
-                mb={2}
-              >
+                mb={2}>
                 Product Details
               </MDTypography>
             </Box>
@@ -230,8 +228,7 @@ function VitalInfo(props) {
             color="primary"
             onClick={handleBack}
             variant="text"
-            endIcon={<ArrowBackIos />}
-          >
+            endIcon={<ArrowBackIos />}>
             Back
           </Button>
         </Grid>
@@ -240,8 +237,7 @@ function VitalInfo(props) {
             color="primary"
             onClick={handleNext}
             variant="text"
-            endIcon={<ArrowForwardIosIcon />}
-          >
+            endIcon={<ArrowForwardIosIcon />}>
             Next
           </Button>
         </Grid>

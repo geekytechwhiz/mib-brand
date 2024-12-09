@@ -19,7 +19,7 @@ import { RESOURCE_DOCUMENT_VERIFICATION } from "constants";
 import _ from "lodash";
 import React, { useRef, useState } from "react";
 import { useDispatch } from "react-redux";
-import { alert } from "redux/slices/root/rootSlice";
+import { alert } from "redux-store/slices/root/rootSlice";
 import { postSignedUrl } from "services/common";
 import { updateDocuments } from "services/onboarding/index";
 import { v4 as uuidv4 } from "uuid";
@@ -188,16 +188,14 @@ export default function VerifyDocuments({ data }) {
         spacing={1}
         justifyContent="space-around"
         flexDirection="row"
-        xs={12}
-      >
+        xs={12}>
         <Grid item xs={11}>
           <MDTypography
             variant="h5"
             textAlign="start"
             fontWeight="medium"
             p={1}
-            mb={2}
-          >
+            mb={2}>
             Verify Documents
           </MDTypography>
         </Grid>
@@ -207,23 +205,20 @@ export default function VerifyDocuments({ data }) {
         display="flex"
         mx={20}
         justifyContent="space-between"
-        alignItems="center"
-      >
+        alignItems="center">
         <Grid
           container
           display="flex"
           spacing={1}
           justifyContent="center"
           flexDirection="row"
-          xs={12}
-        >
+          xs={12}>
           <Grid item xs={8} mb={2} textAlign="left">
             <MDTypography
               variant="caption"
               color="text"
               fontWeight="medium"
-              textAlign="left"
-            >
+              textAlign="left">
               Aadhaar Front of Authorized Signatory
             </MDTypography>
             <>
@@ -240,16 +235,14 @@ export default function VerifyDocuments({ data }) {
                   color="secondary"
                   aria-label=" Aadhaar Front side of Authorized Signatory"
                   component="span"
-                  onClick={() => aadharFrontRef.current.click()}
-                >
+                  onClick={() => aadharFrontRef.current.click()}>
                   <PhotoCamera />
                 </IconButton>
                 <MDTypography
                   variant="caption"
                   color="text"
                   fontWeight="medium"
-                  textAlign="left"
-                >
+                  textAlign="left">
                   {document.AadhaarFront}
                 </MDTypography>
                 {isEnabled.AadhaarFront ? (
@@ -264,8 +257,7 @@ export default function VerifyDocuments({ data }) {
                     mx={2}
                     name="AadhaarFront"
                     size="small"
-                    onClick={getUploadParams}
-                  >
+                    onClick={getUploadParams}>
                     Upload
                   </MDLoadingButton>
                 ) : (
@@ -287,8 +279,7 @@ export default function VerifyDocuments({ data }) {
               variant="caption"
               color="text"
               fontWeight="medium"
-              textAlign="left"
-            >
+              textAlign="left">
               Aadhaar Back of Authorized Signatory
             </MDTypography>
             <>
@@ -305,16 +296,14 @@ export default function VerifyDocuments({ data }) {
                   color="secondary"
                   aria-label=" Aadhaar Back of Authorized Signatory"
                   component="span"
-                  onClick={() => aadharBackRef.current.click()}
-                >
+                  onClick={() => aadharBackRef.current.click()}>
                   <PhotoCamera />
                 </IconButton>
                 <MDTypography
                   variant="caption"
                   color="text"
                   fontWeight="medium"
-                  textAlign="left"
-                >
+                  textAlign="left">
                   {document.AadhaarBack}
                 </MDTypography>
                 {isEnabled.AadhaarBack ? (
@@ -329,8 +318,7 @@ export default function VerifyDocuments({ data }) {
                     mx={2}
                     name="AadhaarBack"
                     size="small"
-                    onClick={getUploadParams}
-                  >
+                    onClick={getUploadParams}>
                     Upload
                   </MDLoadingButton>
                 ) : (
@@ -352,8 +340,7 @@ export default function VerifyDocuments({ data }) {
               variant="caption"
               color="text"
               fontWeight="medium"
-              textAlign="left"
-            >
+              textAlign="left">
               Business Registration Proof
             </MDTypography>
             <>
@@ -370,16 +357,14 @@ export default function VerifyDocuments({ data }) {
                   color="secondary"
                   aria-label="Business Registration Proof"
                   component="span"
-                  onClick={() => proofRef.current.click()}
-                >
+                  onClick={() => proofRef.current.click()}>
                   <PhotoCamera />
                 </IconButton>
                 <MDTypography
                   variant="caption"
                   color="text"
                   fontWeight="medium"
-                  textAlign="left"
-                >
+                  textAlign="left">
                   {document.BusinessProof}
                 </MDTypography>
                 {isEnabled.BusinessProof ? (
@@ -394,8 +379,7 @@ export default function VerifyDocuments({ data }) {
                     mx={2}
                     name="AadhaarBack"
                     size="small"
-                    onClick={getUploadParams}
-                  >
+                    onClick={getUploadParams}>
                     Upload
                   </MDLoadingButton>
                 ) : (
@@ -417,8 +401,7 @@ export default function VerifyDocuments({ data }) {
               variant="caption"
               color="text"
               fontWeight="medium"
-              textAlign="left"
-            >
+              textAlign="left">
               Company PAN
             </MDTypography>
             <>
@@ -435,16 +418,14 @@ export default function VerifyDocuments({ data }) {
                   color="secondary"
                   aria-label="Company PAN"
                   component="span"
-                  onClick={() => panRef.current.click()}
-                >
+                  onClick={() => panRef.current.click()}>
                   <PhotoCamera />
                 </IconButton>
                 <MDTypography
                   variant="caption"
                   color="text"
                   fontWeight="medium"
-                  textAlign="left"
-                >
+                  textAlign="left">
                   {document.Pan}
                 </MDTypography>
                 {isEnabled.Pan ? (
@@ -459,8 +440,7 @@ export default function VerifyDocuments({ data }) {
                     mx={2}
                     name="AadhaarBack"
                     size="small"
-                    onClick={getUploadParams}
-                  >
+                    onClick={getUploadParams}>
                     Upload
                   </MDLoadingButton>
                 ) : (
@@ -488,8 +468,7 @@ export default function VerifyDocuments({ data }) {
             variant="outlined"
             mx={2}
             onClick={handleCancel}
-            size="small"
-          >
+            size="small">
             Cancel
           </MDLoadingButton>
         </MDBox>
@@ -502,8 +481,7 @@ export default function VerifyDocuments({ data }) {
             variant="outlined"
             mx={2}
             onClick={handleSave}
-            size="small"
-          >
+            size="small">
             Save
           </MDLoadingButton>
         </MDBox>

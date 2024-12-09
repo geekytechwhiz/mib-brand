@@ -29,7 +29,7 @@ import React, { useEffect, useState } from "react";
 import { shallowEqual, useDispatch, useSelector } from "react-redux";
 // react-router components
 import { useLocation, useNavigate } from "react-router-dom";
-import { notification } from "redux/slices/root/rootSlice";
+import { notification } from "redux-store/slices/root/rootSlice";
 import {
   navbar,
   navbarContainer,
@@ -122,8 +122,7 @@ function DashboardNavbar({ absolute, light, isMini }) {
         variant="button"
         fontWeight="small"
         sx={{ marginLeft: 5 }}
-        color="white"
-      >
+        color="white">
         {message}
       </MDTypography>
     </MDTypography>
@@ -138,8 +137,7 @@ function DashboardNavbar({ absolute, light, isMini }) {
       }}
       open={Boolean(openMenu)}
       onClose={handleCloseMenu}
-      sx={{ mt: 2 }}
-    >
+      sx={{ mt: 2 }}>
       <NotificationItem icon={<Icon>email</Icon>} title="Check new messages" />
       <NotificationItem
         icon={<Icon>podcasts</Icon>}
@@ -162,8 +160,7 @@ function DashboardNavbar({ absolute, light, isMini }) {
       }}
       open={Boolean(openSettings)}
       onClose={handleSettingsClose}
-      sx={{ mt: 2 }}
-    >
+      sx={{ mt: 2 }}>
       <NotificationItem icon={<Icon>settings</Icon>} title="Settings" />
       <NotificationItem
         onClick={handleLogout}
@@ -194,8 +191,7 @@ function DashboardNavbar({ absolute, light, isMini }) {
       color="inherit"
       sx={(theme) =>
         navbar(theme, { transparentNavbar, absolute, light, darkMode })
-      }
-    >
+      }>
       <MDBox pt={2} px={2}>
         {alerts && alerts.show ? (
           <TransitionAlerts
@@ -225,8 +221,7 @@ function DashboardNavbar({ absolute, light, isMini }) {
         <MDBox
           color="inherit"
           mb={{ xs: 1, md: 0 }}
-          sx={(theme) => navbarRow(theme, { isMini })}
-        >
+          sx={(theme) => navbarRow(theme, { isMini })}>
           <Breadcrumbs
             icon="home"
             title={route[route.length - 1]}
@@ -245,8 +240,7 @@ function DashboardNavbar({ absolute, light, isMini }) {
                 disableRipple
                 color="inherit"
                 sx={navbarMobileMenu}
-                onClick={handleMiniSidenav}
-              >
+                onClick={handleMiniSidenav}>
                 <Icon sx={iconsStyle} fontSize="medium">
                   {miniSidenav ? "menu_open" : "menu"}
                 </Icon>
@@ -256,8 +250,7 @@ function DashboardNavbar({ absolute, light, isMini }) {
                 disableRipple
                 color="inherit"
                 sx={navbarIconButton}
-                onClick={handleConfiguratorOpen}
-              >
+                onClick={handleConfiguratorOpen}>
                 <Icon sx={iconsStyle}>settings</Icon>
               </IconButton>
               <IconButton
@@ -268,8 +261,7 @@ function DashboardNavbar({ absolute, light, isMini }) {
                 aria-controls="notification-menu"
                 aria-haspopup="true"
                 variant="contained"
-                onClick={handleOpenMenu}
-              >
+                onClick={handleOpenMenu}>
                 <Icon sx={iconsStyle}>notifications</Icon>
               </IconButton>
               {renderMenu()}
@@ -281,8 +273,7 @@ function DashboardNavbar({ absolute, light, isMini }) {
                 aria-controls="account_circle-menu"
                 aria-haspopup="true"
                 variant="contained"
-                onClick={handleOpenSettings}
-              >
+                onClick={handleOpenSettings}>
                 <Icon sx={iconsStyle}>account_circle</Icon>
               </IconButton>
               {renderSettingsMenu()}

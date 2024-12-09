@@ -17,7 +17,7 @@ import MDSnackbar from "components/MDSnackbar";
 import MDTypography from "components/MDTypography";
 import { useState } from "react";
 import { shallowEqual, useDispatch, useSelector } from "react-redux";
-import { alert } from "redux/slices/root/rootSlice";
+import { alert } from "redux-store/slices/root/rootSlice";
 import { MORE_DETAILS_REQUIRED_FIELDS } from "../../constants";
 import { Validate } from "../../lib/validations";
 import { postProducts } from "../../services/inventory";
@@ -180,16 +180,14 @@ function MoreDetails(props) {
       mt={-2}
       p={2}
       mb={2}
-      textAlign="center"
-    >
+      textAlign="center">
       <Variants />
       <Grid
         container
         display="flex"
         spacing={1}
         justifyContent="flex-start"
-        flexDirection="row"
-      >
+        flexDirection="row">
         <Grid item xs={5}>
           <Box mb={2}>
             <MDTypography
@@ -197,8 +195,7 @@ function MoreDetails(props) {
               textAlign="start"
               fontWeight="medium"
               p={3}
-              mb={2}
-            >
+              mb={2}>
               Migo Loyalty
             </MDTypography>
           </Box>
@@ -234,8 +231,7 @@ function MoreDetails(props) {
             textAlign="start"
             fontWeight="medium"
             p={3}
-            mb={2}
-          >
+            mb={2}>
             Shipping
           </MDTypography>
           <Grid item xs={8} mb={2}>
@@ -302,8 +298,7 @@ function MoreDetails(props) {
             <MDTypography
               variant="button"
               color="text"
-              sx={{ cursor: "pointer", userSelect: "none", ml: 1 }}
-            >
+              sx={{ cursor: "pointer", userSelect: "none", ml: 1 }}>
               &nbsp;&nbsp;I agree the&nbsp;
             </MDTypography>
             <MDTypography
@@ -312,8 +307,7 @@ function MoreDetails(props) {
               variant="button"
               fontWeight="bold"
               color="info"
-              textGradient
-            >
+              textGradient>
               Terms and Conditions
             </MDTypography>
           </MDBox>
@@ -329,8 +323,7 @@ function MoreDetails(props) {
             variant="gradient"
             startIcon={<SaveAltRoundedIcon />}
             mx={2}
-            name="save"
-          >
+            name="save">
             Draft
           </MDLoadingButton>
         </Grid>
@@ -345,8 +338,7 @@ function MoreDetails(props) {
             loadingPosition="start"
             variant="gradient"
             mx={5}
-            name="save"
-          >
+            name="save">
             {" "}
             Publish
           </MDLoadingButton>

@@ -5,7 +5,7 @@ import Alert from "@mui/material/Alert";
 import IconButton from "@mui/material/IconButton";
 import Collapse from "@mui/material/Collapse";
 import Button from "@mui/material/Button";
-import { alert } from "redux/slices/root/rootSlice";
+import { alert } from "redux-store/slices/root/rootSlice";
 import CloseIcon from "@mui/icons-material/Close";
 import MDTypography from "components/MDTypography";
 import { useDispatch } from "react-redux";
@@ -32,13 +32,11 @@ export default function TransitionAlerts({ show, message, status }) {
                   message: " ",
                 };
                 dispatch(alert(success));
-              }}
-            >
+              }}>
               <CloseIcon fontSize="inherit" />
             </IconButton>
           }
-          sx={{ mb: 2 }}
-        >
+          sx={{ mb: 2 }}>
           <MDTypography
             style={{ wordWrap: "break-word" }}
             sx={{
@@ -50,8 +48,7 @@ export default function TransitionAlerts({ show, message, status }) {
             }}
             variant="alert"
             color="inherit"
-            fontWeight="medium"
-          >
+            fontWeight="medium">
             {status}!{" "}
             <MDTypography
               style={{ wordWrap: "break-word" }}
@@ -63,8 +60,7 @@ export default function TransitionAlerts({ show, message, status }) {
               }}
               variant="alert"
               color="inherit"
-              fontWeight="regular"
-            >
+              fontWeight="regular">
               {" "}
               {message}
             </MDTypography>
@@ -76,8 +72,7 @@ export default function TransitionAlerts({ show, message, status }) {
         variant="outlined"
         onClick={() => {
           setOpen(true);
-        }}
-      >
+        }}>
         Re-open
       </Button>
     </Box>

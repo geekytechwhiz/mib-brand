@@ -36,7 +36,7 @@
       }
     ],
     "default-param-last": "off",
-    
+    "import/no-unresolved": "off",
     "allowTernary": "off",
     "react/react-in-jsx-scope": "off",
     "react/jsx-filename-extension": [
@@ -66,8 +66,10 @@
           "src"
         ],
         "extensions": [
-          ".js"
-        ]
+          ".js",
+          ".jsx"
+        ],
+        "caseSensitive": false
       }
     }
   }

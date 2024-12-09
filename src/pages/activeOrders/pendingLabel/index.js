@@ -12,8 +12,8 @@ import { shallowEqual, useDispatch, useSelector } from "react-redux";
 import {
   setSelectedOrders,
   updateOrderThunk,
-} from "redux/slices/orders/orderSlice";
-import { notification } from "redux/slices/root/rootSlice";
+} from "redux-store/slices/orders/orderSlice";
+import { notification } from "redux-store/slices/root/rootSlice";
 import {
   ORDER_STATUS_READY_TO_DISPATCH,
   ORDER_STATUS_CANCELLED,
@@ -129,8 +129,7 @@ function PendingLabelOrders({ orders }) {
             sx={{ color: "black" }}
             variant="contained"
             disabled={hasDisabled}
-            onClick={handleReadyToDispatch}
-          >
+            onClick={handleReadyToDispatch}>
             Mark Ready To Dispatch
           </Button>
         </Grid>
@@ -141,8 +140,7 @@ function PendingLabelOrders({ orders }) {
             sx={{ color: "black" }}
             variant="contained"
             disabled={hasDisabled}
-            onClick={handleCancelOrder}
-          >
+            onClick={handleCancelOrder}>
             Cancel Orders
           </Button>
         </Grid>

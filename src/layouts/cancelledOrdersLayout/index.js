@@ -10,7 +10,7 @@ import DashboardLayout from "layouts/layoutContainers/DashboardLayout";
 import CancelledOrders from "pages/cancelledOrders";
 import React from "react";
 import { useDispatch } from "react-redux";
-import { getCancelledOrdersThunk } from "redux/slices/orders/orderSlice";
+import { getCancelledOrdersThunk } from "redux-store/slices/orders/orderSlice";
 
 function CancelledLayout() {
   const dispatch = useDispatch();

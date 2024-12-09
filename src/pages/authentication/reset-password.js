@@ -15,7 +15,7 @@ import { useState } from "react";
 import { TextValidator, ValidatorForm } from "react-material-ui-form-validator";
 import { shallowEqual, useDispatch, useSelector } from "react-redux";
 import { useNavigate } from "react-router-dom";
-import { getBrandThunk } from "redux/slices/onboarding/index";
+import { getBrandThunk } from "redux-store/slices/onboarding/index";
 import { postPasswordResetRequest } from "services/common/index";
 import { passwordReset } from "services/onboarding/index";
 
@@ -47,7 +47,6 @@ function ResetPassword() {
   };
 
   const handleResetPassword = async () => {
-             
     setIsLoading(true);
     const request = {
       EmailId: email,
@@ -69,7 +68,6 @@ function ResetPassword() {
   };
 
   const handleRequestResetPassword = async () => {
-             
     if (!email) {
       setError({ message: "Email Id is mandatory!", isValid: false });
       return false;
@@ -82,7 +80,7 @@ function ResetPassword() {
       toAddress: email,
     };
     const res = await postPasswordResetRequest(req);
-             
+
     const validatePasswordRequest = responseValidator(res);
     if (!validatePasswordRequest.isValid) {
       setError(validatePasswordRequest);
@@ -103,8 +101,7 @@ function ResetPassword() {
               variant="body"
               fontWeight="medium"
               color="primary"
-              mt={1}
-            >
+              mt={1}>
               Reset Password
             </MDTypography>
             <MDTypography
@@ -112,8 +109,7 @@ function ResetPassword() {
               variant="caption"
               fontWeight="medium"
               color="success"
-              my={1}
-            >
+              my={1}>
               {captionText}
             </MDTypography>
           </MDBox>
@@ -178,8 +174,7 @@ function ResetPassword() {
                       <MDTypography
                         variant="caption"
                         fontWeight="medium"
-                        color="error"
-                      >
+                        color="error">
                         {error.message}
                       </MDTypography>
                     ) : (
@@ -191,8 +186,7 @@ function ResetPassword() {
                       variant="gradient"
                       color="primary"
                       fullWidth
-                      onClick={handleResetPassword}
-                    >
+                      onClick={handleResetPassword}>
                       Submit
                     </MDLoadingButton>
                   </MDBox>
@@ -222,8 +216,7 @@ function ResetPassword() {
                       <MDTypography
                         variant="caption"
                         fontWeight="medium"
-                        color="error"
-                      >
+                        color="error">
                         {error.message}
                       </MDTypography>
                     ) : (
@@ -238,8 +231,7 @@ function ResetPassword() {
                       color="primary"
                       loading={isLoading}
                       fullWidth
-                      onClick={handleRequestResetPassword}
-                    >
+                      onClick={handleRequestResetPassword}>
                       reset
                     </MDLoadingButton>
                   </MDBox>

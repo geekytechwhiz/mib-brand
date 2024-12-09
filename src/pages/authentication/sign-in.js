@@ -24,7 +24,7 @@ import { responseValidator } from "lib/helper";
 import InputAdornment from "@mui/material/InputAdornment";
 import Visibility from "@mui/icons-material/Visibility";
 import VisibilityOff from "@mui/icons-material/VisibilityOff";
-import { getBrandThunk } from "../../redux/slices/onboarding";
+import { getBrandThunk } from "../../redux-store/slices/onboarding";
 import { login } from "../../services/onboarding";
 
 function SignIn() {
@@ -168,8 +168,7 @@ function SignIn() {
                         aria-label="toggle password visibility"
                         onClick={handleClickShowPassword}
                         onMouseDown={handleMouseDownPassword}
-                        edge="end"
-                      >
+                        edge="end">
                         {showPassword ? <VisibilityOff /> : <Visibility />}
                       </IconButton>
                     </InputAdornment>
@@ -181,8 +180,7 @@ function SignIn() {
                   <MDTypography
                     variant="caption"
                     fontWeight="regular"
-                    color="error"
-                  >
+                    color="error">
                     {error.message}
                   </MDTypography>
                 ) : (
@@ -196,8 +194,7 @@ function SignIn() {
                   fontWeight="regular"
                   color="text"
                   onClick={handleSetRememberMe}
-                  sx={{ cursor: "pointer", userSelect: "none", ml: -1 }}
-                >
+                  sx={{ cursor: "pointer", userSelect: "none", ml: -1 }}>
                   &nbsp;&nbsp;Remember me
                 </MDTypography>
               </MDBox>
@@ -211,8 +208,7 @@ function SignIn() {
                   variant="gradient"
                   fullWidth
                   mx={2}
-                  name="login"
-                >
+                  name="login">
                   Sign in
                 </MDLoadingButton>
               </MDBox>
@@ -224,8 +220,7 @@ function SignIn() {
                   color="info"
                   fontWeight="medium"
                   textGradient
-                  onClick={() => navigate("/authentication/reset-password")}
-                >
+                  onClick={() => navigate("/authentication/reset-password")}>
                   Forgot password
                 </MDTypography>
               </MDBox>
@@ -240,8 +235,7 @@ function SignIn() {
                     color="info"
                     fontWeight="medium"
                     textGradient
-                    onClick={() => navigate("/authentication/sign-up")}
-                  >
+                    onClick={() => navigate("/authentication/sign-up")}>
                     Sign up
                   </MDTypography>
                 </MDTypography>

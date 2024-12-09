@@ -15,7 +15,7 @@ import MDLoadingButton from "components/MDLoadingButton";
 import MDTypography from "components/MDTypography";
 import React, { useState } from "react";
 import { useDispatch } from "react-redux";
-import { alert } from "redux/slices/root/rootSlice";
+import { alert } from "redux-store/slices/root/rootSlice";
 import { updateContactInfo } from "services/onboarding/index";
 
 function PasswordReset({ data }) {
@@ -132,8 +132,7 @@ function PasswordReset({ data }) {
                 variant="button"
                 textAlign="start"
                 fontWeight="medium"
-                p={1}
-              >
+                p={1}>
                 Password Reset
               </MDTypography>
               <MDTypography
@@ -141,8 +140,7 @@ function PasswordReset({ data }) {
                 variant="caption"
                 fontWeight="medium"
                 color="success"
-                my={1}
-              >
+                my={1}>
                 {captionText}
               </MDTypography>
             </MDBox>
@@ -205,8 +203,7 @@ function PasswordReset({ data }) {
                       <MDTypography
                         variant="caption"
                         fontWeight="medium"
-                        color="error"
-                      >
+                        color="error">
                         {error.message}
                       </MDTypography>
                     ) : (
@@ -218,8 +215,7 @@ function PasswordReset({ data }) {
                       fullWidth
                       variant="gradient"
                       color="primary"
-                      onClick={handleResetPassword}
-                    >
+                      onClick={handleResetPassword}>
                       Submit
                     </MDLoadingButton>
                   </MDBox>
@@ -249,8 +245,7 @@ function PasswordReset({ data }) {
                       <MDTypography
                         variant="caption"
                         fontWeight="medium"
-                        color="error"
-                      >
+                        color="error">
                         {error.message}
                       </MDTypography>
                     ) : (
@@ -266,8 +261,7 @@ function PasswordReset({ data }) {
                       variant="outlined"
                       mx={2}
                       onClick={handleRequestResetPassword}
-                      size="small"
-                    >
+                      size="small">
                       reset
                     </MDLoadingButton>
                   </MDBox>

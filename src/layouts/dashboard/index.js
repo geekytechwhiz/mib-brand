@@ -12,7 +12,7 @@ import DashboardLayout from "layouts/layoutContainers/DashboardLayout";
 import ReportsBarChart from "lib/Charts/BarCharts/ReportsBarChart";
 import ReportsLineChart from "lib/Charts/LineCharts/ReportsLineChart";
 import { useDispatch } from "react-redux";
-import { getBrandThunk } from "../../redux/slices/onboarding";
+import { getBrandThunk } from "../../redux-store/slices/onboarding";
 
 function Dashboard() {
   const { sales, tasks } = reportsLineChartData;

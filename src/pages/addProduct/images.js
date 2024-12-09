@@ -19,14 +19,11 @@ import { useRef, useState } from "react";
 import Dropzone from "react-dropzone-uploader";
 import "react-dropzone-uploader/dist/styles.css";
 import { shallowEqual, useDispatch, useSelector } from "react-redux";
-import { medias } from "redux/slices/inventory";
-import { notification } from "redux/slices/root/rootSlice";
+import { medias } from "redux-store/slices/inventory";
+import { notification } from "redux-store/slices/root/rootSlice";
 import { postSignedUrl } from "services/common";
 import { v4 as uuidv4 } from "uuid";
-import {
-  REQUIRED_FIELDS_MEDIAS,
-  RESOURCE_INVENTORY,
-} from "../../constants";
+import { REQUIRED_FIELDS_MEDIAS, RESOURCE_INVENTORY } from "../../constants";
 import { Validate } from "../../lib/validations";
 
 export default function Medias(props) {
@@ -176,16 +173,14 @@ export default function Medias(props) {
       mt={-2}
       p={2}
       mb={1}
-      textAlign="center"
-    >
+      textAlign="center">
       <Grid display="flex" flexDirection="row" justifyContent="flex-start">
         <MDBox mb={5}>
           <MDTypography
             variant="caption"
             color="button"
             fontWeight="medium"
-            textAlign="left"
-          >
+            textAlign="left">
             Upload Product Main image
           </MDTypography>
           <label htmlFor="icon-button-photo">
@@ -201,16 +196,14 @@ export default function Medias(props) {
               color="secondary"
               aria-label="Logo"
               component="span"
-              onClick={() => imageRef.current.click()}
-            >
+              onClick={() => imageRef.current.click()}>
               <PhotoCamera />
             </IconButton>
             <MDTypography
               variant="caption"
               color="text"
               fontWeight="medium"
-              textAlign="left"
-            >
+              textAlign="left">
               {document.Logo}
             </MDTypography>
 
@@ -225,8 +218,7 @@ export default function Medias(props) {
               mx={2}
               name="Logo"
               size="small"
-              onClick={getUploadMainParams}
-            >
+              onClick={getUploadMainParams}>
               Upload
             </MDLoadingButton>
           </label>
@@ -258,8 +250,7 @@ export default function Medias(props) {
         mt={5}
         p={2}
         mb={1}
-        textAlign="center"
-      >
+        textAlign="center">
         {/* <Grid display="flex" flexDirection="row" justifyContent="flex-start">
           <ImageGallery images={productState.ImageLinks || []} />
         </Grid> */}
@@ -277,8 +268,7 @@ export default function Medias(props) {
             color="primary"
             onClick={handleBack}
             variant="text"
-            endIcon={<ArrowBackIosNewIcon />}
-          >
+            endIcon={<ArrowBackIosNewIcon />}>
             Back
           </Button>
         </Grid>
@@ -287,8 +277,7 @@ export default function Medias(props) {
             color="primary"
             onClick={handleNext}
             variant="text"
-            endIcon={<ArrowForwardIosIcon />}
-          >
+            endIcon={<ArrowForwardIosIcon />}>
             Next
           </Button>
         </Grid>

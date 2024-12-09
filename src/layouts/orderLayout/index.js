@@ -6,11 +6,11 @@ import MDBox from "components/MDBox";
 import OMSNavbar from "components/MDNavbar/OMSNavbar";
 import ActiveOrders from "pages/activeOrders";
 import { useDispatch } from "react-redux";
-import { getBrandThunk } from "../../redux/slices/onboarding/index";
+import { getBrandThunk } from "../../redux-store/slices/onboarding/index";
 import {
   getOrderThunk,
-  getReturnsThunk
-} from "../../redux/slices/orders/orderSlice";
+  getReturnsThunk,
+} from "../../redux-store/slices/orders/orderSlice";
 
 function OrderLayout() {
   const dispatch = useDispatch();
@@ -28,7 +28,8 @@ function OrderLayout() {
             <ActiveOrders />
           </Grid>
         </Grid>
-      </MDBox></>
+      </MDBox>
+    </>
   );
 }
 

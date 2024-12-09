@@ -29,7 +29,7 @@ import { REQUIRED_FIELDS_CATEGORY } from "../../constants";
 import { BUSINESS_CATEGORY } from "../../lib/data";
 import { getSubCategories } from "../../lib/helper";
 import { Validate } from "../../lib/validations";
-import { categories } from "../../redux/slices/inventory";
+import { categories } from "../../redux-store/slices/inventory";
 
 const Accordion = styled((props) => (
   <MuiAccordion disableGutters elevation={0} square {...props} />
@@ -65,7 +65,6 @@ const AccordionDetails = styled(MuiAccordionDetails)(({ theme }) => ({
 }));
 
 export default function CategoryAccordion(props) {
-           
   const [expanded, setExpanded] = React.useState(BUSINESS_CATEGORY[0].category);
   const [verticals, setVerticals] = useState(BUSINESS_CATEGORY);
 
@@ -91,7 +90,6 @@ export default function CategoryAccordion(props) {
   }
 
   useEffect(() => {
-             
     if (keys.length !== 0) {
       setProductCategory(productState.ProductCategory);
     }
@@ -118,7 +116,6 @@ export default function CategoryAccordion(props) {
     setOpenError(error);
   };
   const handleKeyDown = (e) => {
-             
     const { value } = e.target;
     if (!value) {
       setVerticals(BUSINESS_CATEGORY);
@@ -153,8 +150,7 @@ export default function CategoryAccordion(props) {
       px={2}
       py={3}
       mb={5}
-      textAlign="center"
-    >
+      textAlign="center">
       <MDBox sx={{ p: "2px 4px", display: "flex", alignItems: "center" }}>
         <InputBase
           fullWidth
@@ -173,12 +169,10 @@ export default function CategoryAccordion(props) {
         verticals.map((x) => (
           <Accordion
             expanded={expanded === x.category}
-            onChange={handleChange(x.category)}
-          >
+            onChange={handleChange(x.category)}>
             <AccordionSummary
               aria-controls="panel1d-content"
-              id={`${x.category}`}
-            >
+              id={`${x.category}`}>
               <MDTypography variant="caption" fontWeight="medium" gutterBottom>
                 {x.category}
               </MDTypography>
@@ -228,8 +222,7 @@ export default function CategoryAccordion(props) {
             color="primary"
             onClick={handleNext}
             variant="text"
-            endIcon={<ArrowForwardIosIcon />}
-          >
+            endIcon={<ArrowForwardIosIcon />}>
             Next
           </Button>
         </Grid>

@@ -18,7 +18,7 @@ import MDTypography from "components/MDTypography";
 import { Category, SubCategory } from "lib/data";
 import React, { useState } from "react";
 import { useDispatch } from "react-redux";
-import { getBrandThunk } from "redux/slices/onboarding/index";
+import { getBrandThunk } from "redux-store/slices/onboarding/index";
 import { updateBusinessDetails } from "services/onboarding/index";
 import { gstValidator, validatePAN } from "../../../helper/validator";
 
@@ -61,8 +61,7 @@ export default function BusinessInfo({ data }) {
         href="#"
         variant="body2"
         fontWeight="medium"
-        color="white"
-      >
+        color="white">
         {name} Saved successfully!
       </MDTypography>
     </MDTypography>
@@ -168,16 +167,14 @@ export default function BusinessInfo({ data }) {
         spacing={1}
         justifyContent="space-around"
         flexDirection="row"
-        xs={12}
-      >
+        xs={12}>
         <Grid item xs={11}>
           <MDTypography
             variant="h5"
             textAlign="start"
             fontWeight="medium"
             p={1}
-            mb={2}
-          >
+            mb={2}>
             Business Details
           </MDTypography>
         </Grid>
@@ -186,8 +183,7 @@ export default function BusinessInfo({ data }) {
             size="small"
             aria-label="edit"
             color="inherit"
-            onClick={onHandleEdit}
-          >
+            onClick={onHandleEdit}>
             <ModeEditOutlinedIcon fontSize="small">Edit</ModeEditOutlinedIcon>
           </IconButton>
         </Grid>
@@ -198,8 +194,7 @@ export default function BusinessInfo({ data }) {
         spacing={1}
         justifyContent="space-around"
         flexDirection="row"
-        xs={12}
-      >
+        xs={12}>
         <Grid item xs={5}>
           <Grid item xs={12} mb={2}>
             <MDInput
@@ -411,8 +406,7 @@ export default function BusinessInfo({ data }) {
               variant="outlined"
               mx={2}
               onClick={handleCancel}
-              size="small"
-            >
+              size="small">
               Cancel
             </MDLoadingButton>
           </MDBox>
@@ -425,8 +419,7 @@ export default function BusinessInfo({ data }) {
               variant="outlined"
               mx={2}
               onClick={handleSave}
-              size="small"
-            >
+              size="small">
               Save
             </MDLoadingButton>
           </MDBox>

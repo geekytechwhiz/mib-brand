@@ -23,7 +23,7 @@ import { RESOURCE_DOCUMENT_VERIFICATION } from "constants";
 import _ from "lodash";
 import React, { useRef, useState } from "react";
 import { useDispatch } from "react-redux";
-import { alert } from "redux/slices/root/rootSlice";
+import { alert } from "redux-store/slices/root/rootSlice";
 import { postSignedUrl } from "services/common";
 import { updateAddressDetails } from "services/onboarding/index";
 import { v4 as uuidv4 } from "uuid";
@@ -209,16 +209,14 @@ export default function AddressDetails({ data }) {
         spacing={1}
         justifyContent="space-around"
         flexDirection="row"
-        xs={12}
-      >
+        xs={12}>
         <Grid item xs={11}>
           <MDTypography
             variant="h5"
             textAlign="start"
             fontWeight="medium"
             p={1}
-            mb={2}
-          >
+            mb={2}>
             Billing Information
           </MDTypography>
         </Grid>
@@ -227,8 +225,7 @@ export default function AddressDetails({ data }) {
             size="small"
             aria-label="edit"
             color="inherit"
-            onClick={onHandleEdit}
-          >
+            onClick={onHandleEdit}>
             <ModeEditOutlinedIcon fontSize="small">Edit</ModeEditOutlinedIcon>
           </IconButton>
         </Grid>
@@ -238,8 +235,7 @@ export default function AddressDetails({ data }) {
         display="flex"
         justifyContent="space-around"
         flexDirection="row"
-        xs={12}
-      >
+        xs={12}>
         <Grid item xs={5} mb={2}>
           <MDInput
             disabled={disabled}
@@ -321,8 +317,7 @@ export default function AddressDetails({ data }) {
         spacing={1}
         justifyContent="flex-start"
         flexDirection="row"
-        textAlign="left"
-      >
+        textAlign="left">
         <Grid mx={2} item xs={6}>
           <FormControlLabel
             control={
@@ -339,8 +334,7 @@ export default function AddressDetails({ data }) {
                 color="text"
                 fontWeight="medium"
                 p={1}
-                mb={2}
-              >
+                mb={2}>
                 Is Billing Address is same as Shipping Address?
               </MDTypography>
             }
@@ -353,8 +347,7 @@ export default function AddressDetails({ data }) {
         spacing={1}
         justifyContent="space-around"
         flexDirection="row"
-        xs={12}
-      >
+        xs={12}>
         <Grid item xs={5} mb={2}>
           <MDInput
             disabled={disabled}
@@ -436,15 +429,13 @@ export default function AddressDetails({ data }) {
         spacing={1}
         justifyContent="space-between"
         flexDirection="row"
-        xs={12}
-      >
+        xs={12}>
         <Grid item xs={5} mb={1}>
           <MDTypography
             variant="caption"
             color="text"
             fontWeight="medium"
-            textAlign="left"
-          >
+            textAlign="left">
             Upload Brand Logo
           </MDTypography>
           <>
@@ -462,16 +453,14 @@ export default function AddressDetails({ data }) {
                 color="secondary"
                 aria-label="Logo"
                 component="span"
-                onClick={() => logoRef.current.click()}
-              >
+                onClick={() => logoRef.current.click()}>
                 <PhotoCamera />
               </IconButton>
               <MDTypography
                 variant="caption"
                 color="text"
                 fontWeight="medium"
-                textAlign="left"
-              >
+                textAlign="left">
                 {document.Logo}
               </MDTypography>
               {isEnabled.Logo ? (
@@ -486,8 +475,7 @@ export default function AddressDetails({ data }) {
                   mx={2}
                   name="Logo"
                   size="small"
-                  onClick={getUploadParams}
-                >
+                  onClick={getUploadParams}>
                   Upload
                 </MDLoadingButton>
               ) : (
@@ -508,8 +496,7 @@ export default function AddressDetails({ data }) {
             variant="caption"
             color="text"
             fontWeight="medium"
-            textAlign="left"
-          >
+            textAlign="left">
             Upload Signature of Authorized Signatory
           </MDTypography>
           <>
@@ -527,16 +514,14 @@ export default function AddressDetails({ data }) {
                 color="secondary"
                 aria-label="Signature"
                 component="span"
-                onClick={() => signatureRef.current.click()}
-              >
+                onClick={() => signatureRef.current.click()}>
                 <PhotoCamera />
               </IconButton>
               <MDTypography
                 variant="caption"
                 color="text"
                 fontWeight="medium"
-                textAlign="left"
-              >
+                textAlign="left">
                 {document.Signature}
               </MDTypography>
               {isEnabled.Signature ? (
@@ -551,8 +536,7 @@ export default function AddressDetails({ data }) {
                   mx={2}
                   name="Signature"
                   size="small"
-                  onClick={getUploadParams}
-                >
+                  onClick={getUploadParams}>
                   Upload
                 </MDLoadingButton>
               ) : (
@@ -582,8 +566,7 @@ export default function AddressDetails({ data }) {
               variant="outlined"
               mx={2}
               onClick={handleCancel}
-              size="small"
-            >
+              size="small">
               Cancel
             </MDLoadingButton>
           </MDBox>
@@ -596,8 +579,7 @@ export default function AddressDetails({ data }) {
               variant="outlined"
               mx={2}
               onClick={handleSave}
-              size="small"
-            >
+              size="small">
               Save
             </MDLoadingButton>
           </MDBox>

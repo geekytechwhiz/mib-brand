@@ -11,8 +11,8 @@ import {
   ORDER_STATUS_REJECTED,
 } from "constants";
 import { useDispatch } from "react-redux";
-import { updateReturnOrderThunk } from "redux/slices/orders/orderSlice";
-import { notification } from "redux/slices/root/rootSlice";
+import { updateReturnOrderThunk } from "redux-store/slices/orders/orderSlice";
+import { notification } from "redux-store/slices/root/rootSlice";
 import _ from "lodash";
 // import _ from "lodash";
 import React, { memo } from "react";

@@ -16,7 +16,7 @@ import MDTypography from "components/MDTypography";
 import _ from "lodash";
 import React, { useState } from "react";
 import { useDispatch } from "react-redux";
-import { alert } from "redux/slices/root/rootSlice";
+import { alert } from "redux-store/slices/root/rootSlice";
 import { generateOTP, updateContactInfo } from "services/onboarding";
 
 function ContactInfo({ data }) {
@@ -162,16 +162,14 @@ function ContactInfo({ data }) {
         spacing={1}
         justifyContent="space-around"
         flexDirection="row"
-        xs={12}
-      >
+        xs={12}>
         <Grid item xs={11}>
           <MDTypography
             variant="h5"
             textAlign="start"
             fontWeight="medium"
             p={1}
-            mb={2}
-          >
+            mb={2}>
             Contact Info
           </MDTypography>
         </Grid>
@@ -180,8 +178,7 @@ function ContactInfo({ data }) {
             size="small"
             aria-label="edit"
             color="inherit"
-            onClick={onHandleEdit}
-          >
+            onClick={onHandleEdit}>
             <ModeEditOutlinedIcon fontSize="small">Edit</ModeEditOutlinedIcon>
           </IconButton>
         </Grid>
@@ -192,8 +189,7 @@ function ContactInfo({ data }) {
         spacing={1}
         justifyContent="space-around"
         flexDirection="row"
-        xs={12}
-      >
+        xs={12}>
         <Grid item xs={5}>
           <Grid item xs={12} mb={2}>
             <MDInput
@@ -232,13 +228,11 @@ function ContactInfo({ data }) {
                   variant="text"
                   mx={2}
                   size="small"
-                  name="OTP"
-                >
+                  name="OTP">
                   <MDTypography
                     variant="button"
                     color="info"
-                    fontWeight="regular"
-                  >
+                    fontWeight="regular">
                     Verify
                   </MDTypography>
                 </MDLoadingButton>
@@ -252,8 +246,7 @@ function ContactInfo({ data }) {
                 mb={2}
                 display="flex"
                 flexDirection="row"
-                justifyContent="space-between"
-              >
+                justifyContent="space-between">
                 <MDInput
                   disabled={disabled}
                   required
@@ -273,8 +266,7 @@ function ContactInfo({ data }) {
                     variant="gradient"
                     mx={2}
                     size="small"
-                    name="OTP"
-                  >
+                    name="OTP">
                     Verify
                   </MDLoadingButton>
                 )}
@@ -344,8 +336,7 @@ function ContactInfo({ data }) {
               variant="outlined"
               mx={2}
               onClick={handleCancel}
-              size="small"
-            >
+              size="small">
               Cancel
             </MDLoadingButton>
           </MDBox>
@@ -358,8 +349,7 @@ function ContactInfo({ data }) {
               variant="outlined"
               mx={2}
               onClick={handleSave}
-              size="small"
-            >
+              size="small">
               Save
             </MDLoadingButton>
           </MDBox>

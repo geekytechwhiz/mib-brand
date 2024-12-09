@@ -22,7 +22,7 @@ import React, { useCallback, useState } from "react";
 import { shallowEqual, useDispatch, useSelector } from "react-redux";
 import { REQUIRED_FIELDS_DESCRIPTION } from "../../constants";
 import { Validate } from "../../lib/validations";
-import { description } from "../../redux/slices/inventory";
+import { description } from "../../redux-store/slices/inventory";
 
 function Description(props) {
   const { activeTab, data } = props;
@@ -64,7 +64,6 @@ function Description(props) {
       const obj = { id: values.length + 1, point: value };
       values.push(obj);
       setKeyPoints(values);
-
     }
   });
 
@@ -110,8 +109,7 @@ function Description(props) {
       mt={-2}
       p={2}
       mb={1}
-      textAlign="center"
-    >
+      textAlign="center">
       <Grid container spacing={2}>
         <Grid item xs={12}>
           <MDBox mx={0.5} mt={2} p={2} mb={1}>
@@ -120,8 +118,7 @@ function Description(props) {
                 variant="h6"
                 textAlign="start"
                 fontWeight="medium"
-                mb={2}
-              >
+                mb={2}>
                 Product Description
               </MDTypography>
             </Box>
@@ -160,7 +157,7 @@ function Description(props) {
                   required
                   type="text"
                   name="KeyPoints"
-                  placeholder="Key Points" 
+                  placeholder="Key Points"
                   label="Key Points"
                   fullWidth
                   onKeyPress={handleOnKeyPress}
@@ -199,8 +196,7 @@ function Description(props) {
             color="primary"
             onClick={handleBack}
             variant="text"
-            endIcon={<ArrowBackIosNewIcon />}
-          >
+            endIcon={<ArrowBackIosNewIcon />}>
             Back
           </Button>
         </Grid>
@@ -209,8 +205,7 @@ function Description(props) {
             color="primary"
             onClick={handleNext}
             variant="text"
-            endIcon={<ArrowForwardIosIcon />}
-          >
+            endIcon={<ArrowForwardIosIcon />}>
             Next
           </Button>
         </Grid>

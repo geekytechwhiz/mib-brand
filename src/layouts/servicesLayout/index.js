@@ -7,7 +7,7 @@ import Footer from "layouts/footer";
 // Material Dashboard 2 React example components
 import DashboardLayout from "layouts/layoutContainers/DashboardLayout";
 import { useDispatch } from "react-redux";
-import { getBrandThunk } from "redux/slices/onboarding";
+import { getBrandThunk } from "redux-store/slices/onboarding";
 
 function ServicesLayout() {
   const dispatch = useDispatch();
@@ -27,8 +27,7 @@ function ServicesLayout() {
         mt={3}
         p={2}
         mb={1}
-        textAlign="center"
-      >
+        textAlign="center">
         <MDTypography variant="caption" fontWeight="medium" color="text">
           No Data Found
         </MDTypography>
