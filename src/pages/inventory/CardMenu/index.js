@@ -18,8 +18,8 @@ import {
 import React, { useState } from "react";
 import { useDispatch } from "react-redux";
 import { useNavigate } from "react-router-dom";
-import { patchProductStatusThunk } from "redux-store/slices/inventory/index";
 import { alert } from "redux-store/slices/root/rootSlice";
+import { patchProductStatusThunk } from "redux-store/slices/inventory/index";
 
 const ITEM_HEIGHT = 48;
 

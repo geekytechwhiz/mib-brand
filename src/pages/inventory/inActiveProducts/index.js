@@ -2,9 +2,10 @@
 /* eslint-disable no-unused-vars */
 /* eslint-disable react/prop-types */
 import MDBox from "components/MDBox";
-import _ from "lodash";
 import * as React from "react";
 import { shallowEqual, useSelector } from "react-redux";
+import _ from "lodash";
+
 import ProductList from "../productList";
 
 export default function InactiveProducts() {

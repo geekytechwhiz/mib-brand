@@ -5,10 +5,11 @@
 /* eslint-disable react/prop-types */
 /* eslint-disable react/destructuring-assignment */
 
-import { ExpandMoreOutlined, Search } from "@mui/icons-material";
 import ArrowBackIosNewIcon from "@mui/icons-material/ArrowBackIosNew";
 import ArrowForwardIosIcon from "@mui/icons-material/ArrowForwardIos";
 import MuiAccordion from "@mui/material/Accordion";
+import { ExpandMoreOutlined, Search } from "@mui/icons-material";
+
 import MuiAccordionDetails from "@mui/material/AccordionDetails";
 import MuiAccordionSummary from "@mui/material/AccordionSummary";
 import Autocomplete from "@mui/material/Autocomplete";
