@@ -1,7 +1,3 @@
-/* eslint-disable react/jsx-no-useless-fragment */
-/* eslint-disable no-unused-vars */
-/* eslint-disable react/prop-types */
-/* eslint-disable no-debugger */
 import MoreVertIcon from "@mui/icons-material/MoreVert";
 import { Dialog, DialogTitle, Icon } from "@mui/material";
 import IconButton from "@mui/material/IconButton";
@@ -92,13 +88,15 @@ export default function CardMenu({
                 display: "flex",
                 flexDirection: "row",
                 justifyContent: "space-between",
-              }}>
+              }}
+            >
               <MDTypography variant="caption" fontWeight="medium" color="error">
                 Do you really want to delete ?{" "}
                 <MDTypography
                   variant="caption"
                   fontWeight="medium"
-                  color="secondary">
+                  color="secondary"
+                >
                   or make as inactive!
                 </MDTypography>
               </MDTypography>
@@ -111,7 +109,8 @@ export default function CardMenu({
                 display: "flex",
                 flexDirection: "row",
                 justifyContent: "space-between",
-              }}>
+              }}
+            >
               <MDButton
                 variant="outlined"
                 color="secondary"
@@ -121,7 +120,8 @@ export default function CardMenu({
                       ? PRODUCT_STATUS_INACTIVE
                       : PRODUCT_STATUS_PUBLISHED
                   );
-                }}>
+                }}
+              >
                 <Icon>inactive</Icon>&nbsp;Mark As Inactive
               </MDButton>
               <MDButton
@@ -129,7 +129,8 @@ export default function CardMenu({
                 color="error"
                 onClick={() => {
                   updateStatus(PRODUCT_STATUS_DELETED);
-                }}>
+                }}
+              >
                 <Icon>delete</Icon>&nbsp;delete
               </MDButton>
             </MDBox>
@@ -145,7 +146,8 @@ export default function CardMenu({
         aria-controls={open ? "long-menu" : undefined}
         aria-expanded={open ? "true" : undefined}
         aria-haspopup="true"
-        onClick={handleClick}>
+        onClick={handleClick}
+      >
         <MoreVertIcon />
       </IconButton>
       <Menu
@@ -161,26 +163,30 @@ export default function CardMenu({
             maxHeight: ITEM_HEIGHT * 4.5,
             width: "20ch",
           },
-        }}>
+        }}
+      >
         <MenuItem
           key={1}
           onClick={handleOnSelect}
           onSelect={handleOnSelect}
-          value={1}>
+          value={1}
+        >
           Edit
         </MenuItem>
         <MenuItem
           key={2}
           onClick={handleOnSelect}
           onSelect={handleOnSelect}
-          value={2}>
+          value={2}
+        >
           {isActive ? "Mark As Inactive" : "Mark As Active"}
         </MenuItem>
         <MenuItem
           key={3}
           onClick={handleOnSelect}
           onSelect={handleOnSelect}
-          value={3}>
+          value={3}
+        >
           Delete
         </MenuItem>
       </Menu>

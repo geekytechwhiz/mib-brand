@@ -1,14 +1,8 @@
-/* eslint-disable no-unused-vars */
-/* eslint-disable react/jsx-no-useless-fragment */
 /* eslint-disable consistent-return */
-/* eslint-disable no-debugger */
 /* eslint-disable react/prop-types */
-/* eslint-disable react/destructuring-assignment */
-
-import ArrowBackIosNewIcon from "@mui/icons-material/ArrowBackIosNew";
+import { ExpandMoreOutlined, Search } from "@mui/icons-material";
 import ArrowForwardIosIcon from "@mui/icons-material/ArrowForwardIos";
 import MuiAccordion from "@mui/material/Accordion";
-import { ExpandMoreOutlined, Search } from "@mui/icons-material";
 
 import MuiAccordionDetails from "@mui/material/AccordionDetails";
 import MuiAccordionSummary from "@mui/material/AccordionSummary";
@@ -23,13 +17,14 @@ import MDBox from "components/MDBox";
 import MDInput from "components/MDInput";
 import MDSnackbar from "components/MDSnackbar";
 import MDTypography from "components/MDTypography";
+import { Validate } from "lib/Validations/index";
 import _ from "lodash";
 import React, { useEffect, useState } from "react";
 import { shallowEqual, useDispatch, useSelector } from "react-redux";
 import { REQUIRED_FIELDS_CATEGORY } from "../../constants";
 import { BUSINESS_CATEGORY } from "../../lib/data";
 import { getSubCategories } from "../../lib/helper";
-import { Validate } from "../../lib/validations";
+
 import { categories } from "../../redux-store/slices/inventory";
 
 const Accordion = styled((props) => (
@@ -151,7 +146,8 @@ export default function CategoryAccordion(props) {
       px={2}
       py={3}
       mb={5}
-      textAlign="center">
+      textAlign="center"
+    >
       <MDBox sx={{ p: "2px 4px", display: "flex", alignItems: "center" }}>
         <InputBase
           fullWidth
@@ -170,10 +166,12 @@ export default function CategoryAccordion(props) {
         verticals.map((x) => (
           <Accordion
             expanded={expanded === x.category}
-            onChange={handleChange(x.category)}>
+            onChange={handleChange(x.category)}
+          >
             <AccordionSummary
               aria-controls="panel1d-content"
-              id={`${x.category}`}>
+              id={`${x.category}`}
+            >
               <MDTypography variant="caption" fontWeight="medium" gutterBottom>
                 {x.category}
               </MDTypography>
@@ -223,7 +221,8 @@ export default function CategoryAccordion(props) {
             color="primary"
             onClick={handleNext}
             variant="text"
-            endIcon={<ArrowForwardIosIcon />}>
+            endIcon={<ArrowForwardIosIcon />}
+          >
             Next
           </Button>
         </Grid>

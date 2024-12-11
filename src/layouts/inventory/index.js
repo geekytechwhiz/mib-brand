@@ -13,8 +13,8 @@ import {
 import PropTypes from "prop-types";
 import React from "react";
 import { useDispatch } from "react-redux";
-import ActiveProducts from "pages/inventory/activeProducts";
-import InactiveProducts from "../../pages/inventory/inActiveProducts/index";
+import ActiveProducts from "pages/Inventory/activeProducts/index";
+import InactiveProducts from "pages/Inventory/inActiveProducts/index";
 import {
   getInactiveProductsThunk,
   getProductsThunk,
@@ -29,7 +29,8 @@ function TabPanel(props) {
       hidden={value !== index}
       id={`simple-tabpanel-${index}`}
       aria-labelledby={`simple-tab-${index}`}
-      {...other}>
+      {...other}
+    >
       {value === index && (
         <MDTypography variant="button" fontWeight="medium">
           {children}
@@ -78,7 +79,8 @@ function Inventory() {
         <Tabs
           value={value}
           onChange={handleChange}
-          aria-label="basic tabs example">
+          aria-label="basic tabs example"
+        >
           <Tab
             label={
               <MDTypography variant="button" fontWeight="medium">

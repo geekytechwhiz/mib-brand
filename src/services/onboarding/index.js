@@ -1,10 +1,10 @@
 /* eslint-disable no-debugger */
-import { responseBuilder } from "lib/helper";
+import { responseBuilder } from "../../lib/helper";
 import api from "../../api";
 
 const registerAccount = async (reqParam) => {
   try {
-    debugger
+    debugger;
     return responseBuilder(await api.post("/brand/register", reqParam));
   } catch (err) {
     return null;
@@ -13,9 +13,7 @@ const registerAccount = async (reqParam) => {
 
 export const passwordReset = async (reqParam) => {
   try {
-    return responseBuilder(
-      await api.patch("/authorizer/register", reqParam)
-    );
+    return responseBuilder(await api.patch("/authorizer/register", reqParam));
   } catch (err) {
     return null;
   }
@@ -101,10 +99,7 @@ export const updateAddressDetails = async (payload, emailId, brandId) => {
     };
 
     return responseBuilder(
-      await api.patch(
-        `/brand/update-address-details/${emailId}`,
-        reqParam
-      )
+      await api.patch(`/brand/update-address-details/${emailId}`, reqParam)
     );
   } catch (err) {
     return null;
@@ -150,10 +145,11 @@ export const updateDocuments = async (payload, emailId, brandId) => {
     return null;
   }
 };
-export const getBrandAccount = async (emailId) => responseBuilder(await api.get(`/brand/details/${emailId}`));
+export const getBrandAccount = async (emailId) =>
+  responseBuilder(await api.get(`/brand/details/${emailId}`));
 
-
-export const getHealthCheck = async () => responseBuilder(await api.get("/authorizer/health"));
+export const getHealthCheck = async () =>
+  responseBuilder(await api.get("/authorizer/health"));
 
 export const postHealth = async () =>
   responseBuilder(await api.post("/authorizer/health"));

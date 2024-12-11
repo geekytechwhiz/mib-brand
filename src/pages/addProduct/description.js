@@ -20,8 +20,9 @@ import _ from "lodash";
 // import DataTable from "components/RTable";
 import React, { useCallback, useState } from "react";
 import { shallowEqual, useDispatch, useSelector } from "react-redux";
+import { Validate } from "lib/Validations/index";
 import { REQUIRED_FIELDS_DESCRIPTION } from "../../constants";
-import { Validate } from "../../lib/validations";
+
 import { description } from "../../redux-store/slices/inventory";
 
 function Description(props) {
@@ -109,7 +110,8 @@ function Description(props) {
       mt={-2}
       p={2}
       mb={1}
-      textAlign="center">
+      textAlign="center"
+    >
       <Grid container spacing={2}>
         <Grid item xs={12}>
           <MDBox mx={0.5} mt={2} p={2} mb={1}>
@@ -118,7 +120,8 @@ function Description(props) {
                 variant="h6"
                 textAlign="start"
                 fontWeight="medium"
-                mb={2}>
+                mb={2}
+              >
                 Product Description
               </MDTypography>
             </Box>
@@ -196,7 +199,8 @@ function Description(props) {
             color="primary"
             onClick={handleBack}
             variant="text"
-            endIcon={<ArrowBackIosNewIcon />}>
+            endIcon={<ArrowBackIosNewIcon />}
+          >
             Back
           </Button>
         </Grid>
@@ -205,7 +209,8 @@ function Description(props) {
             color="primary"
             onClick={handleNext}
             variant="text"
-            endIcon={<ArrowForwardIosIcon />}>
+            endIcon={<ArrowForwardIosIcon />}
+          >
             Next
           </Button>
         </Grid>

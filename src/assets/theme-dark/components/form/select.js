@@ -1,6 +1,6 @@
-import colors from "assets/theme-dark/base/colors";
+import colors from "../../base/colors";
 
-import pxToRem from "assets/theme-dark/functions/pxToRem";
+import pxToRem from "../../functions/pxToRem";
 
 const { transparent } = colors;
 

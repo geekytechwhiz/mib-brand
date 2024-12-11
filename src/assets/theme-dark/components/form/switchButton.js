@@ -1,11 +1,10 @@
-import colors from "assets/theme-dark/base/colors";
-import borders from "assets/theme-dark/base/borders";
-import boxShadows from "assets/theme-dark/base/boxShadows";
+import colors from "../../base/colors";
+import borders from "../../base/borders";
+import boxShadows from "../../base/boxShadows";
 
-        
-// import rgba from "assets/theme-dark/functions/rgba";
-import pxToRem from "assets/theme-dark/functions/pxToRem";
-import linearGradient from "assets/theme-dark/functions/linearGradient";
+// import rgba from "../../functions/rgba";
+import pxToRem from "../../functions/pxToRem";
+import linearGradient from "../../functions/linearGradient";
 
 const { white, gradients, grey, transparent } = colors;
 const { borderWidth } = borders;

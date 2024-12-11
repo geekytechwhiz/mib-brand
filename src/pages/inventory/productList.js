@@ -12,8 +12,8 @@ import MDBox from "components/MDBox";
 import MDTypography from "components/MDTypography";
 import { useSelector, shallowEqual } from "react-redux";
 import React from "react";
-import MDBackdrop from "components/MDBackDrop"; 
-import ProductCard from "./card";
+import MDBackdrop from "components/MDBackDrop";
+import ProductCard from "./Card/index";
 
 const CustomTabPanel = styled(TabPanel)({
   paddingLeft: 0,

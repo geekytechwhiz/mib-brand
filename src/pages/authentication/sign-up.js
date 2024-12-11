@@ -15,9 +15,8 @@ import React, { useRef, useState } from "react";
 import { TextValidator, ValidatorForm } from "react-material-ui-form-validator";
 import { Link, useNavigate } from "react-router-dom";
 import registerAccount, { generateOTP } from "services/onboarding/index";
+import { Validate } from "lib/Validations/index";
 import { REQUIRED_FIELDS_SIGN_UP } from "../../constants/index";
-
-import { Validate } from "../../lib/validations/index";
 
 function Signup() {
   const formRef = useRef("form");

@@ -1,6 +1,3 @@
-/* eslint-disable no-debugger */
-/* eslint-disable no-unused-vars */
-/* eslint-disable react/prop-types */
 import MDBox from "components/MDBox";
 import * as React from "react";
 import { shallowEqual, useSelector } from "react-redux";
@@ -34,7 +31,8 @@ export default function InactiveProducts() {
       textAlign="center"
       height="100vh"
       overflow="scroll"
-      sx={{ width: "100%", typography: "body1" }}>
+      sx={{ width: "100%", typography: "body1" }}
+    >
       <ProductList isActive={false} data={inventoryData} tabs={tabs} />
     </MDBox>
   );

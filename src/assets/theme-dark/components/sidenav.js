@@ -1,7 +1,7 @@
-import colors from "assets/theme-dark/base/colors";
-import borders from "assets/theme-dark/base/borders";
+import colors from "../base/colors";
+import borders from "../base/borders";
 
-import pxToRem from "assets/theme-dark/functions/pxToRem";
+import pxToRem from "../functions/pxToRem";
 
 const { background } = colors;
 const { borderRadius } = borders;

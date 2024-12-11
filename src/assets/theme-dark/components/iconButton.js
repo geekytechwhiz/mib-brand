@@ -1,4 +1,4 @@
-import colors from "assets/theme-dark/base/colors";
+import colors from "../base/colors";
 
 const { transparent } = colors;
 

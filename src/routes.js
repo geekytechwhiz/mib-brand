@@ -6,28 +6,28 @@ import PaymentOutlinedIcon from "@mui/icons-material/PaymentOutlined";
 import ShoppingCartOutlinedIcon from "@mui/icons-material/ShoppingCartOutlined";
 import VisibilityOutlinedIcon from "@mui/icons-material/VisibilityOutlined";
 import Icon from "@mui/material/Icon";
-import ResetPassword from "layouts/authentication/reset-password/index";
-import SignIn from "layouts/authentication/sign-in";
-import SignUp from "layouts/authentication/sign-up";
-import CancelledLayout from "layouts/cancelledOrders";
-import Dashboard from "layouts/dashboard";
-import layoutContainer from "layouts/layoutContainers";
-import ProfileLayout from "layouts/profile";
-import ReturnsLayout from "layouts/returnedOrders";
-import MigoServices from "layouts/migo-services";
-import Settlements from "layouts/settlements";
+import ResetPassword from "./layouts/authentication/reset-password/index";
+import SignIn from "./layouts/authentication/sign-in";
+import SignUp from "./layouts/authentication/sign-up";
+import CancelledLayout from "./layouts/cancelledOrders";
+import Dashboard from "./layouts/dashboard";
+import layoutContainer from "./layouts/layoutContainers";
+import ProfileLayout from "./layouts/profile";
+import ReturnsLayout from "./layouts/returnedOrders";
+import MigoServices from "./layouts/migo-services";
+import Settlements from "./layouts/settlements";
+import OrderLayout from "./layouts/orderLayout/index";
 import AddProduct from "./layouts/addProduct/index";
 import Inventory from "./layouts/inventory/index";
-import OrderLayout from "./layouts/orderLayout/index";
 
-const InventoryContainer = layoutContainer(Inventory)
-const AddProductContainer = layoutContainer(AddProduct)
-const OrderContainer = layoutContainer(OrderLayout)
-const SettlementsContainer = layoutContainer(Settlements)
-const ProfileContainer = layoutContainer(ProfileLayout)
-const ReturnsContainer = layoutContainer(ReturnsLayout)
-const MigoServicesContainer = layoutContainer(MigoServices)
-const CancelledContainer = layoutContainer(CancelledLayout)
+const InventoryContainer = layoutContainer(Inventory);
+const AddProductContainer = layoutContainer(AddProduct);
+const OrderContainer = layoutContainer(OrderLayout);
+const SettlementsContainer = layoutContainer(Settlements);
+const ProfileContainer = layoutContainer(ProfileLayout);
+const ReturnsContainer = layoutContainer(ReturnsLayout);
+const MigoServicesContainer = layoutContainer(MigoServices);
+const CancelledContainer = layoutContainer(CancelledLayout);
 const routes = [
   {
     type: "collapse",

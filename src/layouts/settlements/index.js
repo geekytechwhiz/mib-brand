@@ -3,7 +3,7 @@
 
 import Grid from "@mui/material/Grid";
 import MDBox from "components/MDBox";
-import Settlement from "pages/settlement";
+import Settlement from "pages/Settlement/index";
 import { useDispatch } from "react-redux";
 import { getBrandThunk } from "../../redux-store/slices/onboarding/index";
 import {

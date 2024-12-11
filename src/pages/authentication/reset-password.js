@@ -1,9 +1,6 @@
-/* eslint-disable consistent-return */
 /* eslint-disable react/jsx-no-useless-fragment */
-/* eslint-disable no-debugger */
 /* eslint-disable radix */
-/* eslint-disable no-unused-vars */
-
+/* eslint-disable consistent-return */
 import Card from "@mui/material/Card";
 import MDBox from "components/MDBox";
 import MDInput from "components/MDInput";
@@ -102,7 +99,8 @@ function ResetPassword() {
               variant="body"
               fontWeight="medium"
               color="primary"
-              mt={1}>
+              mt={1}
+            >
               Reset Password
             </MDTypography>
             <MDTypography
@@ -110,7 +108,8 @@ function ResetPassword() {
               variant="caption"
               fontWeight="medium"
               color="success"
-              my={1}>
+              my={1}
+            >
               {captionText}
             </MDTypography>
           </MDBox>
@@ -175,7 +174,8 @@ function ResetPassword() {
                       <MDTypography
                         variant="caption"
                         fontWeight="medium"
-                        color="error">
+                        color="error"
+                      >
                         {error.message}
                       </MDTypography>
                     ) : (
@@ -187,7 +187,8 @@ function ResetPassword() {
                       variant="gradient"
                       color="primary"
                       fullWidth
-                      onClick={handleResetPassword}>
+                      onClick={handleResetPassword}
+                    >
                       Submit
                     </MDLoadingButton>
                   </MDBox>
@@ -217,7 +218,8 @@ function ResetPassword() {
                       <MDTypography
                         variant="caption"
                         fontWeight="medium"
-                        color="error">
+                        color="error"
+                      >
                         {error.message}
                       </MDTypography>
                     ) : (
@@ -232,7 +234,8 @@ function ResetPassword() {
                       color="primary"
                       loading={isLoading}
                       fullWidth
-                      onClick={handleRequestResetPassword}>
+                      onClick={handleRequestResetPassword}
+                    >
                       reset
                     </MDLoadingButton>
                   </MDBox>

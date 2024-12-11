@@ -1,3 +1,4 @@
+/* eslint-disable import/named */
 /* eslint-disable no-debugger */
 /* eslint-disable import/no-import-module-exports */
 
@@ -6,7 +7,7 @@ import monitorReducersEnhancer from "./enhancers/monitorReducer";
 import loggerMiddleware from "./middleware/logger";
 import authSlice from "./slices/onboarding";
 import inventorySlice from "./slices/inventory";
-import { rootSlice } from "./slices/root/rootSlice";
+import routeSlice from "./slices/root/rootSlice";
 import orderSlice from "./slices/orders/orderSlice";
 
 export default function configureAppStore(preloadedState) {
@@ -14,7 +15,7 @@ export default function configureAppStore(preloadedState) {
     reducer: {
       auth: authSlice,
       inventory: inventorySlice,
-      root: rootSlice,
+      root: routeSlice,
       orderState: orderSlice,
     },
     middleware: [loggerMiddleware, ...getDefaultMiddleware()],

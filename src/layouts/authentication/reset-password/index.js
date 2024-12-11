@@ -5,7 +5,7 @@
 import CoverLayout from "layouts/authentication/components/CoverLayout";
 import Grid from "@mui/material/Grid";
 import { useCallback } from "react";
-import ResetPassword from "pages/authentication/reset-password";
+import ResetPassword from "pages/Authentication/reset-password";
 import loginImage from "../../../assets/images/login.png";
 
 function Basic() {

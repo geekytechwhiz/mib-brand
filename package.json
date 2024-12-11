@@ -10,9 +10,9 @@
     "url": "https://gitlab.com/mib-web-apps/migo-brand.git"
   },
   "engines": {
-    "node": "14 || 15 || 16",
-    "npm": ">=6"
-  },
+  "node": "14 || 15 || 16 || >=20",
+  "npm": ">=6"
+},
   "dependencies": {
     "@babel/plugin-transform-react-jsx": "^7.14.9",
     "@emotion/cache": "11.7.1",
@@ -37,9 +37,7 @@
     "chroma-js": "2.4.2",
     "clsx": "^1.1.1",
     "D": "^1.0.0",
-    "downshift": "^6.1.7",
-    "eslint-config-airbnb": "^19.0.4",
-    "eslint-config-airbnb-base": "^15.0.0",
+    "downshift": "^6.1.7", 
     "install-peerdeps": "^3.0.3",
     "lodash": "^4.17.21",
     "prop-types": "15.8.1",

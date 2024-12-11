@@ -1,7 +1,7 @@
 /* eslint-disable no-debugger */
-/* eslint-disable import/prefer-default-export */ 
-import { responseBuilder } from "lib/helper";
+/* eslint-disable import/prefer-default-export */
 import api from "../../api";
+import { responseBuilder } from "../../lib/helper/index";
 
 export const getProducts = async (brandId, status) => {
   try {
@@ -20,10 +20,7 @@ export const getProducts = async (brandId, status) => {
 export const postProducts = async (payload, brandId) => {
   try {
     return responseBuilder(
-      await api.post(
-        `/inventory/products/brand/${brandId}/product`,
-        payload
-      )
+      await api.post(`/inventory/products/brand/${brandId}/product`, payload)
     );
   } catch (err) {
     return null;

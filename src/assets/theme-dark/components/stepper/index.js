@@ -1,9 +1,9 @@
-import colors from "assets/theme-dark/base/colors";
-import borders from "assets/theme-dark/base/borders";
-import boxShadows from "assets/theme-dark/base/boxShadows";
+import colors from "../../base/colors";
+import borders from "../../base/borders";
+import boxShadows from "../../base/boxShadows";
 
-import pxToRem from "assets/theme-dark/functions/pxToRem";
-import linearGradient from "assets/theme-dark/functions/linearGradient";
+import pxToRem from "../../functions/pxToRem";
+import linearGradient from "../../functions/linearGradient";
 
 const { transparent, gradients } = colors;
 const { borderRadius } = borders;

@@ -15,8 +15,9 @@ import MDTypography from "components/MDTypography";
 import MDSnackbar from "components/MDSnackbar";
 import React, { useState } from "react";
 import { useDispatch, useSelector, shallowEqual } from "react-redux";
+import { Validate } from "lib/Validations/index";
 import { offers } from "../../redux-store/slices/inventory";
-import { Validate } from "../../lib/validations";
+
 import { REQUIRED_FIELDS_OFFER } from "../../constants";
 
 function Offer(props) {
@@ -87,7 +88,8 @@ function Offer(props) {
       mt={-2}
       p={2}
       mb={1}
-      textAlign="center">
+      textAlign="center"
+    >
       <Grid container spacing={2}>
         <Grid item xs={12}>
           <MDBox>
@@ -96,7 +98,8 @@ function Offer(props) {
                 variant="h6"
                 textAlign="start"
                 fontWeight="medium"
-                mb={2}>
+                mb={2}
+              >
                 offers and Pricing
               </MDTypography>
             </Box>
@@ -276,7 +279,8 @@ function Offer(props) {
             color="primary"
             onClick={handleBack}
             variant="text"
-            endIcon={<ArrowBackIosNewIcon />}>
+            endIcon={<ArrowBackIosNewIcon />}
+          >
             Back
           </Button>
         </Grid>
@@ -285,7 +289,8 @@ function Offer(props) {
             color="primary"
             onClick={handleNext}
             variant="text"
-            endIcon={<ArrowForwardIosIcon />}>
+            endIcon={<ArrowForwardIosIcon />}
+          >
             Next
           </Button>
         </Grid>

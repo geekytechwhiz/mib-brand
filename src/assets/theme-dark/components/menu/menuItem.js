@@ -1,9 +1,9 @@
-import colors from "assets/theme-dark/base/colors";
-import borders from "assets/theme-dark/base/borders";
-import typography from "assets/theme-dark/base/typography";
+import colors from "../../base/colors";
+import borders from "../../base/borders";
+import typography from "../../base/typography";
 
-import pxToRem from "assets/theme-dark/functions/pxToRem";
-import rgba from "assets/theme-dark/functions/rgba";
+import pxToRem from "../../functions/pxToRem";
+import rgba from "../../functions/rgba";
 
 const { dark, white } = colors;
 const { borderRadius } = borders;

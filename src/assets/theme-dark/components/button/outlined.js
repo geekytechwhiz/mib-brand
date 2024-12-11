@@ -1,8 +1,7 @@
-import colors from "assets/theme-dark/base/colors";
-import typography from "assets/theme-dark/base/typography";
+import colors from "../../base/colors";
+import typography from "../../base/typography";
 
-        
-import pxToRem from "assets/theme-dark/functions/pxToRem";
+import pxToRem from "../../functions/pxToRem";
 
 const { transparent, light, info, secondary } = colors;
 const { size } = typography;

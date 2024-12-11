@@ -1,13 +1,12 @@
 /* eslint-disable no-debugger */
 /* eslint-disable import/prefer-default-export */
- 
+
 import axios from "axios";
 import { ORIGIN } from "../../constants";
 import api from "../../api";
 
 export const postSignedUrl = async (payload) => {
   try {
-             
     const requestBody = {
       ContentType: payload.contentType,
       Resource: payload.resource,
@@ -37,7 +36,6 @@ export const putImage = async (url, payload, config) => {
 };
 export const postPasswordResetRequest = async (payload) => {
   try {
-             
     const requestBody = {
       Name: payload.name,
       ToAddress: payload.toAddress,

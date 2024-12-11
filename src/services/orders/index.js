@@ -1,9 +1,9 @@
 /* eslint-disable no-debugger */
 /* eslint-disable import/prefer-default-export */
- 
-import { ORDER_STATUS, RETURN_ORDER_STATUS } from "constants/index";
 import _ from "lodash";
-import { responseBuilder } from "lib/helper";
+
+import { ORDER_STATUS, RETURN_ORDER_STATUS } from "../../constants/index";
+import { responseBuilder } from "../../lib/helper/index";
 import api from "../../api";
 
 export const getAllOrders = async (brandId) => {

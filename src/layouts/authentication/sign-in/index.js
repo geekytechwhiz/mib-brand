@@ -3,7 +3,7 @@
 // Images
 // Authentication layout components
 import CoverLayout from "layouts/authentication/components/CoverLayout";
-import SignIn from "pages/authentication/sign-in";
+import SignIn from "pages/Authentication/sign-in";
 import Grid from "@mui/material/Grid";
 import { useCallback } from "react";
 import loginImage from "../../../assets/images/login.png";

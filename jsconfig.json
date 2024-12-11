@@ -1,11 +1,15 @@
 {
   "compilerOptions": {
-    "baseUrl": ".",
-    "forceConsistentCasingInFileNames": false,
+    "baseUrl": "./src",
     "paths": {
-      "*": [
-        "*"
-      ]
+      "assets/*": ["assets/*"],
+      "components/*": ["components/*"],
+      "layouts/*": ["layouts/*"],
+      "redux-store/*": ["redux-store/*"],
+      "constants/*": ["constants/*"],
+      "pages/*": ["pages/*"],
+      "lib/*": ["lib/*"]
     }
-  }
+  },
+  "include": ["src"]
 }

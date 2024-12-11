@@ -6,7 +6,7 @@
 /* eslint-disable import/no-self-import */
 /* eslint-disable import/prefer-default-export */
 import _ from "lodash";
-import { Template } from "lib/templates";
+import { Template } from "lib/Templates/index";
 import { BUSINESS_CATEGORY } from "../data";
 import {
   INTERNAL_SERVER_ERROR,
@@ -17,7 +17,7 @@ import {
   UNAUTHORIZED_ERROR_MSG,
   UNAUTHORIZED_STATUS_CODE,
   STATUS_CODE_SUCCESS,
-} from "../../constants"
+} from "../../constants";
 
 export const getCategories = () => {
   const arr = [];
@@ -137,8 +137,7 @@ export const responseValidator = (res) => {
   return response;
 };
 
-export const responseBuilder = (response) => { 
-      
+export const responseBuilder = (response) => {
   let responseBody = null;
   if (!response) {
     return responseBody;
@@ -147,8 +146,10 @@ export const responseBuilder = (response) => {
   if (!data) {
     return responseBody;
   }
-  if ((data && data.statusCode) &&
-  data?.statusCode &&
+  if (
+    data &&
+    data.statusCode &&
+    data?.statusCode &&
     (data?.statusCode === 200 || data?.statusCode === 201)
   ) {
     responseBody = data?.payload || {};

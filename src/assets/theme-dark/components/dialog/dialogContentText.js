@@ -1,7 +1,7 @@
-import typography from "assets/theme-dark/base/typography";
-import colors from "assets/theme-dark/base/colors";
+import typography from "../../base/typography";
+import colors from "../../base/colors";
 
-import rgba from "assets/theme-dark/functions/rgba";
+import rgba from "../../functions/rgba";
 
 const { size } = typography;
 const { white } = colors;
