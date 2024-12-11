@@ -1,3 +1,4 @@
+/* eslint-disable react/prop-types */
 import MoreVertIcon from "@mui/icons-material/MoreVert";
 import { Dialog, DialogTitle, Icon } from "@mui/material";
 import IconButton from "@mui/material/IconButton";
@@ -17,7 +18,7 @@ import { useNavigate } from "react-router-dom";
 import { alert } from "redux-store/slices/root/rootSlice";
 import { patchProductStatusThunk } from "redux-store/slices/inventory/index";
 
-const ITEM_HEIGHT = 48;
+const ITEM_HEIGHT = 49;
 
 export default function CardMenu({
   isActive,

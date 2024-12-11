@@ -1,6 +1,5 @@
 /* eslint-disable react/jsx-no-useless-fragment */
 /* eslint-disable radix */
-/* eslint-disable consistent-return */
 import Card from "@mui/material/Card";
 import MDBox from "components/MDBox";
 import MDInput from "components/MDInput";

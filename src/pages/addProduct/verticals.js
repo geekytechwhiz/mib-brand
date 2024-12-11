@@ -121,6 +121,7 @@ export default function CategoryAccordion(props) {
       );
       setVerticals(filteredData);
     }
+    // Test
   };
   const handleNext = (e) => {
     validationResponse = Validate(REQUIRED_FIELDS_CATEGORY, product);
